@@ -1,20 +1,13 @@
 import numpy as np
 import pandas as pd
 
-from .rseicha import RSeicha
+from .rseicha import RSEICHA
 from .. import data
 
 
-class RSeichaDemographic(RSeicha):
+class RSEICHADemographic(RSEICHA):
     """
     RSEICHA model for epidemics that uses demography information
-
-    This model is a SEIR variant that better tracks the evolution of cases and
-    variants through the health system. This is useful to investigate the capacity
-    of a health system to respond to epidemic outbreaks such as COVID-19.
-
-    Time units are measured in days and number of cases can be expressed either
-    a count or a fraction, often normalized to one.
     """
 
     demography: np.ndarray
@@ -157,5 +150,4 @@ class RSeichaDemographic(RSeicha):
 
 
 if __name__ == '__main__':
-    #RSeichaDemographic.main(region='Italy')
-    RSeichaDemographic.main(region='Brazil')
+    RSEICHADemographic.main(region='Brazil')

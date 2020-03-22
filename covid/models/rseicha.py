@@ -4,9 +4,9 @@ from .model import Model
 from ..data import covid_mean_mortality
 
 
-class RSeicha(Model):
+class RSEICHA(Model):
     """
-    RF_SEICHA model for epidemics.
+    SEICHA model for epidemics.
 
     This model is a SEIR variant that better tracks the evolution of cases and
     variants through the health system. This is useful to investigate the capacity
@@ -183,4 +183,4 @@ class RSeicha(Model):
 
 
 if __name__ == '__main__':
-    m = RSeicha.main(region='Brazil')
+    m = RSEICHA.main(region='Brazil')

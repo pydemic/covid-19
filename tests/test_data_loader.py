@@ -36,3 +36,6 @@ class TestCiaFactbook:
         assert abs(pc - 0.118) < 1e-3
         assert abs(pf - 0.469) < 1e-3
 
+    def test_hospital_bed_density(self):
+        assert hospital_bed_density('Brazil') == 0.0022
+        assert hospital_bed_density().loc['Brazil', 'density'] == 0.0022

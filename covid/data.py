@@ -52,6 +52,24 @@ def age_distribution(region: str, year: int, coarse: bool = False) -> pd.Series:
     return coarse_age_distribution(data) if coarse else data
 
 
+def hospital_bed_density(country=None):
+    """
+    Return a dataframe with hospital bed density per country or a single number
+    with hospital bed density for a given country.
+
+    >>> hospital_bed_density('Brazil')
+    2.3
+    >>> hospital_bed_density()
+    ...
+    """
+    path = DATA / 'cia_factbook-hospital_bed_density.csv'
+    df = pd.read_csv(path, index_col=0, sep=';')
+    df['density'] /= 1000
+    if country:
+        return df.loc[country, 'density']
+    return df
+
+
 def coarse_age_distribution(df: pd.Series) -> pd.Series:
     """
     Convert the CIA factbook age distribution dataframe to a coarser form
@@ -119,3 +137,12 @@ def covid_mean_mortality(region, year):
     p_c = (c * df).sum() / total
     p_f = (f / h / c * df).sum() / total
     return p_h, p_c, p_f
+
+
+def brazil_healthcare_capacity():
+    """
+    Return data from Brazilian hospitals capacity.
+    """
+    path = DATA / 'brazil_healthcare_capacity.csv'
+    df = pd.read_csv(path, index_col=0)
+    return df
