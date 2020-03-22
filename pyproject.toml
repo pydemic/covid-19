@@ -1,0 +1,12 @@
+[build-system]
+requires = ["flit"]
+build-backend = "flit.buildapi"
+
+[tool.flit.metadata]
+module = "covid"
+dist-name = "covid-19"
+author = "Fábio Macêdo Mendes"
+author-email = "fabiomacedomendes@gmail.com"
+home-page = "http://github.com/fabiommendes/covid-19"
+classifiers = [ "License :: OSI Approved :: MIT License" ]
+requires = [ "numpy", "matplotlib" ]
