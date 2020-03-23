@@ -1,6 +1,7 @@
 """
-Import datasets from various sources.
+Import data sets from various sources.
 """
+from functools import lru_cache
 from pathlib import Path
 
 import pandas as pd
@@ -8,6 +9,7 @@ import pandas as pd
 DATA = Path(__file__).parent / 'datasets'
 
 
+@lru_cache(8)
 def cia_factbook(which):
     """
     Import dataset from CIA factbook spreadsheets.
@@ -22,6 +24,7 @@ def cia_factbook(which):
         raise ValueError(f'invalid dataset: {which}')
 
 
+@lru_cache(8)
 def age_distribution(region: str, year: int, coarse: bool = False) -> pd.Series:
     """
     Load a series object with age distribution for given country in the given
@@ -52,9 +55,10 @@ def age_distribution(region: str, year: int, coarse: bool = False) -> pd.Series:
     return coarse_age_distribution(data) if coarse else data
 
 
+@lru_cache(1)
 def hospital_bed_density(country=None):
     """
-    Return a dataframe with hospital bed density per country or a single number
+    Return a data frame with hospital bed density per country or a single number
     with hospital bed density for a given country.
 
     >>> hospital_bed_density('Brazil')

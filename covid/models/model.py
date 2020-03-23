@@ -4,8 +4,8 @@ from types import MappingProxyType
 import numpy as np
 import pandas as pd
 
-from ..types import cached
 from .plot import Plot
+from ..types import cached
 
 NOW = datetime.datetime.now()
 TODAY = datetime.date(NOW.year, NOW.month, NOW.day)
@@ -32,6 +32,7 @@ class Model(metaclass=ModelMeta):
     Base class for all Epidemic models.
     """
     EXAMPLES = MappingProxyType({})
+    OPTIONS = {}
     sub_groups = None
 
     # Query data and shape properties
@@ -61,11 +62,27 @@ class Model(metaclass=ModelMeta):
         Executes the default action for the model. Convenient for making quick
         and dirt CLI tools.
         """
-        m = cls(*args, **kwargs)
-        m.run()
-        print(m)
-        m.plot(show=True)
-        return m
+        import click
+        kind_map = {
+            'int': int,
+            'float': float,
+            'str': str,
+        }
+
+        def cli(**kwargs_):
+            kwargs_ = {k: v for k, v in kwargs_.items() if v is not None}
+            kwargs_ = {**kwargs, **kwargs_}
+            m = cls(*args, **kwargs_)
+            m.run()
+            print(m)
+            m.plot(show=True)
+
+        for cmd, help in reversed(cls.OPTIONS.items()):
+            cmd, _, kind = cmd.partition(':')
+            kind = kind_map[kind or 'float']
+            cli = click.option(f'--{cmd}', help=help, type=kind)(cli)
+        cli = click.command()(cli)
+        cli()
 
     def __init__(self, *args, **kwargs):
         if args:
@@ -121,6 +138,12 @@ class Model(metaclass=ModelMeta):
         Derivative function for state.
         """
         raise NotImplementedError('implement in subclass')
+
+    def integral(self, series):
+        """
+        Compute numerical integral of series.
+        """
+        return (series * self.dt).sum()
 
     def rk4_step(self, x, t, dt, watcher=None):
         """

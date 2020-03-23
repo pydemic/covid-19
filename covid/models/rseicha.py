@@ -3,10 +3,10 @@ import datetime
 import numpy as np
 import pandas as pd
 
-from covid.types import delegate, CachedProperty
 from .model import Model
 from .plot import RSEICHAPlot
-from ..data import covid_mean_mortality
+from ..data import covid_mean_mortality, age_distribution
+from ..types import delegate, CachedProperty
 from ..utils import fmt, pc, pm
 
 
@@ -35,12 +35,17 @@ class RSEICHA(Model):
     ]
     RECOVERED, FATALITIES, SUSCEPTIBLE, EXPOSED, INFECTED, CRITICAL, \
     HOSPITALIZED, ASYMPTOMATIC = range(8)
+    OPTIONS = {
+        'seed:int': 'Initial infected population',
+        'region:str': 'Country/city used to infer demographic and epidemiological parameters',
+        'R0': 'Basic reproducibility number',
+    }
     plot_class = RSEICHAPlot
     region = None
     year = 2020
 
     # Initial state
-    x0 = [0.0, 0.0, 209.3e6, 1000, 0.0, 0.0, 0.0, 0.0]
+    seed = 1
     total_fatalities = 0.0
     hospitalization_days = 0.0
     icu_days = 0.0
@@ -51,25 +56,47 @@ class RSEICHA(Model):
     hospital_limit_time = 0.0
     icu_limit_time = 0.0
 
-    # Parameters
-    kappa = 14.65 / 1000 / 365.25 * 0
-    mu = 6.08 / 1000 / 365.25 * 0
+    # Epidemiological parameters
     sigma = 1 / 5.0
-    rho_a = 0.4
     R0 = 2.74
+    rho_a = 0.4
+    prob_symptomatic = 0.14
 
-    icu_rate = 0.23
-    icu_occupancy = 0.8
-    hospital_rate = 2.3
-    hospital_occupancy = 0.8
+    gamma_i = 1 / 1.61
+    gamma_a = gamma_i
+    gamma_h = 1 / 3.3
+    gamma_c = 1 / 17.5
+    gamma_hr = gamma_h
+    gamma_cr = gamma_c
+
+    # Clinical parameters
+    prob_hospitalization = 0.18
+    prob_icu = 0.05 / prob_hospitalization
+    prob_fatality = 0.015 / prob_icu / prob_hospitalization
+    prob_no_hospitalization_fatality = 0.25
+    prob_no_icu_fatality = 1.00
+
+    # Demography
+    vital_dynamics = False
+    kappa = 14.65 / 1000 / 365.25
+    mu = 6.08 / 1000 / 365.25
+    initial_population = None
+
+    # Healthcare statistics
+    icu_beds_pm = 0.23
+    icu_occupancy_rate = 0.8
+    hospital_beds_pm = 2.3
+    hospital_occupancy_rate = 0.8
 
     @CachedProperty
     def icu_capacity(self):
-        return self.icu_rate * self.population / 1000 * (1 - self.icu_occupancy)
+        rate = 1 - self.icu_occupancy_rate
+        return self.icu_beds_pm * self.population / 1000 * rate
 
     @CachedProperty
     def hospital_capacity(self):
-        return self.hospital_rate * self.population / 1000 * (1 - self.hospital_occupancy)
+        rate = 1 - self.hospital_occupancy_rate
+        return self.hospital_beds_pm * self.population / 1000 * rate
 
     @property
     def population(self):
@@ -78,37 +105,34 @@ class RSEICHA(Model):
         else:
             return sum(self.x0) - self.total_fatalities
 
-    prob_symptomatic = 0.9
-    prob_hospitalization = 0.18
-    prob_icu = 0.05 / prob_hospitalization
-    prob_fatality = 0.015 / prob_icu / prob_hospitalization
-    prob_no_hospitalization_fatality = 0.25
-    prob_no_icu_fatality = 1.00
-
-    gamma_a = 1 / 1.61
-    gamma_i = 1 / 1.61
-    gamma_h = 1 / 3.3
-    gamma_c = 1 / 17.5
-
-    gamma_hr = gamma_h
-    gamma_cr = gamma_c
-
-    beta = R0 * gamma_i * 1 / prob_symptomatic
-
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, r0=None, **kwargs):
+        if r0:
+            kwargs['R0'] = r0
         super().__init__(*args, **kwargs)
         if self.region is not None:
             self.prob_hospitalization, self.prob_icu, self.prob_fatality = \
-                covid_mean_mortality(
-                    self.region, self.year)
+                covid_mean_mortality(self.region, self.year)
         self._watching = {}
+
+        if self.initial_population is None and self.region:
+            self.initial_population = age_distribution(self.region, 2020).sum() * 1e3
+        elif self.initial_population is None:
+            self.initial_population = 1.0
+            self.seed = 0.01
+
+        self.x0 = [0.0, 0.0, self.initial_population, 0.0, self.seed, 0.0, 0.0, 0.0]
+        self.x0 = np.array(self.x0)
 
     def diff(self, x, t):
         r, f, s, e, i, c, h, a = x
 
-        mu = self.mu
-        sigma = self.sigma
+        if self.vital_dynamics:
+            kappa = self.kappa
+            mu = self.mu
+        else:
+            mu = kappa = 0.0
 
+        sigma = self.sigma
         p_s = self.prob_symptomatic
         p_h = self.prob_hospitalization
         p_c = self.prob_icu
@@ -123,8 +147,7 @@ class RSEICHA(Model):
         gamma_hr = self.gamma_hr
         gamma_cr = self.gamma_cr
 
-        # beta = (self.R0 * 2 * np.exp(-t/30) + 1) * gamma_i
-        beta = self.R0 * gamma_i
+        beta = self.R0 * gamma_i / (1 - (1 - self.rho_a) * self.prob_symptomatic)
 
         n = r + s + e + i + c + h + a
         infections = beta * (i + self.rho_a * a) / n * s
@@ -134,7 +157,7 @@ class RSEICHA(Model):
         h_ = min(h, self.hospital_capacity)
         c_ = min(c, self.icu_capacity)
 
-        ds = self.kappa * n - infections - mu * s
+        ds = kappa * n - infections - mu * s
         de = infections - (1.0 / p_s) * sigma * e - mu * e
         da = (1 - p_s) / p_s * sigma * e - gamma_a * a - mu * a
         di = sigma * e - gamma_i * i - mu * i
@@ -163,7 +186,7 @@ class RSEICHA(Model):
         x0 = None
         start = True
 
-        if self.kappa != 0 or self.mu != 0:
+        if self.vital_dynamics and (self.kappa != 0 or self.mu != 0):
             raise NotImplementedError
 
         def fn(x, x_, t, dt):
@@ -218,6 +241,15 @@ class RSEICHA(Model):
 
         # Healthcare statistics
         self.total_fatalities = self['fatalities'].max()
+        self.total_recovered = self['recovered'].iloc[-1]
+        self.total_susceptible = self['recovered'].iloc[-1]
+        self.total_exposed = self.integral(
+            self['exposed']) * self.sigma / self.prob_symptomatic
+        self.total_infected = self.integral(self['infected']) * self.gamma_i
+        self.total_asymptomatic = self.integral(self['asymptomatic']) * self.gamma_a
+        self.total_hospitalized = self.integral(self['hospitalized']) * self.gamma_h
+        self.total_critical = self.integral(self['critical'].iloc[-1]) * self.gamma_c
+
         self.peak_hospitalization_demand = h.max()
         self.peak_icu_demand = c.max()
         self.hospitalization_days = (h * self.dt).sum()
@@ -233,12 +265,20 @@ class RSEICHA(Model):
     def summary(self):
         sym_name = type(self).__name__
         return '\n\n'.join([
-            f"\nSIMULATION RESULTS ({sym_name})",
+            f"\nSIMULATION PARAMETERS ({sym_name})",
+            self.summary_parameters(),
+            f"SIMULATION RESULTS ({sym_name})",
             self.summary_demography(),
             self.summary_epidemiology(),
             self.summary_healthcare(),
             self.summary_simulation(),
         ])
+
+    def summary_parameters(self):
+        return f"""Parameters
+- R0                : {fmt(self.R0)}
+- P(is symptomatic) : {pc(self.prob_symptomatic)}
+"""
 
     def summary_demography(self):
         N = self.data.iloc[-1].sum()
@@ -246,18 +286,20 @@ class RSEICHA(Model):
 
         return f"""Demography
 - Total population   : {fmt(N0)}
-- Recovered          : {fmt(self.recovered)} ({pc(self.recovered / N0)})
-- Fatalities (total) : {fmt(self.total_fatalities)} ({pc(self.total_fatalities / N)})
-- Infected (max)     :
-- Exposed (max)      : 
-- Asymptomatic (max) :
+- Recovered          : {fmt(int(self.recovered))} ({pc(self.recovered / N0)})
+- Fatalities (total) : {fmt(int(self.total_fatalities))} ({pc(self.total_fatalities / N)})
+- Infected (max)     : {fmt(int(self.total_infected))} ({pc(self.total_infected / N)})
+- Asymptomatic (max) : {fmt(int(self.total_asymptomatic))} ({pc(self.total_asymptomatic / N)})
+- Exposed (max)      : {fmt(int(self.total_exposed))} ({pc(self.total_exposed / N)})
         """
 
     def summary_epidemiology(self):
         return f"""Epidemiology
-- R0
-- IFR
-- CFR
+- R0   : {self.R0}
+- IFR  : {pc(self.total_fatalities / self.total_exposed)}
+- CFR  : {pc(self.total_fatalities / self.total_infected)}
+- HFR  : {pc(self.total_fatalities / self.total_hospitalized)}
+- HCFR : {pc(self.total_fatalities / self.total_critical)}
 """
 
     def summary_healthcare(self):
@@ -270,11 +312,18 @@ class RSEICHA(Model):
 
         h_demand = self.peak_hospitalization_demand
         c_demand = self.peak_icu_demand
+        icu_overload = self.peak_icu_demand / self.icu_capacity * (1 - self.icu_occupancy_rate)
+        h_overload = self.peak_hospitalization_demand / self.hospital_capacity * (1 - self.hospital_occupancy_rate)
+
         return f"""Healthcare parameters
 - Hosp. days         : {fmt(int(self.hospitalization_days))}
 - ICU days           : {fmt(int(self.icu_days))}
-- Peak hosp. demand  : {fmt(h_demand)} ({pm(h_demand / N)})
-- Peak ICU demand    : {fmt(c_demand)} ({pm(c_demand / N)})
+- Peak hosp. demand  : {fmt(int(h_demand))} ({pm(h_demand / N)})
+    x surge capacity : {fmt(self.peak_hospitalization_demand / self.hospital_capacity)}
+    x total          : {fmt(h_overload)}
+- Peak ICU demand    : {fmt(int(c_demand))} ({pm(c_demand / N)})
+    x surge capacity : {fmt(self.peak_icu_demand / self.icu_capacity)}
+    x total          : {fmt(icu_overload)}
 - Hosp. collapse day : {fmt(t_hf)} days ({dt_hf})
 - ICU collapse day   : {fmt(t_cf)} days ({dt_cf})
 """
@@ -349,4 +398,4 @@ class RSEICHA(Model):
 
 
 if __name__ == '__main__':
-    m = RSEICHA.main(region='Brazil')
+    m = RSEICHA.main()

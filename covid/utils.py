@@ -1,6 +1,6 @@
 import re
 
-N_RE = re.compile(r'(-?)(\d+)(\.\d{,2})\d*')
+N_RE = re.compile(r'(-?)(\d+)(\.\d{,2})?\d*')
 
 
 def fmt(n):
@@ -19,13 +19,13 @@ def fmt(n):
     elif 1_000_000_000 <= m < 1_000_000_000_000:
         return _fmt_aux(n / 1e9, 'bi')
     else:
-        return f'{float(n):.2}'
+        return f'{n:.2}'
 
 
 def _fmt_aux(n, suffix=''):
     m = N_RE.match(str(n))
     sign, number, decimal = m.groups()
-    return sign + _fix_int(number, 3) + decimal + suffix
+    return sign + _fix_int(number, 3) + (decimal or '') + suffix
 
 
 def _fix_int(s, n):
@@ -37,13 +37,15 @@ def rpartition(seq, n):
     Partition sequence in groups of n starting from the end of sequence.
     """
     seq = list(seq)
+    out = []
     while seq:
         new = []
         for _ in range(n):
             if not seq:
                 break
             new.append(seq.pop())
-        yield new[::-1]
+        out.append(new[::-1])
+    return out[::-1]
 
 
 def pc(n):

@@ -32,6 +32,28 @@ Either clone this repository and install locally using `flit install -s` or use
 `pip install covid-models`.
 
 
+The model
+=========
+
+RSEICHA is a compartmental model with 8 compartments: Recovered, Fatalities, Susceptible, Exposed,
+Infected, Critical (require ICU care), Hospitalized (or requires hospitalization) and Asymptomatic.
+
+It is governed by the following dynamics:
+
+...
+
+Basic theoretical results
+-------------------------
+
+If we ignore the "Exposed" compartment, it is easy to derive R0 for this model. We must, however,
+consider the number of equivalent infections :math:`I_e = I + \mu A`, in which asymptomatic individuals
+contribute less to the overall number of infections than symptomatic cases.
+
+When :math:`S \simeq N`, this quantity experience an exponential growth and we can associate R0 with
+:math:`R_0 = \frac{\beta}{\gamma}\left[1 - (1 - \mu) p_s\right]`
+
+
+
 Parameters and references
 =========================
 
