@@ -13,7 +13,7 @@ class RSEICHADemographic(RSEICHA):
     demography: np.ndarray
     mortality: pd.DataFrame
     region = 'Brazil'
-    year = 2020
+    ref_year = 2020
     seed = 1e-3
 
     def __init__(self, *args, **kwargs):

@@ -80,6 +80,7 @@ class Model(metaclass=ModelMeta):
         for cmd, help in reversed(cls.OPTIONS.items()):
             cmd, _, kind = cmd.partition(':')
             kind = kind_map[kind or 'float']
+            cmd = cmd.replace('_', '-')
             cli = click.option(f'--{cmd}', help=help, type=kind)(cli)
         cli = click.command()(cli)
         cli()

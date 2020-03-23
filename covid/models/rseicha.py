@@ -37,24 +37,14 @@ class RSEICHA(Model):
     HOSPITALIZED, ASYMPTOMATIC = range(8)
     OPTIONS = {
         'seed:int': 'Initial infected population',
-        'region:str': 'Country/city used to infer demographic and epidemiological parameters',
+        'region:str': 'Country/city used to infer demographic and epidemiological '
+                      'parameters',
         'R0': 'Basic reproducibility number',
+        'prob_symptomatic': 'Probability of developing symptoms',
     }
     plot_class = RSEICHAPlot
     region = None
-    year = 2020
-
-    # Initial state
-    seed = 1
-    total_fatalities = 0.0
-    hospitalization_days = 0.0
-    icu_days = 0.0
-    peak_hospitalization_demand = 0.0
-    peak_icu_demand = 0.0
-    hospital_limit_date = delegate('start_date')
-    icu_limit_date = delegate('start_date')
-    hospital_limit_time = 0.0
-    icu_limit_time = 0.0
+    ref_year = 2020
 
     # Epidemiological parameters
     sigma = 1 / 5.0
@@ -88,6 +78,18 @@ class RSEICHA(Model):
     hospital_beds_pm = 2.3
     hospital_occupancy_rate = 0.8
 
+    # Initial state
+    seed = 1
+    total_fatalities = 0.0
+    hospitalization_days = 0.0
+    icu_days = 0.0
+    peak_hospitalization_demand = 0.0
+    peak_icu_demand = 0.0
+    hospital_limit_date = delegate('start_date')
+    icu_limit_date = delegate('start_date')
+    hospital_limit_time = 0.0
+    icu_limit_time = 0.0
+
     @CachedProperty
     def icu_capacity(self):
         rate = 1 - self.icu_occupancy_rate
@@ -109,18 +111,44 @@ class RSEICHA(Model):
         if r0:
             kwargs['R0'] = r0
         super().__init__(*args, **kwargs)
-        if self.region is not None:
-            self.prob_hospitalization, self.prob_icu, self.prob_fatality = \
-                covid_mean_mortality(self.region, self.year)
         self._watching = {}
 
-        if self.initial_population is None and self.region:
-            self.initial_population = age_distribution(self.region, 2020).sum() * 1e3
-        elif self.initial_population is None:
-            self.initial_population = 1.0
-            self.seed = 0.01
+        # Load data from from region
+        if self.region is not None:
+            # Mortality statistics
+            self.prob_hospitalization, \
+            self.prob_icu, \
+            self.prob_fatality = covid_mean_mortality(self.region, self.ref_year)
 
-        self.x0 = [0.0, 0.0, self.initial_population, 0.0, self.seed, 0.0, 0.0, 0.0]
+            # Initial population
+            if self.initial_population is None:
+                self.initial_population = age_distribution(self.region, 2020).sum() * 1e3
+
+            # Healthcare statistics
+            ...
+
+            # R0 via contact matrix
+            ...
+
+            # Vital dynamics
+            ...
+
+        # Fix population and seed
+        if self.initial_population is None:
+            self.initial_population = 1.0
+            self.seed = 0.01 if self.seed >= 1.0 else self.seed
+
+        # Initial state
+        self.x0 = [
+            0.0,  # recovered
+            self.total_fatalities,
+            self.initial_population,
+            0.0,  # exposed
+            self.seed,
+            0.0,  # critical,
+            0.0,  # hospitalized,
+            0.0,  # asymptotic,
+        ]
         self.x0 = np.array(self.x0)
 
     def diff(self, x, t):
@@ -283,13 +311,14 @@ class RSEICHA(Model):
     def summary_demography(self):
         N = self.data.iloc[-1].sum()
         N0 = self.data.iloc[0].sum()
+        p_asympt = self.total_asymptomatic / N
 
         return f"""Demography
 - Total population   : {fmt(N0)}
 - Recovered          : {fmt(int(self.recovered))} ({pc(self.recovered / N0)})
 - Fatalities (total) : {fmt(int(self.total_fatalities))} ({pc(self.total_fatalities / N)})
 - Infected (max)     : {fmt(int(self.total_infected))} ({pc(self.total_infected / N)})
-- Asymptomatic (max) : {fmt(int(self.total_asymptomatic))} ({pc(self.total_asymptomatic / N)})
+- Asymptomatic (max) : {fmt(int(self.total_asymptomatic))} ({pc(p_asympt)})
 - Exposed (max)      : {fmt(int(self.total_exposed))} ({pc(self.total_exposed / N)})
         """
 
@@ -312,8 +341,10 @@ class RSEICHA(Model):
 
         h_demand = self.peak_hospitalization_demand
         c_demand = self.peak_icu_demand
-        icu_overload = self.peak_icu_demand / self.icu_capacity * (1 - self.icu_occupancy_rate)
-        h_overload = self.peak_hospitalization_demand / self.hospital_capacity * (1 - self.hospital_occupancy_rate)
+        icu_overload = self.peak_icu_demand / self.icu_capacity * (
+                1 - self.icu_occupancy_rate)
+        h_overload = self.peak_hospitalization_demand / self.hospital_capacity * (
+                1 - self.hospital_occupancy_rate)
 
         return f"""Healthcare parameters
 - Hosp. days         : {fmt(int(self.hospitalization_days))}
