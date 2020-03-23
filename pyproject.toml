@@ -4,7 +4,7 @@ build-backend = "flit.buildapi"
 
 [tool.flit.metadata]
 module = "covid"
-dist-name = "covid-19"
+dist-name = "covid-models"
 author = "Fábio Macêdo Mendes"
 author-email = "fabiomacedomendes@gmail.com"
 home-page = "http://github.com/fabiommendes/covid-19"

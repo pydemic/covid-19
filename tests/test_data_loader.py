@@ -39,3 +39,12 @@ class TestCiaFactbook:
     def test_hospital_bed_density(self):
         assert hospital_bed_density('Brazil') == 0.0022
         assert hospital_bed_density().loc['Brazil', 'density'] == 0.0022
+
+    def test_contact_matrix(self):
+        c_italy = contact_matrix('italy').values.mean()
+        c_germany = contact_matrix('germany').values.mean()
+        assert c_italy > 2 * c_germany
+
+        c_italy = contact_matrix('italy', physical=True).values.mean()
+        c_germany = contact_matrix('germany', physical=True).values.mean()
+        assert c_italy > 1.5 * c_germany

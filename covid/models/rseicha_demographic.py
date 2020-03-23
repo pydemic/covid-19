@@ -71,12 +71,12 @@ class RSEICHADemographic(RSEICHA):
         mu = self.mu
         sigma = self.sigma
 
-        p_s = self.p_s
+        p_s = self.prob_symptomatic
         p_h = self.p_h
         p_c = self.p_c
         p_f = self.p_f
-        p_hr = self.p_hr
-        p_cr = self.p_cr
+        p_hr = self.prob_no_hospitalization_fatality
+        p_cr = self.prob_no_icu_fatality
 
         gamma_a = self.gamma_a
         gamma_i = self.gamma_i

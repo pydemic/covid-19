@@ -29,4 +29,20 @@ Installation
 ============
 
 Either clone this repository and install locally using `flit install -s` or use
-`pip install covid-19`.
+`pip install covid-models`.
+
+
+Parameters and references
+=========================
+
+Epidemiological parameters
+--------------------------
+
+
+Clinical parameters
+-------------------
+
+
+
+Required medical resources
+--------------------------

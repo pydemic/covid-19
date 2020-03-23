@@ -1,6 +1,6 @@
 [run]
 branch = True
-source = toy/
+source = covid/
 
 
 [report]
@@ -27,6 +27,7 @@ exclude_lines =
 
 ignore_errors = True
 omit =
-    src/hyperpython/contrib/*
+    notebooks/*
+    dist/
 
 [paths]

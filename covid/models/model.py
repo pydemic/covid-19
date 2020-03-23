@@ -1,9 +1,14 @@
+import datetime
 from types import MappingProxyType
 
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from scipy import integrate
+
+from ..types import cached
+from .plot import Plot
+
+NOW = datetime.datetime.now()
+TODAY = datetime.date(NOW.year, NOW.month, NOW.day)
 
 
 class ModelMeta(type):
@@ -27,13 +32,28 @@ class Model(metaclass=ModelMeta):
     Base class for all Epidemic models.
     """
     EXAMPLES = MappingProxyType({})
-    PERIOD = 365.25 / 12
-    MAX_PERIOD = 5 * 365.25
-    STEPS = 30
-    X_TOL = 0.1
-    x0 = None
+    sub_groups = None
+
+    # Query data and shape properties
+    is_empty = property(lambda self: self.data.shape[1] == 0)
     columns = None
-    sub_groups = ()
+
+    # Auxiliary accessors and sub-attributes
+    plot = cached(lambda self: self.plot_class(self))
+    plot_class = Plot
+
+    # Solver and numerical method parameters
+    steps_per_day = 2
+    dt = 1.0
+    max_simulation_period = 5 * 365
+
+    # Dynamic queries and epidemic state
+    time = 0.0
+    x0 = None
+    is_spreading = True
+
+    # Reporting options
+    start_date = TODAY
 
     @classmethod
     def main(cls, *args, **kwargs):
@@ -42,11 +62,10 @@ class Model(metaclass=ModelMeta):
         and dirt CLI tools.
         """
         m = cls(*args, **kwargs)
-        run = m.run()
-        print(run)
-        run.plot()
-        plt.show()
-        return m, run
+        m.run()
+        print(m)
+        m.plot(show=True)
+        return m
 
     def __init__(self, *args, **kwargs):
         if args:
@@ -59,8 +78,43 @@ class Model(metaclass=ModelMeta):
                 setattr(self, k, v)
             else:
                 raise TypeError(f'invalid argument: {k}')
-        if 'display_columns' not in kwargs:
+
+        if not hasattr(self, 'display_columns'):
             self.display_columns = self.columns
+        if not hasattr(self, 'data'):
+            self.data = pd.DataFrame(columns=self.columns)
+
+    def __str__(self):
+        return self.summary()
+
+    def __iter__(self):
+        x = self.x0
+        dt = self.dt / self.steps_per_day
+        t = self.time
+        while True:
+            for i in range(self.steps_per_day):
+                x = self.rk4_step(x, t, dt)
+                t += dt
+            yield x
+
+    def __getitem__(self, item):
+        try:
+            method = getattr(self, f'get_data_{item}')
+        except AttributeError:
+            return self.data[item]
+        else:
+            return method(self.data)
+
+    def copy(self, **kwargs):
+        """
+        Create a copy of simulation.
+        """
+        cls = type(self)
+        obj = cls.__new__(cls)
+        for k, v in self.__dict__.items():
+            v = kwargs.get(k, v)
+            setattr(obj, k, v)
+        return obj
 
     def diff(self, x, t):
         """
@@ -68,29 +122,33 @@ class Model(metaclass=ModelMeta):
         """
         raise NotImplementedError('implement in subclass')
 
-    def has_converged(self, times, xs):
+    def rk4_step(self, x, t, dt, watcher=None):
         """
-        Read a sequence of times and a sequence of states and conclude if
-        simulation has already converged to a steady state.
+        A single RK4 iteration step.
         """
-        if len(times) > 2000:
-            return True
-        if times[-1] >= self.MAX_PERIOD:
-            return True
-        if (np.abs(xs[-1] - xs[-2]) < self.X_TOL / self.STEPS).all() \
-                and self.has_burst(times, xs):
-            return True
-        return False
+        k1 = self.diff(x, t)
+        k2 = self.diff(x + 0.5 * dt * k1, t + 0.5 * dt)
+        k3 = self.diff(x + 0.5 * dt * k2, t + 0.5 * dt)
+        k4 = self.diff(x + 1.0 * dt * k3, t + 1.0 * dt)
+        v = (k1 + 2 * k2 + 2 * k3 + k4) / 6
+        if watcher is not None:
+            watcher(x, v, t, dt)
+        return x + v * dt
 
-    def has_burst(self, times, xs):
+    def step(self, x, t=None, dt=1.0, watcher=None):
         """
-        Read a sequence of times and a sequence of states and conclude if
-        simulation has already experienced or is experiencing an epidemic burst.
+        A single day step. It will perform `self.steps_per_day` RK4 iterations
+        in the given time period.
 
-        It returns False only when it is likely that the burst has not yet
-        happened.
+        If t and dt are omitted, uses current time and dt=1.0.
         """
-        return xs.std(1).max() > 100 * self.X_TOL
+        dt /= self.steps_per_day
+        t = self.time if t is None else t
+
+        for i in range(self.steps_per_day):
+            x = self.rk4_step(x, t, dt, watcher=watcher)
+            t += dt
+        return x
 
     def trim_to_burst(self, times, xs):
         """
@@ -114,110 +172,95 @@ class Model(metaclass=ModelMeta):
 
         return times[i:j], xs[i:j]
 
-    def run(self) -> 'Run':
+    def run(self, duration=None, convergence=None, watcher=None) -> 'Model':
         """
-        Run simulation until dynamics can be considered to be resolved.
+        Run simulation until dynamics can be considered resolved.
+
+        Args:
+            duration:
+                Maximum duration of simulation.
+            convergence:
+                If given, test for convergence after each simulation step by
+                passing (x_old, x_new, t, dt)
+            watcher:
+                If given, is executed with (x_old, v, t, dt) for each step
+                and can track simulation variables during execution.
         """
-        time = 0.0
-        x = self.x0
-        dt = self.PERIOD
-        steps = self.STEPS
-        times = np.array([time], dtype=float)
-        xs = np.array([x], dtype=float)
+        x = np.asarray(self.x0)
+        t = self.time
+        dt = self.dt
+        ts = [self.time]
+        xs = [x]
+        convergence = convergence or self.get_convergence_function()
+        watcher = watcher or self.get_watcher_function()
+        tf = t + self.max_simulation_period if duration is None else t + duration
 
         while True:
-            times_, xs_ = self._run_interval(dt, time, x, steps)
-            times = np.concatenate([times, times_[1:]])
-            xs = np.concatenate([xs, xs_[1:]])
-            time = times[-1]
-            x = xs[-1]
+            x_ = np.asarray(self.step(x, t, dt, watcher=watcher))
+            t += dt
+            xs.append(x_)
+            ts.append(t)
 
-            if self.has_converged(times, xs):
+            if t >= tf or convergence(x, x_, t, dt):
                 break
+            x = x_
 
-        return self._to_result(times, xs)
+        self.data = self._to_dataframe(np.array(ts), np.array(xs))
+        self._run_post_process()
+        return self
 
-    def run_interval(self, dt, t0=0, x0=None, steps=100) -> 'Run':
-        """ == 1
-        Run simulation by given interval
+    def run_interval(self, dt, watcher=None) -> 'Model':
         """
-        return self._to_result(*self._run_interval(dt, t0, x0, steps))
+        Run simulation by given interval.
+        """
+        tf = self.time + dt
+        return self.run(lambda x, x_, t: t >= tf, watcher=watcher)
 
-    def _run_interval(self, dt, t0, x0, steps):
-        x0 = self.x0 if x0 is None else x0
-        times = np.linspace(t0, t0 + dt, steps)
-        ys = integrate.odeint(self.diff, x0, times)
-        return times, ys
+    def get_convergence_function(self):
+        """
+        Return a function that tests for convergence.
 
-    def _to_result(self, times, ys) -> 'Run':
-        cls = getattr(self, 'run_class', Run)
-        return cls(self._to_dataframe(times, ys), self)
+        Signature of convergence function is fn(x, x_, t, dt) in which x and x_
+        are two successive simulation states.
+        """
+        return lambda *args: False
+
+    def get_watcher_function(self):
+        """
+        Return a function that tracks simulation state and annotate model,
+        save state variables, etc.
+
+        Signature of watcher function is fn(x, v, t, dt) in which x is initial
+        state and v is the derivative.
+        """
+        return None
+
+    def _run_post_process(self):
+        """
+        Run after simulation is finished.
+        """
 
     def _to_dataframe(self, times, ys) -> pd.DataFrame:
         if self.sub_groups:
             names = 'column', 'age'
-            columns = pd.MultiIndex.from_product((self.columns, self.sub_groups), names=names)
+            mk_product = pd.MultiIndex.from_product
+            columns = mk_product((self.columns, self.sub_groups), names=names)
         else:
             columns = self.columns
         df = pd.DataFrame(ys, columns=columns)
         df.index = times
         return df
 
-    def summary(self, run):
-        """
-        Return a summary string for the given run. Used by run instances to
-        perform string conversion.
-        """
-        dic = self.summary_map(run)
-        keys = dic.keys()
-        size = max(map(len, keys))
-        keys = map(lambda x: x.ljust(size), keys)
-        values = map(str, dic.values())
-        return '\n'.join(f'{k} : {v}' for k, v in zip(keys, values))
-
-    def summary_map(self, run):
-        """
-        Convenient access to summary data as a dictionary. Useful for
-        subclasses to avoid excessive string formatting operations when
-        implementing the summary() method..
-        """
-        raise NotImplementedError('must be implemented in subclasses')
-
-    def get_data(self, df, name):
+    def get_data(self, name, df=None):
         """
         Returns pre-processed from dataframe. Subclasses might implement methods
         such as get_data_<foo> to handle specific names.
         """
+        if df is None:
+            df = self.data
         try:
             method = getattr(self, f'get_data_{name}')
         except AttributeError:
             return df[name]
         else:
             return method(df)
-
-
-class Run:
-    """
-    Represents an execution of the model.
-    """
-    values = property(lambda self: self.data.values)
-
-    def __init__(self, data, model):
-        self.data = data
-        self.model = model
-
-    def __str__(self):
-        return self.model.summary(self)
-
-    def __getattr__(self, item):
-        try:
-            return self.model.get_data(self.data, item)
-        except ValueError:
-            raise AttributeError(item)
-
-    def plot(self, show=False):
-        res = self.data[self.model.display_columns].plot()
-        if show:
-            plt.show()
-        else:
-            return res
