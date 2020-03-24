@@ -77,7 +77,7 @@ class Model(metaclass=ModelMeta):
             print(m)
             m.plot(show=True)
 
-        for cmd, help in reversed(cls.OPTIONS.items()):
+        for cmd, help in list(cls.OPTIONS.items())[::-1]:
             cmd, _, kind = cmd.partition(':')
             kind = kind_map[kind or 'float']
             cmd = cmd.replace('_', '-')

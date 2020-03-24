@@ -16,6 +16,9 @@ class Region:
     def __str__(self):
         return self.name
 
+    def _repr_html_(self):
+        return self.name
+
     def report(self):
         return f"""Region {self.name} 
 """
