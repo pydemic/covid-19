@@ -5,9 +5,10 @@ import click
 import pandas as pd
 import requests
 
-from .data import DATA
 from .cia_factbook import coarse_age_distribution
+from .data import DATA
 from .ibge import city_id_from_name
+
 IBGE_DATA: Path = DATA / 'ibge_demographic'
 
 URL = 'https://servicodados.ibge.gov.br/api/v1/pesquisas/23/periodos/all/resultados' \
@@ -67,7 +68,7 @@ VARNAMES_FEMALE = {
 }
 
 
-def load_city(city_id, coarse=False, collapse_newborn=False):
+def brazil_city_demography(city_id, coarse=False, collapse_newborn=False):
     """
     Load demographic data for given city and return a data-frame.
 
@@ -85,12 +86,12 @@ def load_city(city_id, coarse=False, collapse_newborn=False):
         city_id = city_id_from_name(city_id)
 
     if coarse:
-        df = load_city(city_id, collapse_newborn=True)
+        df = brazil_city_demography(city_id, collapse_newborn=True)
         males, females = map(coarse_age_distribution, [df.males, df.females])
         return pd.DataFrame({'males': males, 'females': females})
 
     if collapse_newborn:
-        df = load_city(city_id)
+        df = brazil_city_demography(city_id)
         row_0 = df.iloc[0]
         df = df.iloc[1:, :].copy()
         df.iloc[0, :] += row_0
@@ -98,7 +99,6 @@ def load_city(city_id, coarse=False, collapse_newborn=False):
         return df
 
     return _load_city(city_id)
-
 
 
 @lru_cache(32)
@@ -128,9 +128,15 @@ def _load_city(city_id):
 if __name__ == '__main__':
     @click.command()
     @click.argument('CITY_ID')
-    @click.option('--coarse', is_flag=True, type=bool, help='Reduce the number of categories')
-    def main(city_id, coarse):
-        df = load_city(city_id, coarse=coarse)
+    @click.option('--coarse', is_flag=True, type=bool,
+                  help='Reduce the number of categories')
+    @click.option('--no-gender', is_flag=True, type=bool,
+                  help='Do not discriminate by gender')
+    def main(city_id, coarse, no_gender):
+        df = brazil_city_demography(city_id, coarse=coarse)
+        if no_gender:
+            df = df.sum(1)
         print(df.to_csv())
+
 
     main()

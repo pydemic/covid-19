@@ -12,9 +12,13 @@ def cia_factbook(which):
 
     Valid datasets:
     * 'age distributions'
+    * 'hospital beds'
     """
     if which == 'age distribution':
         df = pd.read_csv(DATA / 'cia_factbook-age_distribution.csv', index_col=0)
+        return df
+    if which == 'hospital beds':
+        df = pd.read_csv(DATA / 'cia_factbook-hospital_bed_density.csv', index_col=0, sep=';')
         return df
     else:
         raise ValueError(f'invalid dataset: {which}')

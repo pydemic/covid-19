@@ -5,8 +5,8 @@ import pandas as pd
 
 from .model import Model
 from .plot import RSEICHAPlot
-from covid.data import age_distribution, covid_mean_mortality
-from ..types import delegate, CachedProperty
+from ..region import as_region
+from ..types import delegate, cached
 from ..utils import fmt, pc, pm
 
 identity = lambda x: x
@@ -43,6 +43,9 @@ class RSEICHA(Model):
                       'parameters',
         'R0': 'Basic reproducibility number',
         'prob_symptomatic': 'Probability of developing symptoms',
+        'hospital_prioritization': 'Fraction of how much we can reduce demand on '
+                                   'healthcare system to allocate it to the COVID '
+                                   'struggle',
     }
     plot_class = RSEICHAPlot
     region = None
@@ -79,6 +82,9 @@ class RSEICHA(Model):
     icu_occupancy_rate = 0.8
     hospital_beds_pm = 2.3
     hospital_occupancy_rate = 0.8
+    hospital_prioritization = 0.15
+    icu_total_capacity = cached(lambda x: x.icu_beds_pm * x.population / 1000)
+    hospital_total_capacity = cached(lambda x: x.hospital_beds_pm * x.population / 1000)
 
     # Initial state
     seed = 1
@@ -92,15 +98,15 @@ class RSEICHA(Model):
     hospital_limit_time = 0.0
     icu_limit_time = 0.0
 
-    @CachedProperty
+    @cached
     def icu_capacity(self):
-        rate = 1 - self.icu_occupancy_rate
-        return self.icu_beds_pm * self.population / 1000 * rate
+        rate = 1 - self.icu_occupancy_rate * (1 - self.hospital_prioritization)
+        return self.icu_total_capacity * rate
 
-    @CachedProperty
+    @cached
     def hospital_capacity(self):
-        rate = 1 - self.hospital_occupancy_rate
-        return self.hospital_beds_pm * self.population / 1000 * rate
+        rate = 1 - self.hospital_occupancy_rate * (1 - self.hospital_prioritization)
+        return self.hospital_total_capacity * rate
 
     @property
     def population(self):
@@ -115,22 +121,30 @@ class RSEICHA(Model):
         super().__init__(*args, **kwargs)
         self._watching = {}
 
+        def set_(attr, value):
+            x = kwargs.get(attr, value)
+            setattr(self, attr, x)
+            return x
+
         # Load data from from region
         if self.region is not None:
-            # Mortality statistics
-            self.prob_hospitalization, \
-            self.prob_icu, \
-            self.prob_fatality = covid_mean_mortality(str(self.region), self.ref_year)
+            self.region = region = as_region(self.region)
 
-            p_h = self.prob_hospitalization / self.prob_symptomatic
-            self.prob_hospitalization = min(1.0, p_h)
+            # Mortality statistics
+            p_hospitalization = region.prob_hospitalization / self.prob_symptomatic
+            set_('prob_hospitalization', min(1.0, p_hospitalization))
+            set_('prob_icu', region.prob_icu)
+            set_('prob_fatality', region.prob_fatality)
 
             # Initial population
             if self.initial_population is None:
-                self.initial_population = age_distribution(str(self.region), 2020).sum() * 1e3
+                set_('initial_population', region.population_size)
 
             # Healthcare statistics
-            ...
+            set_('icu_beds_pm', region.icu_beds_pm)
+            set_('icu_occupancy_rate', region.icu_occupancy_rate)
+            set_('hospital_beds_pm', region.hospital_beds_pm)
+            set_('hospital_occupancy_rate', region.hospital_occupancy_rate)
 
             # R0 via contact matrix
             ...
@@ -160,27 +174,7 @@ class RSEICHA(Model):
     def diff(self, x, t):
         r, f, s, e, i, c, h, a = x
         n = r + s + e + i + c + h + a
-
-        if self.vital_dynamics:
-            mu = self.mu
-        else:
-            mu = 0.0
-
-        p_h = self.prob_hospitalization
-        p_c = self.prob_icu
-        p_f = self.prob_fatality
-        p_hr = self.prob_no_hospitalization_fatality
-        p_cr = self.prob_no_icu_fatality
-
-        gamma_a = self.gamma_a
-        gamma_i = self.gamma_i
-        gamma_h = self.gamma_h
-        gamma_c = self.gamma_c
-        gamma_hr = self.gamma_hr
-        gamma_cr = self.gamma_cr
-
-        beta = self.R0 * gamma_i / (1 - (1 - self.rho) * self.prob_symptomatic)
-
+        beta = self.R0 * self.gamma_i / (1 - (1 - self.rho) * self.prob_symptomatic)
         hplus = max(0, h - self.hospital_capacity)
         hminus = min(h, self.hospital_capacity)
         cplus = max(0, c - self.icu_capacity)
@@ -193,14 +187,8 @@ class RSEICHA(Model):
         di = self.diff_i(e, i, t)
         dh = self.diff_h(i, hminus, hplus, t)
         dc = self.diff_c(h, cminus, cplus, t)
-        dr = gamma_a * a \
-             + (1 - p_h) * gamma_i * i \
-             + (1 - p_c) * gamma_h * hminus \
-             + (1 - p_hr) * gamma_hr * hplus \
-             + (1 - p_f) * gamma_c * cminus \
-             + (1 - p_cr) * gamma_cr * cplus \
-             - mu * r
-        df = p_f * gamma_c * cminus + p_hr * gamma_hr * hplus + p_cr * gamma_cr * cplus
+        dr = self.diff_r(a, i, hminus, hplus, cminus, cplus, r, t)
+        df = self.diff_f(hplus, cminus, cplus, t)
 
         return np.array((dr, df, ds, de, di, dc, dh, da))
 
@@ -217,12 +205,15 @@ class RSEICHA(Model):
         p_s = self.prob_symptomatic
         return lambd * s - (1.0 / p_s) * self.sigma * e - self._mu * e
 
-    def diff_a(self, e, a, t):
-        p_s = self.prob_symptomatic
-        return (1 - p_s) / p_s * self.sigma * e - self.gamma_a * a - self._mu * a
-
     def diff_i(self, e, i, t):
         return self.sigma * e - self.gamma_i * i - self._mu * i
+
+    def diff_c(self, h, cminus, cplus, t):
+        c = cminus + cplus
+        return (self.prob_icu * self.gamma_h * h
+                - self.gamma_c * cminus
+                - self.gamma_cr * cplus
+                - self._mu * c)
 
     def diff_h(self, i, hminus, hplus, t):
         h = hminus + hplus
@@ -232,12 +223,23 @@ class RSEICHA(Model):
                 - self.gamma_hr * hplus
                 - self._mu * h)
 
-    def diff_c(self, h, cminus, cplus, t):
-        c = cminus + cplus
-        return (self.prob_icu * self.gamma_h * h
-                - self.gamma_c * cminus
-                - self.gamma_cr * cplus
-                - self._mu * c)
+    def diff_a(self, e, a, t):
+        p_s = self.prob_symptomatic
+        return (1 - p_s) / p_s * self.sigma * e - self.gamma_a * a - self._mu * a
+
+    def diff_r(self, a, i, hminus, hplus, cminus, cplus, r, t):
+        return (self.gamma_a * a
+                + (1 - self.prob_hospitalization) * self.gamma_i * i
+                + (1 - self.prob_icu) * self.gamma_h * hminus
+                + (1 - self.prob_no_hospitalization_fatality) * self.gamma_hr * hplus
+                + (1 - self.prob_fatality) * self.gamma_c * cminus
+                + (1 - self.prob_no_icu_fatality) * self.gamma_cr * cplus
+                - self._mu * r)
+
+    def diff_f(self, hplus, cminus, cplus, t):
+        return (self.prob_fatality * self.gamma_c * cminus
+                + self.prob_no_hospitalization_fatality * self.gamma_hr * hplus
+                + self.prob_no_icu_fatality * self.gamma_cr * cplus)
 
     def get_convergence_function(self):
         N = None

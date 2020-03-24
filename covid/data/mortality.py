@@ -15,7 +15,7 @@ def covid_mortality():
     return pd.read_csv(path, index_col=0) / 100
 
 
-def covid_mean_mortality(region, year):
+def covid_mean_mortality(region, year=2020):
     """
     Uses demography and mortality rates from NM Ferguson et. al. to infer mean
     mortality ratios for a population. Values can be plugged directly on the
@@ -23,7 +23,8 @@ def covid_mean_mortality(region, year):
 
     Args:
         region:
-            String with country or region name.
+            String with country or region name or a data frame with compatible
+            demography.
         year:
             Reference year (1950-2020).
 
@@ -35,7 +36,10 @@ def covid_mean_mortality(region, year):
         p_f:
             Fraction of critical patients that die.
     """
-    df = age_distribution(region, year, coarse=True)
+    if isinstance(region, str):
+        df = age_distribution(region, year, coarse=True)
+    else:
+        df = region
     dm = covid_mortality()
     total = df.sum()
 

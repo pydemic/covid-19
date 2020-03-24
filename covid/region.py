@@ -1,25 +1,79 @@
-import covid.data.cia_factbook
 from . import data
-from .types import cached
 
 
 class Region:
     """
     Generic demographic and epidemiologic information about region.
     """
-    population_size = cached(lambda _: _.age_distribution.sum() * 1000)
 
     def __init__(self, name, year=2020):
         self.name = name
-        self.age_distribution = covid.data.cia_factbook.age_distribution(name, year)
-        self.age_coarse = covid.data.cia_factbook.age_distribution(name, year, coarse=True)
+        self.short_name = name.partition('/')[-1]
+        self.country = name.partition('/')[0]
+        self.is_country = '/' not in name
+
+        if self.is_country:
+            self._init_from_factbook(self.country, year)
+        elif self.country == 'Brazil':
+            self._init_brazil(self.short_name)
+        else:
+            raise ValueError('demographic data is only available to Brazil')
+
+        # Derived quantities
+        self.population_size = self.age_coarse.sum()
+
+        # Mortality statistics
+        self.prob_hospitalization, \
+        self.prob_icu, \
+        self.prob_fatality = data.covid_mean_mortality(self.age_coarse)
+
+    def _init_from_factbook(self, country, year):
+        # Age distribution and population
+        self.age_distribution = data.age_distribution(country, year)
+        self.age_coarse = data.age_distribution(country, year, coarse=True)
+
+        # Healthcare statistics
+        df = data.cia_factbook('hospital beds')
+        df.index = [x.lower() for x in df.index]
+        self.icu_beds_pm = 1
+        self.icu_occupancy_rate = 0.8
+        self.hospital_beds_pm = df.loc[country.lower(), 'density']
+        self.hospital_occupancy_rate = 0.8
+
+    def _init_brazil(self, city):
+        city_id = data.city_id_from_name(city)
+
+        # Age distribution and population
+        self.age_distribution = data.brazil_city_demography(city_id)
+        df = data.brazil_city_demography(city_id, coarse=True)
+        self.age_coarse = df.sum(1)
+        N = self.age_coarse.sum()
+
+        # Healthcare statistics
+        df = data.brazil_healthcare_capacity()
+        stats = df.loc[city_id, :]
+        cases = stats.cases_influenza_regular + stats.cases_other_regular
+        cases_icu = stats.cases_influenza_icu + stats.cases_other_icu
+        self.icu_beds_pm = stats.icu / N * 1000
+        self.icu_occupancy_rate = cases_icu / stats.icu
+        self.hospital_beds_pm = stats.regular / N * 1000
+        self.hospital_occupancy_rate = cases / stats.regular
 
     def __str__(self):
-        return self.name
+        return self.short_name
 
     def _repr_html_(self):
-        return self.name
+        return self.short_name
 
     def report(self):
         return f"""Region {self.name} 
 """
+
+
+def as_region(name):
+    """
+    Normalize string or Region instance as a Region instance.
+    """
+    if isinstance(name, Region):
+        return name
+    return Region(name)
