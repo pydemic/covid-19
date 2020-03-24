@@ -9,4 +9,4 @@ author = "Fábio Macêdo Mendes"
 author-email = "fabiomacedomendes@gmail.com"
 home-page = "http://github.com/fabiommendes/covid-19"
 classifiers = [ "License :: OSI Approved :: MIT License" ]
-requires = [ "numpy", "matplotlib" ]
+requires = [ "numpy", "matplotlib", "pandas" ]
