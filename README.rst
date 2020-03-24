@@ -29,7 +29,8 @@ Installation
 ============
 
 Either clone this repository and install locally using `flit install -s` or use
-`pip install covid-models`.
+`pip install covid-models`. If you do not have flit, install it using either your distribution
+package manager or use `pip install flit --user`.
 
 
 The model

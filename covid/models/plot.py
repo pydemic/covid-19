@@ -29,7 +29,7 @@ class RSEICHAPlot(Plot):
 
         def df(which):
             df = m[which]
-            df.index = idx
+            # df.index = idx
             return df
 
         i = df('infected')

@@ -47,7 +47,7 @@ def age_distribution(region: str, year: int, coarse: bool = False) -> pd.Series:
     df = cia_factbook('age distribution')
     data = df[(df.region == region) & (df.ref_date == year)]
     if data.shape[0] == 0:
-        raise ValueError(f'Invalid country/year: {region}/{year}')
+        raise ValueError(f'Invalid country/year: {region!r} / {year!r}')
     data = data.loc[:, '0-4':].T
     data.index.name = 'age'
     data = data.iloc[:, 0].apply(int)

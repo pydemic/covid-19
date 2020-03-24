@@ -44,7 +44,7 @@ class Model(metaclass=ModelMeta):
     plot_class = Plot
 
     # Solver and numerical method parameters
-    steps_per_day = 2
+    steps_per_day = 5
     dt = 1.0
     max_simulation_period = 5 * 365
 

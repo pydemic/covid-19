@@ -9,6 +9,8 @@ from ..data import covid_mean_mortality, age_distribution
 from ..types import delegate, CachedProperty
 from ..utils import fmt, pc, pm
 
+identity = lambda x: x
+
 
 class RSEICHA(Model):
     """
@@ -49,7 +51,7 @@ class RSEICHA(Model):
     # Epidemiological parameters
     sigma = 1 / 5.0
     R0 = 2.74
-    rho_a = 0.4
+    rho = 0.4
     prob_symptomatic = 0.14
 
     gamma_i = 1 / 1.61
@@ -80,7 +82,7 @@ class RSEICHA(Model):
 
     # Initial state
     seed = 1
-    total_fatalities = 0.0
+    fatalities = 0.0
     hospitalization_days = 0.0
     icu_days = 0.0
     peak_hospitalization_demand = 0.0
@@ -103,9 +105,9 @@ class RSEICHA(Model):
     @property
     def population(self):
         if self.data.shape[0]:
-            return self.data.iloc[-1].sum() - self.total_fatalities
+            return self.data.iloc[-1].sum() - self.fatalities
         else:
-            return sum(self.x0) - self.total_fatalities
+            return sum(self.x0) - self.fatalities
 
     def __init__(self, *args, r0=None, **kwargs):
         if r0:
@@ -118,11 +120,14 @@ class RSEICHA(Model):
             # Mortality statistics
             self.prob_hospitalization, \
             self.prob_icu, \
-            self.prob_fatality = covid_mean_mortality(self.region, self.ref_year)
+            self.prob_fatality = covid_mean_mortality(str(self.region), self.ref_year)
+
+            p_h = self.prob_hospitalization / self.prob_symptomatic
+            self.prob_hospitalization = min(1.0, p_h)
 
             # Initial population
             if self.initial_population is None:
-                self.initial_population = age_distribution(self.region, 2020).sum() * 1e3
+                self.initial_population = age_distribution(str(self.region), 2020).sum() * 1e3
 
             # Healthcare statistics
             ...
@@ -141,7 +146,7 @@ class RSEICHA(Model):
         # Initial state
         self.x0 = [
             0.0,  # recovered
-            self.total_fatalities,
+            self.fatalities,
             self.initial_population,
             0.0,  # exposed
             self.seed,
@@ -150,18 +155,17 @@ class RSEICHA(Model):
             0.0,  # asymptotic,
         ]
         self.x0 = np.array(self.x0)
+        self._mu = self.mu if self.vital_dynamics else 0.0
 
     def diff(self, x, t):
         r, f, s, e, i, c, h, a = x
+        n = r + s + e + i + c + h + a
 
         if self.vital_dynamics:
-            kappa = self.kappa
             mu = self.mu
         else:
-            mu = kappa = 0.0
+            mu = 0.0
 
-        sigma = self.sigma
-        p_s = self.prob_symptomatic
         p_h = self.prob_hospitalization
         p_c = self.prob_icu
         p_f = self.prob_fatality
@@ -175,39 +179,65 @@ class RSEICHA(Model):
         gamma_hr = self.gamma_hr
         gamma_cr = self.gamma_cr
 
-        beta = self.R0 * gamma_i / (1 - (1 - self.rho_a) * self.prob_symptomatic)
+        beta = self.R0 * gamma_i / (1 - (1 - self.rho) * self.prob_symptomatic)
 
-        n = r + s + e + i + c + h + a
-        infections = beta * (i + self.rho_a * a) / n * s
+        hplus = max(0, h - self.hospital_capacity)
+        hminus = min(h, self.hospital_capacity)
+        cplus = max(0, c - self.icu_capacity)
+        cminus = min(c, self.icu_capacity)
 
-        h_extra = max(0, h - self.hospital_capacity)
-        c_extra = max(0, c - self.icu_capacity)
-        h_ = min(h, self.hospital_capacity)
-        c_ = min(c, self.icu_capacity)
-
-        ds = kappa * n - infections - mu * s
-        de = infections - (1.0 / p_s) * sigma * e - mu * e
-        da = (1 - p_s) / p_s * sigma * e - gamma_a * a - mu * a
-        di = sigma * e - gamma_i * i - mu * i
-        dh = p_h * gamma_i * i \
-             - gamma_h * h_ \
-             - p_c * gamma_h * h_extra \
-             - gamma_hr * h_extra \
-             - mu * h
-        dc = p_c * gamma_h * h \
-             - gamma_c * c_ \
-             - gamma_cr * c_extra \
-             - mu * c
+        lambd = beta * (i + self.rho * a) / n
+        ds = self.diff_s(s, n, lambd, t)
+        de = self.diff_e(s, e, lambd, t)
+        da = self.diff_a(e, a, t)
+        di = self.diff_i(e, i, t)
+        dh = self.diff_h(i, hminus, hplus, t)
+        dc = self.diff_c(h, cminus, cplus, t)
         dr = gamma_a * a \
              + (1 - p_h) * gamma_i * i \
-             + (1 - p_c) * gamma_h * h_ \
-             + (1 - p_hr) * gamma_hr * h_extra \
-             + (1 - p_f) * gamma_c * c_ \
-             + (1 - p_cr) * gamma_cr * c_extra \
+             + (1 - p_c) * gamma_h * hminus \
+             + (1 - p_hr) * gamma_hr * hplus \
+             + (1 - p_f) * gamma_c * cminus \
+             + (1 - p_cr) * gamma_cr * cplus \
              - mu * r
-        df = p_f * gamma_c * c_ + p_hr * gamma_hr * h_extra + p_cr * gamma_cr * c_extra
+        df = p_f * gamma_c * cminus + p_hr * gamma_hr * hplus + p_cr * gamma_cr * cplus
 
         return np.array((dr, df, ds, de, di, dc, dh, da))
+
+    def lambd(self, i, a, t):
+        pass
+
+    def diff_s(self, s, n, lambd, t):
+        if self.vital_dynamics:
+            return self.kappa * n - lambd * s - self.mu * s
+        else:
+            return - lambd * s
+
+    def diff_e(self, s, e, lambd, t):
+        p_s = self.prob_symptomatic
+        return lambd * s - (1.0 / p_s) * self.sigma * e - self._mu * e
+
+    def diff_a(self, e, a, t):
+        p_s = self.prob_symptomatic
+        return (1 - p_s) / p_s * self.sigma * e - self.gamma_a * a - self._mu * a
+
+    def diff_i(self, e, i, t):
+        return self.sigma * e - self.gamma_i * i - self._mu * i
+
+    def diff_h(self, i, hminus, hplus, t):
+        h = hminus + hplus
+        return (self.prob_hospitalization * self.gamma_i * i
+                - self.gamma_h * hminus
+                - self.prob_icu * self.gamma_h * hplus
+                - self.gamma_hr * hplus
+                - self._mu * h)
+
+    def diff_c(self, h, cminus, cplus, t):
+        c = cminus + cplus
+        return (self.prob_icu * self.gamma_h * h
+                - self.gamma_c * cminus
+                - self.gamma_cr * cplus
+                - self._mu * c)
 
     def get_convergence_function(self):
         N = None
@@ -268,16 +298,6 @@ class RSEICHA(Model):
         w = self._watching
 
         # Healthcare statistics
-        self.total_fatalities = self['fatalities'].max()
-        self.total_recovered = self['recovered'].iloc[-1]
-        self.total_susceptible = self['recovered'].iloc[-1]
-        self.total_exposed = self.integral(
-            self['exposed']) * self.sigma / self.prob_symptomatic
-        self.total_infected = self.integral(self['infected']) * self.gamma_i
-        self.total_asymptomatic = self.integral(self['asymptomatic']) * self.gamma_a
-        self.total_hospitalized = self.integral(self['hospitalized']) * self.gamma_h
-        self.total_critical = self.integral(self['critical'].iloc[-1]) * self.gamma_c
-
         self.peak_hospitalization_demand = h.max()
         self.peak_icu_demand = c.max()
         self.hospitalization_days = (h * self.dt).sum()
@@ -289,6 +309,15 @@ class RSEICHA(Model):
 
         # Epidemiology
         self.recovered = r.iloc[-1]
+        self.susceptible = self['recovered'].iloc[-1]
+        self.fatalities = self['fatalities'].iloc[-1]
+
+        sigma_eff = self.sigma / self.prob_symptomatic
+        self.total_exposed = self.integral(self['exposed']) * sigma_eff
+        self.total_infected = self.integral(self['infected']) * self.gamma_i
+        self.total_asymptomatic = self.integral(self['asymptomatic']) * self.gamma_a
+        self.total_hospitalized = self.integral(self['hospitalized']) * self.gamma_h
+        self.total_critical = self.integral(self['critical']) * self.gamma_c
 
     def summary(self):
         sym_name = type(self).__name__
@@ -316,7 +345,7 @@ class RSEICHA(Model):
         return f"""Demography
 - Total population   : {fmt(N0)}
 - Recovered          : {fmt(int(self.recovered))} ({pc(self.recovered / N0)})
-- Fatalities (total) : {fmt(int(self.total_fatalities))} ({pc(self.total_fatalities / N)})
+- Fatalities (total) : {fmt(int(self.fatalities))} ({pc(self.fatalities / N)})
 - Infected (max)     : {fmt(int(self.total_infected))} ({pc(self.total_infected / N)})
 - Asymptomatic (max) : {fmt(int(self.total_asymptomatic))} ({pc(p_asympt)})
 - Exposed (max)      : {fmt(int(self.total_exposed))} ({pc(self.total_exposed / N)})
@@ -325,10 +354,10 @@ class RSEICHA(Model):
     def summary_epidemiology(self):
         return f"""Epidemiology
 - R0   : {self.R0}
-- IFR  : {pc(self.total_fatalities / self.total_exposed)}
-- CFR  : {pc(self.total_fatalities / self.total_infected)}
-- HFR  : {pc(self.total_fatalities / self.total_hospitalized)}
-- HCFR : {pc(self.total_fatalities / self.total_critical)}
+- IFR  : {pc(self.fatalities / self.total_exposed)}
+- CFR  : {pc(self.fatalities / self.total_infected)}
+- HFR  : {pc(self.fatalities / self.total_hospitalized)}
+- HCFR : {pc(self.fatalities / self.total_critical)}
 """
 
     def summary_healthcare(self):
@@ -426,6 +455,21 @@ class RSEICHA(Model):
             return False
         i = xs[:, self.EXPOSED].argmax()
         return len(xs) > 2 * i
+
+    #
+    # Statistics
+    #
+    def health_resources(self, translate=identity):
+        _ = translate
+        columns = [_('Name'), _('Items/day'), _('Total')]
+        N = int(self.hospitalization_days + self.icu_days)
+        return pd.DataFrame([
+            ['Mask', 25, 25 * N],
+            ['Mask N95', 1, N],
+            ['Avental impermeável', 25, 25 * N],
+            ['Glove', 50, 50 * N],
+            ['Faceshield', 1, N],
+        ], columns=columns)
 
 
 if __name__ == '__main__':

@@ -90,7 +90,7 @@ class RSEICHADemographic(RSEICHA):
         n = r + s + e + i + c + h + a
         N = n.sum()
         err = 1e-50
-        infection_force = (beta * (i + self.rho_a * a) / (N + err)).sum()
+        infection_force = (beta * (i + self.rho * a) / (N + err)).sum()
         infections = infection_force * s
 
         H = h.sum()

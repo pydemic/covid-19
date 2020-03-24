@@ -2,3 +2,5 @@
 __pycache__
 .coverage
 dist/
+covid/notebooks/.ipynb_checkpoints/
+Untitled.ipynb
