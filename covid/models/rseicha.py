@@ -5,7 +5,7 @@ import pandas as pd
 
 from .model import Model
 from .plot import RSEICHAPlot
-from ..data import covid_mean_mortality, age_distribution
+from covid.data import age_distribution, covid_mean_mortality
 from ..types import delegate, CachedProperty
 from ..utils import fmt, pc, pm
 

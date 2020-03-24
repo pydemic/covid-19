@@ -1,3 +1,4 @@
+import covid.data.cia_factbook
 from . import data
 from .types import cached
 
@@ -10,8 +11,8 @@ class Region:
 
     def __init__(self, name, year=2020):
         self.name = name
-        self.age_distribution = data.age_distribution(name, year)
-        self.age_coarse = data.age_distribution(name, year, coarse=True)
+        self.age_distribution = covid.data.cia_factbook.age_distribution(name, year)
+        self.age_coarse = covid.data.cia_factbook.age_distribution(name, year, coarse=True)
 
     def __str__(self):
         return self.name

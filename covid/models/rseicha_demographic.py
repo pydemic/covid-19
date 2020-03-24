@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 
+import covid.data.cia_factbook
+import covid.data.mortality
 from .rseicha import RSEICHA
 from .. import data
 
@@ -20,12 +22,12 @@ class RSEICHADemographic(RSEICHA):
         super().__init__(*args, **kwargs)
 
         if not hasattr(self, 'demography'):
-            demography = data.age_distribution(self.region, self.year, coarse=True)
+            demography = covid.data.cia_factbook.age_distribution(self.region, self.year, coarse=True)
             self.demography = demography.values / 1000
             self.sub_groups = tuple(demography.index)
 
         if not hasattr(self, 'mortality'):
-            self.mortality = data.covid_mortality()
+            self.mortality = covid.data.mortality.covid_mortality()
             self.p_h = self.mortality['hospitalization'].values
             self.p_c = self.mortality['icu'].values
             self.p_f = self.mortality['fatality'].values

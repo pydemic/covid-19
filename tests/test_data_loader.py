@@ -1,6 +1,8 @@
 import pytest
 
 from covid.data import *
+from covid.data import (age_distribution, hospital_bed_density, covid_mortality,
+                        covid_mean_mortality)
 
 
 class TestCiaFactbook:
