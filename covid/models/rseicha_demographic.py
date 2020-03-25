@@ -1,10 +1,9 @@
 import numpy as np
 import pandas as pd
 
-import covid.data.cia_factbook
-import covid.data.mortality
 from .rseicha import RSEICHA
 from .. import data
+from ..region import Region
 
 
 class RSEICHADemographic(RSEICHA):
@@ -12,47 +11,66 @@ class RSEICHADemographic(RSEICHA):
     RSEICHA model for epidemics that uses demography information
     """
 
-    demography: np.ndarray
+    _dedup_factor = 0.5
+    demography: pd.DataFrame
     mortality: pd.DataFrame
-    region = 'Brazil'
+    region: Region = 'WORLD'
+    contact_matrix = None
     ref_year = 2020
     seed = 1e-3
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        def set_(attr, value):
+            x = kwargs.get(attr, value)
+            setattr(self, attr, x)
+            return x
+
+        # Required demographic information
         if not hasattr(self, 'demography'):
-            demography = covid.data.cia_factbook.age_distribution(self.region, self.year, coarse=True)
-            self.demography = demography.values / 1000
-            self.sub_groups = tuple(demography.index)
+            self.demography = self.region.age_coarse
+        self.sub_groups = tuple(self.demography.index)
 
         if not hasattr(self, 'mortality'):
-            self.mortality = covid.data.mortality.covid_mortality()
-            self.p_h = self.mortality['hospitalization'].values
-            self.p_c = self.mortality['icu'].values
-            self.p_f = self.mortality['fatality'].values
+            self.mortality = data.mortality.covid_mortality()
 
+        # Contact matrix
+        set_('contact_matrix', self.region.contact_matrix)
+        if self.contact_matrix is not None:
+            M = self.contact_matrix
+            self.relative_contact_matrix = M.T / M.sum() / len(M)
+        else:
+            self.relative_contact_matrix = 1.0
+
+        # Initial state
         n_groups = len(self.sub_groups)
-
         if 'x0' not in kwargs:
-            empty = self.demography * 0
+            empty = self.demography.values * 0
+            seed = self.seed / n_groups
             self.x0 = np.concatenate([
                 empty,
                 empty,
-                self.demography,
-                empty + self.seed / n_groups,
-                empty,
+                self.demography.values - seed * (1 + 1 / self.prob_symptomatic),
+                empty + seed / self.prob_symptomatic,
+                empty + seed,
                 empty,
                 empty,
                 empty,
             ])
-            self._children = self.demography * 0.0
+            self._children = self.demography.values * 0.0
             self._children[0] = 1.0
 
+        # Columns and indexes
         self.display_columns = [(x, 'total') for x in self.columns]
-        self.RECOVERED, self.FATALITIES, self.SUSCEPTIBLE, self.EXPOSED, \
-        self.INFECTED, self.CRITICAL, self.HOSPITALIZED, self.ASYMPTOMATIC = \
-            range(0, 8 * n_groups, n_groups)
+        self.RECOVERED, \
+        self.FATALITIES, \
+        self.SUSCEPTIBLE, \
+        self.EXPOSED, \
+        self.INFECTED, \
+        self.CRITICAL, \
+        self.HOSPITALIZED, \
+        self.ASYMPTOMATIC = range(0, 8 * n_groups, n_groups)
 
     def _get_column(self, col, df):
         return df[(col, 'total')]
@@ -69,84 +87,27 @@ class RSEICHADemographic(RSEICHA):
 
     def diff(self, x, t):
         r, f, s, e, i, c, h, a = np.reshape(x, (-1, len(self.sub_groups)))
-
-        mu = self.mu
-        sigma = self.sigma
-
-        p_s = self.prob_symptomatic
-        p_h = self.p_h
-        p_c = self.p_c
-        p_f = self.p_f
-        p_hr = self.prob_no_hospitalization_fatality
-        p_cr = self.prob_no_icu_fatality
-
-        gamma_a = self.gamma_a
-        gamma_i = self.gamma_i
-        gamma_h = self.gamma_h
-        gamma_c = self.gamma_c
-        gamma_hr = self.gamma_hr
-        gamma_cr = self.gamma_cr
-
-        beta = self.R0 * gamma_i
-
         n = r + s + e + i + c + h + a
         N = n.sum()
+
+        beta = self.R0 * self.gamma_i / (1 - (1 - self.rho) * self.prob_symptomatic)
         err = 1e-50
-        infection_force = (beta * (i + self.rho * a) / (N + err)).sum()
-        infections = infection_force * s
+        h_hat = h / (h.sum() + err)
+        c_hat = c / (c.sum() + err)
+        hplus = h_hat * max(0, h.sum() - self.hospital_capacity)
+        hminus = h_hat * min(h.sum(), self.hospital_capacity)
+        cplus = c_hat * max(0, c.sum() - self.icu_capacity)
+        cminus = c_hat * min(c.sum(), self.icu_capacity)
 
-        H = h.sum()
-        C = c.sum()
-        H_extra = max(0, H - self.hospital_capacity)
-        C_extra = max(0, C - self.icu_capacity)
-
-        if H_extra:
-            h_ = h * (self.hospital_capacity / H)
-            dh = h - self.hospital_capacity
-            h_extra = np.where(dh > 0, dh, 0.0)
-        else:
-            h_ = h
-            h_extra = h * 0
-
-        if C_extra:
-            c_ = c * (self.icu_capacity / C)
-            dc = c - self.icu_capacity
-            c_extra = np.where(dc > 0, dc, 0.0)
-        else:
-            c_ = c
-            c_extra = c * 0
-
-        ds = self.kappa * N * self._children - infections - mu * s
-        de = infections - (1.0 / p_s) * sigma * e - mu * e
-        da = (1 - p_s) / p_s * sigma * e - gamma_a * a - mu * a
-        di = sigma * e - gamma_i * i - mu * i
-        dh = (
-                p_h * gamma_i * i
-                - gamma_h * h
-                - p_c * gamma_h * h_extra
-                - gamma_hr * h_extra
-                - mu * h
-        )
-        dc = (
-                p_c * gamma_h * h
-                - gamma_c * c_
-                - gamma_cr * c_extra
-                - mu * c
-        )
-        dr = (
-                gamma_a * a
-                + (1 - p_h) * gamma_i * i
-                + (1 - p_c) * gamma_h * h
-                + (1 - p_hr) * gamma_hr * h_extra
-                + (1 - p_f) * gamma_c * c_
-                + (1 - p_cr) * gamma_cr * c_extra
-                - mu * r
-        )
-        df = (
-                p_f * gamma_c * c_
-                + p_hr * gamma_hr * h_extra
-                + p_cr * gamma_cr * c_extra
-        )
+        lambd = np.dot(beta * self.relative_contact_matrix, (i + self.rho * a) / n)
+        ds = self.diff_s(s, n, lambd, t)
+        de = self.diff_e(s, e, lambd, t)
+        da = self.diff_a(e, a, t)
+        di = self.diff_i(e, i, t)
+        dh = self.diff_h(i, hminus, hplus, t)
+        dc = self.diff_c(h, cminus, cplus, t)
+        dr = self.diff_r(a, i, hminus, hplus, cminus, cplus, r, t)
+        df = self.diff_f(hplus, cminus, cplus, t)
 
         return np.concatenate((dr, df, ds, de, di, dc, dh, da))
 

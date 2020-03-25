@@ -11,6 +11,8 @@ def fmt(n):
     if m < 0.001:
         return '%.2e' % n
     elif 0.001 <= m < 1000:
+        if isinstance(n, int):
+            return str(n)
         return f'{float(n):.2f}'
     elif 1000 <= m < 100_000:
         return _fmt_aux(n)

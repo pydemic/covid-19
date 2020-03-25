@@ -25,6 +25,7 @@ class RSEICHA(Model):
     """
 
     # Class configuration
+    _dedup_factor = 1.0
     columns = [
         'Recovered',
         'Fatalities',
@@ -42,6 +43,7 @@ class RSEICHA(Model):
         'region:str': 'Country/city used to infer demographic and epidemiological '
                       'parameters',
         'R0': 'Basic reproducibility number',
+        'rho': 'Ratio in which asymptomatic infect other people',
         'prob_symptomatic': 'Probability of developing symptoms',
         'hospital_prioritization': 'Fraction of how much we can reduce demand on '
                                    'healthcare system to allocate it to the COVID '
@@ -111,7 +113,7 @@ class RSEICHA(Model):
     @property
     def population(self):
         if self.data.shape[0]:
-            return self.data.iloc[-1].sum() - self.fatalities
+            return self.data.iloc[-1].sum() * self._dedup_factor - self.fatalities
         else:
             return sum(self.x0) - self.fatalities
 
@@ -161,8 +163,8 @@ class RSEICHA(Model):
         self.x0 = [
             0.0,  # recovered
             self.fatalities,
-            self.initial_population,
-            0.0,  # exposed
+            self.initial_population - self.seed * (1 + 1 / self.prob_symptomatic),
+            self.seed / self.prob_symptomatic,
             self.seed,
             0.0,  # critical,
             0.0,  # hospitalized,
@@ -340,13 +342,13 @@ class RSEICHA(Model):
 """
 
     def summary_demography(self):
-        N = self.data.iloc[-1].sum()
-        N0 = self.data.iloc[0].sum()
+        N0 = self.initial_population
+        N = self.population + self.fatalities
         p_asympt = self.total_asymptomatic / N
 
         return f"""Demography
 - Total population   : {fmt(N0)}
-- Recovered          : {fmt(int(self.recovered))} ({pc(self.recovered / N0)})
+- Recovered          : {fmt(int(self.recovered))} ({pc(self.recovered / N)})
 - Fatalities (total) : {fmt(int(self.fatalities))} ({pc(self.fatalities / N)})
 - Infected (max)     : {fmt(int(self.total_infected))} ({pc(self.total_infected / N)})
 - Asymptomatic (max) : {fmt(int(self.total_asymptomatic))} ({pc(p_asympt)})
@@ -363,7 +365,7 @@ class RSEICHA(Model):
 """
 
     def summary_healthcare(self):
-        N = self.data.iloc[-1].sum()
+        N = self.population
 
         t_hf = self.hospital_limit_time
         dt_hf = self.hospital_limit_date

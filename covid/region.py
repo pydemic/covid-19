@@ -6,6 +6,8 @@ class Region:
     Generic demographic and epidemiologic information about region.
     """
 
+    contact_matrix = None
+
     def __init__(self, name, year=2020):
         self.name = name
         self.short_name = name.partition('/')[-1]
@@ -29,8 +31,8 @@ class Region:
 
     def _init_from_factbook(self, country, year):
         # Age distribution and population
-        self.age_distribution = data.age_distribution(country, year)
-        self.age_coarse = data.age_distribution(country, year, coarse=True)
+        self.age_distribution = data.age_distribution(country, year) * 1000
+        self.age_coarse = data.age_distribution(country, year, coarse=True) * 1000
 
         # Healthcare statistics
         df = data.cia_factbook('hospital beds')
@@ -58,6 +60,9 @@ class Region:
         self.icu_occupancy_rate = cases_icu / stats.icu
         self.hospital_beds_pm = stats.regular / N * 1000
         self.hospital_occupancy_rate = cases / stats.regular
+
+        # Contact matrix
+        self.contact_matrix = data.contact_matrix('Italy')
 
     def __str__(self):
         return self.short_name
