@@ -1,12 +1,12 @@
 import numpy as np
 import pandas as pd
 
-from .rseicha import RSEICHA
+from .seichar import SEICHAR
 from .. import data
 from ..region import Region
 
 
-class RSEICHADemographic(RSEICHA):
+class SEICHARDemographic(SEICHAR):
     """
     RSEICHA model for epidemics that uses demography information
     """
@@ -36,10 +36,10 @@ class RSEICHADemographic(RSEICHA):
             self.mortality = data.mortality.covid_mortality()
 
         # Contact matrix
-        set_('contact_matrix', self.region.contact_matrix)
+        set_('contact_matrix', self.region.contact_matrix.values)
         if self.contact_matrix is not None:
             M = self.contact_matrix
-            self.relative_contact_matrix = M.T / M.sum() / len(M)
+            self.relative_contact_matrix = (M.T / M.sum(1)).T
         else:
             self.relative_contact_matrix = 1.0
 
@@ -63,14 +63,15 @@ class RSEICHADemographic(RSEICHA):
 
         # Columns and indexes
         self.display_columns = [(x, 'total') for x in self.columns]
-        self.RECOVERED, \
-        self.FATALITIES, \
+
         self.SUSCEPTIBLE, \
         self.EXPOSED, \
         self.INFECTED, \
         self.CRITICAL, \
         self.HOSPITALIZED, \
-        self.ASYMPTOMATIC = range(0, 8 * n_groups, n_groups)
+        self.ASYMPTOMATIC, \
+        self.RECOVERED, \
+        self.FATALITIES = range(0, 8 * n_groups, n_groups)
 
     def _get_column(self, col, df):
         return df[(col, 'total')]
@@ -87,10 +88,7 @@ class RSEICHADemographic(RSEICHA):
 
     def diff(self, x, t):
         r, f, s, e, i, c, h, a = np.reshape(x, (-1, len(self.sub_groups)))
-        n = r + s + e + i + c + h + a
-        N = n.sum()
 
-        beta = self.R0 * self.gamma_i / (1 - (1 - self.rho) * self.prob_symptomatic)
         err = 1e-50
         h_hat = h / (h.sum() + err)
         c_hat = c / (c.sum() + err)
@@ -99,18 +97,12 @@ class RSEICHADemographic(RSEICHA):
         cplus = c_hat * max(0, c.sum() - self.icu_capacity)
         cminus = c_hat * min(c.sum(), self.icu_capacity)
 
-        lambd = np.dot(beta * self.relative_contact_matrix, (i + self.rho * a) / n)
-        ds = self.diff_s(s, n, lambd, t)
-        de = self.diff_e(s, e, lambd, t)
-        da = self.diff_a(e, a, t)
-        di = self.diff_i(e, i, t)
-        dh = self.diff_h(i, hminus, hplus, t)
-        dc = self.diff_c(h, cminus, cplus, t)
-        dr = self.diff_r(a, i, hminus, hplus, cminus, cplus, r, t)
-        df = self.diff_f(hplus, cminus, cplus, t)
+        diff = self.diff_seichar(s, e, i, cminus, cplus, hminus, hplus, a, r, f, t)
+        return np.array(diff)
 
-        return np.concatenate((dr, df, ds, de, di, dc, dh, da))
+    def lambd(self, n, i, a, t):
+        return np.dot(self.beta(t) * self.relative_contact_matrix, (i + self.rho * a) / n)
 
 
 if __name__ == '__main__':
-    RSEICHADemographic.main(region='Brazil')
+    SEICHARDemographic.main(region='Brazil')

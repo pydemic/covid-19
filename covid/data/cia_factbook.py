@@ -2,7 +2,65 @@ from functools import lru_cache
 
 import pandas as pd
 
-from .data import DATA
+from .data import DATA, COUNTRY_ALIASES
+
+COUNTRY_TO_AGE_DISTRIBUTION = {
+    'Bolivia': 'Bolivia (Plurinational State of)',
+    'Hong Kong': 'China,Hong Kong SAR',
+    'Macao': 'China,Macao SAR',
+    'Taiwan': 'China,Taiwan Province of China',
+    'North Korea': "Dem. People's Republic of Korea",
+    'Iran': 'Iran (Islamic Republic of)',
+    'Laos': "Lao People's Democratic Republic",
+    'Micronesia': 'Micronesia (Fed. States of)',
+    'South Korea': 'Republic of Korea',
+    'Moldova': 'Republic of Moldova',
+    'Russia': 'Russian Federation',
+    'Palestine': 'State of Palestine',
+    'Syria': 'Syrian Arab Republic',
+    'United States': 'United States of America',
+    'Venezuela': 'Venezuela (Bolivarian Republic of)',
+    'Tanzania': 'United Republic of Tanzania',
+    'Vietnam': 'Viet Nam',
+}
+COUNTRY_TO_AGE_DISTRIBUTION.update(
+    {k.lower(): v for k, v in COUNTRY_TO_AGE_DISTRIBUTION.items()}
+)
+COUNTRY_TO_HOSPITAL_BEDS = {
+    # '': 'Andorra',
+    # '': 'Brunei',
+    # '': 'Burma',
+    # '': 'Dominica',
+    # '': 'Faroe Islands',
+    # '': 'Gaza Strip',
+    # '': 'Greenland',
+    # '': 'Monaco',
+    # '': 'Marshall Islands',
+    # '': 'Nauru',
+    # '': 'Palau',
+    # '': 'Saint Kitts and Nevis',
+    # '': 'San Marino',
+    'Bahamas': 'Bahamas, The',
+    'Gambia': 'Gambia, The',
+    'North Korea': 'Korea, North',
+    'South Korea': 'Korea, South',
+    'North Macedonia': 'Macedonia',
+    'Micronesia': 'Micronesia, Federated States of',
+    '': 'West Bank',
+}
+COUNTRY_TO_HOSPITAL_BEDS.update(
+    {k.lower(): v for k, v in COUNTRY_TO_HOSPITAL_BEDS.items()}
+)
+HOSPITAL_BEDS_MISSING_DATA = {
+    'Angola', 'Aruba', 'Bahamas', 'Brunei Darussalam', 'Chad', 'Channel Islands', 'Congo',
+    'Curaçao', "Côte d'Ivoire", 'Democratic Republic of the Congo', 'French Guiana',
+    'French Polynesia', 'Guadeloupe', 'Guam', 'Lesotho', 'Macao', 'Martinique',
+    'Mauritania', 'Mayotte', 'Melanesia', 'Myanmar', 'New Caledonia', 'Niger', 'Nigeria',
+    'Palestine', 'Papua New Guinea', 'Puerto Rico', 'Rwanda', 'Réunion', 'Samoa',
+    'Sierra Leone', 'South Africa', 'South Sudan', 'Taiwan', 'United States Virgin Islands',
+    'Western Sahara',
+}
+HOSPITAL_BEDS_MISSING_DATA.update(list(map(str.lower, HOSPITAL_BEDS_MISSING_DATA)))
 
 
 @lru_cache(8)
@@ -18,7 +76,8 @@ def cia_factbook(which):
         df = pd.read_csv(DATA / 'cia_factbook-age_distribution.csv', index_col=0)
         return df
     if which == 'hospital beds':
-        df = pd.read_csv(DATA / 'cia_factbook-hospital_bed_density.csv', index_col=0, sep=';')
+        df = pd.read_csv(DATA / 'cia_factbook-hospital_bed_density.csv', index_col=0,
+                         sep=';')
         return df
     else:
         raise ValueError(f'invalid dataset: {which}')
@@ -46,6 +105,9 @@ def age_distribution(region: str, year: int, coarse: bool = False) -> pd.Series:
             If True, reduce the number of bins to be compatible with data from
             :func:`covid_mortality` function.
     """
+    region = COUNTRY_ALIASES.get(region, region)
+    region = COUNTRY_TO_AGE_DISTRIBUTION.get(region, region)
+
     df = cia_factbook('age distribution')
     data = df[(df.region == region) & (df.ref_date == year)]
     if data.shape[0] == 0:
@@ -97,9 +159,17 @@ def hospital_bed_density(country=None):
     >>> hospital_bed_density()
     ...
     """
+    country = COUNTRY_ALIASES.get(country, country)
+    country = COUNTRY_TO_HOSPITAL_BEDS.get(country, country)
+
     path = DATA / 'cia_factbook-hospital_bed_density.csv'
     df = pd.read_csv(path, index_col=0, sep=';')
     df['density'] /= 1000
     if country:
-        return df.loc[country, 'density']
+        try:
+            return df.loc[country, 'density']
+        except KeyError:
+            if country in HOSPITAL_BEDS_MISSING_DATA:
+                return df.density.mean()
+            raise ValueError(country)
     return df

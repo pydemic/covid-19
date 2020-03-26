@@ -21,7 +21,7 @@ class Plot:
         return self.data[self.model.display_columns].plot()
 
 
-class RSEICHAPlot(Plot):
+class SEICHARPlot(Plot):
     def plot(self, *args, **kwargs):
         dt = datetime.timedelta(days=1)
         m = self.model
@@ -33,12 +33,14 @@ class RSEICHAPlot(Plot):
             return df
 
         i = df('infected')
+        a = df('asymptomatic')
         f = df('fatalities')
         h = df('hospitalized')
         c = df('critical')
 
+        im = i + self.model.rho * a
         f.plot(label='Fatalities')
-        (f + c).plot(label='Critical')
-        (f + c + h).plot(label='Hospitalized')
-        (f + c + i).plot(label='Infected')
+        im.plot(label='Infected')
+        h.plot(label='Hospitalized')
+        (h + c).plot(label='Critical')
         plt.legend()

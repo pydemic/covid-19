@@ -50,3 +50,11 @@ class TestCiaFactbook:
         c_italy = contact_matrix('italy', physical=True).values.mean()
         c_germany = contact_matrix('germany', physical=True).values.mean()
         assert c_italy > 1.5 * c_germany
+
+    def test_coarse_contact_matrix(self):
+        m1 = contact_matrix('italy')
+        m2 = contact_matrix('italy', coarse=True)
+
+        assert abs(m1.values[:-1, :-1].sum() - m2.values[:-2, :-2].sum()) < 1e-3
+        assert list(m1.index) != list(m2.index)
+        assert (m2.index == age_distribution('Italy', 2020, coarse=True).index).all()

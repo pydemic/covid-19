@@ -30,17 +30,21 @@ class Region:
         self.prob_fatality = data.covid_mean_mortality(self.age_coarse)
 
     def _init_from_factbook(self, country, year):
+        cid = country.lower().replace(' ', '_')
+
         # Age distribution and population
         self.age_distribution = data.age_distribution(country, year) * 1000
         self.age_coarse = data.age_distribution(country, year, coarse=True) * 1000
 
         # Healthcare statistics
-        df = data.cia_factbook('hospital beds')
-        df.index = [x.lower() for x in df.index]
         self.icu_beds_pm = 1
         self.icu_occupancy_rate = 0.8
-        self.hospital_beds_pm = df.loc[country.lower(), 'density']
+        self.hospital_beds_pm = data.hospital_bed_density(country)
         self.hospital_occupancy_rate = 0.8
+
+        # Contact matrix
+        ref_country = country if cid in data.CONTACT_MATRIX_IDS else 'mean'
+        self.contact_matrix = data.contact_matrix(ref_country, coarse=True)
 
     def _init_brazil(self, city):
         city_id = data.city_id_from_name(city)
@@ -62,10 +66,13 @@ class Region:
         self.hospital_occupancy_rate = cases / stats.regular
 
         # Contact matrix
-        self.contact_matrix = data.contact_matrix('Italy')
+        self.contact_matrix = data.contact_matrix('Italy', coarse=True)
 
     def __str__(self):
         return self.short_name
+
+    def __repr__(self):
+        return f'{self.__class__.__name__}({self.name!r})'
 
     def _repr_html_(self):
         return self.short_name

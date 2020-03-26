@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 from .model import Model
-from .plot import RSEICHAPlot
+from .plot import SEICHARPlot
 from ..region import as_region
 from ..types import delegate, cached
 from ..utils import fmt, pc, pm
@@ -12,7 +12,7 @@ from ..utils import fmt, pc, pm
 identity = lambda x: x
 
 
-class RSEICHA(Model):
+class SEICHAR(Model):
     """
     SEICHA model for epidemics.
 
@@ -27,17 +27,23 @@ class RSEICHA(Model):
     # Class configuration
     _dedup_factor = 1.0
     columns = [
-        'Recovered',
-        'Fatalities',
         'Susceptible',
         'Exposed',
         'Infected',
         'Critical',
         'Hospitalized',
         'Asymptomatic',
+        'Recovered',
+        'Fatalities',
     ]
-    RECOVERED, FATALITIES, SUSCEPTIBLE, EXPOSED, INFECTED, CRITICAL, \
-    HOSPITALIZED, ASYMPTOMATIC = range(8)
+    SUSCEPTIBLE, \
+    EXPOSED, \
+    INFECTED, \
+    CRITICAL, \
+    HOSPITALIZED, \
+    ASYMPTOMATIC, \
+    RECOVERED, \
+    FATALITIES = range(8)
     OPTIONS = {
         'seed:int': 'Initial infected population',
         'region:str': 'Country/city used to infer demographic and epidemiological '
@@ -45,11 +51,12 @@ class RSEICHA(Model):
         'R0': 'Basic reproducibility number',
         'rho': 'Ratio in which asymptomatic infect other people',
         'prob_symptomatic': 'Probability of developing symptoms',
+        'sigma': 'Rate of infection for exposed individuals',
         'hospital_prioritization': 'Fraction of how much we can reduce demand on '
                                    'healthcare system to allocate it to the COVID '
                                    'struggle',
     }
-    plot_class = RSEICHAPlot
+    plot_class = SEICHARPlot
     region = None
     ref_year = 2020
 
@@ -133,7 +140,7 @@ class RSEICHA(Model):
             self.region = region = as_region(self.region)
 
             # Mortality statistics
-            p_hospitalization = region.prob_hospitalization / self.prob_symptomatic
+            p_hospitalization = region.prob_hospitalization  # / self.prob_symptomatic
             set_('prob_hospitalization', min(1.0, p_hospitalization))
             set_('prob_icu', region.prob_icu)
             set_('prob_fatality', region.prob_fatality)
@@ -160,42 +167,67 @@ class RSEICHA(Model):
             self.seed = 0.01 if self.seed >= 1.0 else self.seed
 
         # Initial state
-        self.x0 = [
-            0.0,  # recovered
-            self.fatalities,
-            self.initial_population - self.seed * (1 + 1 / self.prob_symptomatic),
-            self.seed / self.prob_symptomatic,
-            self.seed,
-            0.0,  # critical,
-            0.0,  # hospitalized,
-            0.0,  # asymptotic,
-        ]
+        if 'x0' not in kwargs:
+            p_s = self.prob_symptomatic
+            i = self.seed
+            a = (1 - p_s) / p_s * i
+            e = i * self.gamma_i / self.sigma
+            s = self.initial_population - (i + e + a)
+            self.x0 = [
+                s,
+                e,
+                i,
+                0.0,  # critical
+                0.0,  # hospitalized
+                a,
+                0.0,  # recovered
+                self.fatalities,
+            ]
         self.x0 = np.array(self.x0)
         self._mu = self.mu if self.vital_dynamics else 0.0
 
+        assert 0.0 <= self.prob_symptomatic <= 1.0
+        assert 0.0 <= self.prob_hospitalization <= 1.0
+        assert 0.0 <= self.prob_icu <= 1.0
+        assert 0.0 <= self.prob_no_hospitalization_fatality <= 1.0
+        assert 0.0 <= self.prob_no_icu_fatality <= 1.0
+
     def diff(self, x, t):
-        r, f, s, e, i, c, h, a = x
-        n = r + s + e + i + c + h + a
-        beta = self.R0 * self.gamma_i / (1 - (1 - self.rho) * self.prob_symptomatic)
+        s, e, i, c, h, a, r, f = x
         hplus = max(0, h - self.hospital_capacity)
         hminus = min(h, self.hospital_capacity)
         cplus = max(0, c - self.icu_capacity)
         cminus = min(c, self.icu_capacity)
 
-        lambd = beta * (i + self.rho * a) / n
-        ds = self.diff_s(s, n, lambd, t)
-        de = self.diff_e(s, e, lambd, t)
-        da = self.diff_a(e, a, t)
-        di = self.diff_i(e, i, t)
-        dh = self.diff_h(i, hminus, hplus, t)
-        dc = self.diff_c(h, cminus, cplus, t)
-        dr = self.diff_r(a, i, hminus, hplus, cminus, cplus, r, t)
-        df = self.diff_f(hplus, cminus, cplus, t)
+        assert hplus >= 0 and hminus >= 0 and cplus >= 0 and cminus >= 0, locals()
+        assert np.all(x >= 0), locals()
 
-        return np.array((dr, df, ds, de, di, dc, dh, da))
+        diff = self.diff_seichar(s, e, i, cminus, cplus, hminus, hplus, a, r, f, t)
+        return np.array(diff)
 
-    def lambd(self, i, a, t):
-        pass
+    def diff_seichar(self, s, e, i, cminus, cplus, hminus, hplus, a, r, f, t):
+        n = s + e + i + cminus + cplus + hminus + hplus + a + r
+        lambd = self.lambd(n, i, a, t)
+        return [
+            self.diff_s(s, n, lambd, t),
+            self.diff_e(s, e, lambd, t),
+            self.diff_i(e, i, t),
+            self.diff_c(hminus + hplus, cminus, cplus, t),
+            self.diff_h(i, hminus, hplus, t),
+            self.diff_a(e, a, t),
+            self.diff_r(a, i, hminus, hplus, cminus, cplus, r, t),
+            self.diff_f(hplus, cminus, cplus, t),
+        ]
+
+    def beta(self, t):
+        p_s = self.prob_symptomatic
+        R0 = self.R0(t) if callable(self.R0) else self.R0
+        return (R0 * (self.gamma_i + self._mu)
+                * (self.sigma + p_s * self._mu) / self.sigma
+                / (p_s + (1 - p_s) * self.rho))
+
+    def lambd(self, n, i, a, t):
+        return self.beta(t) * (i + self.rho * a) / n
 
     def diff_s(self, s, n, lambd, t):
         if self.vital_dynamics:
@@ -477,4 +509,4 @@ class RSEICHA(Model):
 
 
 if __name__ == '__main__':
-    m = RSEICHA.main()
+    m = SEICHAR.main()

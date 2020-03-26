@@ -44,7 +44,7 @@ class Model(metaclass=ModelMeta):
     plot_class = Plot
 
     # Solver and numerical method parameters
-    steps_per_day = 5
+    steps_per_day = 4
     dt = 1.0
     max_simulation_period = 5 * 365
 
@@ -72,7 +72,7 @@ class Model(metaclass=ModelMeta):
         def cli(**kwargs_):
             kwargs_ = {k: v for k, v in kwargs_.items() if v is not None}
             kwargs_ = {**kwargs, **kwargs_}
-            m = cls(*args, **kwargs_)
+            m = cls._main(*args, **kwargs_)
             m.run()
             print(m)
             m.plot(show=True)
@@ -84,6 +84,10 @@ class Model(metaclass=ModelMeta):
             cli = click.option(f'--{cmd}', help=help, type=kind)(cli)
         cli = click.command()(cli)
         cli()
+
+    @classmethod
+    def _main(cls, *args, **kwargs):
+        return cls(*args, **kwargs)
 
     def __init__(self, *args, **kwargs):
         if args:
@@ -288,3 +292,6 @@ class Model(metaclass=ModelMeta):
             return df[name]
         else:
             return method(df)
+
+    def summary(self):
+        return "Model"

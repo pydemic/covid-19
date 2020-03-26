@@ -4,8 +4,8 @@ Covid-19
 
 This is a Python library that simulates COVID-19 outbreaks. The main focus is on Brazil, but it
 includes demographic data about other countries and can be adapted with relative ease. This library
-implements the RSEICHA model (yet to be published, we will link the preprint here). One version,
-`covid.models.RSEICHADemografic` considers demographic information and the other, `covid.models.RSEICHA`
+implements the SEICHAR model (yet to be published, we will link the preprint here). One version,
+`covid.models.SEICHARDemografic` considers demographic information and the other, `covid.models.RSEICHA`
 just uses generic compartments.
 
 Usage

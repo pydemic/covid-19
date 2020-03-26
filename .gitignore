@@ -4,3 +4,4 @@ __pycache__
 dist/
 covid/notebooks/.ipynb_checkpoints/
 Untitled.ipynb
+cache

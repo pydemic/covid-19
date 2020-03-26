@@ -1,3 +1,3 @@
 from .model import Model
-from .rseicha import RSEICHA
-from .rseicha_demographic import RSEICHADemographic
+from .seichar import SEICHAR
+from .seichar_demographic import SEICHARDemographic
