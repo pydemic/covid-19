@@ -8,7 +8,7 @@ __author__ = 'Fábio Mendes'
 import gettext as _gettext
 from pathlib import Path as _Path
 
-from .region import Region
+from .region import Region, region
 
 LOCALEDIR = _Path(__file__).parent / 'locale'
 

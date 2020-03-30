@@ -1,5 +1,8 @@
 import datetime
+from numbers import Number
+from pprint import pformat
 from types import MappingProxyType
+from typing import Sequence
 
 import numpy as np
 import pandas as pd
@@ -9,6 +12,7 @@ from ..types import cached
 
 NOW = datetime.datetime.now()
 TODAY = datetime.date(NOW.year, NOW.month, NOW.day)
+DAY = datetime.timedelta(days=1)
 
 
 class ModelMeta(type):
@@ -69,13 +73,20 @@ class Model(metaclass=ModelMeta):
             'str': str,
         }
 
-        def cli(**kwargs_):
+        @click.option('--plot', is_flag=True, help='Display plot')
+        @click.option('--debug', is_flag=True, help='Display debug information')
+        def cli(plot=False, debug=False, **kwargs_):
             kwargs_ = {k: v for k, v in kwargs_.items() if v is not None}
             kwargs_ = {**kwargs, **kwargs_}
             m = cls._main(*args, **kwargs_)
             m.run()
             print(m)
-            m.plot(show=True)
+            if debug:
+                print('\n\nDEBUG SYMBOLS')
+                for k, v in vars(m).items():
+                    print(k, '=', pformat(v))
+            if plot:
+                m.plot(show=True)
 
         for cmd, help in list(cls.OPTIONS.items())[::-1]:
             cmd, _, kind = cmd.partition(':')
@@ -120,12 +131,63 @@ class Model(metaclass=ModelMeta):
             yield x
 
     def __getitem__(self, item):
-        try:
-            method = getattr(self, f'get_data_{item}')
-        except AttributeError:
-            return self.data[item]
+        if isinstance(item, str):
+            if ':' in item:
+                col, *methods = item.split(':')
+                fn, *fns = [getattr(self, f'get_{m}') for m in methods]
+                res = fn(col)
+                for fn in fns:
+                    res = fn(res)
+                return res
+            else:
+                try:
+                    method = getattr(self, f'get_data_{item}')
+                except AttributeError:
+                    raise KeyError(item)
+                else:
+                    return method(self.data)
         else:
-            return method(self.data)
+            cls = type(item)
+            raise TypeError(f'invalid index type: {cls.__name__}')
+
+    def get_dates(self, df):
+        """
+        Getitem transformer that convert integer indexes to dates.
+        """
+        df = self[df] if isinstance(df, str) else df
+        try:
+            idx = df.index
+        except AttributeError:
+            times: Sequence = self.time_to_dates(np.arange(len(df)))
+            return pd.DataFrame(df, index=times)
+        else:
+            df.index = self.time_to_dates(idx)
+            return df
+
+    def time_to_dates(self, times: Sequence, start_date=None, delta=None) -> np.ndarray:
+        """
+        Convert an array of numerical times to dates.
+
+        Args:
+            times:
+                Sequence of times.
+            start_date:
+                Starting date. If not given, uses either `self.start_date` or
+                the current day.
+            delta:
+                Conversion factor (a number or timedelta). If not given, uses
+                either `self.time_delta` or the current day. The time step
+                corresponding to a difference of 1.0.
+        """
+        if start_date is None:
+            start_date = getattr(self, 'start_date', TODAY)
+        if delta is None:
+            delta = getattr(self, 'time_delta', DAY)
+        if isinstance(delta, Number):
+            delta = datetime.timedelta(days=1)
+
+        data = [start_date + t * delta for t in times]
+        return np.array(data) if data else np.array([], dtype=datetime.date)
 
     def copy(self, **kwargs):
         """
@@ -154,6 +216,7 @@ class Model(metaclass=ModelMeta):
         """
         A single RK4 iteration step.
         """
+
         k1 = self.diff(x, t)
         k2 = self.diff(x + 0.5 * dt * k1, t + 0.5 * dt)
         k3 = self.diff(x + 0.5 * dt * k2, t + 0.5 * dt)
@@ -161,7 +224,9 @@ class Model(metaclass=ModelMeta):
         v = (k1 + 2 * k2 + 2 * k3 + k4) / 6
         if watcher is not None:
             watcher(x, v, t, dt)
-        return x + v * dt
+        self.x = x = x + v * dt
+        self.time = t + dt
+        return x
 
     def step(self, x, t=None, dt=1.0, watcher=None):
         """
@@ -214,7 +279,7 @@ class Model(metaclass=ModelMeta):
                 If given, is executed with (x_old, v, t, dt) for each step
                 and can track simulation variables during execution.
         """
-        x = np.asarray(self.x0)
+        self.x = x = np.asarray(self.x0)
         t = self.time
         dt = self.dt
         ts = [self.time]

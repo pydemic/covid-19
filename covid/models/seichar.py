@@ -5,13 +5,14 @@ import pandas as pd
 
 from .model import Model
 from .plot import SEICHARPlot
-from ..region import as_region
+from ..region import region as as_region
 from ..types import delegate, cached
 from ..utils import fmt, pc, pm
 
 identity = lambda x: x
 
 
+# noinspection PyUnusedLocal
 class SEICHAR(Model):
     """
     SEICHA model for epidemics.
@@ -25,36 +26,54 @@ class SEICHAR(Model):
     """
 
     # Class configuration
-    _dedup_factor = 1.0
     columns = [
-        'Susceptible',
-        'Exposed',
-        'Infected',
-        'Critical',
-        'Hospitalized',
-        'Asymptomatic',
-        'Recovered',
-        'Fatalities',
+        'susceptible',
+        'exposed',
+        'infectious',
+        'critical',
+        'hospitalized',
+        'asymptomatic',
+        'recovered',
+        'fatalities',
     ]
     SUSCEPTIBLE, \
     EXPOSED, \
-    INFECTED, \
+    INFECTIOUS, \
     CRITICAL, \
     HOSPITALIZED, \
     ASYMPTOMATIC, \
     RECOVERED, \
     FATALITIES = range(8)
+
+    SUSCEPTIBLE_ALL = cached(lambda x: x._idx_all(x.SUSCEPTIBLE))
+    EXPOSED_ALL = cached(lambda x: x._idx_all(x.EXPOSED))
+    INFECTIOUS_ALL = cached(lambda x: x._idx_all(x.INFECTIOUS))
+    CRITICAL_ALL = cached(lambda x: x._idx_all(x.CRITICAL))
+    HOSPITALIZED_ALL = cached(lambda x: x._idx_all(x.HOSPITALIZED))
+    ASYMPTOMATIC_ALL = cached(lambda x: x._idx_all(x.ASYMPTOMATIC))
+    RECOVERED_ALL = cached(lambda x: x._idx_all(x.RECOVERED))
+    FATALITIES_ALL = cached(lambda x: x._idx_all(x.FATALITIES))
+    _idx_all = lambda self, i: [i]
+
     OPTIONS = {
-        'seed:int': 'Initial infected population',
-        'region:str': 'Country/city used to infer demographic and epidemiological '
-                      'parameters',
-        'R0': 'Basic reproducibility number',
-        'rho': 'Ratio in which asymptomatic infect other people',
-        'prob_symptomatic': 'Probability of developing symptoms',
-        'sigma': 'Rate of infection for exposed individuals',
-        'hospital_prioritization': 'Fraction of how much we can reduce demand on '
-                                   'healthcare system to allocate it to the COVID '
-                                   'struggle',
+        'seed:int':
+            'Initial infectious population',
+        'region:str':
+            'Country/city used to infer demographic and epidemiological parameters',
+        'R0':
+            'Basic reproducibility number',
+        'rho':
+            'Ratio in which asymptomatic infect other people',
+        'prob_symptomatic':
+            'Probability of developing symptoms',
+        'sigma':
+            'Rate of infection for exposed individuals',
+        'hospitalization_bias':
+            'Speculative multiplicative factor to account for errors in hospitalization '
+            'rates statistics',
+        'hospital_prioritization':
+            'Fraction of how much we can reduce demand on healthcare system to allocate '
+            'it to the COVID struggle',
     }
     plot_class = SEICHARPlot
     region = None
@@ -65,6 +84,15 @@ class SEICHAR(Model):
     R0 = 2.74
     rho = 0.4
     prob_symptomatic = 0.14
+    import_rate = 0.0
+
+    @property
+    def R0_average(self):
+        if callable(self.R0):
+            fn = self.R0
+            return sum(fn(t) for t in self.data.index) / len(self.data)
+        else:
+            return self.R0
 
     gamma_i = 1 / 1.61
     gamma_a = gamma_i
@@ -102,10 +130,10 @@ class SEICHAR(Model):
     icu_days = 0.0
     peak_hospitalization_demand = 0.0
     peak_icu_demand = 0.0
-    hospital_limit_date = delegate('start_date')
-    icu_limit_date = delegate('start_date')
-    hospital_limit_time = 0.0
-    icu_limit_time = 0.0
+    hospital_overflow_date = delegate('start_date')
+    icu_overflow_date = delegate('start_date')
+    hospital_overflow_time = 0.0
+    icu_overflow_time = 0.0
 
     @cached
     def icu_capacity(self):
@@ -120,9 +148,20 @@ class SEICHAR(Model):
     @property
     def population(self):
         if self.data.shape[0]:
-            return self.data.iloc[-1].sum() * self._dedup_factor - self.fatalities
+            return self.data.iloc[-1].sum() - self.fatalities
         else:
             return sum(self.x0) - self.fatalities
+
+    @classmethod
+    def _main(cls, *args, hospitalization_bias=1.0, **kwargs):
+        m = super()._main(*args, **kwargs)
+        m.prob_hospitalization *= hospitalization_bias or 1.0
+        return m
+
+    @classmethod
+    def main(cls, *args, **kwargs):
+        m = super().main(*args, **kwargs)
+        return m
 
     def __init__(self, *args, r0=None, **kwargs):
         if r0:
@@ -140,8 +179,7 @@ class SEICHAR(Model):
             self.region = region = as_region(self.region)
 
             # Mortality statistics
-            p_hospitalization = region.prob_hospitalization  # / self.prob_symptomatic
-            set_('prob_hospitalization', min(1.0, p_hospitalization))
+            set_('prob_hospitalization', region.prob_hospitalization)
             set_('prob_icu', region.prob_icu)
             set_('prob_fatality', region.prob_fatality)
 
@@ -188,9 +226,12 @@ class SEICHAR(Model):
 
         assert 0.0 <= self.prob_symptomatic <= 1.0
         assert 0.0 <= self.prob_hospitalization <= 1.0
-        assert 0.0 <= self.prob_icu <= 1.0
+        assert 0.0 <= self.prob_icu <= 1.0, self.prob_icu
         assert 0.0 <= self.prob_no_hospitalization_fatality <= 1.0
         assert 0.0 <= self.prob_no_icu_fatality <= 1.0
+
+    def get_total(self, col):
+        return self[col] if isinstance(col, str) else col
 
     def diff(self, x, t):
         s, e, i, c, h, a, r, f = x
@@ -213,7 +254,7 @@ class SEICHAR(Model):
             self.diff_e(s, e, lambd, t),
             self.diff_i(e, i, t),
             self.diff_c(hminus + hplus, cminus, cplus, t),
-            self.diff_h(i, hminus, hplus, t),
+            self.diff_h(i, hminus, hplus, cminus, t),
             self.diff_a(e, a, t),
             self.diff_r(a, i, hminus, hplus, cminus, cplus, r, t),
             self.diff_f(hplus, cminus, cplus, t),
@@ -236,11 +277,11 @@ class SEICHAR(Model):
             return - lambd * s
 
     def diff_e(self, s, e, lambd, t):
-        p_s = self.prob_symptomatic
-        return lambd * s - (1.0 / p_s) * self.sigma * e - self._mu * e
+        return lambd * s - self.sigma * e - self._mu * e
 
     def diff_i(self, e, i, t):
-        return self.sigma * e - self.gamma_i * i - self._mu * i
+        p_s = self.prob_symptomatic
+        return p_s * self.sigma * e - self.gamma_i * i - self._mu * i + self.import_rate
 
     def diff_c(self, h, cminus, cplus, t):
         c = cminus + cplus
@@ -249,24 +290,24 @@ class SEICHAR(Model):
                 - self.gamma_cr * cplus
                 - self._mu * c)
 
-    def diff_h(self, i, hminus, hplus, t):
+    def diff_h(self, i, hminus, hplus, cminus, t):
         h = hminus + hplus
         return (self.prob_hospitalization * self.gamma_i * i
                 - self.gamma_h * hminus
                 - self.prob_icu * self.gamma_h * hplus
                 - self.gamma_hr * hplus
+                + (1 - self.prob_fatality) * self.gamma_c * cminus
                 - self._mu * h)
 
     def diff_a(self, e, a, t):
         p_s = self.prob_symptomatic
-        return (1 - p_s) / p_s * self.sigma * e - self.gamma_a * a - self._mu * a
+        return (1 - p_s) * self.sigma * e - self.gamma_a * a - self._mu * a
 
     def diff_r(self, a, i, hminus, hplus, cminus, cplus, r, t):
         return (self.gamma_a * a
                 + (1 - self.prob_hospitalization) * self.gamma_i * i
                 + (1 - self.prob_icu) * self.gamma_h * hminus
                 + (1 - self.prob_no_hospitalization_fatality) * self.gamma_hr * hplus
-                + (1 - self.prob_fatality) * self.gamma_c * cminus
                 + (1 - self.prob_no_icu_fatality) * self.gamma_cr * cplus
                 - self._mu * r)
 
@@ -302,24 +343,28 @@ class SEICHAR(Model):
         t_c = float('inf')
 
         self._watching = w = {
-            'hospital_limit_time': t_h,
-            'icu_limit_time': t_c,
+            'hospital_overflow_t': t_h,
+            'icu_overflow_t': t_c,
         }
 
         def watch(x, v, t, dt):
             nonlocal t_h, t_c
 
-            h = np.sum(x[self.HOSPITALIZED])
-            c = np.sum(x[self.CRITICAL])
+            h = np.sum(x[self.HOSPITALIZED_ALL])
+            c = np.sum(x[self.CRITICAL_ALL])
             if h >= self.hospital_capacity:
                 t_h = min(t_h, t)
             if c >= self.icu_capacity:
                 t_c = min(t_c, t)
 
-            w['hospital_limit_time'] = t_h
-            w['icu_limit_time'] = t_c
+            w['hospital_overflow_t'] = t_h
+            w['icu_overflow_t'] = t_c
+            self._watch_simulation(w, x, v, t, dt)
 
         return watch
+
+    def _watch_simulation(self, w, x, v, t, dt):
+        pass
 
     def _run_post_process(self):
         def advance(t):
@@ -328,32 +373,39 @@ class SEICHAR(Model):
             return self.start_date + datetime.timedelta(int(t))
 
         # Compartments
-        h = self['hospitalized']
+        r = self['recovered:total']
+        f = self['fatalities:total']
+        s = self['susceptible:total']
+        e = self['exposed']
+        i = self['infectious']
         c = self['critical']
-        r = self['recovered']
+        h = self['hospitalized']
+        a = self['asymptomatic']
+        total = self.get_total
+        integral = self.integral
         w = self._watching
 
         # Healthcare statistics
-        self.peak_hospitalization_demand = h.max()
-        self.peak_icu_demand = c.max()
-        self.hospitalization_days = (h * self.dt).sum()
-        self.icu_days = (c * self.dt).sum()
-        self.hospital_limit_time = w['hospital_limit_time']
-        self.icu_limit_time = w['icu_limit_time']
-        self.hospital_limit_date = advance(self.hospital_limit_time)
-        self.icu_limit_date = advance(self.icu_limit_time)
+        self.peak_hospitalization_demand = total(h).max()
+        self.peak_icu_demand = total(c).max()
+        self.hospitalization_days = total(integral(h))
+        self.icu_days = total(integral(c))
+        self.hospital_overflow_time = w['hospital_overflow_t']
+        self.icu_overflow_time = w['icu_overflow_t']
+        self.hospital_overflow_date = advance(self.hospital_overflow_time)
+        self.icu_overflow_date = advance(self.icu_overflow_time)
 
         # Epidemiology
+        self.susceptible = s.iloc[-1]
         self.recovered = r.iloc[-1]
-        self.susceptible = self['recovered'].iloc[-1]
-        self.fatalities = self['fatalities'].iloc[-1]
+        self.fatalities = f.iloc[-1]
 
         sigma_eff = self.sigma / self.prob_symptomatic
-        self.total_exposed = self.integral(self['exposed']) * sigma_eff
-        self.total_infected = self.integral(self['infected']) * self.gamma_i
-        self.total_asymptomatic = self.integral(self['asymptomatic']) * self.gamma_a
-        self.total_hospitalized = self.integral(self['hospitalized']) * self.gamma_h
-        self.total_critical = self.integral(self['critical']) * self.gamma_c
+        self.total_exposed = total(integral(e) * sigma_eff)
+        self.total_infectious = total(integral(i) * self.gamma_i)
+        self.total_asymptomatic = total(integral(a) * self.gamma_a)
+        self.total_hospitalized = total(integral(h) * self.gamma_h)
+        self.total_critical = total(integral(c) * self.gamma_c)
 
     def summary(self):
         sym_name = type(self).__name__
@@ -369,7 +421,7 @@ class SEICHAR(Model):
 
     def summary_parameters(self):
         return f"""Parameters
-- R0                : {fmt(self.R0)}
+- R0                : {fmt(self.R0_average)}
 - P(is symptomatic) : {pc(self.prob_symptomatic)}
 """
 
@@ -382,27 +434,28 @@ class SEICHAR(Model):
 - Total population   : {fmt(N0)}
 - Recovered          : {fmt(int(self.recovered))} ({pc(self.recovered / N)})
 - Fatalities (total) : {fmt(int(self.fatalities))} ({pc(self.fatalities / N)})
-- Infected (max)     : {fmt(int(self.total_infected))} ({pc(self.total_infected / N)})
+- Infectious (max)   : {fmt(int(self.total_infectious))} ({pc(self.total_infectious / N)})
 - Asymptomatic (max) : {fmt(int(self.total_asymptomatic))} ({pc(p_asympt)})
 - Exposed (max)      : {fmt(int(self.total_exposed))} ({pc(self.total_exposed / N)})
-        """
+"""
 
     def summary_epidemiology(self):
         return f"""Epidemiology
 - R0   : {self.R0}
 - IFR  : {pc(self.fatalities / self.total_exposed)}
-- CFR  : {pc(self.fatalities / self.total_infected)}
-- HFR  : {pc(self.fatalities / self.total_hospitalized)}
-- HCFR : {pc(self.fatalities / self.total_critical)}
+- CFR  : {pc(self.fatalities / self.total_infectious)}
 """
+
+    # - HFR: {pc(self.fatalities / self.total_hospitalized)}
+    # - HCFR: {pc(self.fatalities / self.total_critical)}
 
     def summary_healthcare(self):
         N = self.population
 
-        t_hf = self.hospital_limit_time
-        dt_hf = self.hospital_limit_date
-        t_cf = self.icu_limit_time
-        dt_cf = self.icu_limit_date
+        t_hf = self.hospital_overflow_time
+        dt_hf = self.hospital_overflow_date
+        t_cf = self.icu_overflow_time
+        dt_cf = self.icu_overflow_date
 
         h_demand = self.peak_hospitalization_demand
         c_demand = self.peak_icu_demand
@@ -420,17 +473,16 @@ class SEICHAR(Model):
 - Peak ICU demand    : {fmt(int(c_demand))} ({pm(c_demand / N)})
     x surge capacity : {fmt(self.peak_icu_demand / self.icu_capacity)}
     x total          : {fmt(icu_overload)}
-- Hosp. collapse day : {fmt(t_hf)} days ({dt_hf})
-- ICU collapse day   : {fmt(t_cf)} days ({dt_cf})
+- Hosp. overflow     : {fmt(t_hf)} days ({dt_hf})
+- ICU overflow       : {fmt(t_cf)} days ({dt_cf})
 """
 
     def summary_simulation(self):
-        N = self.data.iloc[-1].sum()
-        fluctuation = self.data.sum(1).std()
-
+        N = self.data.iloc[0].sum()
+        fluctuation = self.data.values.sum(1).std()
         return f"""Invariants
-- Sum of compartments: {fmt(N)} ({pc(fluctuation / N)})
-"""
+    - Sum of compartments: {fmt(N)} ({pc(fluctuation / N)})
+    """
 
     #
     # Column access
@@ -442,28 +494,28 @@ class SEICHAR(Model):
         return df.sum(1)
 
     def get_data_fatalities(self, df):
-        return self._get_column('Fatalities', df)
+        return self._get_column('fatalities', df)
 
     def get_data_fatalities_final(self, df):
         return self.get_data_fatalities(df).iloc[-1]
 
     def get_data_recovered(self, df):
-        return self._get_column('Recovered', df)
+        return self._get_column('recovered', df)
 
     def get_data_recovered_final(self, df):
         return self.get_data_recovered(df).iloc[-1]
 
     def get_data_susceptible(self, df):
-        return self._get_column('Susceptible', df)
+        return self._get_column('susceptible', df)
 
     def get_data_exposed(self, df):
-        return self._get_column('Exposed', df)
+        return self._get_column('exposed', df)
 
-    def get_data_infected(self, df):
-        return self._get_column('Infected', df)
+    def get_data_infectious(self, df):
+        return self._get_column('infectious', df)
 
     def get_data_critical(self, df):
-        return self._get_column('Critical', df)
+        return self._get_column('critical', df)
 
     def get_data_icu(self, df):
         xs = self.get_data_critical(df)
@@ -475,13 +527,13 @@ class SEICHAR(Model):
         return self.get_data_critical(df).max()
 
     def get_data_hospitalized(self, df):
-        return self._get_column('Hospitalized', df)
+        return self._get_column('hospitalized', df)
 
     def get_data_hospitalized_demand(self, df):
         return self.get_data_hospitalized(df).max()
 
     def get_data_asymptomatic(self, df):
-        return self._get_column('Asymptomatic', df)
+        return self._get_column('asymptomatic', df)
 
     #
     # Track interesting points in the simulation

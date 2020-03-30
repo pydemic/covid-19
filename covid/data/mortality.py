@@ -1,17 +1,14 @@
-from functools import lru_cache
-
 import pandas as pd
 
 from .cia_factbook import age_distribution
-from .data import DATA
+from .data import DATA_PATH
 
 
-@lru_cache(1)
 def covid_mortality():
     """
     Return a dataframe with COVID-19 mortality data from Neil M Ferguson, et. al.
     """
-    path = DATA / 'covid-mortality-imperial-college.csv'
+    path = DATA_PATH / 'covid-mortality-imperial-college.csv'
     return pd.read_csv(path, index_col=0) / 100
 
 

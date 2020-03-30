@@ -1,4 +1,3 @@
-from functools import lru_cache
 from pathlib import Path
 
 import click
@@ -6,10 +5,10 @@ import pandas as pd
 import requests
 
 from .cia_factbook import coarse_age_distribution
-from .data import DATA
+from .data import DATA_PATH
 from .ibge import city_id_from_name
 
-IBGE_DATA: Path = DATA / 'ibge_demographic'
+IBGE_DATA: Path = DATA_PATH / 'ibge_demographic'
 
 URL = 'https://servicodados.ibge.gov.br/api/v1/pesquisas/23/periodos/all/resultados' \
       '?localidade={city}&indicadores=27692,27693,27694,27695,27696,27697,27698,27699,' \
@@ -101,7 +100,6 @@ def brazil_city_demography(city_id, coarse=False, collapse_newborn=False):
     return _load_city(city_id)
 
 
-@lru_cache(32)
 def _load_city(city_id):
     path = IBGE_DATA / f'city-{city_id}.csv'
 
@@ -113,7 +111,7 @@ def _load_city(city_id):
         r = requests.get(URL.format(city=city_id))
         obj = r.json()
 
-        obj = {k['id']: int(k['res'][0]['res']['2010']) for k in obj}
+        obj = {k['id']: _int_or_nan(k['res'][0]['res']['2010']) for k in obj}
         males = [obj[k] for k in VARNAMES_MALE]
         females = [obj[k] for k in VARNAMES_FEMALE]
         df = pd.DataFrame(list(zip(males, females)), columns=['males', 'females'])
@@ -123,6 +121,10 @@ def _load_city(city_id):
             df.to_csv(fd)
 
     return df
+
+
+def _int_or_nan(x):
+    return float('nan') if x == '-' else int(x)
 
 
 if __name__ == '__main__':

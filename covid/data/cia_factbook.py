@@ -1,8 +1,6 @@
-from functools import lru_cache
-
 import pandas as pd
 
-from .data import DATA, COUNTRY_ALIASES
+from .data import DATA_PATH, COUNTRY_ALIASES
 
 COUNTRY_TO_AGE_DISTRIBUTION = {
     'Bolivia': 'Bolivia (Plurinational State of)',
@@ -57,13 +55,13 @@ HOSPITAL_BEDS_MISSING_DATA = {
     'French Polynesia', 'Guadeloupe', 'Guam', 'Lesotho', 'Macao', 'Martinique',
     'Mauritania', 'Mayotte', 'Melanesia', 'Myanmar', 'New Caledonia', 'Niger', 'Nigeria',
     'Palestine', 'Papua New Guinea', 'Puerto Rico', 'Rwanda', 'Réunion', 'Samoa',
-    'Sierra Leone', 'South Africa', 'South Sudan', 'Taiwan', 'United States Virgin Islands',
+    'Sierra Leone', 'South Africa', 'South Sudan', 'Taiwan',
+    'United States Virgin Islands',
     'Western Sahara',
 }
 HOSPITAL_BEDS_MISSING_DATA.update(list(map(str.lower, HOSPITAL_BEDS_MISSING_DATA)))
 
 
-@lru_cache(8)
 def cia_factbook(which):
     """
     Import dataset from CIA factbook spreadsheets.
@@ -73,17 +71,16 @@ def cia_factbook(which):
     * 'hospital beds'
     """
     if which == 'age distribution':
-        df = pd.read_csv(DATA / 'cia_factbook-age_distribution.csv', index_col=0)
+        df = pd.read_csv(DATA_PATH / 'cia_factbook-age_distribution.csv', index_col=0)
         return df
     if which == 'hospital beds':
-        df = pd.read_csv(DATA / 'cia_factbook-hospital_bed_density.csv', index_col=0,
+        df = pd.read_csv(DATA_PATH / 'cia_factbook-hospital_bed_density.csv', index_col=0,
                          sep=';')
         return df
     else:
         raise ValueError(f'invalid dataset: {which}')
 
 
-@lru_cache(8)
 def age_distribution(region: str, year: int, coarse: bool = False) -> pd.Series:
     """
     Load a series object with age distribution for given country in the given
@@ -146,7 +143,6 @@ def coarse_age_distribution(df: pd.Series) -> pd.Series:
     return data
 
 
-@lru_cache(1)
 def hospital_bed_density(country=None):
     """
     Return a data frame with hospital bed density per country or a single number
@@ -162,7 +158,7 @@ def hospital_bed_density(country=None):
     country = COUNTRY_ALIASES.get(country, country)
     country = COUNTRY_TO_HOSPITAL_BEDS.get(country, country)
 
-    path = DATA / 'cia_factbook-hospital_bed_density.csv'
+    path = DATA_PATH / 'cia_factbook-hospital_bed_density.csv'
     df = pd.read_csv(path, index_col=0, sep=';')
     df['density'] /= 1000
     if country:

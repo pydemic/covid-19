@@ -1,4 +1,7 @@
 import re
+from functools import lru_cache
+
+import numpy as np
 
 N_RE = re.compile(r'(-?)(\d+)(\.\d{,2})?\d*')
 
@@ -7,6 +10,12 @@ def fmt(n):
     """
     Heuristically choose best format option for number.
     """
+
+    try:
+        return ', '.join(map(fmt, n))
+    except TypeError:
+        pass
+
     m = abs(n)
     if m < 0.001:
         return '%.2e' % n
@@ -21,7 +30,7 @@ def fmt(n):
     elif 1_000_000_000 <= m < 1_000_000_000_000:
         return _fmt_aux(n / 1e9, 'bi')
     else:
-        return f'{n:.2}'
+        return '%e' % n
 
 
 def _fmt_aux(n, suffix=''):
@@ -69,3 +78,18 @@ def p10k(n):
     Write number as parts per ten thousand.
     """
     return fmt(10000 * n) + '‱'
+
+
+def interpolant(x, y):
+    """
+    Creates a linear interpolant for the given function passed as sequences of
+    x, y points.
+    """
+    x = np.array(x)
+    y = np.array(y)
+
+    @lru_cache
+    def fn(t):
+        return np.interp(t, x, y)
+
+    return fn

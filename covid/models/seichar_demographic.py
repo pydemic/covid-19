@@ -11,13 +11,14 @@ class SEICHARDemographic(SEICHAR):
     RSEICHA model for epidemics that uses demography information
     """
 
-    _dedup_factor = 0.5
     demography: pd.DataFrame
     mortality: pd.DataFrame
     region: Region = 'WORLD'
     contact_matrix = None
     ref_year = 2020
     seed = 1e-3
+    asymptomatic_contact_matrix = None
+    _idx_all = lambda self, i: np.array(range(i, i + len(self.sub_groups)))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -29,65 +30,74 @@ class SEICHARDemographic(SEICHAR):
 
         # Required demographic information
         if not hasattr(self, 'demography'):
-            self.demography = self.region.age_coarse
+            self.demography = self.region.demography
         self.sub_groups = tuple(self.demography.index)
 
+        # Mortality parameters
         if not hasattr(self, 'mortality'):
-            self.mortality = data.mortality.covid_mortality()
+            self.mortality = data.covid_mortality()
+        self.prob_hospitalization = self.mortality['hospitalization'].values
+        self.prob_icu = self.mortality['icu'].values
+        self.prob_fatality = \
+            self.mortality['fatality'].values / self.prob_icu / self.prob_hospitalization
 
         # Contact matrix
-        set_('contact_matrix', self.region.contact_matrix.values)
+        set_('contact_matrix', np.asarray(self.region.contact_matrix.values))
         if self.contact_matrix is not None:
-            M = self.contact_matrix
-            self.relative_contact_matrix = (M.T / M.sum(1)).T
+            M = np.asarray(self.contact_matrix)
+            eig = np.linalg.eigvals(M)
+            self.relative_contact_matrix = M / eig.real.max()
         else:
             self.relative_contact_matrix = 1.0
+
+        # Import rate must be a vector, unless zero
+        if isinstance(self.import_rate, (int, float)) and self.import_rate != 0.0:
+            pop = self.demography.values
+            self.import_rate = pop * (self.import_rate / pop.sum())
 
         # Initial state
         n_groups = len(self.sub_groups)
         if 'x0' not in kwargs:
             empty = self.demography.values * 0
-            seed = self.seed / n_groups
+            p_s = self.prob_symptomatic
+            i = empty + self.seed / n_groups
+            a = (1 - p_s) / p_s * i
+            e = i * self.gamma_i / self.sigma
+            s = self.demography.values - (i + e + a)
+
             self.x0 = np.concatenate([
-                empty,
-                empty,
-                self.demography.values - seed * (1 + 1 / self.prob_symptomatic),
-                empty + seed / self.prob_symptomatic,
-                empty + seed,
-                empty,
-                empty,
-                empty,
+                s,
+                e,
+                i,
+                empty,  # critical
+                empty,  # hospitalized
+                a,
+                empty,  # recovered
+                self.fatalities + empty,
             ])
-            self._children = self.demography.values * 0.0
-            self._children[0] = 1.0
+        self.x0 = np.asarray(self.x0)
+        self._children = self.demography.values * 0.0
+        self._children[0] = 1.0
 
         # Columns and indexes
-        self.display_columns = [(x, 'total') for x in self.columns]
-
         self.SUSCEPTIBLE, \
         self.EXPOSED, \
-        self.INFECTED, \
+        self.INFECTIOUS, \
         self.CRITICAL, \
         self.HOSPITALIZED, \
         self.ASYMPTOMATIC, \
         self.RECOVERED, \
         self.FATALITIES = range(0, 8 * n_groups, n_groups)
 
-    def _get_column(self, col, df):
-        return df[(col, 'total')]
-
-    def _to_dataframe(self, times, ys) -> pd.DataFrame:
-        df = super()._to_dataframe(times, ys)
-        for col in self.columns:
-            df[(col, 'total')] = df[col,].sum(1)
-        return df
-
-    def get_data_total(self, df):
-        # Prevent counting twice from "total" columns
-        return df.sum(1) / 2
+    def get_total(self, col):
+        data = super().get_total(col)
+        return data.sum(len(data.shape) - 1)
 
     def diff(self, x, t):
-        r, f, s, e, i, c, h, a = np.reshape(x, (-1, len(self.sub_groups)))
+        x = np.reshape(x, (-1, len(self.sub_groups)))
+        s, e, i, c, h, a, r, f = x
+
+        assert (x >= 0).all(), f'Invalid value at t={t}: {x}'
 
         err = 1e-50
         h_hat = h / (h.sum() + err)
@@ -98,10 +108,45 @@ class SEICHARDemographic(SEICHAR):
         cminus = c_hat * min(c.sum(), self.icu_capacity)
 
         diff = self.diff_seichar(s, e, i, cminus, cplus, hminus, hplus, a, r, f, t)
-        return np.array(diff)
+        return np.concatenate(diff)
 
     def lambd(self, n, i, a, t):
-        return np.dot(self.beta(t) * self.relative_contact_matrix, (i + self.rho * a) / n)
+        tol = 1e-50
+        beta = self.beta(t)
+
+        if self.contact_matrix is None:
+            return beta * (i + self.rho * a) / (n + tol)
+        elif self.asymptomatic_contact_matrix is None:
+            fractions = (i + self.rho * a) / (n + tol)
+            return np.dot(self.relative_contact_matrix, beta * fractions)
+        else:
+            beta_i = np.dot(self.relative_contact_matrix, beta * i / (n + tol))
+            beta_a = np.dot(self.relative_contact_matrix, beta * a / (n + tol))
+            return beta_i + self.rho * beta_a
+
+    def summary_demography(self):
+        st = super().summary_demography()
+        fatalities = self.data["fatalities"].iloc[-1]
+        sigma_eff = self.sigma / self.prob_symptomatic
+        exposed = self.data["exposed"].apply(self.integral, 0) * sigma_eff
+        infectious = self.data["infectious"].apply(self.integral, 0) * sigma_eff
+        data = pd.DataFrame({
+            'fatalities': fatalities.apply(int),
+            'fatalities (%)': 100 * fatalities / self.demography,
+            'IFR (%)': 100 * fatalities / exposed,
+            'CFR (%)': 100 * fatalities / infectious,
+        })
+        data.loc['total', :] = [
+            int(fatalities.sum()),
+            100 * fatalities.sum() / self.demography.sum(),
+            100 * fatalities.sum() / exposed.sum(),
+            100 * fatalities.sum() / infectious.sum(),
+        ]
+        data['fatalities'] = data['fatalities'].apply(int)
+        lines = str(data).splitlines()
+        data = '\n'.join('    ' + ln for ln in lines)
+        st += f'- Fatalities demography: \n{data}'
+        return st
 
 
 if __name__ == '__main__':

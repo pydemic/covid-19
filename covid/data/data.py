@@ -1,9 +1,6 @@
 from pathlib import Path
 
-import numpy as np
-import pandas as pd
-
-DATA = Path(__file__).parent.parent / 'datasets'
+DATA_PATH = Path(__file__).parent.parent / 'datasets'
 COARSE_INDEX = (
     '0-9', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69',
     '70-79', '80+',
@@ -60,50 +57,3 @@ COUNTRY_ALIASES = {
 COUNTRY_ALIASES.update({k.lower(): v for k, v in COUNTRY_ALIASES.items()})
 COUNTRY_ALIASES.update({k.lower(): k for k in COUNTRIES})
 COUNTRY_ALIASES.update({k: k for k in COUNTRIES})
-
-
-def contact_matrix(country='mean', physical=False, coarse=False) -> pd.DataFrame:
-    """
-    Load contact matrix for country.
-
-    If coarse is True, return a decennial distribution that is compatible with
-    other data used in this package like mortality rates and coarse age
-    distributions.
-    """
-    which = 'physical' if physical else 'all'
-    path = DATA / 'contact_matrix' / f'{country.lower()}-{which}.csv'
-    df = pd.read_csv(path, index_col=0)
-    return coarse_age_distribution(df) if coarse else df
-
-
-def coarse_age_distribution(df, ratio=0.68):
-    """
-    Change contact matrix.
-
-    We assume that in the braket 70+, we have 68% of the population is in the
-    70-79 bracket and 32% is in the 80+ bracket. This is consistent with the
-    average worldwide distribution, but may be slightly different per country.
-    """
-
-    row = df.iloc[-1:, :]
-    row.index = ['80+']
-    df = pd.concat([df, row])
-    df.index = [*df.index[:-2], '70-79', '80+']
-
-    col = df.pop('70+').values
-    df['70-79'] = ratio * col
-    df['80+'] = (1 - ratio) * col
-    data = np.zeros((9, 9))
-
-    # Last two rows and cols
-    data[-2:, -2:] = df.values[-2:, -2:]
-    for i in range(len(COARSE_INDEX) - 2):
-        data[-2:, i] = df.values[-2:, 2 * i: 2 * i + 2].sum(1)
-        data[i, -2:] = df.values[2 * i: 2 * i + 2, -2:].sum(0)
-
-    # Middle
-    for i in range(len(COARSE_INDEX) - 2):
-        for j in range(len(COARSE_INDEX) - 2):
-            data[i, j] = df.values[2 * i: 2 * i + 2, 2 * j: 2 * j + 2].sum()
-
-    return pd.DataFrame(data, columns=COARSE_INDEX, index=COARSE_INDEX)

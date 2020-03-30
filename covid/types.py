@@ -18,6 +18,14 @@ class CachedProperty:
             return value
 
 
+class ComputedProperty(CachedProperty):
+    def __get__(self, instance, owner=None):
+        if instance is None:
+            return owner
+        else:
+            return self.func(instance)
+
+
 def cached(func):
     """
     Function interface to CachedProperty.
@@ -51,3 +59,10 @@ def delegate(name):
     to another attribute.
     """
     return CachedProperty(operator.attrgetter(name))
+
+
+def computed(func):
+    """
+    A writable property-like descriptor.
+    """
+    return ComputedProperty(func)

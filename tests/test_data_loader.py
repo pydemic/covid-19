@@ -1,8 +1,7 @@
 import pytest
 
-from covid.data import *
 from covid.data import (age_distribution, hospital_bed_density, covid_mortality,
-                        covid_mean_mortality)
+                        covid_mean_mortality, contact_matrix, city_id_from_name)
 
 
 class TestCiaFactbook:
@@ -58,3 +57,8 @@ class TestCiaFactbook:
         assert abs(m1.values[:-1, :-1].sum() - m2.values[:-2, :-2].sum()) < 1e-3
         assert list(m1.index) != list(m2.index)
         assert (m2.index == age_distribution('Italy', 2020, coarse=True).index).all()
+
+
+class TestIBGE:
+    def test_load_city_from_code(self):
+        assert city_id_from_name('São Paulo') == 355_030
