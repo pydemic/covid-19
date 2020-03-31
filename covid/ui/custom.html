@@ -1,4 +1,21 @@
 <style>
+    #sidebar-icon {
+        margin: -4.5rem 0 0 0;
+        display: flex;
+        align-items: center;
+    }
+
+    @media (min-width: 900px) {
+        #sidebar-icon {
+            margin-top: -3.5rem;
+        }
+    }
+
+    #sidebar-icon img {
+        width: 4rem;
+        margin-right: 0.5rem;
+    }
+
     @media (min-width: 500px) {
         .card-boxes {
             display: flex;
@@ -6,6 +23,7 @@
             align-content: flex-end;
             align-items: stretch;
         }
+
         .card-box {
             flex-grow: 1;
             width: 33%;
@@ -23,6 +41,7 @@
         flex-direction: column;
         justify-content: space-between;
     }
+
     .card-box dd {
         font-size: 1.75rem;
         font-weight: bolder;
@@ -30,9 +49,33 @@
         text-align: left;
         margin: 0;
     }
+
     .card-box dt {
         padding: 0.5rem 1.5rem 0 1.5rem;
         opacity: 66%;
         margin: 0;
     }
+
+    .block-container {
+        padding-top: 2rem !important;
+    }
+
+
+    .block-container h1 {
+        margin-top: 1rem !important;
+        padding-top: 0 !important;
+        font-size: 1.25rem;
+    }
+
+    @media (min-width: 900px) {
+        .block-container {
+            padding-top: 0 !important;
+        }
+
+        .block-container h1 {
+            font-size: 1.5rem;
+        }
+    }
+
+
 </style>

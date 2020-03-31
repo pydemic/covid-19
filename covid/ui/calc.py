@@ -5,13 +5,11 @@ import pandas as pd
 import streamlit as st
 
 import covid
-from covid.data import countries
 from covid.models import SEICHARDemographic as SEICHAR
 from covid.utils import fmt, pc
+from covid.ui.input import Input
 
 COUNTRY = "Brazil"
-DEFAULT_CITY = "Tudo"
-DEFAULT_STATE = "Brasil"
 DEFAULT_SUB_REGION = "Tudo"
 SEIR_HUMANIZED_NAMES = {
     "susceptible": "suscetíveis",
@@ -32,22 +30,14 @@ class CalcUI:
     """
 
     simulation_class = SEICHAR
-    title = "Calculadora de pressão assistencial em decorrência da COVID-19"
+    title = "Pressão assistencial devido à COVID-19"
 
     def __init__(self, country=COUNTRY):
         st.write(css(), unsafe_allow_html=True)
         st.title(self.title)
         self._info = st.text("")
-        self.info_text = self._info.text
-        self.country = COUNTRY
-
-    def info_text(self, st):
-        """Display info text."""
-        self._info.text(st)
-
-    def clear_info(self):
-        """Clears info text."""
-        self.info_text("")
+        self.country = country
+        self.input = Input(self.country)
 
     @contextmanager
     def info(self, st):
@@ -55,62 +45,32 @@ class CalcUI:
         Context manager that displays info text while code inside the with
         block is being executed and clear it afterwards.
         """
-        self.info_text(st)
+        self._info.text(st)
         yield
-        self.clear_info()
+        self._info.text('')
 
     def run(self):
         """
         Run streamlit app.
         """
+        icon = """
+        <div id="sidebar-icon">
+        <img src="data:image/svg+xml;base64,
+        PD94bWwgdmVyc2lvbj0iMS4wIiA
+        /PjxzdmcgaWQ9Il94MzFfLW91dGxpbmUtZXhwYW5kIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA2NCA2NDsiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDY0IDY0IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLnN0MHtmaWxsOiMzQTQyNDk7fQo8L3N0eWxlPjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00Ni4yLDI2LjZjLTAuOS0xLjMtMi40LTAuOC0zLjMtMC42Yy0wLjIsMC4xLTAuNCwwLjEtMC42LDAuMmMwLTAuMiwwLjEtMC40LDAuMi0wLjZjMC4zLTEsMC44LTIuNC0wLjUtMy4zICBjLTEuMi0wLjgtMi40LDAuMS0zLjIsMC43Yy0wLjEsMC4xLTAuMywwLjItMC40LDAuM2MwLTAuMiwwLTAuNCwwLTAuNWMwLTAuOS0wLjEtMi41LTEuNi0yLjljLTEuNC0wLjMtMi4yLDEtMi44LDEuOCAgYy0wLjEsMC4xLTAuMiwwLjMtMC4zLDAuNGMtMC4xLTAuMi0wLjEtMC4zLTAuMi0wLjVjLTAuNC0wLjktMC45LTIuMy0yLjUtMi4yYy0xLjUsMC4yLTEuOCwxLjctMiwyLjZjMCwwLjEtMC4xLDAuMy0wLjEsMC41ICBjLTAuMS0wLjEtMC4yLTAuMy0wLjMtMC40Yy0wLjctMC44LTEuNy0xLjktMy4xLTEuM2MtMS4zLDAuNy0xLjEsMi4yLTEsMy4yYzAsMC4yLDAuMSwwLjQsMC4xLDAuNmMtMC4yLTAuMS0wLjMtMC4yLTAuNS0wLjIgIGMtMC44LTAuNC0yLjMtMS4yLTMuNC0wLjFjLTEsMS4xLTAuMywyLjQsMC4yLDMuM2MwLjEsMC4yLDAuMiwwLjUsMC4zLDAuN2MtMC4yLDAtMC41LDAtMC43LDBjLTEtMC4xLTIuNi0wLjItMy4yLDEuMyAgYy0wLjIsMC41LDAsMS4xLDAuNSwxLjNjMC41LDAuMiwxLjEsMCwxLjMtMC41YzAuMS0wLjIsMC44LTAuMSwxLjItMC4xYzAuOSwwLjEsMiwwLjEsMi42LTAuOGMwLjYtMC45LDAuMS0yLTAuMy0yLjggIGMtMC4xLTAuMy0wLjQtMC44LTAuNC0xYzAuMiwwLDAuNywwLjMsMSwwLjRjMC44LDAuNCwxLjgsMC45LDIuNywwLjNjMC45LTAuNiwwLjgtMS44LDAuNi0yLjdjMC0wLjMtMC4xLTAuOC0wLjEtMSAgYzAuMiwwLjIsMC41LDAuNSwwLjcsMC43YzAuNiwwLjcsMS40LDEuNSwyLjQsMS4yYzEuMS0wLjMsMS4zLTEuNCwxLjUtMi4zYzAuMS0wLjMsMC4yLTAuNywwLjItMC45YzAuMSwwLjIsMC4zLDAuNiwwLjQsMC45ICBjMC4zLDAuOSwwLjgsMS45LDEuOCwyYzEuMSwwLjEsMS43LTAuOSwyLjItMS42YzAuMS0wLjIsMC40LTAuNiwwLjUtMC44YzAuMSwwLjMsMC4xLDAuNywwLjEsMWMwLDAuOSwwLjEsMi4xLDEuMSwyLjUgIGMxLDAuNSwxLjktMC4yLDIuNi0wLjhjMC4yLTAuMiwwLjYtMC41LDAuOC0wLjZjMCwwLjMtMC4yLDAuNy0wLjMsMWMtMC4zLDAuOS0wLjYsMiwwLjEsMi43YzAuOCwwLjgsMS45LDAuNSwyLjcsMC4zICBjMC4zLTAuMSwxLTAuMywxLjEtMC4zYzAsMC4yLTAuNCwwLjctMC42LDFjLTAuNSwwLjctMS4zLDEuNy0wLjgsMi43YzAuMiwwLjQsMC41LDAuNiwwLjksMC42YzAuMSwwLDAuMywwLDAuNC0wLjEgIGMwLjUtMC4yLDAuNy0wLjcsMC41LTEuMmMwLjEtMC4yLDAuMy0wLjYsMC41LTAuOEM0Ni4xLDI5LjEsNDcsMjcuOSw0Ni4yLDI2LjZ6Ii8+PHBhdGggY2xhc3M9InN0MCIgZD0iTTU2LjksNDIuOWMtMS4xLTAuNy0yLjUtMC41LTMuNCwwLjNsLTIuOC0xLjZjMS0yLDEuNy00LjEsMi4xLTYuNGw0LDAuNGwwLjItMmwtNC0wLjRjMC0wLjQsMC4xLTAuOCwwLjEtMS4yICBzMC0wLjgtMC4xLTEuMmw0LTAuNGwtMC4yLTJsLTQsMC40Yy0wLjMtMi4zLTEuMS00LjQtMi4xLTYuNGwyLjgtMS42YzAuOSwwLjgsMi4zLDEsMy40LDAuM2MxLjQtMC44LDEuOS0yLjcsMS4xLTQuMSAgcy0yLjctMS45LTQuMS0xLjFjLTEuMSwwLjctMS43LDEuOS0xLjQsMy4xbC0yLjgsMS42Yy0xLjItMS45LTIuOC0zLjYtNC41LTVsMi40LTMuM2wtMS42LTEuMmwtMi40LDMuM2MtMC43LTAuNC0xLjQtMC44LTIuMS0xLjIgIGwxLjYtMy43bC0xLjgtMC44bC0xLjYsMy43Yy0yLjEtMC44LTQuMy0xLjMtNi42LTEuNFY3LjhjMS4yLTAuNCwyLTEuNSwyLTIuOGMwLTEuNy0xLjMtMy0zLTNzLTMsMS4zLTMsM2MwLDEuMywwLjgsMi40LDIsMi44djMuMiAgYy0yLjMsMC4xLTQuNSwwLjYtNi42LDEuNGwtMS42LTMuN2wtMS44LDAuOGwxLjYsMy43Yy0wLjcsMC40LTEuNCwwLjgtMi4xLDEuMmwtMi40LTMuM2wtMS42LDEuMmwyLjQsMy4zYy0xLjgsMS40LTMuMywzLjEtNC41LDUgIEwxMS42LDE5YzAuMi0xLjItMC4zLTIuNS0xLjQtMy4xQzguNywxNS4xLDYuOCwxNS42LDYsMTdzLTAuMywzLjMsMS4xLDQuMWMxLjEsMC43LDIuNSwwLjUsMy40LTAuM2wyLjgsMS42Yy0xLDItMS43LDQuMS0yLjEsNi40ICBsLTQtMC40bC0wLjIsMmw0LDAuNGMwLDAuNC0wLjEsMC44LTAuMSwxLjJzMCwwLjgsMC4xLDEuMmwtNCwwLjRsMC4yLDJsNC0wLjRjMC4zLDIuMywxLjEsNC40LDIuMSw2LjRsLTIuOCwxLjYgIGMtMC45LTAuOC0yLjMtMS0zLjQtMC4zQzUuNyw0My43LDUuMiw0NS42LDYsNDdzMi43LDEuOSw0LjEsMS4xYzEuMS0wLjcsMS43LTEuOSwxLjQtMy4xbDIuOC0xLjZjMS4yLDEuOSwyLjgsMy42LDQuNSw1bC0yLjQsMy4zICBsMS42LDEuMmwyLjQtMy4zYzAuNywwLjQsMS40LDAuOCwyLjEsMS4ybC0xLjYsMy43bDEuOCwwLjhsMS42LTMuN2MyLjEsMC44LDQuMywxLjMsNi42LDEuNHYzLjJjLTEuMiwwLjQtMiwxLjUtMiwyLjggIGMwLDEuNywxLjMsMywzLDNzMy0xLjMsMy0zYzAtMS4zLTAuOC0yLjQtMi0yLjh2LTMuMmMyLjMtMC4xLDQuNS0wLjYsNi42LTEuNGwxLjYsMy43bDEuOC0wLjhsLTEuNi0zLjdjMC43LTAuNCwxLjQtMC44LDIuMS0xLjIgIGwyLjQsMy4zbDEuNi0xLjJsLTIuNC0zLjNjMS44LTEuNCwzLjMtMy4xLDQuNS01bDIuOCwxLjZjLTAuMiwxLjIsMC4zLDIuNSwxLjQsMy4xYzEuNCwwLjgsMy4zLDAuMyw0LjEtMS4xUzU4LjMsNDMuNyw1Ni45LDQyLjl6ICAgTTQ0LDQ2LjhsLTEuMi0xLjZsLTEuNiwxLjJsMS4yLDEuNmMtMC42LDAuNC0xLjEsMC43LTEuNywxbC0wLjgtMS44TDM4LDQ3LjlsMC44LDEuOEMzNyw1MC40LDM1LDUwLjgsMzMsNTAuOVY0OWgtMnYxLjkgIGMtMi0wLjEtNC0wLjUtNS44LTEuMmwwLjgtMS44bC0xLjgtMC44bC0wLjgsMS44Yy0wLjYtMC4zLTEuMi0wLjYtMS43LTFsMS4yLTEuNmwtMS42LTEuMkwyMCw0Ni44Yy0xLjUtMS4zLTIuOS0yLjctNC00LjRsMS43LTEgIGwtMS0xLjdsLTEuNywxYy0wLjktMS43LTEuNS0zLjYtMS44LTUuNmwxLjktMC4ybC0wLjItMkwxMy4xLDMzYzAtMC4zLTAuMS0wLjctMC4xLTFzMC0wLjcsMC4xLTFsMS45LDAuMmwwLjItMkwxMy4zLDI5ICBjMC4zLTIsMC45LTMuOSwxLjgtNS42bDEuNywxbDEtMS43bC0xLjctMWMxLjEtMS43LDIuNC0zLjIsNC00LjRsMS4yLDEuNmwxLjYtMS4ybC0xLjItMS42YzAuNi0wLjQsMS4xLTAuNywxLjctMWwwLjgsMS44bDEuOC0wLjggIGwtMC44LTEuOGMxLjgtMC43LDMuOC0xLjEsNS44LTEuMlYxNWgydi0xLjljMiwwLjEsNCwwLjUsNS44LDEuMkwzOCwxNi4xbDEuOCwwLjhsMC44LTEuOGMwLjYsMC4zLDEuMiwwLjYsMS43LDFsLTEuMiwxLjZsMS42LDEuMiAgbDEuMi0xLjZjMS41LDEuMywyLjksMi43LDQsNC40bC0xLjcsMWwxLDEuN2wxLjctMWMwLjksMS43LDEuNSwzLjYsMS44LDUuNmwtMS45LDAuMmwwLjIsMmwxLjktMC4yYzAsMC4zLDAuMSwwLjcsMC4xLDEgIHMwLDAuNy0wLjEsMUw0OSwzMi44bC0wLjIsMmwxLjksMC4yYy0wLjMsMi0wLjksMy45LTEuOCw1LjZsLTEuNy0xbC0xLDEuN2wxLjcsMUM0Ni44LDQ0LDQ1LjUsNDUuNSw0NCw0Ni44eiIvPjwvc3ZnPg==">
+        <span>OPAS - COVID-19<br>Calculadora Epidêmica</span>
+        </div>
+        """
+        st.sidebar.markdown(icon, unsafe_allow_html=True)
         with self.info("Carregando região..."):
-            region = self.fetch_region()
+            region = self.input.region()
+            self.input.pause()
         with self.info("Carregando parâmetros de simulação..."):
-            kwargs = self.fetch_params(region)
+            kwargs = {'region': region, **self.input.params(region)}
         with self.info("Executando a simulação..."):
-            self.run_simulation(region=region, **kwargs)
+            self.run_simulation(**kwargs)
 
-    def fetch_region(self):
-        """
-        Return a region instance from user input.
-        """
-
-        # Select a state
-        st.sidebar.header("Região")
-        states_ = states(self.country)
-        choices = [DEFAULT_STATE, *states_["name"]]
-        state = st.sidebar.selectbox("Estado", choices)
-        if state == choices[0]:
-            return region("Brazil")
-        state = state_code(self.country, state)
-
-        # State selected, now ask for sub-region
-        sub_regions_ = sub_regions(self.country, state)
-        choices = ["Tudo", *sub_regions_["name"]]
-        sub_region = st.sidebar.selectbox("Região", choices)
-        if sub_region == choices[0]:
-            return region(f"Brazil/{state}")
-
-        # Sub-region selected, now ask for a city
-        choices = ["Tudo", *cities(self.country, state, sub_region)["name"]]
-        city = st.sidebar.selectbox("Cidades", choices)
-        if city == choices[0]:
-            return region(f"Brazil/{sub_region} (metro)")
-        else:
-            return region(f"Brazil/{city}")
-
-    def fetch_params(self, region):
-        """
-        Return a dictionary with simulation parameters from user input.
-        """
-        return {
-            **self.fetch_simulation_params(region),
-            **self.fetch_healthcare_system_params(region),
-            **self.fetch_epidemiology_params(region),
-            **self.fetch_intervention_params(region),
-        }
-
-    def run_simulation(self, *args, period, hospital_capacity, icu_capacity, **kwargs):
+    def run_simulation(self, period, hospital_capacity, icu_capacity, **kwargs):
         """
         Initialize class with given arguments and run simulation.
         """
@@ -126,121 +86,61 @@ class CalcUI:
         model.icu_capacity = icu_capacity
         model.run(period)
 
-        self.write_cards(model)
-        self.write_hospitalizations_plot(model)
-        self.write_available_beds_plot(model)
+        out = Output(model)
+        out.run()
+
+
+class Output:
+    def __init__(self, model):
+        self.model = model
+
+    def run(self):
+        """
+        Show all outputs for the given simulated model.
+        """
+        model = self.model
+        self.summary_cards(model)
+        self.hospitalizations_plot(model)
+        self.available_beds_chart(model)
         self.write_info(model)
 
-    def fetch_simulation_params(self, region: covid.Region):
+    def card(self, title, data) -> str:
         """
-        Return a dictionary with basic simulation parameters from user input.
+        Render description list element representing a summary card with given
+        title and data.
+        """
+        return f'<dl class="card-box"><dt>{title}</dt><dd>{data}</dd></dl>'
 
-        Returns:
-              period (int): Simulation period in days.
-              start_date (date): Initial date.
-              seed (int): Initial number of cases.
+    def cards(self, data: dict) -> str:
         """
-        st.sidebar.header("Opções da simulação")
-        return {
-            "period": st.sidebar.slider("Dias de simulação", 0, 180, value=60),
-            "start_date": st.sidebar.date_input("Data inicial"),
-            "seed": st.sidebar.number_input("Número de casos detectados", min_value=1),
+        Renders mapping as a list of cards.
+        """
+        raw = ''.join(self.card(k, v) for k, v in data.items())
+        return f"""<div class="card-boxes">{raw}</div>"""
+
+    def summary_cards(self, model: SEICHAR):
+        """
+        Show list of summary cards for the results of simulation.
+        """
+        contaminated = model.initial_population - model.susceptible
+        h_date = model.hospital_overflow_date or 'Nunca'
+        c_date = model.icu_overflow_date or 'Nunca'
+        missing_icu = max(int(model.peak_icu_demand - model.icu_capacity), 0)
+        missing_hospital = max(
+            int(model.peak_hospitalization_demand - model.hospital_capacity), 0)
+        entries = {
+            'Exaustão dos leitos clínicos': f'{h_date}',
+            'Exaustão de leitos de UTI': f'{c_date}',
+            'Leitos UTI faltando no dia do pico': f'{fmt(missing_icu)}',
+            'Leitos clínicos faltando no dia do pico': f'{fmt(missing_hospital)}',
+            'Fatalidades': f'{fmt(int(model.fatalities))} '
+                           f'({pc(model.fatalities / model.initial_population)})',
+            'Contaminados': f'{fmt(int(contaminated))} '
+                            f'({pc(contaminated / model.initial_population)})',
         }
+        st.write(self.cards(entries), unsafe_allow_html=True)
 
-    def fetch_healthcare_system_params(self, region: covid.Region):
-        """
-        Return a dictionary with hospital and icu capacities from user input.
-
-        Returns:
-            icu_capacity, hospital_capacity (float): maximum system capacity
-        """
-        st.sidebar.header("Capacidade hospitalar")
-
-        def get(msg, capacity, rate, key=None):
-            st.sidebar.subheader(msg)
-            total = st.sidebar.number_input(
-                "Total", min_value=0, value=int(capacity), key=key + "_total"
-            )
-            rate = 0.01 * st.sidebar.slider(
-                "Ocupados (%)",
-                min_value=0.0,
-                max_value=100.0,
-                value=100 * float(rate),
-                key=key + "_rate",
-            )
-            return (1 - rate) * total
-
-        h_total = region.hospital_total_capacity
-        h_rate = region.hospital_occupancy_rate
-        c_total = region.icu_total_capacity
-        c_rate = region.icu_occupancy_rate
-        return {
-            "hospital_capacity": get("Leitos clínicos", h_total, h_rate, key="hospital"),
-            "icu_capacity": get("Leitos UTI", c_total, c_rate, key="icu"),
-        }
-
-    def fetch_epidemiology_params(self, region: covid.Region):
-        """
-        Return a dictionary with additional simulation parameters from user input.
-        Those parameters are related to basic epidemiology assumptions such as
-        the value of R0, incubation period, etc.
-        """
-
-        st.sidebar.header("Epidemiologia")
-        std, fast, slow, custom = scenarios = ["Padrão", "Rápido", "Lento", "Personalizado"]
-        scenario = st.sidebar.selectbox("Cenário", scenarios)
-
-        if scenario == std:
-            return {"R0": 2.74}
-        if scenario == fast:
-            return {"R0": 3.5}
-        elif scenario == slow:
-            return {"R0": 2.0}
-
-        # Custom
-        R0 = self.simulation_class.R0
-        R0 = st.sidebar.slider("Fator de contágio (R0)", min_value=0.0, max_value=5.0, value=R0,)
-        incubation_period = 1 / self.simulation_class.sigma
-        incubation_period = st.sidebar.slider(
-            "Período de incubação do vírus", min_value=1.0, max_value=10.0, value=incubation_period
-        )
-
-        infectious_period = 1 / self.simulation_class.gamma_i
-        infectious_period = st.sidebar.slider(
-            "Período infeccioso", min_value=1.0, max_value=14.0, value=infectious_period
-        )
-
-        prob_fatality = 100 * region.prob_fatality
-        prob_fatality = st.sidebar.slider(
-            "Taxa de mortalidade média", min_value=0.0, max_value=100.0, value=prob_fatality,
-        )
-        return {
-            "R0": R0,
-            "sigma": 1.0 / (incubation_period + e),
-            "gamma_i": 1.0 / (infectious_period + e),
-            # 'prob_fatality': 0.01 * prob_fatality,
-        }
-
-    def fetch_intervention_params(self, region: covid.Region):
-        """
-        Return a dictionary with intervention parameters.
-
-        Returns:
-            icu_capacity, hospital_capacity (float): maximum system capacity
-        """
-
-        st.sidebar.header("Intervenção")
-        baseline, social_distance = interventions = ["Nenhuma", "Redução de contato social"]
-        intervention = st.sidebar.selectbox("Cenário", interventions)
-        if intervention == baseline:
-            return {}
-        elif intervention == social_distance:
-            # TODO: Use params
-            date = st.sidebar.slider("Dias após data inicial para início de intervenção")
-            rate = st.sidebar.slider("Redução do fator de contágio (RO) após intervenção")
-            return {}
-
-    def write_hospitalizations_plot(self, model):
+    def hospitalizations_plot(self, model):
         """
         Write plot of hospitalization
         """
@@ -249,19 +149,16 @@ class CalcUI:
         hospitalized = model["hospitalized:total"]
         icu = model["critical:total"]
         fatalities = fatality_rate(model["fatalities:total"], model.dt)
-        df = model.get_dates(
-            pd.DataFrame(
-                {
-                    "Internações clínicas": hospitalized.astype(int),
-                    "Internações UTI": icu.astype(int),
-                    "Fatalidades/dia": fatalities,
-                }
-            )
-        )
+        columns = {
+            "Internações clínicas": hospitalized.astype(int),
+            "Internações UTI": icu.astype(int),
+            "Fatalidades/dia": fatalities,
+        }
+        df = model.get_dates(pd.DataFrame(columns))
 
         st.area_chart(df)
 
-    def write_available_beds_plot(self, model):
+    def available_beds_chart(self, model):
         """
         Write plot of available beds.
         """
@@ -276,92 +173,26 @@ class CalcUI:
         available_icu = model.icu_capacity - icu
         available_icu[available_icu < 0] = 0
 
-        df = model.get_dates(
-            pd.DataFrame(
-                {"Leitos disponíveis": available_beds, "Leitos de UTI disponíveis": available_icu,}
-            )
-        )
+        columns = {
+            "Leitos disponíveis": available_beds,
+            "Leitos de UTI disponíveis": available_icu,
+        }
+        df = model.get_dates(pd.DataFrame(columns))
 
         st.line_chart(df)
 
-    def write_cards(self, model: SEICHAR):
-        contaminated = model.initial_population - model.susceptible
-        st.write(
-            f"""
-<div class="card-boxes">
-<dl class="card-box">
-    <dt>Exaustão dos leitos clínicos</dt>
-    <dd>{model.hospital_overflow_date or 'Nunca'}</dd>
-</dl>
-<dl class="card-box">
-    <dt>Exaustão de leitos de UTI</dt>
-    <dd>{model.icu_overflow_date or 'Nunca'}</dd>
-</dl>
-<dl class="card-box">
-    <dt>Leitos UTI faltando no dia do pico</dt>
-    <dd>{fmt(max(int(model.peak_icu_demand - model.icu_capacity), 0))}</dd>
-</dl>
-<dl class="card-box">
-    <dt>Leitos clínicos faltando no dia do pico</dt>
-    <dd>{fmt(max(int(model.peak_hospitalization_demand - model.hospital_capacity), 0))}</dd>
-</dl>
-<dl class="card-box">
-    <dt>Fatalidades</dt>
-    <dd>{fmt(int(model.fatalities))} ({pc(model.fatalities / model.initial_population)})</dd>
-</dl>
-<dl class="card-box">
-    <dt>Contaminados</dt>
-    <dd>{fmt(int(contaminated))} ({pc(contaminated / model.initial_population)})</dd>
-</dl>
-</div>
-""",
-            unsafe_allow_html=True,
-        )
-
     def write_info(self, model):
+        """Write additional information about the model."""
         st.subheader("Informações adicionais")
-        st.write(
-            f"""
-<dl class="card-boxes">
-    <dt>Exaustão dos leitos clínicos</dt>
-    <dd>{model.hospital_overflow_date}</dd>
-</dl><dl>
-    <dt>Exaustão de leitos de UTI</dt>
-    <dd>{model.icu_overflow_date}</dd>
-</dl><dl>
-    <dt>Leitos UTI faltando no dia do pico</dt>
-    <dd>{fmt(int(model.peak_icu_demand - model.icu_capacity))}</dd>
-</dl><dl>
-    <dt>Leitos clínicos faltando no dia do pico</dt>
-    <dd>
-    {fmt(int(model.peak_hospitalization_demand - model.hospital_capacity))}</dd>
-</dl>
-""",
-            unsafe_allow_html=True,
-        )
-
-
-@st.cache
-def states(country):
-    return countries.states(country.lower())
-
-
-@st.cache
-def sub_regions(country, state_code):
-    sub_regions = countries.sub_regions(country.lower())
-    return sub_regions[sub_regions["state"] == state_code]
-
-
-@st.cache
-def cities(country, state, sub_region):
-    cities = countries.cities(country.lower())
-    return cities[(cities["state"] == state) & (cities["sub_region"] == sub_region)]
-
-
-@st.cache
-def state_code(country, state):
-    states_ = states(country)
-    return states_[states_["name"] == state].index[0]
+        entries = {
+            'Exaustão dos leitos clínicos': model.hospital_overflow_date,
+            'Exaustão de leitos de UTI': model.icu_overflow_date,
+            'Leitos UTI faltando no dia do pico': fmt(
+                int(model.peak_icu_demand - model.icu_capacity)),
+            'Leitos clínicos faltando no dia do pico': fmt(
+                int(model.peak_hospitalization_demand - model.hospital_capacity)),
+        }
+        st.write(self.cards(entries), unsafe_allow_html=True)
 
 
 # @st.cache
