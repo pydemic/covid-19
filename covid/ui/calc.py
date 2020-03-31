@@ -287,27 +287,34 @@ class CalcUI:
     def write_cards(self, model: SEICHAR):
         st.write(
             f"""
-<dl class="card-boxes">
+<div class="card-boxes">
+<dl class="card-box">
     <dt>Data da exaustão de leitos clínicos</dt>
     <dd>{model.hospital_overflow_date}</dd>
-</dl><dl>
+</dl>
+<dl class="card-box">
     <dt>Data da exaustão de leitos de UTI com respirador</dt>
     <dd>{model.icu_overflow_date}</dd>
-</dl><dl>
+</dl>
+<dl class="card-box">
     <dt>Leitos UTI faltando no dia do pico</dt>
     <dd>{fmt(max(int(model.peak_icu_demand - model.icu_capacity), 0))}</dd>
-</dl><dl>
+</dl>
+<dl class="card-box">
     <dt>Leitos clínicos faltando no dia do pico</dt>
-    <dd>
-    {fmt(max(int(model.peak_hospitalization_demand - model.hospital_capacity), 0))}</dd>
+    <dd>{fmt(max(int(model.peak_hospitalization_demand - model.hospital_capacity), 0))}</dd>
+</dl>
+<dl class="card-box">
     <dt>Fatalidades</dt>
     <dd>{fmt(int(model.fatalities))} ({pc(model.fatalities / model.population)})</dd>
 </dl>
+</div>
 """,
             unsafe_allow_html=True,
         )
 
     def write_info(self, model):
+        st.subheader("Informações adicionais")
         st.write(
             f"""
 <dl class="card-boxes">

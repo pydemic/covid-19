@@ -1,4 +1,38 @@
 <style>
-    .card-boxes {
+    @media (min-width: 500px) {
+        .card-boxes {
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-end;
+            align-items: stretch;
+        }
+        .card-box {
+            flex-grow: 1;
+            width: 33%;
+            margin: 0.5rem !important;
+        }
+    }
+
+    .card-box {
+        min-width: 250px;
+        font-size: 2rem;
+        border-radius: 0.5rem;
+        background: purple;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .card-box dd {
+        font-size: 1.75rem;
+        font-weight: bolder;
+        padding: 0 1.5rem 0.5rem 1.5rem;
+        text-align: left;
+        margin: 0;
+    }
+    .card-box dt {
+        padding: 0.5rem 1.5rem 0 1.5rem;
+        opacity: 66%;
+        margin: 0;
     }
 </style>
