@@ -10,26 +10,25 @@ author-email = "fabiomacedomendes@gmail.com"
 home-page = "http://github.com/fabiommendes/covid-19"
 classifiers = [ "License :: OSI Approved :: MIT License" ]
 requires = [
-  "click",
-  "matplotlib",
-  "numpy",
-  "pandas",
-  "requests",
-  "seaborn",
-  "streamlit",
-  "xlrd"
+  "click==7.1.1",
+  "matplotlib==3.2.1",
+  "numpy==1.18.2",
+  "pandas==1.0.3",
+  "requests==2.23.0",
+  "seaborn==0.10.0",
+  "streamlit==0.57.2",
+  "xlrd==1.2.0"
 ]
 
 [tool.flit.metadata.requires-extra]
 dev = [
-  "black",
-  "pycodestyle"
+  "black==19.10b0",
+  "pycodestyle==2.5.0"
 ]
 test = [
-  "coverage",
-  "pytest"
+  "coverage==5.0.4",
+  "pytest==5.4.1"
 ]
-
 
 [tool.black]
 line-length = 100

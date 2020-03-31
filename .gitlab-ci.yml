@@ -6,6 +6,8 @@ variables:
 stages:
   - test
   - update project images
+  - update production images
+  - deploy
 before_script:
   - rit --log on_error config tunnel add repo https://github.com/altjohndev/fabiommendes-covid-19-tunnel --name tunnel
   - rit --log on_error config tunnel default set tunnel
@@ -17,10 +19,10 @@ test:
   variables:
     BUILD_TYPE: recursive
   script:
-    - rit --log on_error tunnel --input disabled run covid_19 development build
-    - rit --log on_error tunnel --input disabled run covid_19 development test up
-    - rit --log on_error tunnel --input disabled run covid_19 development test sync
-    - rit --log on_error tunnel --input disabled run covid_19 development test all
+    - rit --log on_error tunnel --input disabled run calculator development build
+    - rit --log on_error tunnel --input disabled run calculator development test up
+    - rit --log on_error tunnel --input disabled run calculator development test sync
+    - rit --log on_error tunnel --input disabled run calculator development test all
   except:
     variables:
       - $CI_COMMIT_MESSAGE =~ /--do-not-trigger-ci/
@@ -33,6 +35,10 @@ test:
 
 .update_project_image: &update_project_image
   stage: update project images
+  script:
+    - rit --log on_error tunnel --input disabled run calculator $CONTEXT build
+    - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+    - rit --log on_error tunnel --input disabled run calculator $CONTEXT push
   only:
     variables:
       - $CI_COMMIT_MESSAGE =~ /--update-project-images/
@@ -43,7 +49,51 @@ test:
 
 update development image:
   <<: *update_project_image
+  variables:
+    CONTEXT: development
+
+update production image:
+  <<: *update_project_image
+  variables:
+    CONTEXT: production
+
+# Stage: update production images
+
+update production image:
+  stage: update production images
+  variables:
+    BUILD_TYPE: recursive
+    IMAGE_TAG: production
   script:
-    - docker login registry.gitlab.com --username gitlab-ci-token --password $CI_BUILD_TOKEN
-    - rit --log on_error tunnel --input disabled run covid_19 development build
-    - rit --log on_error tunnel --input disabled run covid_19 development push
+    - rit --log on_error tunnel --input disabled run calculator production build
+    - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+    - rit --log on_error tunnel --input disabled run calculator production push
+  only:
+    - /^master$/
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /--do-not-trigger-ci/
+      - $CI_COMMIT_MESSAGE =~ /--skip-stage-update-production-images/
+      - $CI_COMMIT_MESSAGE =~ /--skip-job-update-production-image/
+  tags:
+    - docker
+
+# Deploy
+
+deploy:
+  stage: deploy
+  environment:
+    name: production
+  script:
+    - rit --log on_error tunnel --input disabled run calculator production deploy up
+    - rit --log on_error tunnel --input disabled run calculator production deploy sync
+    - rit --log on_error tunnel --input disabled run calculator production deploy playbook
+  only:
+    - /^master$/
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /--do-not-trigger-ci/
+      - $CI_COMMIT_MESSAGE =~ /--skip-stage-deploy/
+      - $CI_COMMIT_MESSAGE =~ /--skip-job-deploy/
+  tags:
+    - docker
