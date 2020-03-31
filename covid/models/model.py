@@ -1,5 +1,5 @@
 import datetime
-from numbers import Number
+from numbers import Number, Real
 from pprint import pformat
 from types import MappingProxyType
 from typing import Sequence
@@ -185,8 +185,8 @@ class Model(metaclass=ModelMeta):
             start_date = getattr(self, "start_date", TODAY)
         if delta is None:
             delta = getattr(self, "time_delta", DAY)
-        if isinstance(delta, Number):
-            delta = datetime.timedelta(days=1)
+        if isinstance(delta, Real):
+            delta = datetime.timedelta(days=float(delta))
 
         data = [start_date + t * delta for t in times]
         return np.array(data) if data else np.array([], dtype=datetime.date)
