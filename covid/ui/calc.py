@@ -10,6 +10,16 @@ COUNTRY = "brazil"
 DEFAULT_CITY = "Tudo"
 DEFAULT_STATE = "Brasil"
 DEFAULT_SUB_REGION = "Tudo"
+SEIR_HUMANIZED_NAMES = {
+    "susceptible": "suscetíveis",
+    "exposed": "expostos",
+    "infectious": "infecciosos",
+    "critical": "críticos",
+    "hospitalized": "hospitalizados",
+    "asymptomatic": "assintomáticos",
+    "recovered": "recuperados",
+    "fatalities": "fatalidades",
+}
 e = 1e-50
 
 
@@ -29,24 +39,7 @@ def get_sub_regions(country):
 
 
 def rename_data_header(name):
-    if name == "susceptible":
-        name = "suscetíveis"
-    elif name == "exposed":
-        name = "expostos"
-    elif name == "infectious":
-        name = "infecciosos"
-    elif name == "critical":
-        name = "críticos"
-    elif name == "hospitalized":
-        name = "hospitalizados"
-    elif name == "asymptomatic":
-        name = "assintomáticos"
-    elif name == "recovered":
-        name = "recuperados"
-    elif name == "fatalities":
-        name = "fatalidades"
-
-    return name
+    return SEIR_HUMANIZED_NAMES.get(name, name)
 
 
 class CalcUI:
@@ -66,15 +59,18 @@ class CalcUI:
     city = DEFAULT_CITY
     state = DEFAULT_STATE
     sub_region = DEFAULT_SUB_REGION
+
     # Simulation
     period = 60
     t0 = datetime.today()
     seed = 1
+
     # Healthcare system
     icu_beds_total = 0
     hospital_beds_total = 0
-    occupied_icu_beds = 0.5
-    occupied_hospital_beds = 0.5
+    icu_beds_occupancy_rate = 0.5
+    hospital_beds_occupancy_rate = 0.5
+
     # Epidemiology
     scenario = "Rápido"
     R0 = 3.5
@@ -85,26 +81,35 @@ class CalcUI:
     # Misc
     info = None
 
-    def __init__(self):
+    def run(self):
+        self.sidebar()
+        self.body()
+
+    def sidebar(self):
+        pass
+
+    def body(self):
         st.title("Calculadora de pressão assistencial em decorrência da COVID-19")
-        st.sidebar.title("Parâmetros")
         self.info = st.text("")
 
     def fetch(self):
-        self.__fetch_region_data()
+        self.fetch_region_data()
         st.sidebar.header("Região")
-        self.state = st.sidebar.selectbox("Estado", [DEFAULT_STATE, *self.base_states["name"]])
-        self.__handle_state()
+        self.state = st.sidebar.selectbox("Estado",
+                                          [DEFAULT_STATE, *self.base_states["name"]])
+        self.handle_state()
 
     def run_simulation(self):
-        if self.__is_ready():
+        if self.is_ready():
             self.info.text("Carregando simulação...")
             kwargs = {"region": self.region, "seed": self.seed, "R0": self.R0}
             kwargs.setdefault("prob_symptomatic", 0.5)
             if self.scenario == "Personalizado":
-                # FIXME: No arg "gamma" on SEICHARDemographic
                 kwargs.update(
-                    {"sigma": self.sigma, "gamma": self.gamma, "prob_fatality": self.prob_fatality}
+                    {
+                        "sigma": self.sigma, "gamma_i": self.gamma,
+                        "prob_fatality": self.prob_fatality
+                    }
                 )
             # TODO: Generate custom graphs
             model = SEICHAR(**kwargs)
@@ -116,7 +121,7 @@ class CalcUI:
             st.write(model.data.rename(columns=rename_data_header))
             self.info.text("")
 
-    def __is_ready(self):
+    def is_ready(self):
         message = None
         if self.state == DEFAULT_STATE:
             message = "selecione um estado"
@@ -131,29 +136,32 @@ class CalcUI:
         else:
             return True
 
-    def __fetch_region_data(self):
+    def fetch_region_data(self):
         self.info.text("Carregando dados...")
         self.base_states = get_states(COUNTRY)
         self.base_sub_regions = get_sub_regions(COUNTRY)
         self.base_cities = get_cities(COUNTRY)
         self.info.text("")
 
-    def __handle_state(self):
+    def handle_state(self):
         if self.state == DEFAULT_STATE:
             self.region = covid.region("Brazil")
         else:
-            self.state_code = self.base_states[self.base_states.name == self.state].index[0]
+            self.state_code = self.base_states[self.base_states.name == self.state].index[
+                0]
             # TODO Fetch cities from other states.
             # See `covid/databases/countries/brazil/sub-regions.csv`
-            self.sub_regions = self.base_sub_regions[self.base_sub_regions.state == self.state_code]
+            self.sub_regions = self.base_sub_regions[
+                self.base_sub_regions.state == self.state_code]
             self.sub_region = st.sidebar.selectbox(
                 "Região", [DEFAULT_SUB_REGION, *self.sub_regions["name"]]
             )
-            self.__handle_sub_region()
+            self.handle_sub_region()
 
-    def __handle_sub_region(self):
+    def handle_sub_region(self):
         if self.sub_region == DEFAULT_SUB_REGION:
-            # FIXME: Fails with any self.state_code: KeyError: 'DF' ('DF' is self.state_code)
+            # FIXME: Fails with any self.state_code: KeyError: 'DF' ('DF' is
+            #  self.state_code)
             try:
                 self.region = covid.region(f"Brazil/{self.state_code} (metro)")
             except KeyError:
@@ -163,46 +171,47 @@ class CalcUI:
             self.city = st.sidebar.selectbox(
                 "Cidade ou município", [DEFAULT_CITY, *self.cities["name"]]
             )
-            self.__handle_city()
+            self.fetch_region()
 
-    def __handle_city(self):
+    def fetch_region(self):
         # TODO: Handle self.city == DEFAULT_CITY
         if self.city != DEFAULT_CITY:
             self.region = covid.region(f"Brazil/{self.city}")
-            self.__fetch_simulation_params()
-            self.__fetch_healthcare_system_params()
-            self.__fetch_epidemiology_params()
-            self.__fetch_intervention_params()
+            self.fetch_simulation_params()
+            self.fetch_healthcare_system_params()
+            self.fetch_epidemiology_params()
+            self.fetch_intervention_params()
 
-    def __fetch_simulation_params(self):
+    def fetch_simulation_params(self):
         st.sidebar.header("Opções da simulação")
         self.period = st.sidebar.slider("Dias de simulação", 0, 180, value=60)
         self.t0 = st.sidebar.date_input("Data inicial")
         self.seed = st.sidebar.number_input("Número de casos detectados", min_value=1)
 
-    def __fetch_healthcare_system_params(self):
+    def fetch_healthcare_system_params(self):
         st.sidebar.header("Capacidade hospitalar")
-        self.__fetch_clinical_beds_params()
-        self.__fetch_icu_beds_params()
+        self.fetch_clinical_beds_params()
+        self.fetch_icu_beds_params()
 
-    def __fetch_clinical_beds_params(self):
+    def fetch_clinical_beds_params(self):
         st.sidebar.subheader("Leitos clínicos")
         self.hospital_beds_total = st.sidebar.number_input(
             "Total", min_value=0, value=int(self.region.hospital_total_capacity)
         )
-        self.occupied_hospital_beds = 0.01 * st.sidebar.slider(
+        self.hospital_beds_occupancy_rate = 0.01 * st.sidebar.slider(
             "Ocupados (%)",
             min_value=0.0,
             max_value=100.0,
             value=100 * self.region.hospital_occupancy_rate,
         )
 
-    def __fetch_icu_beds_params(self):
+    def fetch_icu_beds_params(self):
         st.sidebar.subheader("Leitos de UTI")
         self.icu_beds_total = st.sidebar.number_input(
-            "Total", min_value=0, value=int(self.region.icu_total_capacity), key="icu_total"
+            "Total", min_value=0, value=int(self.region.icu_total_capacity),
+            key="icu_total"
         )
-        self.occupied_icu_beds = 0.01 * st.sidebar.slider(
+        self.icu_beds_occupancy_rate = 0.01 * st.sidebar.slider(
             "Ocupados (%)",
             min_value=0.0,
             max_value=100.0,
@@ -210,9 +219,11 @@ class CalcUI:
             key="icu_used",
         )
 
-    def __fetch_epidemiology_params(self):
+    def fetch_epidemiology_params(self):
         st.sidebar.header("Epidemiologia")
-        self.scenario = st.sidebar.selectbox("Cenário", ["Rápido", "Lento", "Personalizado"])
+        scenarios = ["Rápido", "Lento", "Personalizado"]
+        self.scenario = st.sidebar.selectbox("Cenário", scenarios)
+
         if self.scenario == "Rápido":
             self.R0 = 3.5
         elif self.scenario == "Lento":
@@ -221,21 +232,20 @@ class CalcUI:
             self.R0 = st.sidebar.slider(
                 "Fator de contágio (R0)", min_value=0.0, max_value=5.0, value=2.74
             )
-            self.sigma = 1.0 / (
-                st.sidebar.slider(
-                    "Período de incubação do vírus", min_value=1.0, max_value=10.0, value=5.0
-                )
-                + e
+            period = st.sidebar.slider(
+                "Período de incubação do vírus", min_value=1.0, max_value=10.0, value=5.0
             )
-            self.gamma = 1.0 / (
-                st.sidebar.slider("Período infeccioso", min_value=1.0, max_value=14.0, value=4.0)
-                + e
+
+            self.sigma = 1.0 / (period + e)
+            period = st.sidebar.slider(
+                "Período infeccioso", min_value=1.0, max_value=14.0, value=4.0
             )
+            self.gamma = 1.0 / (period + e)
             self.prob_fatality = 0.01 * st.sidebar.slider(
                 "Taxa de mortalidade média", min_value=0.0, max_value=100.0, value=2.0
             )
 
-    def __fetch_intervention_params(self):
+    def fetch_intervention_params(self):
         st.sidebar.header("Intervenção")
         baseline, social_distance = interventions = [
             "Nenhuma intervenção",
@@ -249,7 +259,40 @@ class CalcUI:
             st.sidebar.slider("Dias após data inicial para início de intervenção")
             st.sidebar.slider("Redução do fator de contágio (RO) após intervenção")
 
+    def write_cards(self):
+        st.write("""
+<style>
+.card-boxes dl {
+}
+</style>
+
+<div class="card-boxes">
+<dl>
+    <dt>Data da exaustão de leitos clínicos</dt>
+    <dd>16/05</dd>
+</dl><dl>
+    <dt>Data da exaustão de leitos de UTI com respirador</dt>
+    <dd>26/04</dd>
+</dl><dl>
+    <dt>Respiradores faltando no dia do pico</dt>
+    <dd>6946</dd>
+</dl><dl>
+    <dt>Leitos clínicos necessários no dia do pico</dt>
+    <dd>21750</dd>
+</dl><dl>
+    <dt>Leitos clínicos faltando no dia do pico</dt>
+    <dd>20421</dd>
+</dl><dl>
+    <dt>Leitos UTI com respirador necessários no dia do pico</dt>
+    <dd>7099</dd>
+</dl><dl>
+    <dt>Leitos UTI com respirador faltando no dia do pico</dt>
+    <dd>7040</dd>
+</dl>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
 
 ui = CalcUI()
-ui.fetch()
-ui.run_simulation()
+ui.run()
