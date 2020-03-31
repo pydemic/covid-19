@@ -1,3 +1,138 @@
-id,name,state
-1234,São Paulo (metro),SP
-4321,Brasília (metro),DF
+region,name,state_id,state_code
+111,Madeira-Guaporé,11,RO
+112,Leste Rondoniense,11,RO
+121,Vale do Juruá,12,AC
+122,Vale do Acre,12,AC
+131,Norte Amazonense,13,AM
+132,Sudoeste Amazonense,13,AM
+133,Centro Amazonense,13,AM
+134,Sul Amazonense,13,AM
+141,Norte de Roraima,14,RR
+142,Sul de Roraima,14,RR
+151,Baixo Amazonas,15,PA
+152,Marajó,15,PA
+153,Metropolitana de Belém,15,PA
+154,Nordeste Paraense,15,PA
+155,Sudoeste Paraense,15,PA
+156,Sudeste Paraense,15,PA
+161,Norte do Amapá,16,AP
+162,Sul do Amapá,16,AP
+171,Ocidental do Tocantins,17,TO
+172,Oriental do Tocantins,17,TO
+211,Norte Maranhense,21,MA
+212,Oeste Maranhense,21,MA
+213,Centro Maranhense,21,MA
+214,Leste Maranhense,21,MA
+215,Sul Maranhense,21,MA
+221,Norte Piauiense,22,PI
+222,Centro-Norte Piauiense,22,PI
+223,Sudoeste Piauiense,22,PI
+224,Sudeste Piauiense,22,PI
+231,Noroeste Cearense,23,CE
+232,Norte Cearense,23,CE
+233,Metropolitana de Fortaleza,23,CE
+234,Sertões Cearenses,23,CE
+235,Jaguaribe,23,CE
+236,Centro-Sul Cearense,23,CE
+237,Sul Cearense,23,CE
+241,Oeste Potiguar,24,RN
+242,Central Potiguar,24,RN
+243,Agreste Potiguar,24,RN
+244,Leste Potiguar,24,RN
+251,Sertão Paraibano,25,PB
+252,Borborema,25,PB
+253,Agreste Paraibano,25,PB
+254,Mata Paraibana,25,PB
+261,Sertão Pernambucano,26,PE
+262,São Francisco Pernambucano,26,PE
+263,Agreste Pernambucano,26,PE
+264,Mata Pernambucana,26,PE
+265,Metropolitana de Recife,26,PE
+271,Sertão Alagoano,27,AL
+272,Agreste Alagoano,27,AL
+273,Leste Alagoano,27,AL
+281,Sertão Sergipano,28,SE
+282,Agreste Sergipano,28,SE
+283,Leste Sergipano,28,SE
+291,Extremo Oeste Baiano,29,BA
+292,Vale São-Franciscano da Bahia,29,BA
+293,Centro Norte Baiano,29,BA
+294,Nordeste Baiano,29,BA
+295,Metropolitana de Salvador,29,BA
+296,Centro Sul Baiano,29,BA
+297,Sul Baiano,29,BA
+311,Noroeste de Minas,31,MG
+3110,Sul/Sudoeste de Minas,31,MG
+3111,Campo das Vertentes,31,MG
+3112,Zona da Mata,31,MG
+312,Norte de Minas,31,MG
+313,Jequitinhonha,31,MG
+314,Vale do Mucuri,31,MG
+315,Triângulo Mineiro/Alto Paranaíba,31,MG
+316,Central Mineira,31,MG
+317,Metropolitana de Belo Horizonte,31,MG
+318,Vale do Rio Doce,31,MG
+319,Oeste de Minas,31,MG
+321,Noroeste Espírito-santense,32,ES
+322,Litoral Norte Espírito-santense,32,ES
+323,Central Espírito-santense,32,ES
+324,Sul Espírito-santense,32,ES
+331,Noroeste Fluminense,33,RJ
+332,Norte Fluminense,33,RJ
+333,Centro Fluminense,33,RJ
+334,Baixadas,33,RJ
+335,Sul Fluminense,33,RJ
+336,Metropolitana do Rio de Janeiro,33,RJ
+351,São José do Rio Preto,35,SP
+3510,Assis,35,SP
+3511,Itapetininga,35,SP
+3512,Macro Metropolitana Paulista,35,SP
+3513,Vale do Paraíba Paulista,35,SP
+3514,Litoral Sul Paulista,35,SP
+3515,Metropolitana de São Paulo,35,SP
+352,Ribeirão Preto,35,SP
+353,Araçatuba,35,SP
+354,Bauru,35,SP
+355,Araraquara,35,SP
+356,Piracicaba,35,SP
+357,Campinas,35,SP
+358,Presidente Prudente,35,SP
+359,Marília,35,SP
+411,Noroeste Paranaense,41,PR
+4110,Metropolitana de Curitiba,41,PR
+412,Centro Ocidental Paranaense,41,PR
+413,Norte Central Paranaense,41,PR
+414,Norte Pioneiro Paranaense,41,PR
+415,Centro Oriental Paranaense,41,PR
+416,Oeste Paranaense,41,PR
+417,Sudoeste Paranaense,41,PR
+418,Centro-Sul Paranaense,41,PR
+419,Sudeste Paranaense,41,PR
+421,Oeste Catarinense,42,SC
+422,Norte Catarinense,42,SC
+423,Serrana,42,SC
+424,Vale do Itajaí,42,SC
+425,Grande Florianópolis,42,SC
+426,Sul Catarinense,42,SC
+431,Noroeste Rio-grandense,43,RS
+432,Nordeste Rio-grandense,43,RS
+433,Centro Ocidental Rio-grandense,43,RS
+434,Centro Oriental Rio-grandense,43,RS
+435,Metropolitana de Porto Alegre,43,RS
+436,Sudoeste Rio-grandense,43,RS
+437,Sudeste Rio-grandense,43,RS
+501,Pantanais Sul Mato-grossense,50,MS
+502,Centro Norte de Mato Grosso do Sul,50,MS
+503,Leste de Mato Grosso do Sul,50,MS
+504,Sudoeste de Mato Grosso do Sul,50,MS
+511,Norte Mato-grossense,51,MT
+512,Nordeste Mato-grossense,51,MT
+513,Sudoeste Mato-grossense,51,MT
+514,Centro-Sul Mato-grossense,51,MT
+515,Sudeste Mato-grossense,51,MT
+521,Noroeste Goiano,52,GO
+522,Norte Goiano,52,GO
+523,Centro Goiano,52,GO
+524,Leste Goiano,52,GO
+525,Sul Goiano,52,GO
+531,Distrito Federal,53,DF

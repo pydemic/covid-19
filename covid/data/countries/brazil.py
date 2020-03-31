@@ -1,3 +1,3 @@
 """
-Gathers specific data from Brazil.
+Gathers data from Brazil.
 """

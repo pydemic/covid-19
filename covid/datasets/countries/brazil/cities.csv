@@ -1,5 +1,5571 @@
-id,name,state,sub_region
-1234,São Paulo,SP,São Paulo (metro)
-1235,São Bernardo do Campo,SP,São Paulo (metro)
-4321,Brasília,DF,Brasília (metro)
-4322,Taguatinga,DF,Brasília (metro)
+id,name,sub_region,state_id,state_code
+1100015,Alta Floresta D'Oeste,112,11,RO
+1100379,Alto Alegre dos Parecis,112,11,RO
+1100403,Alto Paraíso,112,11,RO
+1100346,Alvorada D'Oeste,112,11,RO
+1100023,Ariquemes,112,11,RO
+1100452,Buritis,111,11,RO
+1100031,Cabixi,112,11,RO
+1100601,Cacaulândia,112,11,RO
+1100049,Cacoal,112,11,RO
+1100700,Campo Novo de Rondônia,111,11,RO
+1100809,Candeias do Jamari,111,11,RO
+1100908,Castanheiras,112,11,RO
+1100056,Cerejeiras,112,11,RO
+1100924,Chupinguaia,112,11,RO
+1100064,Colorado do Oeste,112,11,RO
+1100072,Corumbiara,112,11,RO
+1100080,Costa Marques,111,11,RO
+1100940,Cujubim,111,11,RO
+1100098,Espigão D'Oeste,112,11,RO
+1101005,Governador Jorge Teixeira,112,11,RO
+1100106,Guajará-Mirim,111,11,RO
+1101104,Itapuã do Oeste,111,11,RO
+1100114,Jaru,112,11,RO
+1100122,Ji-Paraná,112,11,RO
+1100130,Machadinho D'Oeste,112,11,RO
+1101203,Ministro Andreazza,112,11,RO
+1101302,Mirante da Serra,112,11,RO
+1101401,Monte Negro,112,11,RO
+1100148,Nova Brasilândia D'Oeste,112,11,RO
+1100338,Nova Mamoré,111,11,RO
+1101435,Nova União,112,11,RO
+1100502,Novo Horizonte do Oeste,112,11,RO
+1100155,Ouro Preto do Oeste,112,11,RO
+1101450,Parecis,112,11,RO
+1100189,Pimenta Bueno,112,11,RO
+1101468,Pimenteiras do Oeste,112,11,RO
+1100205,Porto Velho,111,11,RO
+1100254,Presidente Médici,112,11,RO
+1101476,Primavera de Rondônia,112,11,RO
+1100262,Rio Crespo,112,11,RO
+1100288,Rolim de Moura,112,11,RO
+1100296,Santa Luzia D'Oeste,112,11,RO
+1101484,São Felipe D'Oeste,112,11,RO
+1101492,São Francisco do Guaporé,111,11,RO
+1100320,São Miguel do Guaporé,112,11,RO
+1101500,Seringueiras,112,11,RO
+1101559,Teixeirópolis,112,11,RO
+1101609,Theobroma,112,11,RO
+1101708,Urupá,112,11,RO
+1101757,Vale do Anari,112,11,RO
+1101807,Vale do Paraíso,112,11,RO
+1100304,Vilhena,112,11,RO
+1200013,Acrelândia,122,12,AC
+1200054,Assis Brasil,122,12,AC
+1200104,Brasiléia,122,12,AC
+1200138,Bujari,122,12,AC
+1200179,Capixaba,122,12,AC
+1200203,Cruzeiro do Sul,121,12,AC
+1200252,Epitaciolândia,122,12,AC
+1200302,Feijó,121,12,AC
+1200328,Jordão,121,12,AC
+1200336,Mâncio Lima,121,12,AC
+1200344,Manoel Urbano,122,12,AC
+1200351,Marechal Thaumaturgo,121,12,AC
+1200385,Plácido de Castro,122,12,AC
+1200807,Porto Acre,122,12,AC
+1200393,Porto Walter,121,12,AC
+1200401,Rio Branco,122,12,AC
+1200427,Rodrigues Alves,121,12,AC
+1200435,Santa Rosa do Purus,122,12,AC
+1200500,Sena Madureira,122,12,AC
+1200450,Senador Guiomard,122,12,AC
+1200609,Tarauacá,121,12,AC
+1200708,Xapuri,122,12,AC
+1300029,Alvarães,133,13,AM
+1300060,Amaturá,132,13,AM
+1300086,Anamã,133,13,AM
+1300102,Anori,133,13,AM
+1300144,Apuí,134,13,AM
+1300201,Atalaia do Norte,132,13,AM
+1300300,Autazes,133,13,AM
+1300409,Barcelos,131,13,AM
+1300508,Barreirinha,133,13,AM
+1300607,Benjamin Constant,132,13,AM
+1300631,Beruri,133,13,AM
+1300680,Boa Vista do Ramos,133,13,AM
+1300706,Boca do Acre,134,13,AM
+1300805,Borba,134,13,AM
+1300839,Caapiranga,133,13,AM
+1300904,Canutama,134,13,AM
+1301001,Carauari,132,13,AM
+1301100,Careiro,133,13,AM
+1301159,Careiro da Várzea,133,13,AM
+1301209,Coari,133,13,AM
+1301308,Codajás,133,13,AM
+1301407,Eirunepé,132,13,AM
+1301506,Envira,132,13,AM
+1301605,Fonte Boa,132,13,AM
+1301654,Guajará,132,13,AM
+1301704,Humaitá,134,13,AM
+1301803,Ipixuna,132,13,AM
+1301852,Iranduba,133,13,AM
+1301902,Itacoatiara,133,13,AM
+1301951,Itamarati,132,13,AM
+1302009,Itapiranga,133,13,AM
+1302108,Japurá,131,13,AM
+1302207,Juruá,132,13,AM
+1302306,Jutaí,132,13,AM
+1302405,Lábrea,134,13,AM
+1302504,Manacapuru,133,13,AM
+1302553,Manaquiri,133,13,AM
+1302603,Manaus,133,13,AM
+1302702,Manicoré,134,13,AM
+1302801,Maraã,131,13,AM
+1302900,Maués,133,13,AM
+1303007,Nhamundá,133,13,AM
+1303106,Nova Olinda do Norte,133,13,AM
+1303205,Novo Airão,131,13,AM
+1303304,Novo Aripuanã,134,13,AM
+1303403,Parintins,133,13,AM
+1303502,Pauini,134,13,AM
+1303536,Presidente Figueiredo,133,13,AM
+1303569,Rio Preto da Eva,133,13,AM
+1303601,Santa Isabel do Rio Negro,131,13,AM
+1303700,Santo Antônio do Içá,132,13,AM
+1303809,São Gabriel da Cachoeira,131,13,AM
+1303908,São Paulo de Olivença,132,13,AM
+1303957,São Sebastião do Uatumã,133,13,AM
+1304005,Silves,133,13,AM
+1304062,Tabatinga,132,13,AM
+1304104,Tapauá,134,13,AM
+1304203,Tefé,133,13,AM
+1304237,Tonantins,132,13,AM
+1304260,Uarini,133,13,AM
+1304302,Urucará,133,13,AM
+1304401,Urucurituba,133,13,AM
+1400050,Alto Alegre,141,14,RR
+1400027,Amajari,141,14,RR
+1400100,Boa Vista,141,14,RR
+1400159,Bonfim,141,14,RR
+1400175,Cantá,141,14,RR
+1400209,Caracaraí,142,14,RR
+1400233,Caroebe,142,14,RR
+1400282,Iracema,142,14,RR
+1400308,Mucajaí,142,14,RR
+1400407,Normandia,141,14,RR
+1400456,Pacaraima,141,14,RR
+1400472,Rorainópolis,142,14,RR
+1400506,São João da Baliza,142,14,RR
+1400605,São Luiz,142,14,RR
+1400704,Uiramutã,141,14,RR
+1500107,Abaetetuba,154,15,PA
+1500131,Abel Figueiredo,156,15,PA
+1500206,Acará,154,15,PA
+1500305,Afuá,152,15,PA
+1500347,Água Azul do Norte,156,15,PA
+1500404,Alenquer,151,15,PA
+1500503,Almeirim,151,15,PA
+1500602,Altamira,155,15,PA
+1500701,Anajás,152,15,PA
+1500800,Ananindeua,153,15,PA
+1500859,Anapu,155,15,PA
+1500909,Augusto Corrêa,154,15,PA
+1500958,Aurora do Pará,154,15,PA
+1501006,Aveiro,155,15,PA
+1501105,Bagre,152,15,PA
+1501204,Baião,154,15,PA
+1501253,Bannach,156,15,PA
+1501303,Barcarena,153,15,PA
+1501402,Belém,153,15,PA
+1501451,Belterra,151,15,PA
+1501501,Benevides,153,15,PA
+1501576,Bom Jesus do Tocantins,156,15,PA
+1501600,Bonito,154,15,PA
+1501709,Bragança,154,15,PA
+1501725,Brasil Novo,155,15,PA
+1501758,Brejo Grande do Araguaia,156,15,PA
+1501782,Breu Branco,156,15,PA
+1501808,Breves,152,15,PA
+1501907,Bujaru,153,15,PA
+1502004,Cachoeira do Arari,152,15,PA
+1501956,Cachoeira do Piriá,154,15,PA
+1502103,Cametá,154,15,PA
+1502152,Canaã dos Carajás,156,15,PA
+1502202,Capanema,154,15,PA
+1502301,Capitão Poço,154,15,PA
+1502400,Castanhal,153,15,PA
+1502509,Chaves,152,15,PA
+1502608,Colares,154,15,PA
+1502707,Conceição do Araguaia,156,15,PA
+1502756,Concórdia do Pará,154,15,PA
+1502764,Cumaru do Norte,156,15,PA
+1502772,Curionópolis,156,15,PA
+1502806,Curralinho,152,15,PA
+1502855,Curuá,151,15,PA
+1502905,Curuçá,154,15,PA
+1502939,Dom Eliseu,156,15,PA
+1502954,Eldorado do Carajás,156,15,PA
+1503002,Faro,151,15,PA
+1503044,Floresta do Araguaia,156,15,PA
+1503077,Garrafão do Norte,154,15,PA
+1503093,Goianésia do Pará,156,15,PA
+1503101,Gurupá,152,15,PA
+1503200,Igarapé-Açu,154,15,PA
+1503309,Igarapé-Miri,154,15,PA
+1503408,Inhangapi,153,15,PA
+1503457,Ipixuna do Pará,154,15,PA
+1503507,Irituia,154,15,PA
+1503606,Itaituba,155,15,PA
+1503705,Itupiranga,156,15,PA
+1503754,Jacareacanga,155,15,PA
+1503804,Jacundá,156,15,PA
+1503903,Juruti,151,15,PA
+1504000,Limoeiro do Ajuru,154,15,PA
+1504059,Mãe do Rio,154,15,PA
+1504109,Magalhães Barata,154,15,PA
+1504208,Marabá,156,15,PA
+1504307,Maracanã,154,15,PA
+1504406,Marapanim,154,15,PA
+1504422,Marituba,153,15,PA
+1504455,Medicilândia,155,15,PA
+1504505,Melgaço,152,15,PA
+1504604,Mocajuba,154,15,PA
+1504703,Moju,154,15,PA
+1504752,Mojuí dos Campos,151,15,PA
+1504802,Monte Alegre,151,15,PA
+1504901,Muaná,152,15,PA
+1504950,Nova Esperança do Piriá,154,15,PA
+1504976,Nova Ipixuna,156,15,PA
+1505007,Nova Timboteua,154,15,PA
+1505031,Novo Progresso,155,15,PA
+1505064,Novo Repartimento,156,15,PA
+1505106,Óbidos,151,15,PA
+1505205,Oeiras do Pará,154,15,PA
+1505304,Oriximiná,151,15,PA
+1505403,Ourém,154,15,PA
+1505437,Ourilândia do Norte,156,15,PA
+1505486,Pacajá,155,15,PA
+1505494,Palestina do Pará,156,15,PA
+1505502,Paragominas,156,15,PA
+1505536,Parauapebas,156,15,PA
+1505551,Pau D'Arco,156,15,PA
+1505601,Peixe-Boi,154,15,PA
+1505635,Piçarra,156,15,PA
+1505650,Placas,151,15,PA
+1505700,Ponta de Pedras,152,15,PA
+1505809,Portel,152,15,PA
+1505908,Porto de Moz,151,15,PA
+1506005,Prainha,151,15,PA
+1506104,Primavera,154,15,PA
+1506112,Quatipuru,154,15,PA
+1506138,Redenção,156,15,PA
+1506161,Rio Maria,156,15,PA
+1506187,Rondon do Pará,156,15,PA
+1506195,Rurópolis,155,15,PA
+1506203,Salinópolis,154,15,PA
+1506302,Salvaterra,152,15,PA
+1506351,Santa Bárbara do Pará,153,15,PA
+1506401,Santa Cruz do Arari,152,15,PA
+1506500,Santa Izabel do Pará,153,15,PA
+1506559,Santa Luzia do Pará,154,15,PA
+1506583,Santa Maria das Barreiras,156,15,PA
+1506609,Santa Maria do Pará,154,15,PA
+1506708,Santana do Araguaia,156,15,PA
+1506807,Santarém,151,15,PA
+1506906,Santarém Novo,154,15,PA
+1507003,Santo Antônio do Tauá,153,15,PA
+1507102,São Caetano de Odivelas,154,15,PA
+1507151,São Domingos do Araguaia,156,15,PA
+1507201,São Domingos do Capim,154,15,PA
+1507300,São Félix do Xingu,156,15,PA
+1507409,São Francisco do Pará,154,15,PA
+1507458,São Geraldo do Araguaia,156,15,PA
+1507466,São João da Ponta,154,15,PA
+1507474,São João de Pirabas,154,15,PA
+1507508,São João do Araguaia,156,15,PA
+1507607,São Miguel do Guamá,154,15,PA
+1507706,São Sebastião da Boa Vista,152,15,PA
+1507755,Sapucaia,156,15,PA
+1507805,Senador José Porfírio,155,15,PA
+1507904,Soure,152,15,PA
+1507953,Tailândia,154,15,PA
+1507961,Terra Alta,154,15,PA
+1507979,Terra Santa,151,15,PA
+1508001,Tomé-Açu,154,15,PA
+1508035,Tracuateua,154,15,PA
+1508050,Trairão,155,15,PA
+1508084,Tucumã,156,15,PA
+1508100,Tucuruí,156,15,PA
+1508126,Ulianópolis,156,15,PA
+1508159,Uruará,155,15,PA
+1508209,Vigia,154,15,PA
+1508308,Viseu,154,15,PA
+1508357,Vitória do Xingu,155,15,PA
+1508407,Xinguara,156,15,PA
+1600105,Amapá,161,16,AP
+1600204,Calçoene,161,16,AP
+1600212,Cutias,162,16,AP
+1600238,Ferreira Gomes,162,16,AP
+1600253,Itaubal,162,16,AP
+1600279,Laranjal do Jari,162,16,AP
+1600303,Macapá,162,16,AP
+1600402,Mazagão,162,16,AP
+1600501,Oiapoque,161,16,AP
+1600154,Pedra Branca do Amapari,162,16,AP
+1600535,Porto Grande,162,16,AP
+1600550,Pracuúba,161,16,AP
+1600600,Santana,162,16,AP
+1600055,Serra do Navio,162,16,AP
+1600709,Tartarugalzinho,161,16,AP
+1600808,Vitória do Jari,162,16,AP
+1700251,Abreulândia,171,17,TO
+1700301,Aguiarnópolis,171,17,TO
+1700350,Aliança do Tocantins,171,17,TO
+1700400,Almas,172,17,TO
+1700707,Alvorada,171,17,TO
+1701002,Ananás,171,17,TO
+1701051,Angico,171,17,TO
+1701101,Aparecida do Rio Negro,172,17,TO
+1701309,Aragominas,171,17,TO
+1701903,Araguacema,171,17,TO
+1702000,Araguaçu,171,17,TO
+1702109,Araguaína,171,17,TO
+1702158,Araguanã,171,17,TO
+1702208,Araguatins,171,17,TO
+1702307,Arapoema,171,17,TO
+1702406,Arraias,172,17,TO
+1702554,Augustinópolis,171,17,TO
+1702703,Aurora do Tocantins,172,17,TO
+1702901,Axixá do Tocantins,171,17,TO
+1703008,Babaçulândia,171,17,TO
+1703057,Bandeirantes do Tocantins,171,17,TO
+1703073,Barra do Ouro,172,17,TO
+1703107,Barrolândia,171,17,TO
+1703206,Bernardo Sayão,171,17,TO
+1703305,Bom Jesus do Tocantins,172,17,TO
+1703602,Brasilândia do Tocantins,171,17,TO
+1703701,Brejinho de Nazaré,171,17,TO
+1703800,Buriti do Tocantins,171,17,TO
+1703826,Cachoeirinha,171,17,TO
+1703842,Campos Lindos,172,17,TO
+1703867,Cariri do Tocantins,171,17,TO
+1703883,Carmolândia,171,17,TO
+1703891,Carrasco Bonito,171,17,TO
+1703909,Caseara,171,17,TO
+1704105,Centenário,172,17,TO
+1705102,Chapada da Natividade,172,17,TO
+1704600,Chapada de Areia,171,17,TO
+1705508,Colinas do Tocantins,171,17,TO
+1716703,Colméia,171,17,TO
+1705557,Combinado,172,17,TO
+1705607,Conceição do Tocantins,172,17,TO
+1706001,Couto Magalhães,171,17,TO
+1706100,Cristalândia,171,17,TO
+1706258,Crixás do Tocantins,171,17,TO
+1706506,Darcinópolis,171,17,TO
+1707009,Dianópolis,172,17,TO
+1707108,Divinópolis do Tocantins,171,17,TO
+1707207,Dois Irmãos do Tocantins,171,17,TO
+1707306,Dueré,171,17,TO
+1707405,Esperantina,171,17,TO
+1707553,Fátima,171,17,TO
+1707652,Figueirópolis,171,17,TO
+1707702,Filadélfia,171,17,TO
+1708205,Formoso do Araguaia,171,17,TO
+1708254,Fortaleza do Tabocão,171,17,TO
+1708304,Goianorte,171,17,TO
+1709005,Goiatins,172,17,TO
+1709302,Guaraí,171,17,TO
+1709500,Gurupi,171,17,TO
+1709807,Ipueiras,172,17,TO
+1710508,Itacajá,172,17,TO
+1710706,Itaguatins,171,17,TO
+1710904,Itapiratins,172,17,TO
+1711100,Itaporã do Tocantins,171,17,TO
+1711506,Jaú do Tocantins,171,17,TO
+1711803,Juarina,171,17,TO
+1711902,Lagoa da Confusão,171,17,TO
+1711951,Lagoa do Tocantins,172,17,TO
+1712009,Lajeado,172,17,TO
+1712157,Lavandeira,172,17,TO
+1712405,Lizarda,172,17,TO
+1712454,Luzinópolis,171,17,TO
+1712504,Marianópolis do Tocantins,171,17,TO
+1712702,Mateiros,172,17,TO
+1712801,Maurilândia do Tocantins,171,17,TO
+1713205,Miracema do Tocantins,171,17,TO
+1713304,Miranorte,171,17,TO
+1713601,Monte do Carmo,172,17,TO
+1713700,Monte Santo do Tocantins,171,17,TO
+1713957,Muricilândia,171,17,TO
+1714203,Natividade,172,17,TO
+1714302,Nazaré,171,17,TO
+1714880,Nova Olinda,171,17,TO
+1715002,Nova Rosalândia,171,17,TO
+1715101,Novo Acordo,172,17,TO
+1715150,Novo Alegre,172,17,TO
+1715259,Novo Jardim,172,17,TO
+1715507,Oliveira de Fátima,171,17,TO
+1721000,Palmas,172,17,TO
+1715705,Palmeirante,171,17,TO
+1713809,Palmeiras do Tocantins,171,17,TO
+1715754,Palmeirópolis,171,17,TO
+1716109,Paraíso do Tocantins,171,17,TO
+1716208,Paranã,172,17,TO
+1716307,Pau D'Arco,171,17,TO
+1716505,Pedro Afonso,172,17,TO
+1716604,Peixe,171,17,TO
+1716653,Pequizeiro,171,17,TO
+1717008,Pindorama do Tocantins,172,17,TO
+1717206,Piraquê,171,17,TO
+1717503,Pium,171,17,TO
+1717800,Ponte Alta do Bom Jesus,172,17,TO
+1717909,Ponte Alta do Tocantins,172,17,TO
+1718006,Porto Alegre do Tocantins,172,17,TO
+1718204,Porto Nacional,172,17,TO
+1718303,Praia Norte,171,17,TO
+1718402,Presidente Kennedy,171,17,TO
+1718451,Pugmil,171,17,TO
+1718501,Recursolândia,172,17,TO
+1718550,Riachinho,171,17,TO
+1718659,Rio da Conceição,172,17,TO
+1718709,Rio dos Bois,171,17,TO
+1718758,Rio Sono,172,17,TO
+1718808,Sampaio,171,17,TO
+1718840,Sandolândia,171,17,TO
+1718865,Santa Fé do Araguaia,171,17,TO
+1718881,Santa Maria do Tocantins,172,17,TO
+1718899,Santa Rita do Tocantins,171,17,TO
+1718907,Santa Rosa do Tocantins,172,17,TO
+1719004,Santa Tereza do Tocantins,172,17,TO
+1720002,Santa Terezinha do Tocantins,171,17,TO
+1720101,São Bento do Tocantins,171,17,TO
+1720150,São Félix do Tocantins,172,17,TO
+1720200,São Miguel do Tocantins,171,17,TO
+1720259,São Salvador do Tocantins,171,17,TO
+1720309,São Sebastião do Tocantins,171,17,TO
+1720499,São Valério,172,17,TO
+1720655,Silvanópolis,172,17,TO
+1720804,Sítio Novo do Tocantins,171,17,TO
+1720853,Sucupira,171,17,TO
+1720903,Taguatinga,172,17,TO
+1720937,Taipas do Tocantins,172,17,TO
+1720978,Talismã,171,17,TO
+1721109,Tocantínia,172,17,TO
+1721208,Tocantinópolis,171,17,TO
+1721257,Tupirama,171,17,TO
+1721307,Tupiratins,171,17,TO
+1722081,Wanderlândia,171,17,TO
+1722107,Xambioá,171,17,TO
+2100055,Açailândia,212,21,MA
+2100105,Afonso Cunha,214,21,MA
+2100154,Água Doce do Maranhão,214,21,MA
+2100204,Alcântara,211,21,MA
+2100303,Aldeias Altas,214,21,MA
+2100402,Altamira do Maranhão,212,21,MA
+2100436,Alto Alegre do Maranhão,214,21,MA
+2100477,Alto Alegre do Pindaré,212,21,MA
+2100501,Alto Parnaíba,215,21,MA
+2100550,Amapá do Maranhão,212,21,MA
+2100600,Amarante do Maranhão,212,21,MA
+2100709,Anajatuba,211,21,MA
+2100808,Anapurus,214,21,MA
+2100832,Apicum-Açu,211,21,MA
+2100873,Araguanã,212,21,MA
+2100907,Araioses,214,21,MA
+2100956,Arame,213,21,MA
+2101004,Arari,211,21,MA
+2101103,Axixá,211,21,MA
+2101202,Bacabal,213,21,MA
+2101251,Bacabeira,211,21,MA
+2101301,Bacuri,211,21,MA
+2101350,Bacurituba,211,21,MA
+2101400,Balsas,215,21,MA
+2101509,Barão de Grajaú,214,21,MA
+2101608,Barra do Corda,213,21,MA
+2101707,Barreirinhas,211,21,MA
+2101772,Bela Vista do Maranhão,211,21,MA
+2101731,Belágua,214,21,MA
+2101806,Benedito Leite,215,21,MA
+2101905,Bequimão,211,21,MA
+2101939,Bernardo do Mearim,213,21,MA
+2101970,Boa Vista do Gurupi,212,21,MA
+2102002,Bom Jardim,212,21,MA
+2102036,Bom Jesus das Selvas,212,21,MA
+2102077,Bom Lugar,213,21,MA
+2102101,Brejo,214,21,MA
+2102150,Brejo de Areia,212,21,MA
+2102200,Buriti,214,21,MA
+2102309,Buriti Bravo,214,21,MA
+2102325,Buriticupu,212,21,MA
+2102358,Buritirana,212,21,MA
+2102374,Cachoeira Grande,211,21,MA
+2102408,Cajapió,211,21,MA
+2102507,Cajari,211,21,MA
+2102556,Campestre do Maranhão,215,21,MA
+2102606,Cândido Mendes,212,21,MA
+2102705,Cantanhede,211,21,MA
+2102754,Capinzal do Norte,214,21,MA
+2102804,Carolina,215,21,MA
+2102903,Carutapera,212,21,MA
+2103000,Caxias,214,21,MA
+2103109,Cedral,211,21,MA
+2103125,Central do Maranhão,211,21,MA
+2103158,Centro do Guilherme,212,21,MA
+2103174,Centro Novo do Maranhão,212,21,MA
+2103208,Chapadinha,214,21,MA
+2103257,Cidelândia,212,21,MA
+2103307,Codó,214,21,MA
+2103406,Coelho Neto,214,21,MA
+2103505,Colinas,214,21,MA
+2103554,Conceição do Lago-Açu,211,21,MA
+2103604,Coroatá,214,21,MA
+2103703,Cururupu,211,21,MA
+2103752,Davinópolis,212,21,MA
+2103802,Dom Pedro,213,21,MA
+2103901,Duque Bacelar,214,21,MA
+2104008,Esperantinópolis,213,21,MA
+2104057,Estreito,215,21,MA
+2104073,Feira Nova do Maranhão,215,21,MA
+2104081,Fernando Falcão,213,21,MA
+2104099,Formosa da Serra Negra,213,21,MA
+2104107,Fortaleza dos Nogueiras,215,21,MA
+2104206,Fortuna,213,21,MA
+2104305,Godofredo Viana,212,21,MA
+2104404,Gonçalves Dias,213,21,MA
+2104503,Governador Archer,213,21,MA
+2104552,Governador Edison Lobão,212,21,MA
+2104602,Governador Eugênio Barros,213,21,MA
+2104628,Governador Luiz Rocha,213,21,MA
+2104651,Governador Newton Bello,212,21,MA
+2104677,Governador Nunes Freire,212,21,MA
+2104701,Graça Aranha,213,21,MA
+2104800,Grajaú,213,21,MA
+2104909,Guimarães,211,21,MA
+2105005,Humberto de Campos,211,21,MA
+2105104,Icatu,211,21,MA
+2105153,Igarapé do Meio,211,21,MA
+2105203,Igarapé Grande,213,21,MA
+2105302,Imperatriz,212,21,MA
+2105351,Itaipava do Grajaú,213,21,MA
+2105401,Itapecuru Mirim,211,21,MA
+2105427,Itinga do Maranhão,212,21,MA
+2105450,Jatobá,214,21,MA
+2105476,Jenipapo dos Vieiras,213,21,MA
+2105500,João Lisboa,212,21,MA
+2105609,Joselândia,213,21,MA
+2105658,Junco do Maranhão,212,21,MA
+2105708,Lago da Pedra,212,21,MA
+2105807,Lago do Junco,213,21,MA
+2105948,Lago dos Rodrigues,213,21,MA
+2105906,Lago Verde,213,21,MA
+2105922,Lagoa do Mato,214,21,MA
+2105963,Lagoa Grande do Maranhão,212,21,MA
+2105989,Lajeado Novo,212,21,MA
+2106003,Lima Campos,213,21,MA
+2106102,Loreto,215,21,MA
+2106201,Luís Domingues,212,21,MA
+2106300,Magalhães de Almeida,214,21,MA
+2106326,Maracaçumé,212,21,MA
+2106359,Marajá do Sena,212,21,MA
+2106375,Maranhãozinho,212,21,MA
+2106409,Mata Roma,214,21,MA
+2106508,Matinha,211,21,MA
+2106607,Matões,214,21,MA
+2106631,Matões do Norte,211,21,MA
+2106672,Milagres do Maranhão,214,21,MA
+2106706,Mirador,214,21,MA
+2106755,Miranda do Norte,211,21,MA
+2106805,Mirinzal,211,21,MA
+2106904,Monção,211,21,MA
+2107001,Montes Altos,212,21,MA
+2107100,Morros,211,21,MA
+2107209,Nina Rodrigues,211,21,MA
+2107258,Nova Colinas,215,21,MA
+2107308,Nova Iorque,214,21,MA
+2107357,Nova Olinda do Maranhão,212,21,MA
+2107407,Olho d'Água das Cunhãs,213,21,MA
+2107456,Olinda Nova do Maranhão,211,21,MA
+2107506,Paço do Lumiar,211,21,MA
+2107605,Palmeirândia,211,21,MA
+2107704,Paraibano,214,21,MA
+2107803,Parnarama,214,21,MA
+2107902,Passagem Franca,214,21,MA
+2108009,Pastos Bons,214,21,MA
+2108058,Paulino Neves,211,21,MA
+2108108,Paulo Ramos,212,21,MA
+2108207,Pedreiras,213,21,MA
+2108256,Pedro do Rosário,211,21,MA
+2108306,Penalva,211,21,MA
+2108405,Peri Mirim,211,21,MA
+2108454,Peritoró,214,21,MA
+2108504,Pindaré-Mirim,212,21,MA
+2108603,Pinheiro,211,21,MA
+2108702,Pio XII,213,21,MA
+2108801,Pirapemas,211,21,MA
+2108900,Poção de Pedras,213,21,MA
+2109007,Porto Franco,215,21,MA
+2109056,Porto Rico do Maranhão,211,21,MA
+2109106,Presidente Dutra,213,21,MA
+2109205,Presidente Juscelino,211,21,MA
+2109239,Presidente Médici,212,21,MA
+2109270,Presidente Sarney,211,21,MA
+2109304,Presidente Vargas,211,21,MA
+2109403,Primeira Cruz,211,21,MA
+2109452,Raposa,211,21,MA
+2109502,Riachão,215,21,MA
+2109551,Ribamar Fiquene,212,21,MA
+2109601,Rosário,211,21,MA
+2109700,Sambaíba,215,21,MA
+2109759,Santa Filomena do Maranhão,213,21,MA
+2109809,Santa Helena,211,21,MA
+2109908,Santa Inês,212,21,MA
+2110005,Santa Luzia,212,21,MA
+2110039,Santa Luzia do Paruá,212,21,MA
+2110104,Santa Quitéria do Maranhão,214,21,MA
+2110203,Santa Rita,211,21,MA
+2110237,Santana do Maranhão,214,21,MA
+2110278,Santo Amaro do Maranhão,211,21,MA
+2110302,Santo Antônio dos Lopes,213,21,MA
+2110401,São Benedito do Rio Preto,214,21,MA
+2110500,São Bento,211,21,MA
+2110609,São Bernardo,214,21,MA
+2110658,São Domingos do Azeitão,215,21,MA
+2110708,São Domingos do Maranhão,213,21,MA
+2110807,São Félix de Balsas,215,21,MA
+2110856,São Francisco do Brejão,212,21,MA
+2110906,São Francisco do Maranhão,214,21,MA
+2111003,São João Batista,211,21,MA
+2111029,São João do Carú,212,21,MA
+2111052,São João do Paraíso,215,21,MA
+2111078,São João do Soter,214,21,MA
+2111102,São João dos Patos,214,21,MA
+2111201,São José de Ribamar,211,21,MA
+2111250,São José dos Basílios,213,21,MA
+2111300,São Luís,211,21,MA
+2111409,São Luís Gonzaga do Maranhão,213,21,MA
+2111508,São Mateus do Maranhão,213,21,MA
+2111532,São Pedro da Água Branca,212,21,MA
+2111573,São Pedro dos Crentes,215,21,MA
+2111607,São Raimundo das Mangabeiras,215,21,MA
+2111631,São Raimundo do Doca Bezerra,213,21,MA
+2111672,São Roberto,213,21,MA
+2111706,São Vicente Ferrer,211,21,MA
+2111722,Satubinha,213,21,MA
+2111748,Senador Alexandre Costa,213,21,MA
+2111763,Senador La Rocque,212,21,MA
+2111789,Serrano do Maranhão,211,21,MA
+2111805,Sítio Novo,213,21,MA
+2111904,Sucupira do Norte,214,21,MA
+2111953,Sucupira do Riachão,214,21,MA
+2112001,Tasso Fragoso,215,21,MA
+2112100,Timbiras,214,21,MA
+2112209,Timon,214,21,MA
+2112233,Trizidela do Vale,213,21,MA
+2112274,Tufilândia,212,21,MA
+2112308,Tuntum,213,21,MA
+2112407,Turiaçu,212,21,MA
+2112456,Turilândia,212,21,MA
+2112506,Tutóia,211,21,MA
+2112605,Urbano Santos,214,21,MA
+2112704,Vargem Grande,211,21,MA
+2112803,Viana,211,21,MA
+2112852,Vila Nova dos Martírios,212,21,MA
+2112902,Vitória do Mearim,211,21,MA
+2113009,Vitorino Freire,212,21,MA
+2114007,Zé Doca,212,21,MA
+2200053,Acauã,224,22,PI
+2200103,Agricolândia,222,22,PI
+2200202,Água Branca,222,22,PI
+2200251,Alagoinha do Piauí,224,22,PI
+2200277,Alegrete do Piauí,224,22,PI
+2200301,Alto Longá,222,22,PI
+2200400,Altos,222,22,PI
+2200459,Alvorada do Gurguéia,223,22,PI
+2200509,Amarante,222,22,PI
+2200608,Angical do Piauí,222,22,PI
+2200707,Anísio de Abreu,223,22,PI
+2200806,Antônio Almeida,223,22,PI
+2200905,Aroazes,222,22,PI
+2200954,Aroeiras do Itaim,224,22,PI
+2201002,Arraial,222,22,PI
+2201051,Assunção do Piauí,222,22,PI
+2201101,Avelino Lopes,223,22,PI
+2201150,Baixa Grande do Ribeiro,223,22,PI
+2201176,Barra D'Alcântara,222,22,PI
+2201200,Barras,221,22,PI
+2201309,Barreiras do Piauí,223,22,PI
+2201408,Barro Duro,222,22,PI
+2201507,Batalha,221,22,PI
+2201556,Bela Vista do Piauí,224,22,PI
+2201572,Belém do Piauí,224,22,PI
+2201606,Beneditinos,222,22,PI
+2201705,Bertolínia,223,22,PI
+2201739,Betânia do Piauí,224,22,PI
+2201770,Boa Hora,221,22,PI
+2201804,Bocaina,224,22,PI
+2201903,Bom Jesus,223,22,PI
+2201919,Bom Princípio do Piauí,221,22,PI
+2201929,Bonfim do Piauí,223,22,PI
+2201945,Boqueirão do Piauí,222,22,PI
+2201960,Brasileira,221,22,PI
+2201988,Brejo do Piauí,223,22,PI
+2202000,Buriti dos Lopes,221,22,PI
+2202026,Buriti dos Montes,222,22,PI
+2202059,Cabeceiras do Piauí,221,22,PI
+2202075,Cajazeiras do Piauí,224,22,PI
+2202083,Cajueiro da Praia,221,22,PI
+2202091,Caldeirão Grande do Piauí,224,22,PI
+2202109,Campinas do Piauí,224,22,PI
+2202117,Campo Alegre do Fidalgo,224,22,PI
+2202133,Campo Grande do Piauí,224,22,PI
+2202174,Campo Largo do Piauí,221,22,PI
+2202208,Campo Maior,222,22,PI
+2202251,Canavieira,223,22,PI
+2202307,Canto do Buriti,223,22,PI
+2202406,Capitão de Campos,222,22,PI
+2202455,Capitão Gervásio Oliveira,224,22,PI
+2202505,Caracol,223,22,PI
+2202539,Caraúbas do Piauí,221,22,PI
+2202554,Caridade do Piauí,224,22,PI
+2202604,Castelo do Piauí,222,22,PI
+2202653,Caxingó,221,22,PI
+2202703,Cocal,221,22,PI
+2202711,Cocal de Telha,222,22,PI
+2202729,Cocal dos Alves,221,22,PI
+2202737,Coivaras,222,22,PI
+2202752,Colônia do Gurguéia,223,22,PI
+2202778,Colônia do Piauí,224,22,PI
+2202802,Conceição do Canindé,224,22,PI
+2202851,Coronel José Dias,223,22,PI
+2202901,Corrente,223,22,PI
+2203008,Cristalândia do Piauí,223,22,PI
+2203107,Cristino Castro,223,22,PI
+2203206,Curimatá,223,22,PI
+2203230,Currais,223,22,PI
+2203271,Curral Novo do Piauí,224,22,PI
+2203255,Curralinhos,222,22,PI
+2203305,Demerval Lobão,222,22,PI
+2203354,Dirceu Arcoverde,223,22,PI
+2203404,Dom Expedito Lopes,224,22,PI
+2203453,Dom Inocêncio,223,22,PI
+2203420,Domingos Mourão,222,22,PI
+2203503,Elesbão Veloso,222,22,PI
+2203602,Eliseu Martins,223,22,PI
+2203701,Esperantina,221,22,PI
+2203750,Fartura do Piauí,223,22,PI
+2203800,Flores do Piauí,223,22,PI
+2203859,Floresta do Piauí,224,22,PI
+2203909,Floriano,223,22,PI
+2204006,Francinópolis,222,22,PI
+2204105,Francisco Ayres,222,22,PI
+2204154,Francisco Macedo,224,22,PI
+2204204,Francisco Santos,224,22,PI
+2204303,Fronteiras,224,22,PI
+2204352,Geminiano,224,22,PI
+2204402,Gilbués,223,22,PI
+2204501,Guadalupe,223,22,PI
+2204550,Guaribas,223,22,PI
+2204600,Hugo Napoleão,222,22,PI
+2204659,Ilha Grande,221,22,PI
+2204709,Inhuma,222,22,PI
+2204808,Ipiranga do Piauí,224,22,PI
+2204907,Isaías Coelho,224,22,PI
+2205003,Itainópolis,224,22,PI
+2205102,Itaueira,223,22,PI
+2205151,Jacobina do Piauí,224,22,PI
+2205201,Jaicós,224,22,PI
+2205250,Jardim do Mulato,222,22,PI
+2205276,Jatobá do Piauí,222,22,PI
+2205300,Jerumenha,223,22,PI
+2205359,João Costa,224,22,PI
+2205409,Joaquim Pires,221,22,PI
+2205458,Joca Marques,221,22,PI
+2205508,José de Freitas,222,22,PI
+2205516,Juazeiro do Piauí,222,22,PI
+2205524,Júlio Borges,223,22,PI
+2205532,Jurema,223,22,PI
+2205557,Lagoa Alegre,222,22,PI
+2205573,Lagoa de São Francisco,222,22,PI
+2205565,Lagoa do Barro do Piauí,224,22,PI
+2205581,Lagoa do Piauí,222,22,PI
+2205599,Lagoa do Sítio,222,22,PI
+2205540,Lagoinha do Piauí,222,22,PI
+2205607,Landri Sales,223,22,PI
+2205706,Luís Correia,221,22,PI
+2205805,Luzilândia,221,22,PI
+2205854,Madeiro,221,22,PI
+2205904,Manoel Emídio,223,22,PI
+2205953,Marcolândia,224,22,PI
+2206001,Marcos Parente,223,22,PI
+2206050,Massapê do Piauí,224,22,PI
+2206100,Matias Olímpio,221,22,PI
+2206209,Miguel Alves,221,22,PI
+2206308,Miguel Leão,222,22,PI
+2206357,Milton Brandão,222,22,PI
+2206407,Monsenhor Gil,222,22,PI
+2206506,Monsenhor Hipólito,224,22,PI
+2206605,Monte Alegre do Piauí,223,22,PI
+2206654,Morro Cabeça no Tempo,223,22,PI
+2206670,Morro do Chapéu do Piauí,221,22,PI
+2206696,Murici dos Portelas,221,22,PI
+2206704,Nazaré do Piauí,223,22,PI
+2206720,Nazária,222,22,PI
+2206753,Nossa Senhora de Nazaré,222,22,PI
+2206803,Nossa Senhora dos Remédios,221,22,PI
+2207959,Nova Santa Rita,224,22,PI
+2206902,Novo Oriente do Piauí,222,22,PI
+2206951,Novo Santo Antônio,222,22,PI
+2207009,Oeiras,224,22,PI
+2207108,Olho D'Água do Piauí,222,22,PI
+2207207,Padre Marcos,224,22,PI
+2207306,Paes Landim,224,22,PI
+2207355,Pajeú do Piauí,223,22,PI
+2207405,Palmeira do Piauí,223,22,PI
+2207504,Palmeirais,222,22,PI
+2207553,Paquetá,224,22,PI
+2207603,Parnaguá,223,22,PI
+2207702,Parnaíba,221,22,PI
+2207751,Passagem Franca do Piauí,222,22,PI
+2207777,Patos do Piauí,224,22,PI
+2207793,Pau D'Arco do Piauí,222,22,PI
+2207801,Paulistana,224,22,PI
+2207850,Pavussu,223,22,PI
+2207900,Pedro II,222,22,PI
+2207934,Pedro Laurentino,224,22,PI
+2208007,Picos,224,22,PI
+2208106,Pimenteiras,222,22,PI
+2208205,Pio IX,224,22,PI
+2208304,Piracuruca,221,22,PI
+2208403,Piripiri,221,22,PI
+2208502,Porto,221,22,PI
+2208551,Porto Alegre do Piauí,223,22,PI
+2208601,Prata do Piauí,222,22,PI
+2208650,Queimada Nova,224,22,PI
+2208700,Redenção do Gurguéia,223,22,PI
+2208809,Regeneração,222,22,PI
+2208858,Riacho Frio,223,22,PI
+2208874,Ribeira do Piauí,224,22,PI
+2208908,Ribeiro Gonçalves,223,22,PI
+2209005,Rio Grande do Piauí,223,22,PI
+2209104,Santa Cruz do Piauí,224,22,PI
+2209153,Santa Cruz dos Milagres,222,22,PI
+2209203,Santa Filomena,223,22,PI
+2209302,Santa Luz,223,22,PI
+2209377,Santa Rosa do Piauí,224,22,PI
+2209351,Santana do Piauí,224,22,PI
+2209401,Santo Antônio de Lisboa,224,22,PI
+2209450,Santo Antônio dos Milagres,222,22,PI
+2209500,Santo Inácio do Piauí,224,22,PI
+2209559,São Braz do Piauí,223,22,PI
+2209609,São Félix do Piauí,222,22,PI
+2209658,São Francisco de Assis do Piauí,224,22,PI
+2209708,São Francisco do Piauí,223,22,PI
+2209757,São Gonçalo do Gurguéia,223,22,PI
+2209807,São Gonçalo do Piauí,222,22,PI
+2209856,São João da Canabrava,224,22,PI
+2209872,São João da Fronteira,221,22,PI
+2209906,São João da Serra,222,22,PI
+2209955,São João da Varjota,224,22,PI
+2209971,São João do Arraial,221,22,PI
+2210003,São João do Piauí,224,22,PI
+2210052,São José do Divino,221,22,PI
+2210102,São José do Peixe,223,22,PI
+2210201,São José do Piauí,224,22,PI
+2210300,São Julião,224,22,PI
+2210359,São Lourenço do Piauí,223,22,PI
+2210375,São Luis do Piauí,224,22,PI
+2210383,São Miguel da Baixa Grande,222,22,PI
+2210391,São Miguel do Fidalgo,223,22,PI
+2210409,São Miguel do Tapuio,222,22,PI
+2210508,São Pedro do Piauí,222,22,PI
+2210607,São Raimundo Nonato,223,22,PI
+2210623,Sebastião Barros,223,22,PI
+2210631,Sebastião Leal,223,22,PI
+2210656,Sigefredo Pacheco,222,22,PI
+2210706,Simões,224,22,PI
+2210805,Simplício Mendes,224,22,PI
+2210904,Socorro do Piauí,224,22,PI
+2210938,Sussuapara,224,22,PI
+2210953,Tamboril do Piauí,223,22,PI
+2210979,Tanque do Piauí,224,22,PI
+2211001,Teresina,222,22,PI
+2211100,União,222,22,PI
+2211209,Uruçuí,223,22,PI
+2211308,Valença do Piauí,222,22,PI
+2211357,Várzea Branca,223,22,PI
+2211407,Várzea Grande,222,22,PI
+2211506,Vera Mendes,224,22,PI
+2211605,Vila Nova do Piauí,224,22,PI
+2211704,Wall Ferraz,224,22,PI
+2300101,Abaiara,237,23,CE
+2300150,Acarape,232,23,CE
+2300200,Acaraú,231,23,CE
+2300309,Acopiara,234,23,CE
+2300408,Aiuaba,234,23,CE
+2300507,Alcântaras,231,23,CE
+2300606,Altaneira,237,23,CE
+2300705,Alto Santo,235,23,CE
+2300754,Amontada,232,23,CE
+2300804,Antonina do Norte,236,23,CE
+2300903,Apuiarés,232,23,CE
+2301000,Aquiraz,233,23,CE
+2301109,Aracati,235,23,CE
+2301208,Aracoiaba,232,23,CE
+2301257,Ararendá,234,23,CE
+2301307,Araripe,237,23,CE
+2301406,Aratuba,232,23,CE
+2301505,Arneiroz,234,23,CE
+2301604,Assaré,237,23,CE
+2301703,Aurora,237,23,CE
+2301802,Baixio,236,23,CE
+2301851,Banabuiú,234,23,CE
+2301901,Barbalha,237,23,CE
+2301950,Barreira,232,23,CE
+2302008,Barro,237,23,CE
+2302057,Barroquinha,231,23,CE
+2302107,Baturité,232,23,CE
+2302206,Beberibe,232,23,CE
+2302305,Bela Cruz,231,23,CE
+2302404,Boa Viagem,234,23,CE
+2302503,Brejo Santo,237,23,CE
+2302602,Camocim,231,23,CE
+2302701,Campos Sales,237,23,CE
+2302800,Canindé,232,23,CE
+2302909,Capistrano,232,23,CE
+2303006,Caridade,232,23,CE
+2303105,Cariré,231,23,CE
+2303204,Caririaçu,237,23,CE
+2303303,Cariús,236,23,CE
+2303402,Carnaubal,231,23,CE
+2303501,Cascavel,232,23,CE
+2303600,Catarina,234,23,CE
+2303659,Catunda,231,23,CE
+2303709,Caucaia,233,23,CE
+2303808,Cedro,236,23,CE
+2303907,Chaval,231,23,CE
+2303931,Choró,234,23,CE
+2303956,Chorozinho,232,23,CE
+2304004,Coreaú,231,23,CE
+2304103,Crateús,234,23,CE
+2304202,Crato,237,23,CE
+2304236,Croatá,231,23,CE
+2304251,Cruz,231,23,CE
+2304269,Deputado Irapuan Pinheiro,234,23,CE
+2304277,Ererê,235,23,CE
+2304285,Eusébio,233,23,CE
+2304301,Farias Brito,237,23,CE
+2304350,Forquilha,231,23,CE
+2304400,Fortaleza,233,23,CE
+2304459,Fortim,235,23,CE
+2304509,Frecheirinha,231,23,CE
+2304608,General Sampaio,232,23,CE
+2304657,Graça,231,23,CE
+2304707,Granja,231,23,CE
+2304806,Granjeiro,237,23,CE
+2304905,Groaíras,231,23,CE
+2304954,Guaiúba,233,23,CE
+2305001,Guaraciaba do Norte,231,23,CE
+2305100,Guaramiranga,232,23,CE
+2305209,Hidrolândia,231,23,CE
+2305233,Horizonte,233,23,CE
+2305266,Ibaretama,234,23,CE
+2305308,Ibiapina,231,23,CE
+2305332,Ibicuitinga,235,23,CE
+2305357,Icapuí,235,23,CE
+2305407,Icó,236,23,CE
+2305506,Iguatu,236,23,CE
+2305605,Independência,234,23,CE
+2305654,Ipaporanga,234,23,CE
+2305704,Ipaumirim,236,23,CE
+2305803,Ipu,231,23,CE
+2305902,Ipueiras,231,23,CE
+2306009,Iracema,235,23,CE
+2306108,Irauçuba,231,23,CE
+2306207,Itaiçaba,235,23,CE
+2306256,Itaitinga,233,23,CE
+2306306,Itapajé,232,23,CE
+2306405,Itapipoca,232,23,CE
+2306504,Itapiúna,232,23,CE
+2306553,Itarema,231,23,CE
+2306603,Itatira,232,23,CE
+2306702,Jaguaretama,235,23,CE
+2306801,Jaguaribara,235,23,CE
+2306900,Jaguaribe,235,23,CE
+2307007,Jaguaruana,235,23,CE
+2307106,Jardim,237,23,CE
+2307205,Jati,237,23,CE
+2307254,Jijoca de Jericoacoara,231,23,CE
+2307304,Juazeiro do Norte,237,23,CE
+2307403,Jucás,236,23,CE
+2307502,Lavras da Mangabeira,236,23,CE
+2307601,Limoeiro do Norte,235,23,CE
+2307635,Madalena,234,23,CE
+2307650,Maracanaú,233,23,CE
+2307700,Maranguape,233,23,CE
+2307809,Marco,231,23,CE
+2307908,Martinópole,231,23,CE
+2308005,Massapê,231,23,CE
+2308104,Mauriti,237,23,CE
+2308203,Meruoca,231,23,CE
+2308302,Milagres,237,23,CE
+2308351,Milhã,234,23,CE
+2308377,Miraíma,231,23,CE
+2308401,Missão Velha,237,23,CE
+2308500,Mombaça,234,23,CE
+2308609,Monsenhor Tabosa,234,23,CE
+2308708,Morada Nova,235,23,CE
+2308807,Moraújo,231,23,CE
+2308906,Morrinhos,231,23,CE
+2309003,Mucambo,231,23,CE
+2309102,Mulungu,232,23,CE
+2309201,Nova Olinda,237,23,CE
+2309300,Nova Russas,234,23,CE
+2309409,Novo Oriente,234,23,CE
+2309458,Ocara,232,23,CE
+2309508,Orós,236,23,CE
+2309607,Pacajus,233,23,CE
+2309706,Pacatuba,233,23,CE
+2309805,Pacoti,232,23,CE
+2309904,Pacujá,231,23,CE
+2310001,Palhano,235,23,CE
+2310100,Palmácia,232,23,CE
+2310209,Paracuru,232,23,CE
+2310258,Paraipaba,232,23,CE
+2310308,Parambu,234,23,CE
+2310407,Paramoti,232,23,CE
+2310506,Pedra Branca,234,23,CE
+2310605,Penaforte,237,23,CE
+2310704,Pentecoste,232,23,CE
+2310803,Pereiro,235,23,CE
+2310852,Pindoretama,232,23,CE
+2310902,Piquet Carneiro,234,23,CE
+2310951,Pires Ferreira,231,23,CE
+2311009,Poranga,231,23,CE
+2311108,Porteiras,237,23,CE
+2311207,Potengi,237,23,CE
+2311231,Potiretama,235,23,CE
+2311264,Quiterianópolis,234,23,CE
+2311306,Quixadá,234,23,CE
+2311355,Quixelô,236,23,CE
+2311405,Quixeramobim,234,23,CE
+2311504,Quixeré,235,23,CE
+2311603,Redenção,232,23,CE
+2311702,Reriutaba,231,23,CE
+2311801,Russas,235,23,CE
+2311900,Saboeiro,234,23,CE
+2311959,Salitre,237,23,CE
+2312205,Santa Quitéria,231,23,CE
+2312007,Santana do Acaraú,231,23,CE
+2312106,Santana do Cariri,237,23,CE
+2312304,São Benedito,231,23,CE
+2312403,São Gonçalo do Amarante,232,23,CE
+2312502,São João do Jaguaribe,235,23,CE
+2312601,São Luís do Curu,232,23,CE
+2312700,Senador Pompeu,234,23,CE
+2312809,Senador Sá,231,23,CE
+2312908,Sobral,231,23,CE
+2313005,Solonópole,234,23,CE
+2313104,Tabuleiro do Norte,235,23,CE
+2313203,Tamboril,234,23,CE
+2313252,Tarrafas,236,23,CE
+2313302,Tauá,234,23,CE
+2313351,Tejuçuoca,232,23,CE
+2313401,Tianguá,231,23,CE
+2313500,Trairi,232,23,CE
+2313559,Tururu,232,23,CE
+2313609,Ubajara,231,23,CE
+2313708,Umari,236,23,CE
+2313757,Umirim,232,23,CE
+2313807,Uruburetama,232,23,CE
+2313906,Uruoca,231,23,CE
+2313955,Varjota,231,23,CE
+2314003,Várzea Alegre,236,23,CE
+2314102,Viçosa do Ceará,231,23,CE
+2400109,Acari,242,24,RN
+2400208,Açu,241,24,RN
+2400307,Afonso Bezerra,242,24,RN
+2400406,Água Nova,241,24,RN
+2400505,Alexandria,241,24,RN
+2400604,Almino Afonso,241,24,RN
+2400703,Alto do Rodrigues,241,24,RN
+2400802,Angicos,242,24,RN
+2400901,Antônio Martins,241,24,RN
+2401008,Apodi,241,24,RN
+2401107,Areia Branca,241,24,RN
+2401206,Arês,244,24,RN
+2401305,Augusto Severo,241,24,RN
+2401404,Baía Formosa,244,24,RN
+2401453,Baraúna,241,24,RN
+2401503,Barcelona,243,24,RN
+2401602,Bento Fernandes,243,24,RN
+2401651,Bodó,242,24,RN
+2401701,Bom Jesus,243,24,RN
+2401800,Brejinho,243,24,RN
+2401859,Caiçara do Norte,242,24,RN
+2401909,Caiçara do Rio do Vento,242,24,RN
+2402006,Caicó,242,24,RN
+2402105,Campo Redondo,243,24,RN
+2402204,Canguaretama,244,24,RN
+2402303,Caraúbas,241,24,RN
+2402402,Carnaúba dos Dantas,242,24,RN
+2402501,Carnaubais,241,24,RN
+2402600,Ceará-Mirim,244,24,RN
+2402709,Cerro Corá,242,24,RN
+2402808,Coronel Ezequiel,243,24,RN
+2402907,Coronel João Pessoa,241,24,RN
+2403004,Cruzeta,242,24,RN
+2403103,Currais Novos,242,24,RN
+2403202,Doutor Severiano,241,24,RN
+2403301,Encanto,241,24,RN
+2403400,Equador,242,24,RN
+2403509,Espírito Santo,244,24,RN
+2403608,Extremoz,244,24,RN
+2403707,Felipe Guerra,241,24,RN
+2403756,Fernando Pedroza,242,24,RN
+2403806,Florânia,242,24,RN
+2403905,Francisco Dantas,241,24,RN
+2404002,Frutuoso Gomes,241,24,RN
+2404101,Galinhos,242,24,RN
+2404200,Goianinha,244,24,RN
+2404309,Governador Dix-Sept Rosado,241,24,RN
+2404408,Grossos,241,24,RN
+2404507,Guamaré,242,24,RN
+2404606,Ielmo Marinho,243,24,RN
+2404705,Ipanguaçu,241,24,RN
+2404804,Ipueira,242,24,RN
+2404853,Itajá,241,24,RN
+2404903,Itaú,241,24,RN
+2405009,Jaçanã,243,24,RN
+2405108,Jandaíra,243,24,RN
+2405207,Janduís,241,24,RN
+2405306,Januário Cicco,243,24,RN
+2405405,Japi,243,24,RN
+2405504,Jardim de Angicos,242,24,RN
+2405603,Jardim de Piranhas,242,24,RN
+2405702,Jardim do Seridó,242,24,RN
+2405801,João Câmara,243,24,RN
+2405900,João Dias,241,24,RN
+2406007,José da Penha,241,24,RN
+2406106,Jucurutu,241,24,RN
+2406155,Jundiá,243,24,RN
+2406205,Lagoa d'Anta,243,24,RN
+2406304,Lagoa de Pedras,243,24,RN
+2406403,Lagoa de Velhos,243,24,RN
+2406502,Lagoa Nova,242,24,RN
+2406601,Lagoa Salgada,243,24,RN
+2406700,Lajes,242,24,RN
+2406809,Lajes Pintadas,243,24,RN
+2406908,Lucrécia,241,24,RN
+2407005,Luís Gomes,241,24,RN
+2407104,Macaíba,244,24,RN
+2407203,Macau,242,24,RN
+2407252,Major Sales,241,24,RN
+2407302,Marcelino Vieira,241,24,RN
+2407401,Martins,241,24,RN
+2407500,Maxaranguape,244,24,RN
+2407609,Messias Targino,241,24,RN
+2407708,Montanhas,244,24,RN
+2407807,Monte Alegre,243,24,RN
+2407906,Monte das Gameleiras,243,24,RN
+2408003,Mossoró,241,24,RN
+2408102,Natal,244,24,RN
+2408201,Nísia Floresta,244,24,RN
+2408300,Nova Cruz,243,24,RN
+2408409,Olho d'Água do Borges,241,24,RN
+2408508,Ouro Branco,242,24,RN
+2408607,Paraná,241,24,RN
+2408706,Paraú,241,24,RN
+2408805,Parazinho,243,24,RN
+2408904,Parelhas,242,24,RN
+2403251,Parnamirim,244,24,RN
+2409100,Passa e Fica,243,24,RN
+2409209,Passagem,243,24,RN
+2409308,Patu,241,24,RN
+2409407,Pau dos Ferros,241,24,RN
+2409506,Pedra Grande,244,24,RN
+2409605,Pedra Preta,242,24,RN
+2409704,Pedro Avelino,242,24,RN
+2409803,Pedro Velho,244,24,RN
+2409902,Pendências,241,24,RN
+2410009,Pilões,241,24,RN
+2410108,Poço Branco,243,24,RN
+2410207,Portalegre,241,24,RN
+2410256,Porto do Mangue,241,24,RN
+2410405,Pureza,244,24,RN
+2410504,Rafael Fernandes,241,24,RN
+2410603,Rafael Godeiro,241,24,RN
+2410702,Riacho da Cruz,241,24,RN
+2410801,Riacho de Santana,241,24,RN
+2410900,Riachuelo,243,24,RN
+2408953,Rio do Fogo,244,24,RN
+2411007,Rodolfo Fernandes,241,24,RN
+2411106,Ruy Barbosa,243,24,RN
+2411205,Santa Cruz,243,24,RN
+2409332,Santa Maria,243,24,RN
+2411403,Santana do Matos,242,24,RN
+2411429,Santana do Seridó,242,24,RN
+2411502,Santo Antônio,243,24,RN
+2411601,São Bento do Norte,242,24,RN
+2411700,São Bento do Trairí,243,24,RN
+2411809,São Fernando,242,24,RN
+2411908,São Francisco do Oeste,241,24,RN
+2412005,São Gonçalo do Amarante,244,24,RN
+2412104,São João do Sabugi,242,24,RN
+2412203,São José de Mipibu,244,24,RN
+2412302,São José do Campestre,243,24,RN
+2412401,São José do Seridó,242,24,RN
+2412500,São Miguel,241,24,RN
+2412559,São Miguel do Gostoso,244,24,RN
+2412609,São Paulo do Potengi,243,24,RN
+2412708,São Pedro,243,24,RN
+2412807,São Rafael,241,24,RN
+2412906,São Tomé,243,24,RN
+2413003,São Vicente,242,24,RN
+2413102,Senador Elói de Souza,243,24,RN
+2413201,Senador Georgino Avelino,244,24,RN
+2410306,Serra Caiada,243,24,RN
+2413300,Serra de São Bento,243,24,RN
+2413359,Serra do Mel,241,24,RN
+2413409,Serra Negra do Norte,242,24,RN
+2413508,Serrinha,243,24,RN
+2413557,Serrinha dos Pintos,241,24,RN
+2413607,Severiano Melo,241,24,RN
+2413706,Sítio Novo,243,24,RN
+2413805,Taboleiro Grande,241,24,RN
+2413904,Taipu,244,24,RN
+2414001,Tangará,243,24,RN
+2414100,Tenente Ananias,241,24,RN
+2414159,Tenente Laurentino Cruz,242,24,RN
+2411056,Tibau,241,24,RN
+2414209,Tibau do Sul,244,24,RN
+2414308,Timbaúba dos Batistas,242,24,RN
+2414407,Touros,244,24,RN
+2414456,Triunfo Potiguar,241,24,RN
+2414506,Umarizal,241,24,RN
+2414605,Upanema,241,24,RN
+2414704,Várzea,243,24,RN
+2414753,Venha-Ver,241,24,RN
+2414803,Vera Cruz,243,24,RN
+2414902,Viçosa,241,24,RN
+2415008,Vila Flor,244,24,RN
+2500106,Água Branca,251,25,PB
+2500205,Aguiar,251,25,PB
+2500304,Alagoa Grande,253,25,PB
+2500403,Alagoa Nova,253,25,PB
+2500502,Alagoinha,253,25,PB
+2500536,Alcantil,252,25,PB
+2500577,Algodão de Jandaíra,253,25,PB
+2500601,Alhandra,254,25,PB
+2500734,Amparo,252,25,PB
+2500775,Aparecida,251,25,PB
+2500809,Araçagi,253,25,PB
+2500908,Arara,253,25,PB
+2501005,Araruna,253,25,PB
+2501104,Areia,253,25,PB
+2501153,Areia de Baraúnas,251,25,PB
+2501203,Areial,253,25,PB
+2501302,Aroeiras,253,25,PB
+2501351,Assunção,252,25,PB
+2501401,Baía da Traição,254,25,PB
+2501500,Bananeiras,253,25,PB
+2501534,Baraúna,252,25,PB
+2501609,Barra de Santa Rosa,253,25,PB
+2501575,Barra de Santana,252,25,PB
+2501708,Barra de São Miguel,252,25,PB
+2501807,Bayeux,254,25,PB
+2501906,Belém,253,25,PB
+2502003,Belém do Brejo do Cruz,251,25,PB
+2502052,Bernardino Batista,251,25,PB
+2502102,Boa Ventura,251,25,PB
+2502151,Boa Vista,253,25,PB
+2502201,Bom Jesus,251,25,PB
+2502300,Bom Sucesso,251,25,PB
+2502409,Bonito de Santa Fé,251,25,PB
+2502508,Boqueirão,252,25,PB
+2502706,Borborema,253,25,PB
+2502805,Brejo do Cruz,251,25,PB
+2502904,Brejo dos Santos,251,25,PB
+2503001,Caaporã,254,25,PB
+2503100,Cabaceiras,252,25,PB
+2503209,Cabedelo,254,25,PB
+2503308,Cachoeira dos Índios,251,25,PB
+2503407,Cacimba de Areia,251,25,PB
+2503506,Cacimba de Dentro,253,25,PB
+2503555,Cacimbas,251,25,PB
+2503605,Caiçara,253,25,PB
+2503704,Cajazeiras,251,25,PB
+2503753,Cajazeirinhas,251,25,PB
+2503803,Caldas Brandão,253,25,PB
+2503902,Camalaú,252,25,PB
+2504009,Campina Grande,253,25,PB
+2504033,Capim,254,25,PB
+2504074,Caraúbas,252,25,PB
+2504108,Carrapateira,251,25,PB
+2504157,Casserengue,253,25,PB
+2504207,Catingueira,251,25,PB
+2504306,Catolé do Rocha,251,25,PB
+2504355,Caturité,252,25,PB
+2504405,Conceição,251,25,PB
+2504504,Condado,251,25,PB
+2504603,Conde,254,25,PB
+2504702,Congo,252,25,PB
+2504801,Coremas,251,25,PB
+2504850,Coxixola,252,25,PB
+2504900,Cruz do Espírito Santo,254,25,PB
+2505006,Cubati,252,25,PB
+2505105,Cuité,253,25,PB
+2505238,Cuité de Mamanguape,254,25,PB
+2505204,Cuitegi,253,25,PB
+2505279,Curral de Cima,254,25,PB
+2505303,Curral Velho,251,25,PB
+2505352,Damião,253,25,PB
+2505402,Desterro,251,25,PB
+2505600,Diamante,251,25,PB
+2505709,Dona Inês,253,25,PB
+2505808,Duas Estradas,253,25,PB
+2505907,Emas,251,25,PB
+2506004,Esperança,253,25,PB
+2506103,Fagundes,253,25,PB
+2506202,Frei Martinho,252,25,PB
+2506251,Gado Bravo,253,25,PB
+2506301,Guarabira,253,25,PB
+2506400,Gurinhém,253,25,PB
+2506509,Gurjão,252,25,PB
+2506608,Ibiara,251,25,PB
+2502607,Igaracy,251,25,PB
+2506707,Imaculada,251,25,PB
+2506806,Ingá,253,25,PB
+2506905,Itabaiana,253,25,PB
+2507002,Itaporanga,251,25,PB
+2507101,Itapororoca,254,25,PB
+2507200,Itatuba,253,25,PB
+2507309,Jacaraú,254,25,PB
+2507408,Jericó,251,25,PB
+2507507,João Pessoa,254,25,PB
+2513653,Joca Claudino,251,25,PB
+2507606,Juarez Távora,253,25,PB
+2507705,Juazeirinho,252,25,PB
+2507804,Junco do Seridó,252,25,PB
+2507903,Juripiranga,254,25,PB
+2508000,Juru,251,25,PB
+2508109,Lagoa,251,25,PB
+2508208,Lagoa de Dentro,253,25,PB
+2508307,Lagoa Seca,253,25,PB
+2508406,Lastro,251,25,PB
+2508505,Livramento,252,25,PB
+2508554,Logradouro,253,25,PB
+2508604,Lucena,254,25,PB
+2508703,Mãe d'Água,251,25,PB
+2508802,Malta,251,25,PB
+2508901,Mamanguape,254,25,PB
+2509008,Manaíra,251,25,PB
+2509057,Marcação,254,25,PB
+2509107,Mari,254,25,PB
+2509156,Marizópolis,251,25,PB
+2509206,Massaranduba,253,25,PB
+2509305,Mataraca,254,25,PB
+2509339,Matinhas,253,25,PB
+2509370,Mato Grosso,251,25,PB
+2509396,Maturéia,251,25,PB
+2509404,Mogeiro,253,25,PB
+2509503,Montadas,253,25,PB
+2509602,Monte Horebe,251,25,PB
+2509701,Monteiro,252,25,PB
+2509800,Mulungu,253,25,PB
+2509909,Natuba,253,25,PB
+2510006,Nazarezinho,251,25,PB
+2510105,Nova Floresta,253,25,PB
+2510204,Nova Olinda,251,25,PB
+2510303,Nova Palmeira,252,25,PB
+2510402,Olho d'Água,251,25,PB
+2510501,Olivedos,253,25,PB
+2510600,Ouro Velho,252,25,PB
+2510659,Parari,252,25,PB
+2510709,Passagem,251,25,PB
+2510808,Patos,251,25,PB
+2510907,Paulista,251,25,PB
+2511004,Pedra Branca,251,25,PB
+2511103,Pedra Lavrada,252,25,PB
+2511202,Pedras de Fogo,254,25,PB
+2512721,Pedro Régis,254,25,PB
+2511301,Piancó,251,25,PB
+2511400,Picuí,252,25,PB
+2511509,Pilar,254,25,PB
+2511608,Pilões,253,25,PB
+2511707,Pilõezinhos,253,25,PB
+2511806,Pirpirituba,253,25,PB
+2511905,Pitimbu,254,25,PB
+2512002,Pocinhos,253,25,PB
+2512036,Poço Dantas,251,25,PB
+2512077,Poço de José de Moura,251,25,PB
+2512101,Pombal,251,25,PB
+2512200,Prata,252,25,PB
+2512309,Princesa Isabel,251,25,PB
+2512408,Puxinanã,253,25,PB
+2512507,Queimadas,253,25,PB
+2512606,Quixaba,251,25,PB
+2512705,Remígio,253,25,PB
+2512747,Riachão,253,25,PB
+2512754,Riachão do Bacamarte,253,25,PB
+2512762,Riachão do Poço,254,25,PB
+2512788,Riacho de Santo Antônio,252,25,PB
+2512804,Riacho dos Cavalos,251,25,PB
+2512903,Rio Tinto,254,25,PB
+2513000,Salgadinho,252,25,PB
+2513109,Salgado de São Félix,253,25,PB
+2513158,Santa Cecília,253,25,PB
+2513208,Santa Cruz,251,25,PB
+2513307,Santa Helena,251,25,PB
+2513356,Santa Inês,251,25,PB
+2513406,Santa Luzia,252,25,PB
+2513703,Santa Rita,254,25,PB
+2513802,Santa Teresinha,251,25,PB
+2513505,Santana de Mangueira,251,25,PB
+2513604,Santana dos Garrotes,251,25,PB
+2513851,Santo André,252,25,PB
+2513927,São Bentinho,251,25,PB
+2513901,São Bento,251,25,PB
+2513968,São Domingos,251,25,PB
+2513943,São Domingos do Cariri,252,25,PB
+2513984,São Francisco,251,25,PB
+2514008,São João do Cariri,252,25,PB
+2500700,São João do Rio do Peixe,251,25,PB
+2514107,São João do Tigre,252,25,PB
+2514206,São José da Lagoa Tapada,251,25,PB
+2514305,São José de Caiana,251,25,PB
+2514404,São José de Espinharas,251,25,PB
+2514503,São José de Piranhas,251,25,PB
+2514552,São José de Princesa,251,25,PB
+2514602,São José do Bonfim,251,25,PB
+2514651,São José do Brejo do Cruz,251,25,PB
+2514701,São José do Sabugi,252,25,PB
+2514800,São José dos Cordeiros,252,25,PB
+2514453,São José dos Ramos,254,25,PB
+2514909,São Mamede,252,25,PB
+2515005,São Miguel de Taipu,254,25,PB
+2515104,São Sebastião de Lagoa de Roça,253,25,PB
+2515203,São Sebastião do Umbuzeiro,252,25,PB
+2515401,São Vicente do Seridó,252,25,PB
+2515302,Sapé,254,25,PB
+2515500,Serra Branca,252,25,PB
+2515609,Serra da Raiz,253,25,PB
+2515708,Serra Grande,251,25,PB
+2515807,Serra Redonda,253,25,PB
+2515906,Serraria,253,25,PB
+2515930,Sertãozinho,253,25,PB
+2515971,Sobrado,254,25,PB
+2516003,Solânea,253,25,PB
+2516102,Soledade,253,25,PB
+2516151,Sossêgo,253,25,PB
+2516201,Sousa,251,25,PB
+2516300,Sumé,252,25,PB
+2516409,Tacima,253,25,PB
+2516508,Taperoá,252,25,PB
+2516607,Tavares,251,25,PB
+2516706,Teixeira,251,25,PB
+2516755,Tenório,252,25,PB
+2516805,Triunfo,251,25,PB
+2516904,Uiraúna,251,25,PB
+2517001,Umbuzeiro,253,25,PB
+2517100,Várzea,252,25,PB
+2517209,Vieirópolis,251,25,PB
+2505501,Vista Serrana,251,25,PB
+2517407,Zabelê,252,25,PB
+2600054,Abreu e Lima,265,26,PE
+2600104,Afogados da Ingazeira,261,26,PE
+2600203,Afrânio,262,26,PE
+2600302,Agrestina,263,26,PE
+2600401,Água Preta,264,26,PE
+2600500,Águas Belas,263,26,PE
+2600609,Alagoinha,263,26,PE
+2600708,Aliança,264,26,PE
+2600807,Altinho,263,26,PE
+2600906,Amaraji,264,26,PE
+2601003,Angelim,263,26,PE
+2601052,Araçoiaba,265,26,PE
+2601102,Araripina,261,26,PE
+2601201,Arcoverde,261,26,PE
+2601300,Barra de Guabiraba,263,26,PE
+2601409,Barreiros,264,26,PE
+2601508,Belém de Maria,264,26,PE
+2601607,Belém do São Francisco,262,26,PE
+2601706,Belo Jardim,263,26,PE
+2601805,Betânia,261,26,PE
+2601904,Bezerros,263,26,PE
+2602001,Bodocó,261,26,PE
+2602100,Bom Conselho,263,26,PE
+2602209,Bom Jardim,263,26,PE
+2602308,Bonito,263,26,PE
+2602407,Brejão,263,26,PE
+2602506,Brejinho,261,26,PE
+2602605,Brejo da Madre de Deus,263,26,PE
+2602704,Buenos Aires,264,26,PE
+2602803,Buíque,263,26,PE
+2602902,Cabo de Santo Agostinho,265,26,PE
+2603009,Cabrobó,262,26,PE
+2603108,Cachoeirinha,263,26,PE
+2603207,Caetés,263,26,PE
+2603306,Calçado,263,26,PE
+2603405,Calumbi,261,26,PE
+2603454,Camaragibe,265,26,PE
+2603504,Camocim de São Félix,263,26,PE
+2603603,Camutanga,264,26,PE
+2603702,Canhotinho,263,26,PE
+2603801,Capoeiras,263,26,PE
+2603900,Carnaíba,261,26,PE
+2603926,Carnaubeira da Penha,262,26,PE
+2604007,Carpina,264,26,PE
+2604106,Caruaru,263,26,PE
+2604155,Casinhas,263,26,PE
+2604205,Catende,264,26,PE
+2604304,Cedro,261,26,PE
+2604403,Chã de Alegria,264,26,PE
+2604502,Chã Grande,264,26,PE
+2604601,Condado,264,26,PE
+2604700,Correntes,263,26,PE
+2604809,Cortês,264,26,PE
+2604908,Cumaru,263,26,PE
+2605004,Cupira,263,26,PE
+2605103,Custódia,261,26,PE
+2605152,Dormentes,262,26,PE
+2605202,Escada,264,26,PE
+2605301,Exu,261,26,PE
+2605400,Feira Nova,263,26,PE
+2605459,Fernando de Noronha,265,26,PE
+2605509,Ferreiros,264,26,PE
+2605608,Flores,261,26,PE
+2605707,Floresta,262,26,PE
+2605806,Frei Miguelinho,263,26,PE
+2605905,Gameleira,264,26,PE
+2606002,Garanhuns,263,26,PE
+2606101,Glória do Goitá,264,26,PE
+2606200,Goiana,264,26,PE
+2606309,Granito,261,26,PE
+2606408,Gravatá,263,26,PE
+2606507,Iati,263,26,PE
+2606606,Ibimirim,261,26,PE
+2606705,Ibirajuba,263,26,PE
+2606804,Igarassu,265,26,PE
+2606903,Iguaracy,261,26,PE
+2607604,Ilha de Itamaracá,265,26,PE
+2607000,Inajá,261,26,PE
+2607109,Ingazeira,261,26,PE
+2607208,Ipojuca,265,26,PE
+2607307,Ipubi,261,26,PE
+2607406,Itacuruba,262,26,PE
+2607505,Itaíba,263,26,PE
+2607653,Itambé,264,26,PE
+2607703,Itapetim,261,26,PE
+2607752,Itapissuma,265,26,PE
+2607802,Itaquitinga,264,26,PE
+2607901,Jaboatão dos Guararapes,265,26,PE
+2607950,Jaqueira,264,26,PE
+2608008,Jataúba,263,26,PE
+2608057,Jatobá,262,26,PE
+2608107,João Alfredo,263,26,PE
+2608206,Joaquim Nabuco,264,26,PE
+2608255,Jucati,263,26,PE
+2608305,Jupi,263,26,PE
+2608404,Jurema,263,26,PE
+2608503,Lagoa de Itaenga,264,26,PE
+2608453,Lagoa do Carro,264,26,PE
+2608602,Lagoa do Ouro,263,26,PE
+2608701,Lagoa dos Gatos,263,26,PE
+2608750,Lagoa Grande,262,26,PE
+2608800,Lajedo,263,26,PE
+2608909,Limoeiro,263,26,PE
+2609006,Macaparana,264,26,PE
+2609105,Machados,263,26,PE
+2609154,Manari,261,26,PE
+2609204,Maraial,264,26,PE
+2609303,Mirandiba,261,26,PE
+2614303,Moreilândia,261,26,PE
+2609402,Moreno,265,26,PE
+2609501,Nazaré da Mata,264,26,PE
+2609600,Olinda,265,26,PE
+2609709,Orobó,263,26,PE
+2609808,Orocó,262,26,PE
+2609907,Ouricuri,261,26,PE
+2610004,Palmares,264,26,PE
+2610103,Palmeirina,263,26,PE
+2610202,Panelas,263,26,PE
+2610301,Paranatama,263,26,PE
+2610400,Parnamirim,261,26,PE
+2610509,Passira,263,26,PE
+2610608,Paudalho,264,26,PE
+2610707,Paulista,265,26,PE
+2610806,Pedra,263,26,PE
+2610905,Pesqueira,263,26,PE
+2611002,Petrolândia,262,26,PE
+2611101,Petrolina,262,26,PE
+2611200,Poção,263,26,PE
+2611309,Pombos,264,26,PE
+2611408,Primavera,264,26,PE
+2611507,Quipapá,264,26,PE
+2611533,Quixaba,261,26,PE
+2611606,Recife,265,26,PE
+2611705,Riacho das Almas,263,26,PE
+2611804,Ribeirão,264,26,PE
+2611903,Rio Formoso,264,26,PE
+2612000,Sairé,263,26,PE
+2612109,Salgadinho,263,26,PE
+2612208,Salgueiro,261,26,PE
+2612307,Saloá,263,26,PE
+2612406,Sanharó,263,26,PE
+2612455,Santa Cruz,261,26,PE
+2612471,Santa Cruz da Baixa Verde,261,26,PE
+2612505,Santa Cruz do Capibaribe,263,26,PE
+2612554,Santa Filomena,261,26,PE
+2612604,Santa Maria da Boa Vista,262,26,PE
+2612703,Santa Maria do Cambucá,263,26,PE
+2612802,Santa Terezinha,261,26,PE
+2612901,São Benedito do Sul,264,26,PE
+2613008,São Bento do Una,263,26,PE
+2613107,São Caitano,263,26,PE
+2613206,São João,263,26,PE
+2613305,São Joaquim do Monte,263,26,PE
+2613404,São José da Coroa Grande,264,26,PE
+2613503,São José do Belmonte,261,26,PE
+2613602,São José do Egito,261,26,PE
+2613701,São Lourenço da Mata,265,26,PE
+2613800,São Vicente Férrer,263,26,PE
+2613909,Serra Talhada,261,26,PE
+2614006,Serrita,261,26,PE
+2614105,Sertânia,261,26,PE
+2614204,Sirinhaém,264,26,PE
+2614402,Solidão,261,26,PE
+2614501,Surubim,263,26,PE
+2614600,Tabira,261,26,PE
+2614709,Tacaimbó,263,26,PE
+2614808,Tacaratu,262,26,PE
+2614857,Tamandaré,264,26,PE
+2615003,Taquaritinga do Norte,263,26,PE
+2615102,Terezinha,263,26,PE
+2615201,Terra Nova,262,26,PE
+2615300,Timbaúba,264,26,PE
+2615409,Toritama,263,26,PE
+2615508,Tracunhaém,264,26,PE
+2615607,Trindade,261,26,PE
+2615706,Triunfo,261,26,PE
+2615805,Tupanatinga,263,26,PE
+2615904,Tuparetama,261,26,PE
+2616001,Venturosa,263,26,PE
+2616100,Verdejante,261,26,PE
+2616183,Vertente do Lério,263,26,PE
+2616209,Vertentes,263,26,PE
+2616308,Vicência,264,26,PE
+2616407,Vitória de Santo Antão,264,26,PE
+2616506,Xexéu,264,26,PE
+2700102,Água Branca,271,27,AL
+2700201,Anadia,273,27,AL
+2700300,Arapiraca,272,27,AL
+2700409,Atalaia,273,27,AL
+2700508,Barra de Santo Antônio,273,27,AL
+2700607,Barra de São Miguel,273,27,AL
+2700706,Batalha,271,27,AL
+2700805,Belém,272,27,AL
+2700904,Belo Monte,271,27,AL
+2701001,Boca da Mata,273,27,AL
+2701100,Branquinha,273,27,AL
+2701209,Cacimbinhas,272,27,AL
+2701308,Cajueiro,273,27,AL
+2701357,Campestre,273,27,AL
+2701407,Campo Alegre,273,27,AL
+2701506,Campo Grande,272,27,AL
+2701605,Canapi,271,27,AL
+2701704,Capela,273,27,AL
+2701803,Carneiros,271,27,AL
+2701902,Chã Preta,273,27,AL
+2702009,Coité do Nóia,272,27,AL
+2702108,Colônia Leopoldina,273,27,AL
+2702207,Coqueiro Seco,273,27,AL
+2702306,Coruripe,273,27,AL
+2702355,Craíbas,272,27,AL
+2702405,Delmiro Gouveia,271,27,AL
+2702504,Dois Riachos,271,27,AL
+2702553,Estrela de Alagoas,272,27,AL
+2702603,Feira Grande,272,27,AL
+2702702,Feliz Deserto,273,27,AL
+2702801,Flexeiras,273,27,AL
+2702900,Girau do Ponciano,272,27,AL
+2703007,Ibateguara,273,27,AL
+2703106,Igaci,272,27,AL
+2703205,Igreja Nova,273,27,AL
+2703304,Inhapi,271,27,AL
+2703403,Jacaré dos Homens,271,27,AL
+2703502,Jacuípe,273,27,AL
+2703601,Japaratinga,273,27,AL
+2703700,Jaramataia,271,27,AL
+2703759,Jequiá da Praia,273,27,AL
+2703809,Joaquim Gomes,273,27,AL
+2703908,Jundiá,273,27,AL
+2704005,Junqueiro,273,27,AL
+2704104,Lagoa da Canoa,272,27,AL
+2704203,Limoeiro de Anadia,272,27,AL
+2704302,Maceió,273,27,AL
+2704401,Major Isidoro,271,27,AL
+2704906,Mar Vermelho,272,27,AL
+2704500,Maragogi,273,27,AL
+2704609,Maravilha,271,27,AL
+2704708,Marechal Deodoro,273,27,AL
+2704807,Maribondo,272,27,AL
+2705002,Mata Grande,271,27,AL
+2705101,Matriz de Camaragibe,273,27,AL
+2705200,Messias,273,27,AL
+2705309,Minador do Negrão,272,27,AL
+2705408,Monteirópolis,271,27,AL
+2705507,Murici,273,27,AL
+2705606,Novo Lino,273,27,AL
+2705705,Olho d'Água das Flores,271,27,AL
+2705804,Olho d'Água do Casado,271,27,AL
+2705903,Olho d'Água Grande,272,27,AL
+2706000,Olivença,271,27,AL
+2706109,Ouro Branco,271,27,AL
+2706208,Palestina,271,27,AL
+2706307,Palmeira dos Índios,272,27,AL
+2706406,Pão de Açúcar,271,27,AL
+2706422,Pariconha,271,27,AL
+2706448,Paripueira,273,27,AL
+2706505,Passo de Camaragibe,273,27,AL
+2706604,Paulo Jacinto,272,27,AL
+2706703,Penedo,273,27,AL
+2706802,Piaçabuçu,273,27,AL
+2706901,Pilar,273,27,AL
+2707008,Pindoba,273,27,AL
+2707107,Piranhas,271,27,AL
+2707206,Poço das Trincheiras,271,27,AL
+2707305,Porto Calvo,273,27,AL
+2707404,Porto de Pedras,273,27,AL
+2707503,Porto Real do Colégio,273,27,AL
+2707602,Quebrangulo,272,27,AL
+2707701,Rio Largo,273,27,AL
+2707800,Roteiro,273,27,AL
+2707909,Santa Luzia do Norte,273,27,AL
+2708006,Santana do Ipanema,271,27,AL
+2708105,Santana do Mundaú,273,27,AL
+2708204,São Brás,272,27,AL
+2708303,São José da Laje,273,27,AL
+2708402,São José da Tapera,271,27,AL
+2708501,São Luís do Quitunde,273,27,AL
+2708600,São Miguel dos Campos,273,27,AL
+2708709,São Miguel dos Milagres,273,27,AL
+2708808,São Sebastião,272,27,AL
+2708907,Satuba,273,27,AL
+2708956,Senador Rui Palmeira,271,27,AL
+2709004,Tanque d'Arca,272,27,AL
+2709103,Taquarana,272,27,AL
+2709152,Teotônio Vilela,273,27,AL
+2709202,Traipu,272,27,AL
+2709301,União dos Palmares,273,27,AL
+2709400,Viçosa,273,27,AL
+2800100,Amparo de São Francisco,283,28,SE
+2800209,Aquidabã,282,28,SE
+2800308,Aracaju,283,28,SE
+2800407,Arauá,283,28,SE
+2800506,Areia Branca,282,28,SE
+2800605,Barra dos Coqueiros,283,28,SE
+2800670,Boquim,283,28,SE
+2800704,Brejo Grande,283,28,SE
+2801009,Campo do Brito,282,28,SE
+2801108,Canhoba,283,28,SE
+2801207,Canindé de São Francisco,281,28,SE
+2801306,Capela,283,28,SE
+2801405,Carira,281,28,SE
+2801504,Carmópolis,283,28,SE
+2801603,Cedro de São João,283,28,SE
+2801702,Cristinápolis,283,28,SE
+2801900,Cumbe,282,28,SE
+2802007,Divina Pastora,283,28,SE
+2802106,Estância,283,28,SE
+2802205,Feira Nova,281,28,SE
+2802304,Frei Paulo,281,28,SE
+2802403,Gararu,281,28,SE
+2802502,General Maynard,283,28,SE
+2802601,Gracho Cardoso,281,28,SE
+2802700,Ilha das Flores,283,28,SE
+2802809,Indiaroba,283,28,SE
+2802908,Itabaiana,282,28,SE
+2803005,Itabaianinha,283,28,SE
+2803104,Itabi,281,28,SE
+2803203,Itaporanga d'Ajuda,283,28,SE
+2803302,Japaratuba,283,28,SE
+2803401,Japoatã,283,28,SE
+2803500,Lagarto,282,28,SE
+2803609,Laranjeiras,283,28,SE
+2803708,Macambira,282,28,SE
+2803807,Malhada dos Bois,282,28,SE
+2803906,Malhador,282,28,SE
+2804003,Maruim,283,28,SE
+2804102,Moita Bonita,282,28,SE
+2804201,Monte Alegre de Sergipe,281,28,SE
+2804300,Muribeca,282,28,SE
+2804409,Neópolis,283,28,SE
+2804458,Nossa Senhora Aparecida,281,28,SE
+2804508,Nossa Senhora da Glória,281,28,SE
+2804607,Nossa Senhora das Dores,282,28,SE
+2804706,Nossa Senhora de Lourdes,283,28,SE
+2804805,Nossa Senhora do Socorro,283,28,SE
+2804904,Pacatuba,283,28,SE
+2805000,Pedra Mole,281,28,SE
+2805109,Pedrinhas,283,28,SE
+2805208,Pinhão,281,28,SE
+2805307,Pirambu,283,28,SE
+2805406,Poço Redondo,281,28,SE
+2805505,Poço Verde,282,28,SE
+2805604,Porto da Folha,281,28,SE
+2805703,Propriá,283,28,SE
+2805802,Riachão do Dantas,282,28,SE
+2805901,Riachuelo,283,28,SE
+2806008,Ribeirópolis,281,28,SE
+2806107,Rosário do Catete,283,28,SE
+2806206,Salgado,283,28,SE
+2806305,Santa Luzia do Itanhy,283,28,SE
+2806503,Santa Rosa de Lima,283,28,SE
+2806404,Santana do São Francisco,283,28,SE
+2806602,Santo Amaro das Brotas,283,28,SE
+2806701,São Cristóvão,283,28,SE
+2806800,São Domingos,282,28,SE
+2806909,São Francisco,283,28,SE
+2807006,São Miguel do Aleixo,282,28,SE
+2807105,Simão Dias,282,28,SE
+2807204,Siriri,283,28,SE
+2807303,Telha,283,28,SE
+2807402,Tobias Barreto,282,28,SE
+2807501,Tomar do Geru,283,28,SE
+2807600,Umbaúba,283,28,SE
+2900108,Abaíra,296,29,BA
+2900207,Abaré,292,29,BA
+2900306,Acajutiba,294,29,BA
+2900355,Adustina,294,29,BA
+2900405,Água Fria,293,29,BA
+2900603,Aiquara,296,29,BA
+2900702,Alagoinhas,294,29,BA
+2900801,Alcobaça,297,29,BA
+2900900,Almadina,297,29,BA
+2901007,Amargosa,296,29,BA
+2901106,Amélia Rodrigues,295,29,BA
+2901155,América Dourada,293,29,BA
+2901205,Anagé,296,29,BA
+2901304,Andaraí,296,29,BA
+2901353,Andorinha,293,29,BA
+2901403,Angical,291,29,BA
+2901502,Anguera,293,29,BA
+2901601,Antas,294,29,BA
+2901700,Antônio Cardoso,293,29,BA
+2901809,Antônio Gonçalves,293,29,BA
+2901908,Aporá,294,29,BA
+2901957,Apuarema,296,29,BA
+2902054,Araçás,294,29,BA
+2902005,Aracatu,296,29,BA
+2902104,Araci,294,29,BA
+2902203,Aramari,294,29,BA
+2902252,Arataca,297,29,BA
+2902302,Aratuípe,295,29,BA
+2902401,Aurelino Leal,297,29,BA
+2902500,Baianópolis,291,29,BA
+2902609,Baixa Grande,293,29,BA
+2902658,Banzaê,294,29,BA
+2902708,Barra,292,29,BA
+2902807,Barra da Estiva,296,29,BA
+2902906,Barra do Choça,296,29,BA
+2903003,Barra do Mendes,293,29,BA
+2903102,Barra do Rocha,297,29,BA
+2903201,Barreiras,291,29,BA
+2903235,Barro Alto,293,29,BA
+2903300,Barro Preto,297,29,BA
+2903276,Barrocas,294,29,BA
+2903409,Belmonte,297,29,BA
+2903508,Belo Campo,296,29,BA
+2903607,Biritinga,294,29,BA
+2903706,Boa Nova,296,29,BA
+2903805,Boa Vista do Tupim,293,29,BA
+2903904,Bom Jesus da Lapa,292,29,BA
+2903953,Bom Jesus da Serra,296,29,BA
+2904001,Boninal,296,29,BA
+2904050,Bonito,296,29,BA
+2904100,Boquira,296,29,BA
+2904209,Botuporã,296,29,BA
+2904308,Brejões,296,29,BA
+2904407,Brejolândia,291,29,BA
+2904506,Brotas de Macaúbas,296,29,BA
+2904605,Brumado,296,29,BA
+2904704,Buerarema,297,29,BA
+2904753,Buritirama,292,29,BA
+2904803,Caatiba,296,29,BA
+2904852,Cabaceiras do Paraguaçu,295,29,BA
+2904902,Cachoeira,295,29,BA
+2905008,Caculé,296,29,BA
+2905107,Caém,293,29,BA
+2905156,Caetanos,296,29,BA
+2905206,Caetité,296,29,BA
+2905305,Cafarnaum,293,29,BA
+2905404,Cairu,297,29,BA
+2905503,Caldeirão Grande,293,29,BA
+2905602,Camacan,297,29,BA
+2905701,Camaçari,295,29,BA
+2905800,Camamu,297,29,BA
+2905909,Campo Alegre de Lourdes,292,29,BA
+2906006,Campo Formoso,293,29,BA
+2906105,Canápolis,291,29,BA
+2906204,Canarana,293,29,BA
+2906303,Canavieiras,297,29,BA
+2906402,Candeal,294,29,BA
+2906501,Candeias,295,29,BA
+2906600,Candiba,296,29,BA
+2906709,Cândido Sales,296,29,BA
+2906808,Cansanção,294,29,BA
+2906824,Canudos,294,29,BA
+2906857,Capela do Alto Alegre,294,29,BA
+2906873,Capim Grosso,293,29,BA
+2906899,Caraíbas,296,29,BA
+2906907,Caravelas,297,29,BA
+2907004,Cardeal da Silva,294,29,BA
+2907103,Carinhanha,292,29,BA
+2907202,Casa Nova,292,29,BA
+2907301,Castro Alves,295,29,BA
+2907400,Catolândia,291,29,BA
+2907509,Catu,295,29,BA
+2907558,Caturama,296,29,BA
+2907608,Central,293,29,BA
+2907707,Chorrochó,292,29,BA
+2907806,Cícero Dantas,294,29,BA
+2907905,Cipó,294,29,BA
+2908002,Coaraci,297,29,BA
+2908101,Cocos,291,29,BA
+2908200,Conceição da Feira,293,29,BA
+2908309,Conceição do Almeida,295,29,BA
+2908408,Conceição do Coité,294,29,BA
+2908507,Conceição do Jacuípe,293,29,BA
+2908606,Conde,294,29,BA
+2908705,Condeúba,296,29,BA
+2908804,Contendas do Sincorá,296,29,BA
+2908903,Coração de Maria,293,29,BA
+2909000,Cordeiros,296,29,BA
+2909109,Coribe,291,29,BA
+2909208,Coronel João Sá,294,29,BA
+2909307,Correntina,291,29,BA
+2909406,Cotegipe,291,29,BA
+2909505,Cravolândia,296,29,BA
+2909604,Crisópolis,294,29,BA
+2909703,Cristópolis,291,29,BA
+2909802,Cruz das Almas,295,29,BA
+2909901,Curaçá,292,29,BA
+2910008,Dário Meira,296,29,BA
+2910057,Dias d'Ávila,295,29,BA
+2910107,Dom Basílio,296,29,BA
+2910206,Dom Macedo Costa,295,29,BA
+2910305,Elísio Medrado,293,29,BA
+2910404,Encruzilhada,296,29,BA
+2910503,Entre Rios,294,29,BA
+2900504,Érico Cardoso,296,29,BA
+2910602,Esplanada,294,29,BA
+2910701,Euclides da Cunha,294,29,BA
+2910727,Eunápolis,297,29,BA
+2910750,Fátima,294,29,BA
+2910776,Feira da Mata,292,29,BA
+2910800,Feira de Santana,293,29,BA
+2910859,Filadélfia,293,29,BA
+2910909,Firmino Alves,297,29,BA
+2911006,Floresta Azul,297,29,BA
+2911105,Formosa do Rio Preto,291,29,BA
+2911204,Gandu,297,29,BA
+2911253,Gavião,294,29,BA
+2911303,Gentio do Ouro,293,29,BA
+2911402,Glória,292,29,BA
+2911501,Gongogi,297,29,BA
+2911600,Governador Mangabeira,295,29,BA
+2911659,Guajeru,296,29,BA
+2911709,Guanambi,296,29,BA
+2911808,Guaratinga,297,29,BA
+2911857,Heliópolis,294,29,BA
+2911907,Iaçu,293,29,BA
+2912004,Ibiassucê,296,29,BA
+2912103,Ibicaraí,297,29,BA
+2912202,Ibicoara,296,29,BA
+2912301,Ibicuí,296,29,BA
+2912400,Ibipeba,293,29,BA
+2912509,Ibipitanga,296,29,BA
+2912608,Ibiquera,293,29,BA
+2912707,Ibirapitanga,297,29,BA
+2912806,Ibirapuã,297,29,BA
+2912905,Ibirataia,297,29,BA
+2913002,Ibitiara,296,29,BA
+2913101,Ibititá,293,29,BA
+2913200,Ibotirama,292,29,BA
+2913309,Ichu,294,29,BA
+2913408,Igaporã,296,29,BA
+2913457,Igrapiúna,297,29,BA
+2913507,Iguaí,296,29,BA
+2913606,Ilhéus,297,29,BA
+2913705,Inhambupe,294,29,BA
+2913804,Ipecaetá,293,29,BA
+2913903,Ipiaú,297,29,BA
+2914000,Ipirá,293,29,BA
+2914109,Ipupiara,296,29,BA
+2914208,Irajuba,296,29,BA
+2914307,Iramaia,296,29,BA
+2914406,Iraquara,293,29,BA
+2914505,Irará,293,29,BA
+2914604,Irecê,293,29,BA
+2914653,Itabela,297,29,BA
+2914703,Itaberaba,293,29,BA
+2914802,Itabuna,297,29,BA
+2914901,Itacaré,297,29,BA
+2915007,Itaeté,296,29,BA
+2915106,Itagi,296,29,BA
+2915205,Itagibá,297,29,BA
+2915304,Itagimirim,297,29,BA
+2915353,Itaguaçu da Bahia,292,29,BA
+2915403,Itaju do Colônia,297,29,BA
+2915502,Itajuípe,297,29,BA
+2915601,Itamaraju,297,29,BA
+2915700,Itamari,297,29,BA
+2915809,Itambé,296,29,BA
+2915908,Itanagra,295,29,BA
+2916005,Itanhém,297,29,BA
+2916104,Itaparica,295,29,BA
+2916203,Itapé,297,29,BA
+2916302,Itapebi,297,29,BA
+2916401,Itapetinga,296,29,BA
+2916500,Itapicuru,294,29,BA
+2916609,Itapitanga,297,29,BA
+2916708,Itaquara,296,29,BA
+2916807,Itarantim,296,29,BA
+2916856,Itatim,293,29,BA
+2916906,Itiruçu,296,29,BA
+2917003,Itiúba,293,29,BA
+2917102,Itororó,296,29,BA
+2917201,Ituaçu,296,29,BA
+2917300,Ituberá,297,29,BA
+2917334,Iuiu,296,29,BA
+2917359,Jaborandi,291,29,BA
+2917409,Jacaraci,296,29,BA
+2917508,Jacobina,293,29,BA
+2917607,Jaguaquara,296,29,BA
+2917706,Jaguarari,293,29,BA
+2917805,Jaguaripe,295,29,BA
+2917904,Jandaíra,294,29,BA
+2918001,Jequié,296,29,BA
+2918100,Jeremoabo,294,29,BA
+2918209,Jiquiriçá,296,29,BA
+2918308,Jitaúna,296,29,BA
+2918357,João Dourado,293,29,BA
+2918407,Juazeiro,292,29,BA
+2918456,Jucuruçu,297,29,BA
+2918506,Jussara,293,29,BA
+2918555,Jussari,297,29,BA
+2918605,Jussiape,296,29,BA
+2918704,Lafaiete Coutinho,296,29,BA
+2918753,Lagoa Real,296,29,BA
+2918803,Laje,296,29,BA
+2918902,Lajedão,297,29,BA
+2919009,Lajedinho,293,29,BA
+2919058,Lajedo do Tabocal,296,29,BA
+2919108,Lamarão,294,29,BA
+2919157,Lapão,293,29,BA
+2919207,Lauro de Freitas,295,29,BA
+2919306,Lençóis,296,29,BA
+2919405,Licínio de Almeida,296,29,BA
+2919504,Livramento de Nossa Senhora,296,29,BA
+2919553,Luís Eduardo Magalhães,291,29,BA
+2919603,Macajuba,293,29,BA
+2919702,Macarani,296,29,BA
+2919801,Macaúbas,296,29,BA
+2919900,Macururé,292,29,BA
+2919926,Madre de Deus,295,29,BA
+2919959,Maetinga,296,29,BA
+2920007,Maiquinique,296,29,BA
+2920106,Mairi,293,29,BA
+2920205,Malhada,296,29,BA
+2920304,Malhada de Pedras,296,29,BA
+2920403,Manoel Vitorino,296,29,BA
+2920452,Mansidão,291,29,BA
+2920502,Maracás,296,29,BA
+2920601,Maragogipe,295,29,BA
+2920700,Maraú,297,29,BA
+2920809,Marcionílio Souza,296,29,BA
+2920908,Mascote,297,29,BA
+2921005,Mata de São João,295,29,BA
+2921054,Matina,296,29,BA
+2921104,Medeiros Neto,297,29,BA
+2921203,Miguel Calmon,293,29,BA
+2921302,Milagres,296,29,BA
+2921401,Mirangaba,293,29,BA
+2921450,Mirante,296,29,BA
+2921500,Monte Santo,294,29,BA
+2921609,Morpará,292,29,BA
+2921708,Morro do Chapéu,293,29,BA
+2921807,Mortugaba,296,29,BA
+2921906,Mucugê,296,29,BA
+2922003,Mucuri,297,29,BA
+2922052,Mulungu do Morro,293,29,BA
+2922102,Mundo Novo,293,29,BA
+2922201,Muniz Ferreira,295,29,BA
+2922250,Muquém do São Francisco,292,29,BA
+2922300,Muritiba,295,29,BA
+2922409,Mutuípe,296,29,BA
+2922508,Nazaré,295,29,BA
+2922607,Nilo Peçanha,297,29,BA
+2922656,Nordestina,294,29,BA
+2922706,Nova Canaã,296,29,BA
+2922730,Nova Fátima,294,29,BA
+2922755,Nova Ibiá,297,29,BA
+2922805,Nova Itarana,296,29,BA
+2922854,Nova Redenção,296,29,BA
+2922904,Nova Soure,294,29,BA
+2923001,Nova Viçosa,297,29,BA
+2923035,Novo Horizonte,296,29,BA
+2923050,Novo Triunfo,294,29,BA
+2923100,Olindina,294,29,BA
+2923209,Oliveira dos Brejinhos,296,29,BA
+2923308,Ouriçangas,293,29,BA
+2923357,Ourolândia,293,29,BA
+2923407,Palmas de Monte Alto,296,29,BA
+2923506,Palmeiras,296,29,BA
+2923605,Paramirim,296,29,BA
+2923704,Paratinga,292,29,BA
+2923803,Paripiranga,294,29,BA
+2923902,Pau Brasil,297,29,BA
+2924009,Paulo Afonso,292,29,BA
+2924058,Pé de Serra,294,29,BA
+2924108,Pedrão,293,29,BA
+2924207,Pedro Alexandre,294,29,BA
+2924306,Piatã,296,29,BA
+2924405,Pilão Arcado,292,29,BA
+2924504,Pindaí,296,29,BA
+2924603,Pindobaçu,293,29,BA
+2924652,Pintadas,293,29,BA
+2924678,Piraí do Norte,297,29,BA
+2924702,Piripá,296,29,BA
+2924801,Piritiba,293,29,BA
+2924900,Planaltino,296,29,BA
+2925006,Planalto,296,29,BA
+2925105,Poções,296,29,BA
+2925204,Pojuca,295,29,BA
+2925253,Ponto Novo,293,29,BA
+2925303,Porto Seguro,297,29,BA
+2925402,Potiraguá,296,29,BA
+2925501,Prado,297,29,BA
+2925600,Presidente Dutra,293,29,BA
+2925709,Presidente Jânio Quadros,296,29,BA
+2925758,Presidente Tancredo Neves,297,29,BA
+2925808,Queimadas,294,29,BA
+2925907,Quijingue,294,29,BA
+2925931,Quixabeira,293,29,BA
+2925956,Rafael Jambeiro,293,29,BA
+2926004,Remanso,292,29,BA
+2926103,Retirolândia,294,29,BA
+2926202,Riachão das Neves,291,29,BA
+2926301,Riachão do Jacuípe,294,29,BA
+2926400,Riacho de Santana,296,29,BA
+2926509,Ribeira do Amparo,294,29,BA
+2926608,Ribeira do Pombal,294,29,BA
+2926657,Ribeirão do Largo,296,29,BA
+2926707,Rio de Contas,296,29,BA
+2926806,Rio do Antônio,296,29,BA
+2926905,Rio do Pires,296,29,BA
+2927002,Rio Real,294,29,BA
+2927101,Rodelas,292,29,BA
+2927200,Ruy Barbosa,293,29,BA
+2927309,Salinas da Margarida,295,29,BA
+2927408,Salvador,295,29,BA
+2927507,Santa Bárbara,293,29,BA
+2927606,Santa Brígida,294,29,BA
+2927705,Santa Cruz Cabrália,297,29,BA
+2927804,Santa Cruz da Vitória,297,29,BA
+2927903,Santa Inês,296,29,BA
+2928059,Santa Luzia,297,29,BA
+2928109,Santa Maria da Vitória,291,29,BA
+2928406,Santa Rita de Cássia,291,29,BA
+2928505,Santa Terezinha,293,29,BA
+2928000,Santaluz,294,29,BA
+2928208,Santana,291,29,BA
+2928307,Santanópolis,293,29,BA
+2928604,Santo Amaro,295,29,BA
+2928703,Santo Antônio de Jesus,295,29,BA
+2928802,Santo Estêvão,293,29,BA
+2928901,São Desidério,291,29,BA
+2928950,São Domingos,294,29,BA
+2929107,São Felipe,295,29,BA
+2929008,São Félix,295,29,BA
+2929057,São Félix do Coribe,291,29,BA
+2929206,São Francisco do Conde,295,29,BA
+2929255,São Gabriel,293,29,BA
+2929305,São Gonçalo dos Campos,293,29,BA
+2929354,São José da Vitória,297,29,BA
+2929370,São José do Jacuípe,293,29,BA
+2929404,São Miguel das Matas,296,29,BA
+2929503,São Sebastião do Passé,295,29,BA
+2929602,Sapeaçu,295,29,BA
+2929701,Sátiro Dias,294,29,BA
+2929750,Saubara,295,29,BA
+2929800,Saúde,293,29,BA
+2929909,Seabra,296,29,BA
+2930006,Sebastião Laranjeiras,296,29,BA
+2930105,Senhor do Bonfim,293,29,BA
+2930204,Sento Sé,292,29,BA
+2930154,Serra do Ramalho,292,29,BA
+2930303,Serra Dourada,291,29,BA
+2930402,Serra Preta,293,29,BA
+2930501,Serrinha,294,29,BA
+2930600,Serrolândia,293,29,BA
+2930709,Simões Filho,295,29,BA
+2930758,Sítio do Mato,292,29,BA
+2930766,Sítio do Quinto,294,29,BA
+2930774,Sobradinho,292,29,BA
+2930808,Souto Soares,293,29,BA
+2930907,Tabocas do Brejo Velho,291,29,BA
+2931004,Tanhaçu,296,29,BA
+2931053,Tanque Novo,296,29,BA
+2931103,Tanquinho,293,29,BA
+2931202,Taperoá,297,29,BA
+2931301,Tapiramutá,293,29,BA
+2931350,Teixeira de Freitas,297,29,BA
+2931400,Teodoro Sampaio,293,29,BA
+2931509,Teofilândia,294,29,BA
+2931608,Teolândia,297,29,BA
+2931707,Terra Nova,295,29,BA
+2931806,Tremedal,296,29,BA
+2931905,Tucano,294,29,BA
+2932002,Uauá,294,29,BA
+2932101,Ubaíra,296,29,BA
+2932200,Ubaitaba,297,29,BA
+2932309,Ubatã,297,29,BA
+2932408,Uibaí,293,29,BA
+2932457,Umburanas,293,29,BA
+2932507,Una,297,29,BA
+2932606,Urandi,296,29,BA
+2932705,Uruçuca,297,29,BA
+2932804,Utinga,296,29,BA
+2932903,Valença,297,29,BA
+2933000,Valente,294,29,BA
+2933059,Várzea da Roça,293,29,BA
+2933109,Várzea do Poço,293,29,BA
+2933158,Várzea Nova,293,29,BA
+2933174,Varzedo,295,29,BA
+2933208,Vera Cruz,295,29,BA
+2933257,Vereda,297,29,BA
+2933307,Vitória da Conquista,296,29,BA
+2933406,Wagner,296,29,BA
+2933455,Wanderley,291,29,BA
+2933505,Wenceslau Guimarães,297,29,BA
+2933604,Xique-Xique,292,29,BA
+3100104,Abadia dos Dourados,315,31,MG
+3100203,Abaeté,316,31,MG
+3100302,Abre Campo,3112,31,MG
+3100401,Acaiaca,3112,31,MG
+3100500,Açucena,318,31,MG
+3100609,Água Boa,318,31,MG
+3100708,Água Comprida,315,31,MG
+3100807,Aguanil,319,31,MG
+3100906,Águas Formosas,314,31,MG
+3101003,Águas Vermelhas,312,31,MG
+3101102,Aimorés,318,31,MG
+3101201,Aiuruoca,3110,31,MG
+3101300,Alagoa,3110,31,MG
+3101409,Albertina,3110,31,MG
+3101508,Além Paraíba,3112,31,MG
+3101607,Alfenas,3110,31,MG
+3101631,Alfredo Vasconcelos,3111,31,MG
+3101706,Almenara,313,31,MG
+3101805,Alpercata,318,31,MG
+3101904,Alpinópolis,3110,31,MG
+3102001,Alterosa,3110,31,MG
+3102050,Alto Caparaó,3112,31,MG
+3153509,Alto Jequitibá,3112,31,MG
+3102100,Alto Rio Doce,3112,31,MG
+3102209,Alvarenga,318,31,MG
+3102308,Alvinópolis,317,31,MG
+3102407,Alvorada de Minas,317,31,MG
+3102506,Amparo do Serra,3112,31,MG
+3102605,Andradas,3110,31,MG
+3102803,Andrelândia,3110,31,MG
+3102852,Angelândia,313,31,MG
+3102902,Antônio Carlos,3111,31,MG
+3103009,Antônio Dias,318,31,MG
+3103108,Antônio Prado de Minas,3112,31,MG
+3103207,Araçaí,317,31,MG
+3103306,Aracitaba,3112,31,MG
+3103405,Araçuaí,313,31,MG
+3103504,Araguari,315,31,MG
+3103603,Arantina,3110,31,MG
+3103702,Araponga,3112,31,MG
+3103751,Araporã,315,31,MG
+3103801,Arapuá,315,31,MG
+3103900,Araújos,316,31,MG
+3104007,Araxá,315,31,MG
+3104106,Arceburgo,3110,31,MG
+3104205,Arcos,319,31,MG
+3104304,Areado,3110,31,MG
+3104403,Argirita,3112,31,MG
+3104452,Aricanduva,313,31,MG
+3104502,Arinos,311,31,MG
+3104601,Astolfo Dutra,3112,31,MG
+3104700,Ataléia,314,31,MG
+3104809,Augusto de Lima,316,31,MG
+3104908,Baependi,3110,31,MG
+3105004,Baldim,317,31,MG
+3105103,Bambuí,319,31,MG
+3105202,Bandeira,313,31,MG
+3105301,Bandeira do Sul,3110,31,MG
+3105400,Barão de Cocais,317,31,MG
+3105509,Barão de Monte Alto,3112,31,MG
+3105608,Barbacena,3111,31,MG
+3105707,Barra Longa,3112,31,MG
+3105905,Barroso,3111,31,MG
+3106002,Bela Vista de Minas,317,31,MG
+3106101,Belmiro Braga,3112,31,MG
+3106200,Belo Horizonte,317,31,MG
+3106309,Belo Oriente,318,31,MG
+3106408,Belo Vale,317,31,MG
+3106507,Berilo,313,31,MG
+3106655,Berizal,312,31,MG
+3106606,Bertópolis,314,31,MG
+3106705,Betim,317,31,MG
+3106804,Bias Fortes,3112,31,MG
+3106903,Bicas,3112,31,MG
+3107000,Biquinhas,316,31,MG
+3107109,Boa Esperança,3110,31,MG
+3107208,Bocaina de Minas,3110,31,MG
+3107307,Bocaiúva,312,31,MG
+3107406,Bom Despacho,316,31,MG
+3107505,Bom Jardim de Minas,3110,31,MG
+3107604,Bom Jesus da Penha,3110,31,MG
+3107703,Bom Jesus do Amparo,317,31,MG
+3107802,Bom Jesus do Galho,318,31,MG
+3107901,Bom Repouso,3110,31,MG
+3108008,Bom Sucesso,319,31,MG
+3108107,Bonfim,317,31,MG
+3108206,Bonfinópolis de Minas,311,31,MG
+3108255,Bonito de Minas,312,31,MG
+3108305,Borda da Mata,3110,31,MG
+3108404,Botelhos,3110,31,MG
+3108503,Botumirim,312,31,MG
+3108701,Brás Pires,3112,31,MG
+3108552,Brasilândia de Minas,311,31,MG
+3108602,Brasília de Minas,312,31,MG
+3108800,Braúnas,318,31,MG
+3108909,Brazópolis,3110,31,MG
+3109006,Brumadinho,317,31,MG
+3109105,Bueno Brandão,3110,31,MG
+3109204,Buenópolis,316,31,MG
+3109253,Bugre,318,31,MG
+3109303,Buritis,311,31,MG
+3109402,Buritizeiro,312,31,MG
+3109451,Cabeceira Grande,311,31,MG
+3109501,Cabo Verde,3110,31,MG
+3109600,Cachoeira da Prata,317,31,MG
+3109709,Cachoeira de Minas,3110,31,MG
+3102704,Cachoeira de Pajeú,313,31,MG
+3109808,Cachoeira Dourada,315,31,MG
+3109907,Caetanópolis,317,31,MG
+3110004,Caeté,317,31,MG
+3110103,Caiana,3112,31,MG
+3110202,Cajuri,3112,31,MG
+3110301,Caldas,3110,31,MG
+3110400,Camacho,319,31,MG
+3110509,Camanducaia,3110,31,MG
+3110608,Cambuí,3110,31,MG
+3110707,Cambuquira,3110,31,MG
+3110806,Campanário,318,31,MG
+3110905,Campanha,3110,31,MG
+3111002,Campestre,3110,31,MG
+3111101,Campina Verde,315,31,MG
+3111150,Campo Azul,312,31,MG
+3111200,Campo Belo,319,31,MG
+3111309,Campo do Meio,3110,31,MG
+3111408,Campo Florido,315,31,MG
+3111507,Campos Altos,315,31,MG
+3111606,Campos Gerais,3110,31,MG
+3111903,Cana Verde,319,31,MG
+3111705,Canaã,3112,31,MG
+3111804,Canápolis,315,31,MG
+3112000,Candeias,319,31,MG
+3112059,Cantagalo,318,31,MG
+3112109,Caparaó,3112,31,MG
+3112208,Capela Nova,3111,31,MG
+3112307,Capelinha,313,31,MG
+3112406,Capetinga,3110,31,MG
+3112505,Capim Branco,317,31,MG
+3112604,Capinópolis,315,31,MG
+3112653,Capitão Andrade,318,31,MG
+3112703,Capitão Enéas,312,31,MG
+3112802,Capitólio,3110,31,MG
+3112901,Caputira,3112,31,MG
+3113008,Caraí,313,31,MG
+3113107,Caranaíba,3111,31,MG
+3113206,Carandaí,3111,31,MG
+3113305,Carangola,3112,31,MG
+3113404,Caratinga,318,31,MG
+3113503,Carbonita,313,31,MG
+3113602,Careaçu,3110,31,MG
+3113701,Carlos Chagas,314,31,MG
+3113800,Carmésia,318,31,MG
+3113909,Carmo da Cachoeira,3110,31,MG
+3114006,Carmo da Mata,319,31,MG
+3114105,Carmo de Minas,3110,31,MG
+3114204,Carmo do Cajuru,319,31,MG
+3114303,Carmo do Paranaíba,315,31,MG
+3114402,Carmo do Rio Claro,3110,31,MG
+3114501,Carmópolis de Minas,319,31,MG
+3114550,Carneirinho,315,31,MG
+3114600,Carrancas,3111,31,MG
+3114709,Carvalhópolis,3110,31,MG
+3114808,Carvalhos,3110,31,MG
+3114907,Casa Grande,317,31,MG
+3115003,Cascalho Rico,315,31,MG
+3115102,Cássia,3110,31,MG
+3115300,Cataguases,3112,31,MG
+3115359,Catas Altas,317,31,MG
+3115409,Catas Altas da Noruega,317,31,MG
+3115458,Catuji,314,31,MG
+3115474,Catuti,312,31,MG
+3115508,Caxambu,3110,31,MG
+3115607,Cedro do Abaeté,316,31,MG
+3115706,Central de Minas,318,31,MG
+3115805,Centralina,315,31,MG
+3115904,Chácara,3112,31,MG
+3116001,Chalé,3112,31,MG
+3116100,Chapada do Norte,313,31,MG
+3116159,Chapada Gaúcha,312,31,MG
+3116209,Chiador,3112,31,MG
+3116308,Cipotânea,3112,31,MG
+3116407,Claraval,3110,31,MG
+3116506,Claro dos Poções,312,31,MG
+3116605,Cláudio,319,31,MG
+3116704,Coimbra,3112,31,MG
+3116803,Coluna,318,31,MG
+3116902,Comendador Gomes,315,31,MG
+3117009,Comercinho,313,31,MG
+3117108,Conceição da Aparecida,3110,31,MG
+3115201,Conceição da Barra de Minas,3111,31,MG
+3117306,Conceição das Alagoas,315,31,MG
+3117207,Conceição das Pedras,3110,31,MG
+3117405,Conceição de Ipanema,318,31,MG
+3117504,Conceição do Mato Dentro,317,31,MG
+3117603,Conceição do Pará,319,31,MG
+3117702,Conceição do Rio Verde,3110,31,MG
+3117801,Conceição dos Ouros,3110,31,MG
+3117836,Cônego Marinho,312,31,MG
+3117876,Confins,317,31,MG
+3117900,Congonhal,3110,31,MG
+3118007,Congonhas,317,31,MG
+3118106,Congonhas do Norte,317,31,MG
+3118205,Conquista,315,31,MG
+3118304,Conselheiro Lafaiete,317,31,MG
+3118403,Conselheiro Pena,318,31,MG
+3118502,Consolação,3110,31,MG
+3118601,Contagem,317,31,MG
+3118700,Coqueiral,3110,31,MG
+3118809,Coração de Jesus,312,31,MG
+3118908,Cordisburgo,317,31,MG
+3119005,Cordislândia,3110,31,MG
+3119104,Corinto,316,31,MG
+3119203,Coroaci,318,31,MG
+3119302,Coromandel,315,31,MG
+3119401,Coronel Fabriciano,318,31,MG
+3119500,Coronel Murta,313,31,MG
+3119609,Coronel Pacheco,3112,31,MG
+3119708,Coronel Xavier Chaves,3111,31,MG
+3119807,Córrego Danta,319,31,MG
+3119906,Córrego do Bom Jesus,3110,31,MG
+3119955,Córrego Fundo,319,31,MG
+3120003,Córrego Novo,318,31,MG
+3120102,Couto de Magalhães de Minas,313,31,MG
+3120151,Crisólita,314,31,MG
+3120201,Cristais,319,31,MG
+3120300,Cristália,312,31,MG
+3120409,Cristiano Otoni,317,31,MG
+3120508,Cristina,3110,31,MG
+3120607,Crucilândia,317,31,MG
+3120706,Cruzeiro da Fortaleza,315,31,MG
+3120805,Cruzília,3110,31,MG
+3120839,Cuparaque,318,31,MG
+3120870,Curral de Dentro,312,31,MG
+3120904,Curvelo,316,31,MG
+3121001,Datas,313,31,MG
+3121100,Delfim Moreira,3110,31,MG
+3121209,Delfinópolis,3110,31,MG
+3121258,Delta,315,31,MG
+3121308,Descoberto,3112,31,MG
+3121407,Desterro de Entre Rios,317,31,MG
+3121506,Desterro do Melo,3111,31,MG
+3121605,Diamantina,313,31,MG
+3121704,Diogo de Vasconcelos,317,31,MG
+3121803,Dionísio,317,31,MG
+3121902,Divinésia,3112,31,MG
+3122009,Divino,3112,31,MG
+3122108,Divino das Laranjeiras,318,31,MG
+3122207,Divinolândia de Minas,318,31,MG
+3122306,Divinópolis,319,31,MG
+3122355,Divisa Alegre,312,31,MG
+3122405,Divisa Nova,3110,31,MG
+3122454,Divisópolis,313,31,MG
+3122470,Dom Bosco,311,31,MG
+3122504,Dom Cavati,318,31,MG
+3122603,Dom Joaquim,317,31,MG
+3122702,Dom Silvério,3112,31,MG
+3122801,Dom Viçoso,3110,31,MG
+3122900,Dona Eusébia,3112,31,MG
+3123007,Dores de Campos,3111,31,MG
+3123106,Dores de Guanhães,318,31,MG
+3123205,Dores do Indaiá,316,31,MG
+3123304,Dores do Turvo,3112,31,MG
+3123403,Doresópolis,319,31,MG
+3123502,Douradoquara,315,31,MG
+3123528,Durandé,3112,31,MG
+3123601,Elói Mendes,3110,31,MG
+3123700,Engenheiro Caldas,318,31,MG
+3123809,Engenheiro Navarro,312,31,MG
+3123858,Entre Folhas,318,31,MG
+3123908,Entre Rios de Minas,317,31,MG
+3124005,Ervália,3112,31,MG
+3124104,Esmeraldas,317,31,MG
+3124203,Espera Feliz,3112,31,MG
+3124302,Espinosa,312,31,MG
+3124401,Espírito Santo do Dourado,3110,31,MG
+3124500,Estiva,3110,31,MG
+3124609,Estrela Dalva,3112,31,MG
+3124708,Estrela do Indaiá,316,31,MG
+3124807,Estrela do Sul,315,31,MG
+3124906,Eugenópolis,3112,31,MG
+3125002,Ewbank da Câmara,3112,31,MG
+3125101,Extrema,3110,31,MG
+3125200,Fama,3110,31,MG
+3125309,Faria Lemos,3112,31,MG
+3125408,Felício dos Santos,313,31,MG
+3125606,Felisburgo,313,31,MG
+3125705,Felixlândia,316,31,MG
+3125804,Fernandes Tourinho,318,31,MG
+3125903,Ferros,317,31,MG
+3125952,Fervedouro,3112,31,MG
+3126000,Florestal,317,31,MG
+3126109,Formiga,319,31,MG
+3126208,Formoso,311,31,MG
+3126307,Fortaleza de Minas,3110,31,MG
+3126406,Fortuna de Minas,317,31,MG
+3126505,Francisco Badaró,313,31,MG
+3126604,Francisco Dumont,312,31,MG
+3126703,Francisco Sá,312,31,MG
+3126752,Franciscópolis,314,31,MG
+3126802,Frei Gaspar,314,31,MG
+3126901,Frei Inocêncio,318,31,MG
+3126950,Frei Lagonegro,318,31,MG
+3127008,Fronteira,315,31,MG
+3127057,Fronteira dos Vales,314,31,MG
+3127073,Fruta de Leite,312,31,MG
+3127107,Frutal,315,31,MG
+3127206,Funilândia,317,31,MG
+3127305,Galiléia,318,31,MG
+3127339,Gameleiras,312,31,MG
+3127354,Glaucilândia,312,31,MG
+3127370,Goiabeira,318,31,MG
+3127388,Goianá,3112,31,MG
+3127404,Gonçalves,3110,31,MG
+3127503,Gonzaga,318,31,MG
+3127602,Gouveia,313,31,MG
+3127701,Governador Valadares,318,31,MG
+3127800,Grão Mogol,312,31,MG
+3127909,Grupiara,315,31,MG
+3128006,Guanhães,318,31,MG
+3128105,Guapé,3110,31,MG
+3128204,Guaraciaba,3112,31,MG
+3128253,Guaraciama,312,31,MG
+3128303,Guaranésia,3110,31,MG
+3128402,Guarani,3112,31,MG
+3128501,Guarará,3112,31,MG
+3128600,Guarda-Mor,311,31,MG
+3128709,Guaxupé,3110,31,MG
+3128808,Guidoval,3112,31,MG
+3128907,Guimarânia,315,31,MG
+3129004,Guiricema,3112,31,MG
+3129103,Gurinhatã,315,31,MG
+3129202,Heliodora,3110,31,MG
+3129301,Iapu,318,31,MG
+3129400,Ibertioga,3111,31,MG
+3129509,Ibiá,315,31,MG
+3129608,Ibiaí,312,31,MG
+3129657,Ibiracatu,312,31,MG
+3129707,Ibiraci,3110,31,MG
+3129806,Ibirité,317,31,MG
+3129905,Ibitiúra de Minas,3110,31,MG
+3130002,Ibituruna,319,31,MG
+3130051,Icaraí de Minas,312,31,MG
+3130101,Igarapé,317,31,MG
+3130200,Igaratinga,319,31,MG
+3130309,Iguatama,319,31,MG
+3130408,Ijaci,3111,31,MG
+3130507,Ilicínea,3110,31,MG
+3130556,Imbé de Minas,318,31,MG
+3130606,Inconfidentes,3110,31,MG
+3130655,Indaiabira,312,31,MG
+3130705,Indianópolis,315,31,MG
+3130804,Ingaí,3111,31,MG
+3130903,Inhapim,318,31,MG
+3131000,Inhaúma,317,31,MG
+3131109,Inimutaba,316,31,MG
+3131158,Ipaba,318,31,MG
+3131208,Ipanema,318,31,MG
+3131307,Ipatinga,318,31,MG
+3131406,Ipiaçu,315,31,MG
+3131505,Ipuiúna,3110,31,MG
+3131604,Iraí de Minas,315,31,MG
+3131703,Itabira,317,31,MG
+3131802,Itabirinha,318,31,MG
+3131901,Itabirito,317,31,MG
+3132008,Itacambira,312,31,MG
+3132107,Itacarambi,312,31,MG
+3132206,Itaguara,317,31,MG
+3132305,Itaipé,314,31,MG
+3132404,Itajubá,3110,31,MG
+3132503,Itamarandiba,313,31,MG
+3132602,Itamarati de Minas,3112,31,MG
+3132701,Itambacuri,318,31,MG
+3132800,Itambé do Mato Dentro,317,31,MG
+3132909,Itamogi,3110,31,MG
+3133006,Itamonte,3110,31,MG
+3133105,Itanhandu,3110,31,MG
+3133204,Itanhomi,318,31,MG
+3133303,Itaobim,313,31,MG
+3133402,Itapagipe,315,31,MG
+3133501,Itapecerica,319,31,MG
+3133600,Itapeva,3110,31,MG
+3133709,Itatiaiuçu,317,31,MG
+3133758,Itaú de Minas,3110,31,MG
+3133808,Itaúna,319,31,MG
+3133907,Itaverava,317,31,MG
+3134004,Itinga,313,31,MG
+3134103,Itueta,318,31,MG
+3134202,Ituiutaba,315,31,MG
+3134301,Itumirim,3111,31,MG
+3134400,Iturama,315,31,MG
+3134509,Itutinga,3111,31,MG
+3134608,Jaboticatubas,317,31,MG
+3134707,Jacinto,313,31,MG
+3134806,Jacuí,3110,31,MG
+3134905,Jacutinga,3110,31,MG
+3135001,Jaguaraçu,318,31,MG
+3135050,Jaíba,312,31,MG
+3135076,Jampruca,318,31,MG
+3135100,Janaúba,312,31,MG
+3135209,Januária,312,31,MG
+3135308,Japaraíba,316,31,MG
+3135357,Japonvar,312,31,MG
+3135407,Jeceaba,317,31,MG
+3135456,Jenipapo de Minas,313,31,MG
+3135506,Jequeri,3112,31,MG
+3135605,Jequitaí,312,31,MG
+3135704,Jequitibá,317,31,MG
+3135803,Jequitinhonha,313,31,MG
+3135902,Jesuânia,3110,31,MG
+3136009,Joaíma,313,31,MG
+3136108,Joanésia,318,31,MG
+3136207,João Monlevade,317,31,MG
+3136306,João Pinheiro,311,31,MG
+3136405,Joaquim Felício,316,31,MG
+3136504,Jordânia,313,31,MG
+3136520,José Gonçalves de Minas,313,31,MG
+3136553,José Raydan,318,31,MG
+3136579,Josenópolis,312,31,MG
+3136652,Juatuba,317,31,MG
+3136702,Juiz de Fora,3112,31,MG
+3136801,Juramento,312,31,MG
+3136900,Juruaia,3110,31,MG
+3136959,Juvenília,312,31,MG
+3137007,Ladainha,314,31,MG
+3137106,Lagamar,311,31,MG
+3137205,Lagoa da Prata,316,31,MG
+3137304,Lagoa dos Patos,312,31,MG
+3137403,Lagoa Dourada,3111,31,MG
+3137502,Lagoa Formosa,315,31,MG
+3137536,Lagoa Grande,311,31,MG
+3137601,Lagoa Santa,317,31,MG
+3137700,Lajinha,3112,31,MG
+3137809,Lambari,3110,31,MG
+3137908,Lamim,3112,31,MG
+3138005,Laranjal,3112,31,MG
+3138104,Lassance,312,31,MG
+3138203,Lavras,3111,31,MG
+3138302,Leandro Ferreira,316,31,MG
+3138351,Leme do Prado,313,31,MG
+3138401,Leopoldina,3112,31,MG
+3138500,Liberdade,3110,31,MG
+3138609,Lima Duarte,3112,31,MG
+3138625,Limeira do Oeste,315,31,MG
+3138658,Lontra,312,31,MG
+3138674,Luisburgo,3112,31,MG
+3138682,Luislândia,312,31,MG
+3138708,Luminárias,3111,31,MG
+3138807,Luz,316,31,MG
+3138906,Machacalis,314,31,MG
+3139003,Machado,3110,31,MG
+3139102,Madre de Deus de Minas,3111,31,MG
+3139201,Malacacheta,314,31,MG
+3139250,Mamonas,312,31,MG
+3139300,Manga,312,31,MG
+3139409,Manhuaçu,3112,31,MG
+3139508,Manhumirim,3112,31,MG
+3139607,Mantena,318,31,MG
+3139805,Mar de Espanha,3112,31,MG
+3139706,Maravilhas,317,31,MG
+3139904,Maria da Fé,3110,31,MG
+3140001,Mariana,317,31,MG
+3140100,Marilac,318,31,MG
+3140159,Mário Campos,317,31,MG
+3140209,Maripá de Minas,3112,31,MG
+3140308,Marliéria,318,31,MG
+3140407,Marmelópolis,3110,31,MG
+3140506,Martinho Campos,316,31,MG
+3140530,Martins Soares,3112,31,MG
+3140555,Mata Verde,313,31,MG
+3140605,Materlândia,318,31,MG
+3140704,Mateus Leme,317,31,MG
+3171501,Mathias Lobato,318,31,MG
+3140803,Matias Barbosa,3112,31,MG
+3140852,Matias Cardoso,312,31,MG
+3140902,Matipó,3112,31,MG
+3141009,Mato Verde,312,31,MG
+3141108,Matozinhos,317,31,MG
+3141207,Matutina,315,31,MG
+3141306,Medeiros,319,31,MG
+3141405,Medina,313,31,MG
+3141504,Mendes Pimentel,318,31,MG
+3141603,Mercês,3112,31,MG
+3141702,Mesquita,318,31,MG
+3141801,Minas Novas,313,31,MG
+3141900,Minduri,3110,31,MG
+3142007,Mirabela,312,31,MG
+3142106,Miradouro,3112,31,MG
+3142205,Miraí,3112,31,MG
+3142254,Miravânia,312,31,MG
+3142304,Moeda,317,31,MG
+3142403,Moema,316,31,MG
+3142502,Monjolos,316,31,MG
+3142601,Monsenhor Paulo,3110,31,MG
+3142700,Montalvânia,312,31,MG
+3142809,Monte Alegre de Minas,315,31,MG
+3142908,Monte Azul,312,31,MG
+3143005,Monte Belo,3110,31,MG
+3143104,Monte Carmelo,315,31,MG
+3143153,Monte Formoso,313,31,MG
+3143203,Monte Santo de Minas,3110,31,MG
+3143401,Monte Sião,3110,31,MG
+3143302,Montes Claros,312,31,MG
+3143450,Montezuma,312,31,MG
+3143500,Morada Nova de Minas,316,31,MG
+3143609,Morro da Garça,316,31,MG
+3143708,Morro do Pilar,317,31,MG
+3143807,Munhoz,3110,31,MG
+3143906,Muriaé,3112,31,MG
+3144003,Mutum,318,31,MG
+3144102,Muzambinho,3110,31,MG
+3144201,Nacip Raydan,318,31,MG
+3144300,Nanuque,314,31,MG
+3144359,Naque,318,31,MG
+3144375,Natalândia,311,31,MG
+3144409,Natércia,3110,31,MG
+3144508,Nazareno,3111,31,MG
+3144607,Nepomuceno,3111,31,MG
+3144656,Ninheira,312,31,MG
+3144672,Nova Belém,318,31,MG
+3144706,Nova Era,317,31,MG
+3144805,Nova Lima,317,31,MG
+3144904,Nova Módica,318,31,MG
+3145000,Nova Ponte,315,31,MG
+3145059,Nova Porteirinha,312,31,MG
+3145109,Nova Resende,3110,31,MG
+3145208,Nova Serrana,319,31,MG
+3136603,Nova União,317,31,MG
+3145307,Novo Cruzeiro,313,31,MG
+3145356,Novo Oriente de Minas,314,31,MG
+3145372,Novorizonte,312,31,MG
+3145406,Olaria,3112,31,MG
+3145455,Olhos-d'Água,312,31,MG
+3145505,Olímpio Noronha,3110,31,MG
+3145604,Oliveira,319,31,MG
+3145703,Oliveira Fortes,3112,31,MG
+3145802,Onça de Pitangui,317,31,MG
+3145851,Oratórios,3112,31,MG
+3145877,Orizânia,3112,31,MG
+3145901,Ouro Branco,317,31,MG
+3146008,Ouro Fino,3110,31,MG
+3146107,Ouro Preto,317,31,MG
+3146206,Ouro Verde de Minas,314,31,MG
+3146255,Padre Carvalho,312,31,MG
+3146305,Padre Paraíso,313,31,MG
+3146552,Pai Pedro,312,31,MG
+3146404,Paineiras,316,31,MG
+3146503,Pains,319,31,MG
+3146602,Paiva,3112,31,MG
+3146701,Palma,3112,31,MG
+3146750,Palmópolis,313,31,MG
+3146909,Papagaios,317,31,MG
+3147105,Pará de Minas,317,31,MG
+3147006,Paracatu,311,31,MG
+3147204,Paraguaçu,3110,31,MG
+3147303,Paraisópolis,3110,31,MG
+3147402,Paraopeba,317,31,MG
+3147600,Passa Quatro,3110,31,MG
+3147709,Passa Tempo,319,31,MG
+3147808,Passa Vinte,3110,31,MG
+3147501,Passabém,317,31,MG
+3147907,Passos,3110,31,MG
+3147956,Patis,312,31,MG
+3148004,Patos de Minas,315,31,MG
+3148103,Patrocínio,315,31,MG
+3148202,Patrocínio do Muriaé,3112,31,MG
+3148301,Paula Cândido,3112,31,MG
+3148400,Paulistas,318,31,MG
+3148509,Pavão,314,31,MG
+3148608,Peçanha,318,31,MG
+3148707,Pedra Azul,313,31,MG
+3148756,Pedra Bonita,3112,31,MG
+3148806,Pedra do Anta,3112,31,MG
+3148905,Pedra do Indaiá,319,31,MG
+3149002,Pedra Dourada,3112,31,MG
+3149101,Pedralva,3110,31,MG
+3149150,Pedras de Maria da Cruz,312,31,MG
+3149200,Pedrinópolis,315,31,MG
+3149309,Pedro Leopoldo,317,31,MG
+3149408,Pedro Teixeira,3112,31,MG
+3149507,Pequeri,3112,31,MG
+3149606,Pequi,317,31,MG
+3149705,Perdigão,319,31,MG
+3149804,Perdizes,315,31,MG
+3149903,Perdões,319,31,MG
+3149952,Periquito,318,31,MG
+3150000,Pescador,318,31,MG
+3150109,Piau,3112,31,MG
+3150158,Piedade de Caratinga,318,31,MG
+3150208,Piedade de Ponte Nova,3112,31,MG
+3150307,Piedade do Rio Grande,3111,31,MG
+3150406,Piedade dos Gerais,317,31,MG
+3150505,Pimenta,319,31,MG
+3150539,Pingo d'Água,318,31,MG
+3150570,Pintópolis,312,31,MG
+3150604,Piracema,319,31,MG
+3150703,Pirajuba,315,31,MG
+3150802,Piranga,3112,31,MG
+3150901,Piranguçu,3110,31,MG
+3151008,Piranguinho,3110,31,MG
+3151107,Pirapetinga,3112,31,MG
+3151206,Pirapora,312,31,MG
+3151305,Piraúba,3112,31,MG
+3151404,Pitangui,317,31,MG
+3151503,Piumhi,319,31,MG
+3151602,Planura,315,31,MG
+3151701,Poço Fundo,3110,31,MG
+3151800,Poços de Caldas,3110,31,MG
+3151909,Pocrane,318,31,MG
+3152006,Pompéu,316,31,MG
+3152105,Ponte Nova,3112,31,MG
+3152131,Ponto Chique,312,31,MG
+3152170,Ponto dos Volantes,313,31,MG
+3152204,Porteirinha,312,31,MG
+3152303,Porto Firme,3112,31,MG
+3152402,Poté,314,31,MG
+3152501,Pouso Alegre,3110,31,MG
+3152600,Pouso Alto,3110,31,MG
+3152709,Prados,3111,31,MG
+3152808,Prata,315,31,MG
+3152907,Pratápolis,3110,31,MG
+3153004,Pratinha,315,31,MG
+3153103,Presidente Bernardes,3112,31,MG
+3153202,Presidente Juscelino,316,31,MG
+3153301,Presidente Kubitschek,313,31,MG
+3153400,Presidente Olegário,311,31,MG
+3153608,Prudente de Morais,317,31,MG
+3153707,Quartel Geral,316,31,MG
+3153806,Queluzito,317,31,MG
+3153905,Raposos,317,31,MG
+3154002,Raul Soares,3112,31,MG
+3154101,Recreio,3112,31,MG
+3154150,Reduto,3112,31,MG
+3154200,Resende Costa,3111,31,MG
+3154309,Resplendor,318,31,MG
+3154408,Ressaquinha,3111,31,MG
+3154457,Riachinho,312,31,MG
+3154507,Riacho dos Machados,312,31,MG
+3154606,Ribeirão das Neves,317,31,MG
+3154705,Ribeirão Vermelho,3111,31,MG
+3154804,Rio Acima,317,31,MG
+3154903,Rio Casca,3112,31,MG
+3155108,Rio do Prado,313,31,MG
+3155009,Rio Doce,3112,31,MG
+3155207,Rio Espera,3112,31,MG
+3155306,Rio Manso,317,31,MG
+3155405,Rio Novo,3112,31,MG
+3155504,Rio Paranaíba,315,31,MG
+3155603,Rio Pardo de Minas,312,31,MG
+3155702,Rio Piracicaba,317,31,MG
+3155801,Rio Pomba,3112,31,MG
+3155900,Rio Preto,3112,31,MG
+3156007,Rio Vermelho,317,31,MG
+3156106,Ritápolis,3111,31,MG
+3156205,Rochedo de Minas,3112,31,MG
+3156304,Rodeiro,3112,31,MG
+3156403,Romaria,315,31,MG
+3156452,Rosário da Limeira,3112,31,MG
+3156502,Rubelita,312,31,MG
+3156601,Rubim,313,31,MG
+3156700,Sabará,317,31,MG
+3156809,Sabinópolis,318,31,MG
+3156908,Sacramento,315,31,MG
+3157005,Salinas,312,31,MG
+3157104,Salto da Divisa,313,31,MG
+3157203,Santa Bárbara,317,31,MG
+3157252,Santa Bárbara do Leste,318,31,MG
+3157278,Santa Bárbara do Monte Verde,3112,31,MG
+3157302,Santa Bárbara do Tugúrio,3111,31,MG
+3157336,Santa Cruz de Minas,3111,31,MG
+3157377,Santa Cruz de Salinas,312,31,MG
+3157401,Santa Cruz do Escalvado,3112,31,MG
+3157500,Santa Efigênia de Minas,318,31,MG
+3157609,Santa Fé de Minas,312,31,MG
+3157658,Santa Helena de Minas,314,31,MG
+3157708,Santa Juliana,315,31,MG
+3157807,Santa Luzia,317,31,MG
+3157906,Santa Margarida,3112,31,MG
+3158003,Santa Maria de Itabira,317,31,MG
+3158102,Santa Maria do Salto,313,31,MG
+3158201,Santa Maria do Suaçuí,318,31,MG
+3159209,Santa Rita de Caldas,3110,31,MG
+3159407,Santa Rita de Ibitipoca,3112,31,MG
+3159308,Santa Rita de Jacutinga,3112,31,MG
+3159357,Santa Rita de Minas,318,31,MG
+3159506,Santa Rita do Itueto,318,31,MG
+3159605,Santa Rita do Sapucaí,3110,31,MG
+3159704,Santa Rosa da Serra,315,31,MG
+3159803,Santa Vitória,315,31,MG
+3158300,Santana da Vargem,3110,31,MG
+3158409,Santana de Cataguases,3112,31,MG
+3158508,Santana de Pirapama,317,31,MG
+3158607,Santana do Deserto,3112,31,MG
+3158706,Santana do Garambéu,3111,31,MG
+3158805,Santana do Jacaré,319,31,MG
+3158904,Santana do Manhuaçu,3112,31,MG
+3158953,Santana do Paraíso,318,31,MG
+3159001,Santana do Riacho,317,31,MG
+3159100,Santana dos Montes,317,31,MG
+3159902,Santo Antônio do Amparo,319,31,MG
+3160009,Santo Antônio do Aventureiro,3112,31,MG
+3160108,Santo Antônio do Grama,3112,31,MG
+3160207,Santo Antônio do Itambé,317,31,MG
+3160306,Santo Antônio do Jacinto,313,31,MG
+3160405,Santo Antônio do Monte,319,31,MG
+3160454,Santo Antônio do Retiro,312,31,MG
+3160504,Santo Antônio do Rio Abaixo,317,31,MG
+3160603,Santo Hipólito,316,31,MG
+3160702,Santos Dumont,3112,31,MG
+3160801,São Bento Abade,3110,31,MG
+3160900,São Brás do Suaçuí,317,31,MG
+3160959,São Domingos das Dores,318,31,MG
+3161007,São Domingos do Prata,317,31,MG
+3161056,São Félix de Minas,318,31,MG
+3161106,São Francisco,312,31,MG
+3161205,São Francisco de Paula,319,31,MG
+3161304,São Francisco de Sales,315,31,MG
+3161403,São Francisco do Glória,3112,31,MG
+3161502,São Geraldo,3112,31,MG
+3161601,São Geraldo da Piedade,318,31,MG
+3161650,São Geraldo do Baixio,318,31,MG
+3161700,São Gonçalo do Abaeté,311,31,MG
+3161809,São Gonçalo do Pará,319,31,MG
+3161908,São Gonçalo do Rio Abaixo,317,31,MG
+3125507,São Gonçalo do Rio Preto,313,31,MG
+3162005,São Gonçalo do Sapucaí,3110,31,MG
+3162104,São Gotardo,315,31,MG
+3162203,São João Batista do Glória,3110,31,MG
+3162252,São João da Lagoa,312,31,MG
+3162302,São João da Mata,3110,31,MG
+3162401,São João da Ponte,312,31,MG
+3162450,São João das Missões,312,31,MG
+3162500,São João del Rei,3111,31,MG
+3162559,São João do Manhuaçu,3112,31,MG
+3162575,São João do Manteninha,318,31,MG
+3162609,São João do Oriente,318,31,MG
+3162658,São João do Pacuí,312,31,MG
+3162708,São João do Paraíso,312,31,MG
+3162807,São João Evangelista,318,31,MG
+3162906,São João Nepomuceno,3112,31,MG
+3162922,São Joaquim de Bicas,317,31,MG
+3162948,São José da Barra,3110,31,MG
+3162955,São José da Lapa,317,31,MG
+3163003,São José da Safira,318,31,MG
+3163102,São José da Varginha,317,31,MG
+3163201,São José do Alegre,3110,31,MG
+3163300,São José do Divino,318,31,MG
+3163409,São José do Goiabal,317,31,MG
+3163508,São José do Jacuri,318,31,MG
+3163607,São José do Mantimento,3112,31,MG
+3163706,São Lourenço,3110,31,MG
+3163805,São Miguel do Anta,3112,31,MG
+3163904,São Pedro da União,3110,31,MG
+3164100,São Pedro do Suaçuí,318,31,MG
+3164001,São Pedro dos Ferros,3112,31,MG
+3164209,São Romão,312,31,MG
+3164308,São Roque de Minas,319,31,MG
+3164407,São Sebastião da Bela Vista,3110,31,MG
+3164431,São Sebastião da Vargem Alegre,3112,31,MG
+3164472,São Sebastião do Anta,318,31,MG
+3164506,São Sebastião do Maranhão,318,31,MG
+3164605,São Sebastião do Oeste,319,31,MG
+3164704,São Sebastião do Paraíso,3110,31,MG
+3164803,São Sebastião do Rio Preto,317,31,MG
+3164902,São Sebastião do Rio Verde,3110,31,MG
+3165206,São Thomé das Letras,3110,31,MG
+3165008,São Tiago,3111,31,MG
+3165107,São Tomás de Aquino,3110,31,MG
+3165305,São Vicente de Minas,3110,31,MG
+3165404,Sapucaí-Mirim,3110,31,MG
+3165503,Sardoá,318,31,MG
+3165537,Sarzedo,317,31,MG
+3165560,Sem-Peixe,3112,31,MG
+3165578,Senador Amaral,3110,31,MG
+3165602,Senador Cortes,3112,31,MG
+3165701,Senador Firmino,3112,31,MG
+3165800,Senador José Bento,3110,31,MG
+3165909,Senador Modestino Gonçalves,313,31,MG
+3166006,Senhora de Oliveira,3112,31,MG
+3166105,Senhora do Porto,318,31,MG
+3166204,Senhora dos Remédios,3111,31,MG
+3166303,Sericita,3112,31,MG
+3166402,Seritinga,3110,31,MG
+3166501,Serra Azul de Minas,317,31,MG
+3166600,Serra da Saudade,316,31,MG
+3166808,Serra do Salitre,315,31,MG
+3166709,Serra dos Aimorés,314,31,MG
+3166907,Serrania,3110,31,MG
+3166956,Serranópolis de Minas,312,31,MG
+3167004,Serranos,3110,31,MG
+3167103,Serro,317,31,MG
+3167202,Sete Lagoas,317,31,MG
+3165552,Setubinha,314,31,MG
+3167301,Silveirânia,3112,31,MG
+3167400,Silvianópolis,3110,31,MG
+3167509,Simão Pereira,3112,31,MG
+3167608,Simonésia,3112,31,MG
+3167707,Sobrália,318,31,MG
+3167806,Soledade de Minas,3110,31,MG
+3167905,Tabuleiro,3112,31,MG
+3168002,Taiobeiras,312,31,MG
+3168051,Taparuba,318,31,MG
+3168101,Tapira,315,31,MG
+3168200,Tapiraí,319,31,MG
+3168309,Taquaraçu de Minas,317,31,MG
+3168408,Tarumirim,318,31,MG
+3168507,Teixeiras,3112,31,MG
+3168606,Teófilo Otoni,314,31,MG
+3168705,Timóteo,318,31,MG
+3168804,Tiradentes,3111,31,MG
+3168903,Tiros,315,31,MG
+3169000,Tocantins,3112,31,MG
+3169059,Tocos do Moji,3110,31,MG
+3169109,Toledo,3110,31,MG
+3169208,Tombos,3112,31,MG
+3169307,Três Corações,3110,31,MG
+3169356,Três Marias,316,31,MG
+3169406,Três Pontas,3110,31,MG
+3169505,Tumiritinga,318,31,MG
+3169604,Tupaciguara,315,31,MG
+3169703,Turmalina,313,31,MG
+3169802,Turvolândia,3110,31,MG
+3169901,Ubá,3112,31,MG
+3170008,Ubaí,312,31,MG
+3170057,Ubaporanga,318,31,MG
+3170107,Uberaba,315,31,MG
+3170206,Uberlândia,315,31,MG
+3170305,Umburatiba,314,31,MG
+3170404,Unaí,311,31,MG
+3170438,União de Minas,315,31,MG
+3170479,Uruana de Minas,311,31,MG
+3170503,Urucânia,3112,31,MG
+3170529,Urucuia,312,31,MG
+3170578,Vargem Alegre,318,31,MG
+3170602,Vargem Bonita,319,31,MG
+3170651,Vargem Grande do Rio Pardo,312,31,MG
+3170701,Varginha,3110,31,MG
+3170750,Varjão de Minas,311,31,MG
+3170800,Várzea da Palma,312,31,MG
+3170909,Varzelândia,312,31,MG
+3171006,Vazante,311,31,MG
+3171030,Verdelândia,312,31,MG
+3171071,Veredinha,313,31,MG
+3171105,Veríssimo,315,31,MG
+3171154,Vermelho Novo,3112,31,MG
+3171204,Vespasiano,317,31,MG
+3171303,Viçosa,3112,31,MG
+3171402,Vieiras,3112,31,MG
+3171600,Virgem da Lapa,313,31,MG
+3171709,Virgínia,3110,31,MG
+3171808,Virginópolis,318,31,MG
+3171907,Virgolândia,318,31,MG
+3172004,Visconde do Rio Branco,3112,31,MG
+3172103,Volta Grande,3112,31,MG
+3172202,Wenceslau Braz,3110,31,MG
+3200102,Afonso Cláudio,323,32,ES
+3200169,Água Doce do Norte,321,32,ES
+3200136,Águia Branca,321,32,ES
+3200201,Alegre,324,32,ES
+3200300,Alfredo Chaves,323,32,ES
+3200359,Alto Rio Novo,321,32,ES
+3200409,Anchieta,323,32,ES
+3200508,Apiacá,324,32,ES
+3200607,Aracruz,322,32,ES
+3200706,Atílio Vivacqua,324,32,ES
+3200805,Baixo Guandu,321,32,ES
+3200904,Barra de São Francisco,321,32,ES
+3201001,Boa Esperança,321,32,ES
+3201100,Bom Jesus do Norte,324,32,ES
+3201159,Brejetuba,323,32,ES
+3201209,Cachoeiro de Itapemirim,324,32,ES
+3201308,Cariacica,323,32,ES
+3201407,Castelo,324,32,ES
+3201506,Colatina,321,32,ES
+3201605,Conceição da Barra,322,32,ES
+3201704,Conceição do Castelo,323,32,ES
+3201803,Divino de São Lourenço,324,32,ES
+3201902,Domingos Martins,323,32,ES
+3202009,Dores do Rio Preto,324,32,ES
+3202108,Ecoporanga,321,32,ES
+3202207,Fundão,322,32,ES
+3202256,Governador Lindenberg,321,32,ES
+3202306,Guaçuí,324,32,ES
+3202405,Guarapari,323,32,ES
+3202454,Ibatiba,324,32,ES
+3202504,Ibiraçu,322,32,ES
+3202553,Ibitirama,324,32,ES
+3202603,Iconha,323,32,ES
+3202652,Irupi,324,32,ES
+3202702,Itaguaçu,323,32,ES
+3202801,Itapemirim,324,32,ES
+3202900,Itarana,323,32,ES
+3203007,Iúna,324,32,ES
+3203056,Jaguaré,322,32,ES
+3203106,Jerônimo Monteiro,324,32,ES
+3203130,João Neiva,322,32,ES
+3203163,Laranja da Terra,323,32,ES
+3203205,Linhares,322,32,ES
+3203304,Mantenópolis,321,32,ES
+3203320,Marataízes,324,32,ES
+3203346,Marechal Floriano,323,32,ES
+3203353,Marilândia,321,32,ES
+3203403,Mimoso do Sul,324,32,ES
+3203502,Montanha,322,32,ES
+3203601,Mucurici,322,32,ES
+3203700,Muniz Freire,324,32,ES
+3203809,Muqui,324,32,ES
+3203908,Nova Venécia,321,32,ES
+3204005,Pancas,321,32,ES
+3204054,Pedro Canário,322,32,ES
+3204104,Pinheiros,322,32,ES
+3204203,Piúma,323,32,ES
+3204252,Ponto Belo,322,32,ES
+3204302,Presidente Kennedy,324,32,ES
+3204351,Rio Bananal,322,32,ES
+3204401,Rio Novo do Sul,323,32,ES
+3204500,Santa Leopoldina,323,32,ES
+3204559,Santa Maria de Jetibá,323,32,ES
+3204609,Santa Teresa,323,32,ES
+3204658,São Domingos do Norte,321,32,ES
+3204708,São Gabriel da Palha,321,32,ES
+3204807,São José do Calçado,324,32,ES
+3204906,São Mateus,322,32,ES
+3204955,São Roque do Canaã,323,32,ES
+3205002,Serra,323,32,ES
+3205010,Sooretama,322,32,ES
+3205036,Vargem Alta,324,32,ES
+3205069,Venda Nova do Imigrante,323,32,ES
+3205101,Viana,323,32,ES
+3205150,Vila Pavão,321,32,ES
+3205176,Vila Valério,321,32,ES
+3205200,Vila Velha,323,32,ES
+3205309,Vitória,323,32,ES
+3300100,Angra dos Reis,335,33,RJ
+3300159,Aperibé,331,33,RJ
+3300209,Araruama,334,33,RJ
+3300225,Areal,333,33,RJ
+3300233,Armação dos Búzios,334,33,RJ
+3300258,Arraial do Cabo,334,33,RJ
+3300308,Barra do Piraí,335,33,RJ
+3300407,Barra Mansa,335,33,RJ
+3300456,Belford Roxo,336,33,RJ
+3300506,Bom Jardim,333,33,RJ
+3300605,Bom Jesus do Itabapoana,331,33,RJ
+3300704,Cabo Frio,334,33,RJ
+3300803,Cachoeiras de Macacu,336,33,RJ
+3300902,Cambuci,331,33,RJ
+3301009,Campos dos Goytacazes,332,33,RJ
+3301108,Cantagalo,333,33,RJ
+3300936,Carapebus,332,33,RJ
+3301157,Cardoso Moreira,332,33,RJ
+3301207,Carmo,333,33,RJ
+3301306,Casimiro de Abreu,334,33,RJ
+3300951,Comendador Levy Gasparian,333,33,RJ
+3301405,Conceição de Macabu,332,33,RJ
+3301504,Cordeiro,333,33,RJ
+3301603,Duas Barras,333,33,RJ
+3301702,Duque de Caxias,336,33,RJ
+3301801,Engenheiro Paulo de Frontin,336,33,RJ
+3301850,Guapimirim,336,33,RJ
+3301876,Iguaba Grande,334,33,RJ
+3301900,Itaboraí,336,33,RJ
+3302007,Itaguaí,336,33,RJ
+3302056,Italva,331,33,RJ
+3302106,Itaocara,331,33,RJ
+3302205,Itaperuna,331,33,RJ
+3302254,Itatiaia,335,33,RJ
+3302270,Japeri,336,33,RJ
+3302304,Laje do Muriaé,331,33,RJ
+3302403,Macaé,332,33,RJ
+3302452,Macuco,333,33,RJ
+3302502,Magé,336,33,RJ
+3302601,Mangaratiba,336,33,RJ
+3302700,Maricá,336,33,RJ
+3302809,Mendes,336,33,RJ
+3302858,Mesquita,336,33,RJ
+3302908,Miguel Pereira,336,33,RJ
+3303005,Miracema,331,33,RJ
+3303104,Natividade,331,33,RJ
+3303203,Nilópolis,336,33,RJ
+3303302,Niterói,336,33,RJ
+3303401,Nova Friburgo,333,33,RJ
+3303500,Nova Iguaçu,336,33,RJ
+3303609,Paracambi,336,33,RJ
+3303708,Paraíba do Sul,333,33,RJ
+3303807,Paraty,335,33,RJ
+3303856,Paty do Alferes,336,33,RJ
+3303906,Petrópolis,336,33,RJ
+3303955,Pinheiral,335,33,RJ
+3304003,Piraí,335,33,RJ
+3304102,Porciúncula,331,33,RJ
+3304110,Porto Real,335,33,RJ
+3304128,Quatis,335,33,RJ
+3304144,Queimados,336,33,RJ
+3304151,Quissamã,332,33,RJ
+3304201,Resende,335,33,RJ
+3304300,Rio Bonito,336,33,RJ
+3304409,Rio Claro,335,33,RJ
+3304508,Rio das Flores,335,33,RJ
+3304524,Rio das Ostras,334,33,RJ
+3304557,Rio de Janeiro,336,33,RJ
+3304607,Santa Maria Madalena,333,33,RJ
+3304706,Santo Antônio de Pádua,331,33,RJ
+3304805,São Fidélis,332,33,RJ
+3304755,São Francisco de Itabapoana,332,33,RJ
+3304904,São Gonçalo,336,33,RJ
+3305000,São João da Barra,332,33,RJ
+3305109,São João de Meriti,336,33,RJ
+3305133,São José de Ubá,331,33,RJ
+3305158,São José do Vale do Rio Preto,336,33,RJ
+3305208,São Pedro da Aldeia,334,33,RJ
+3305307,São Sebastião do Alto,333,33,RJ
+3305406,Sapucaia,333,33,RJ
+3305505,Saquarema,334,33,RJ
+3305554,Seropédica,336,33,RJ
+3305604,Silva Jardim,334,33,RJ
+3305703,Sumidouro,333,33,RJ
+3305752,Tanguá,336,33,RJ
+3305802,Teresópolis,336,33,RJ
+3305901,Trajano de Moraes,333,33,RJ
+3306008,Três Rios,333,33,RJ
+3306107,Valença,335,33,RJ
+3306156,Varre-Sai,331,33,RJ
+3306206,Vassouras,336,33,RJ
+3306305,Volta Redonda,335,33,RJ
+3500105,Adamantina,358,35,SP
+3500204,Adolfo,351,35,SP
+3500303,Aguaí,357,35,SP
+3500402,Águas da Prata,357,35,SP
+3500501,Águas de Lindóia,357,35,SP
+3500550,Águas de Santa Bárbara,354,35,SP
+3500600,Águas de São Pedro,356,35,SP
+3500709,Agudos,354,35,SP
+3500758,Alambari,3511,35,SP
+3500808,Alfredo Marcondes,358,35,SP
+3500907,Altair,351,35,SP
+3501004,Altinópolis,352,35,SP
+3501103,Alto Alegre,353,35,SP
+3501152,Alumínio,3512,35,SP
+3501202,Álvares Florence,351,35,SP
+3501301,Álvares Machado,358,35,SP
+3501400,Álvaro de Carvalho,359,35,SP
+3501509,Alvinlândia,359,35,SP
+3501608,Americana,357,35,SP
+3501707,Américo Brasiliense,355,35,SP
+3501806,Américo de Campos,351,35,SP
+3501905,Amparo,357,35,SP
+3502002,Analândia,355,35,SP
+3502101,Andradina,353,35,SP
+3502200,Angatuba,3511,35,SP
+3502309,Anhembi,354,35,SP
+3502408,Anhumas,358,35,SP
+3502507,Aparecida,3513,35,SP
+3502606,Aparecida d'Oeste,351,35,SP
+3502705,Apiaí,3511,35,SP
+3502754,Araçariguama,3512,35,SP
+3502804,Araçatuba,353,35,SP
+3502903,Araçoiaba da Serra,3512,35,SP
+3503000,Aramina,352,35,SP
+3503109,Arandu,354,35,SP
+3503158,Arapeí,3513,35,SP
+3503208,Araraquara,355,35,SP
+3503307,Araras,356,35,SP
+3503356,Arco-Íris,359,35,SP
+3503406,Arealva,354,35,SP
+3503505,Areias,3513,35,SP
+3503604,Areiópolis,354,35,SP
+3503703,Ariranha,351,35,SP
+3503802,Artur Nogueira,357,35,SP
+3503901,Arujá,3515,35,SP
+3503950,Aspásia,351,35,SP
+3504008,Assis,3510,35,SP
+3504107,Atibaia,3512,35,SP
+3504206,Auriflama,351,35,SP
+3504305,Avaí,354,35,SP
+3504404,Avanhandava,353,35,SP
+3504503,Avaré,354,35,SP
+3504602,Bady Bassitt,351,35,SP
+3504701,Balbinos,354,35,SP
+3504800,Bálsamo,351,35,SP
+3504909,Bananal,3513,35,SP
+3505005,Barão de Antonina,3511,35,SP
+3505104,Barbosa,353,35,SP
+3505203,Bariri,354,35,SP
+3505302,Barra Bonita,354,35,SP
+3505351,Barra do Chapéu,3511,35,SP
+3505401,Barra do Turvo,3514,35,SP
+3505500,Barretos,352,35,SP
+3505609,Barrinha,352,35,SP
+3505708,Barueri,3515,35,SP
+3505807,Bastos,359,35,SP
+3505906,Batatais,352,35,SP
+3506003,Bauru,354,35,SP
+3506102,Bebedouro,352,35,SP
+3506201,Bento de Abreu,353,35,SP
+3506300,Bernardino de Campos,3510,35,SP
+3506359,Bertioga,3515,35,SP
+3506409,Bilac,353,35,SP
+3506508,Birigui,353,35,SP
+3506607,Biritiba Mirim,3515,35,SP
+3506706,Boa Esperança do Sul,355,35,SP
+3506805,Bocaina,354,35,SP
+3506904,Bofete,354,35,SP
+3507001,Boituva,3511,35,SP
+3507100,Bom Jesus dos Perdões,3512,35,SP
+3507159,Bom Sucesso de Itararé,3511,35,SP
+3507209,Borá,3510,35,SP
+3507308,Boracéia,354,35,SP
+3507407,Borborema,355,35,SP
+3507456,Borebi,354,35,SP
+3507506,Botucatu,354,35,SP
+3507605,Bragança Paulista,3512,35,SP
+3507704,Braúna,353,35,SP
+3507753,Brejo Alegre,353,35,SP
+3507803,Brodowski,352,35,SP
+3507902,Brotas,356,35,SP
+3508009,Buri,3511,35,SP
+3508108,Buritama,353,35,SP
+3508207,Buritizal,352,35,SP
+3508306,Cabrália Paulista,354,35,SP
+3508405,Cabreúva,3512,35,SP
+3508504,Caçapava,3513,35,SP
+3508603,Cachoeira Paulista,3513,35,SP
+3508702,Caconde,357,35,SP
+3508801,Cafelândia,354,35,SP
+3508900,Caiabu,358,35,SP
+3509007,Caieiras,3515,35,SP
+3509106,Caiuá,358,35,SP
+3509205,Cajamar,3515,35,SP
+3509254,Cajati,3514,35,SP
+3509304,Cajobi,351,35,SP
+3509403,Cajuru,352,35,SP
+3509452,Campina do Monte Alegre,3511,35,SP
+3509502,Campinas,357,35,SP
+3509601,Campo Limpo Paulista,3512,35,SP
+3509700,Campos do Jordão,3513,35,SP
+3509809,Campos Novos Paulista,3510,35,SP
+3509908,Cananéia,3514,35,SP
+3509957,Canas,3513,35,SP
+3510005,Cândido Mota,3510,35,SP
+3510104,Cândido Rodrigues,352,35,SP
+3510153,Canitar,3510,35,SP
+3510203,Capão Bonito,3511,35,SP
+3510302,Capela do Alto,3512,35,SP
+3510401,Capivari,356,35,SP
+3510500,Caraguatatuba,3513,35,SP
+3510609,Carapicuíba,3515,35,SP
+3510708,Cardoso,351,35,SP
+3510807,Casa Branca,357,35,SP
+3510906,Cássia dos Coqueiros,352,35,SP
+3511003,Castilho,353,35,SP
+3511102,Catanduva,351,35,SP
+3511201,Catiguá,351,35,SP
+3511300,Cedral,351,35,SP
+3511409,Cerqueira César,354,35,SP
+3511508,Cerquilho,3511,35,SP
+3511607,Cesário Lange,3511,35,SP
+3511706,Charqueada,356,35,SP
+3557204,Chavantes,3510,35,SP
+3511904,Clementina,353,35,SP
+3512001,Colina,352,35,SP
+3512100,Colômbia,352,35,SP
+3512209,Conchal,356,35,SP
+3512308,Conchas,354,35,SP
+3512407,Cordeirópolis,356,35,SP
+3512506,Coroados,353,35,SP
+3512605,Coronel Macedo,3511,35,SP
+3512704,Corumbataí,356,35,SP
+3512803,Cosmópolis,357,35,SP
+3512902,Cosmorama,351,35,SP
+3513009,Cotia,3515,35,SP
+3513108,Cravinhos,352,35,SP
+3513207,Cristais Paulista,352,35,SP
+3513306,Cruzália,3510,35,SP
+3513405,Cruzeiro,3513,35,SP
+3513504,Cubatão,3515,35,SP
+3513603,Cunha,3513,35,SP
+3513702,Descalvado,355,35,SP
+3513801,Diadema,3515,35,SP
+3513850,Dirce Reis,351,35,SP
+3513900,Divinolândia,357,35,SP
+3514007,Dobrada,355,35,SP
+3514106,Dois Córregos,354,35,SP
+3514205,Dolcinópolis,351,35,SP
+3514304,Dourado,355,35,SP
+3514403,Dracena,358,35,SP
+3514502,Duartina,354,35,SP
+3514601,Dumont,352,35,SP
+3514700,Echaporã,359,35,SP
+3514809,Eldorado,3514,35,SP
+3514908,Elias Fausto,357,35,SP
+3514924,Elisiário,351,35,SP
+3514957,Embaúba,351,35,SP
+3515004,Embu das Artes,3515,35,SP
+3515103,Embu-Guaçu,3515,35,SP
+3515129,Emilianópolis,358,35,SP
+3515152,Engenheiro Coelho,357,35,SP
+3515186,Espírito Santo do Pinhal,357,35,SP
+3515194,Espírito Santo do Turvo,3510,35,SP
+3557303,Estiva Gerbi,357,35,SP
+3515301,Estrela do Norte,358,35,SP
+3515202,Estrela d'Oeste,351,35,SP
+3515350,Euclides da Cunha Paulista,358,35,SP
+3515400,Fartura,3510,35,SP
+3515608,Fernando Prestes,352,35,SP
+3515509,Fernandópolis,351,35,SP
+3515657,Fernão,359,35,SP
+3515707,Ferraz de Vasconcelos,3515,35,SP
+3515806,Flora Rica,358,35,SP
+3515905,Floreal,351,35,SP
+3516002,Flórida Paulista,358,35,SP
+3516101,Florínea,3510,35,SP
+3516200,Franca,352,35,SP
+3516309,Francisco Morato,3515,35,SP
+3516408,Franco da Rocha,3515,35,SP
+3516507,Gabriel Monteiro,353,35,SP
+3516606,Gália,359,35,SP
+3516705,Garça,359,35,SP
+3516804,Gastão Vidigal,351,35,SP
+3516853,Gavião Peixoto,355,35,SP
+3516903,General Salgado,351,35,SP
+3517000,Getulina,354,35,SP
+3517109,Glicério,353,35,SP
+3517208,Guaiçara,354,35,SP
+3517307,Guaimbê,354,35,SP
+3517406,Guaíra,352,35,SP
+3517505,Guapiaçu,351,35,SP
+3517604,Guapiara,3511,35,SP
+3517703,Guará,352,35,SP
+3517802,Guaraçaí,353,35,SP
+3517901,Guaraci,351,35,SP
+3518008,Guarani d'Oeste,351,35,SP
+3518107,Guarantã,354,35,SP
+3518206,Guararapes,353,35,SP
+3518305,Guararema,3515,35,SP
+3518404,Guaratinguetá,3513,35,SP
+3518503,Guareí,3511,35,SP
+3518602,Guariba,352,35,SP
+3518701,Guarujá,3515,35,SP
+3518800,Guarulhos,3515,35,SP
+3518859,Guatapará,352,35,SP
+3518909,Guzolândia,351,35,SP
+3519006,Herculândia,359,35,SP
+3519055,Holambra,357,35,SP
+3519071,Hortolândia,357,35,SP
+3519105,Iacanga,354,35,SP
+3519204,Iacri,359,35,SP
+3519253,Iaras,354,35,SP
+3519303,Ibaté,355,35,SP
+3519402,Ibirá,351,35,SP
+3519501,Ibirarema,3510,35,SP
+3519600,Ibitinga,355,35,SP
+3519709,Ibiúna,3512,35,SP
+3519808,Icém,351,35,SP
+3519907,Iepê,3510,35,SP
+3520004,Igaraçu do Tietê,354,35,SP
+3520103,Igarapava,352,35,SP
+3520202,Igaratá,3513,35,SP
+3520301,Iguape,3514,35,SP
+3520426,Ilha Comprida,3514,35,SP
+3520442,Ilha Solteira,353,35,SP
+3520400,Ilhabela,3513,35,SP
+3520509,Indaiatuba,357,35,SP
+3520608,Indiana,358,35,SP
+3520707,Indiaporã,351,35,SP
+3520806,Inúbia Paulista,358,35,SP
+3520905,Ipaussu,3510,35,SP
+3521002,Iperó,3512,35,SP
+3521101,Ipeúna,356,35,SP
+3521150,Ipiguá,351,35,SP
+3521200,Iporanga,3511,35,SP
+3521309,Ipuã,352,35,SP
+3521408,Iracemápolis,356,35,SP
+3521507,Irapuã,351,35,SP
+3521606,Irapuru,358,35,SP
+3521705,Itaberá,3511,35,SP
+3521804,Itaí,354,35,SP
+3521903,Itajobi,351,35,SP
+3522000,Itaju,354,35,SP
+3522109,Itanhaém,3514,35,SP
+3522158,Itaoca,3511,35,SP
+3522208,Itapecerica da Serra,3515,35,SP
+3522307,Itapetininga,3511,35,SP
+3522406,Itapeva,3511,35,SP
+3522505,Itapevi,3515,35,SP
+3522604,Itapira,357,35,SP
+3522653,Itapirapuã Paulista,3511,35,SP
+3522703,Itápolis,355,35,SP
+3522802,Itaporanga,3511,35,SP
+3522901,Itapuí,354,35,SP
+3523008,Itapura,353,35,SP
+3523107,Itaquaquecetuba,3515,35,SP
+3523206,Itararé,3511,35,SP
+3523305,Itariri,3514,35,SP
+3523404,Itatiba,3512,35,SP
+3523503,Itatinga,354,35,SP
+3523602,Itirapina,356,35,SP
+3523701,Itirapuã,352,35,SP
+3523800,Itobi,357,35,SP
+3523909,Itu,3512,35,SP
+3524006,Itupeva,3512,35,SP
+3524105,Ituverava,352,35,SP
+3524204,Jaborandi,352,35,SP
+3524303,Jaboticabal,352,35,SP
+3524402,Jacareí,3513,35,SP
+3524501,Jaci,351,35,SP
+3524600,Jacupiranga,3514,35,SP
+3524709,Jaguariúna,357,35,SP
+3524808,Jales,351,35,SP
+3524907,Jambeiro,3513,35,SP
+3525003,Jandira,3515,35,SP
+3525102,Jardinópolis,352,35,SP
+3525201,Jarinu,3512,35,SP
+3525300,Jaú,354,35,SP
+3525409,Jeriquara,352,35,SP
+3525508,Joanópolis,3512,35,SP
+3525607,João Ramalho,358,35,SP
+3525706,José Bonifácio,351,35,SP
+3525805,Júlio Mesquita,354,35,SP
+3525854,Jumirim,356,35,SP
+3525904,Jundiaí,3512,35,SP
+3526001,Junqueirópolis,358,35,SP
+3526100,Juquiá,3514,35,SP
+3526209,Juquitiba,3515,35,SP
+3526308,Lagoinha,3513,35,SP
+3526407,Laranjal Paulista,3511,35,SP
+3526506,Lavínia,353,35,SP
+3526605,Lavrinhas,3513,35,SP
+3526704,Leme,356,35,SP
+3526803,Lençóis Paulista,354,35,SP
+3526902,Limeira,356,35,SP
+3527009,Lindóia,357,35,SP
+3527108,Lins,354,35,SP
+3527207,Lorena,3513,35,SP
+3527256,Lourdes,353,35,SP
+3527306,Louveira,3512,35,SP
+3527405,Lucélia,358,35,SP
+3527504,Lucianópolis,354,35,SP
+3527603,Luís Antônio,352,35,SP
+3527702,Luiziânia,353,35,SP
+3527801,Lupércio,359,35,SP
+3527900,Lutécia,3510,35,SP
+3528007,Macatuba,354,35,SP
+3528106,Macaubal,351,35,SP
+3528205,Macedônia,351,35,SP
+3528304,Magda,351,35,SP
+3528403,Mairinque,3512,35,SP
+3528502,Mairiporã,3515,35,SP
+3528601,Manduri,3510,35,SP
+3528700,Marabá Paulista,358,35,SP
+3528809,Maracaí,3510,35,SP
+3528858,Marapoama,351,35,SP
+3528908,Mariápolis,358,35,SP
+3529005,Marília,359,35,SP
+3529104,Marinópolis,351,35,SP
+3529203,Martinópolis,358,35,SP
+3529302,Matão,355,35,SP
+3529401,Mauá,3515,35,SP
+3529500,Mendonça,351,35,SP
+3529609,Meridiano,351,35,SP
+3529658,Mesópolis,351,35,SP
+3529708,Miguelópolis,352,35,SP
+3529807,Mineiros do Tietê,354,35,SP
+3530003,Mira Estrela,351,35,SP
+3529906,Miracatu,3514,35,SP
+3530102,Mirandópolis,353,35,SP
+3530201,Mirante do Paranapanema,358,35,SP
+3530300,Mirassol,351,35,SP
+3530409,Mirassolândia,351,35,SP
+3530508,Mococa,357,35,SP
+3530607,Mogi das Cruzes,3515,35,SP
+3530706,Mogi Guaçu,357,35,SP
+3530805,Mogi Mirim,357,35,SP
+3530904,Mombuca,356,35,SP
+3531001,Monções,351,35,SP
+3531100,Mongaguá,3514,35,SP
+3531209,Monte Alegre do Sul,357,35,SP
+3531308,Monte Alto,352,35,SP
+3531407,Monte Aprazível,351,35,SP
+3531506,Monte Azul Paulista,352,35,SP
+3531605,Monte Castelo,358,35,SP
+3531803,Monte Mor,357,35,SP
+3531704,Monteiro Lobato,3513,35,SP
+3531902,Morro Agudo,352,35,SP
+3532009,Morungaba,3512,35,SP
+3532058,Motuca,355,35,SP
+3532108,Murutinga do Sul,353,35,SP
+3532157,Nantes,3510,35,SP
+3532207,Narandiba,358,35,SP
+3532306,Natividade da Serra,3513,35,SP
+3532405,Nazaré Paulista,3512,35,SP
+3532504,Neves Paulista,351,35,SP
+3532603,Nhandeara,351,35,SP
+3532702,Nipoã,351,35,SP
+3532801,Nova Aliança,351,35,SP
+3532827,Nova Campina,3511,35,SP
+3532843,Nova Canaã Paulista,351,35,SP
+3532868,Nova Castilho,351,35,SP
+3532900,Nova Europa,355,35,SP
+3533007,Nova Granada,351,35,SP
+3533106,Nova Guataporanga,358,35,SP
+3533205,Nova Independência,353,35,SP
+3533304,Nova Luzitânia,351,35,SP
+3533403,Nova Odessa,357,35,SP
+3533254,Novais,351,35,SP
+3533502,Novo Horizonte,351,35,SP
+3533601,Nuporanga,352,35,SP
+3533700,Ocauçu,359,35,SP
+3533809,Óleo,3510,35,SP
+3533908,Olímpia,351,35,SP
+3534005,Onda Verde,351,35,SP
+3534104,Oriente,359,35,SP
+3534203,Orindiúva,351,35,SP
+3534302,Orlândia,352,35,SP
+3534401,Osasco,3515,35,SP
+3534500,Oscar Bressane,359,35,SP
+3534609,Osvaldo Cruz,358,35,SP
+3534708,Ourinhos,3510,35,SP
+3534807,Ouro Verde,358,35,SP
+3534757,Ouroeste,351,35,SP
+3534906,Pacaembu,358,35,SP
+3535002,Palestina,351,35,SP
+3535101,Palmares Paulista,351,35,SP
+3535200,Palmeira d'Oeste,351,35,SP
+3535309,Palmital,3510,35,SP
+3535408,Panorama,358,35,SP
+3535507,Paraguaçu Paulista,3510,35,SP
+3535606,Paraibuna,3513,35,SP
+3535705,Paraíso,351,35,SP
+3535804,Paranapanema,354,35,SP
+3535903,Paranapuã,351,35,SP
+3536000,Parapuã,358,35,SP
+3536109,Pardinho,354,35,SP
+3536208,Pariquera-Açu,3514,35,SP
+3536257,Parisi,351,35,SP
+3536307,Patrocínio Paulista,352,35,SP
+3536406,Paulicéia,358,35,SP
+3536505,Paulínia,357,35,SP
+3536570,Paulistânia,354,35,SP
+3536604,Paulo de Faria,351,35,SP
+3536703,Pederneiras,354,35,SP
+3536802,Pedra Bela,357,35,SP
+3536901,Pedranópolis,351,35,SP
+3537008,Pedregulho,352,35,SP
+3537107,Pedreira,357,35,SP
+3537156,Pedrinhas Paulista,3510,35,SP
+3537206,Pedro de Toledo,3514,35,SP
+3537305,Penápolis,353,35,SP
+3537404,Pereira Barreto,353,35,SP
+3537503,Pereiras,3511,35,SP
+3537602,Peruíbe,3514,35,SP
+3537701,Piacatu,353,35,SP
+3537800,Piedade,3512,35,SP
+3537909,Pilar do Sul,3512,35,SP
+3538006,Pindamonhangaba,3513,35,SP
+3538105,Pindorama,351,35,SP
+3538204,Pinhalzinho,357,35,SP
+3538303,Piquerobi,358,35,SP
+3538501,Piquete,3513,35,SP
+3538600,Piracaia,3512,35,SP
+3538709,Piracicaba,356,35,SP
+3538808,Piraju,3510,35,SP
+3538907,Pirajuí,354,35,SP
+3539004,Pirangi,352,35,SP
+3539103,Pirapora do Bom Jesus,3515,35,SP
+3539202,Pirapozinho,358,35,SP
+3539301,Pirassununga,357,35,SP
+3539400,Piratininga,354,35,SP
+3539509,Pitangueiras,352,35,SP
+3539608,Planalto,351,35,SP
+3539707,Platina,3510,35,SP
+3539806,Poá,3515,35,SP
+3539905,Poloni,351,35,SP
+3540002,Pompéia,359,35,SP
+3540101,Pongaí,354,35,SP
+3540200,Pontal,352,35,SP
+3540259,Pontalinda,351,35,SP
+3540309,Pontes Gestal,351,35,SP
+3540408,Populina,351,35,SP
+3540507,Porangaba,3511,35,SP
+3540606,Porto Feliz,3512,35,SP
+3540705,Porto Ferreira,357,35,SP
+3540754,Potim,3513,35,SP
+3540804,Potirendaba,351,35,SP
+3540853,Pracinha,358,35,SP
+3540903,Pradópolis,352,35,SP
+3541000,Praia Grande,3515,35,SP
+3541059,Pratânia,354,35,SP
+3541109,Presidente Alves,354,35,SP
+3541208,Presidente Bernardes,358,35,SP
+3541307,Presidente Epitácio,358,35,SP
+3541406,Presidente Prudente,358,35,SP
+3541505,Presidente Venceslau,358,35,SP
+3541604,Promissão,354,35,SP
+3541653,Quadra,3511,35,SP
+3541703,Quatá,3510,35,SP
+3541802,Queiroz,359,35,SP
+3541901,Queluz,3513,35,SP
+3542008,Quintana,359,35,SP
+3542107,Rafard,356,35,SP
+3542206,Rancharia,358,35,SP
+3542305,Redenção da Serra,3513,35,SP
+3542404,Regente Feijó,358,35,SP
+3542503,Reginópolis,354,35,SP
+3542602,Registro,3514,35,SP
+3542701,Restinga,352,35,SP
+3542800,Ribeira,3511,35,SP
+3542909,Ribeirão Bonito,355,35,SP
+3543006,Ribeirão Branco,3511,35,SP
+3543105,Ribeirão Corrente,352,35,SP
+3543204,Ribeirão do Sul,3510,35,SP
+3543238,Ribeirão dos Índios,358,35,SP
+3543253,Ribeirão Grande,3511,35,SP
+3543303,Ribeirão Pires,3515,35,SP
+3543402,Ribeirão Preto,352,35,SP
+3543600,Rifaina,352,35,SP
+3543709,Rincão,355,35,SP
+3543808,Rinópolis,358,35,SP
+3543907,Rio Claro,356,35,SP
+3544004,Rio das Pedras,356,35,SP
+3544103,Rio Grande da Serra,3515,35,SP
+3544202,Riolândia,351,35,SP
+3543501,Riversul,3511,35,SP
+3544251,Rosana,358,35,SP
+3544301,Roseira,3513,35,SP
+3544400,Rubiácea,353,35,SP
+3544509,Rubinéia,351,35,SP
+3544608,Sabino,354,35,SP
+3544707,Sagres,358,35,SP
+3544806,Sales,351,35,SP
+3544905,Sales Oliveira,352,35,SP
+3545001,Salesópolis,3515,35,SP
+3545100,Salmourão,358,35,SP
+3545159,Saltinho,356,35,SP
+3545209,Salto,3512,35,SP
+3545308,Salto de Pirapora,3512,35,SP
+3545407,Salto Grande,3510,35,SP
+3545506,Sandovalina,358,35,SP
+3545605,Santa Adélia,351,35,SP
+3545704,Santa Albertina,351,35,SP
+3545803,Santa Bárbara d'Oeste,357,35,SP
+3546009,Santa Branca,3513,35,SP
+3546108,Santa Clara d'Oeste,351,35,SP
+3546207,Santa Cruz da Conceição,356,35,SP
+3546256,Santa Cruz da Esperança,352,35,SP
+3546306,Santa Cruz das Palmeiras,357,35,SP
+3546405,Santa Cruz do Rio Pardo,3510,35,SP
+3546504,Santa Ernestina,352,35,SP
+3546603,Santa Fé do Sul,351,35,SP
+3546702,Santa Gertrudes,356,35,SP
+3546801,Santa Isabel,3515,35,SP
+3546900,Santa Lúcia,355,35,SP
+3547007,Santa Maria da Serra,356,35,SP
+3547106,Santa Mercedes,358,35,SP
+3547502,Santa Rita do Passa Quatro,352,35,SP
+3547403,Santa Rita d'Oeste,351,35,SP
+3547601,Santa Rosa de Viterbo,352,35,SP
+3547650,Santa Salete,351,35,SP
+3547205,Santana da Ponte Pensa,351,35,SP
+3547304,Santana de Parnaíba,3515,35,SP
+3547700,Santo Anastácio,358,35,SP
+3547809,Santo André,3515,35,SP
+3547908,Santo Antônio da Alegria,352,35,SP
+3548005,Santo Antônio de Posse,357,35,SP
+3548054,Santo Antônio do Aracanguá,353,35,SP
+3548104,Santo Antônio do Jardim,357,35,SP
+3548203,Santo Antônio do Pinhal,3513,35,SP
+3548302,Santo Expedito,358,35,SP
+3548401,Santópolis do Aguapeí,353,35,SP
+3548500,Santos,3515,35,SP
+3548609,São Bento do Sapucaí,3513,35,SP
+3548708,São Bernardo do Campo,3515,35,SP
+3548807,São Caetano do Sul,3515,35,SP
+3548906,São Carlos,355,35,SP
+3549003,São Francisco,351,35,SP
+3549102,São João da Boa Vista,357,35,SP
+3549201,São João das Duas Pontes,351,35,SP
+3549250,São João de Iracema,351,35,SP
+3549300,São João do Pau d'Alho,358,35,SP
+3549409,São Joaquim da Barra,352,35,SP
+3549508,São José da Bela Vista,352,35,SP
+3549607,São José do Barreiro,3513,35,SP
+3549706,São José do Rio Pardo,357,35,SP
+3549805,São José do Rio Preto,351,35,SP
+3549904,São José dos Campos,3513,35,SP
+3549953,São Lourenço da Serra,3515,35,SP
+3550001,São Luiz do Paraitinga,3513,35,SP
+3550100,São Manuel,354,35,SP
+3550209,São Miguel Arcanjo,3512,35,SP
+3550308,São Paulo,3515,35,SP
+3550407,São Pedro,356,35,SP
+3550506,São Pedro do Turvo,3510,35,SP
+3550605,São Roque,3512,35,SP
+3550704,São Sebastião,3513,35,SP
+3550803,São Sebastião da Grama,357,35,SP
+3550902,São Simão,352,35,SP
+3551009,São Vicente,3515,35,SP
+3551108,Sarapuí,3512,35,SP
+3551207,Sarutaiá,3510,35,SP
+3551306,Sebastianópolis do Sul,351,35,SP
+3551405,Serra Azul,352,35,SP
+3551603,Serra Negra,357,35,SP
+3551504,Serrana,352,35,SP
+3551702,Sertãozinho,352,35,SP
+3551801,Sete Barras,3514,35,SP
+3551900,Severínia,351,35,SP
+3552007,Silveiras,3513,35,SP
+3552106,Socorro,357,35,SP
+3552205,Sorocaba,3512,35,SP
+3552304,Sud Mennucci,353,35,SP
+3552403,Sumaré,357,35,SP
+3552551,Suzanápolis,353,35,SP
+3552502,Suzano,3515,35,SP
+3552601,Tabapuã,351,35,SP
+3552700,Tabatinga,355,35,SP
+3552809,Taboão da Serra,3515,35,SP
+3552908,Taciba,358,35,SP
+3553005,Taguaí,3510,35,SP
+3553104,Taiaçu,352,35,SP
+3553203,Taiúva,352,35,SP
+3553302,Tambaú,357,35,SP
+3553401,Tanabi,351,35,SP
+3553500,Tapiraí,3512,35,SP
+3553609,Tapiratiba,357,35,SP
+3553658,Taquaral,352,35,SP
+3553708,Taquaritinga,352,35,SP
+3553807,Taquarituba,3511,35,SP
+3553856,Taquarivaí,3511,35,SP
+3553906,Tarabai,358,35,SP
+3553955,Tarumã,3510,35,SP
+3554003,Tatuí,3511,35,SP
+3554102,Taubaté,3513,35,SP
+3554201,Tejupá,3510,35,SP
+3554300,Teodoro Sampaio,358,35,SP
+3554409,Terra Roxa,352,35,SP
+3554508,Tietê,356,35,SP
+3554607,Timburi,3510,35,SP
+3554656,Torre de Pedra,3511,35,SP
+3554706,Torrinha,356,35,SP
+3554755,Trabiju,355,35,SP
+3554805,Tremembé,3513,35,SP
+3554904,Três Fronteiras,351,35,SP
+3554953,Tuiuti,3512,35,SP
+3555000,Tupã,359,35,SP
+3555109,Tupi Paulista,358,35,SP
+3555208,Turiúba,353,35,SP
+3555307,Turmalina,351,35,SP
+3555356,Ubarana,351,35,SP
+3555406,Ubatuba,3513,35,SP
+3555505,Ubirajara,354,35,SP
+3555604,Uchoa,351,35,SP
+3555703,União Paulista,351,35,SP
+3555802,Urânia,351,35,SP
+3555901,Uru,354,35,SP
+3556008,Urupês,351,35,SP
+3556107,Valentim Gentil,351,35,SP
+3556206,Valinhos,357,35,SP
+3556305,Valparaíso,353,35,SP
+3556354,Vargem,3512,35,SP
+3556404,Vargem Grande do Sul,357,35,SP
+3556453,Vargem Grande Paulista,3515,35,SP
+3556503,Várzea Paulista,3512,35,SP
+3556602,Vera Cruz,359,35,SP
+3556701,Vinhedo,357,35,SP
+3556800,Viradouro,352,35,SP
+3556909,Vista Alegre do Alto,352,35,SP
+3556958,Vitória Brasil,351,35,SP
+3557006,Votorantim,3512,35,SP
+3557105,Votuporanga,351,35,SP
+3557154,Zacarias,351,35,SP
+4100103,Abatiá,414,41,PR
+4100202,Adrianópolis,4110,41,PR
+4100301,Agudos do Sul,4110,41,PR
+4100400,Almirante Tamandaré,4110,41,PR
+4100459,Altamira do Paraná,412,41,PR
+4128625,Alto Paraíso,411,41,PR
+4100608,Alto Paraná,411,41,PR
+4100707,Alto Piquiri,411,41,PR
+4100509,Altônia,411,41,PR
+4100806,Alvorada do Sul,413,41,PR
+4100905,Amaporã,411,41,PR
+4101002,Ampére,417,41,PR
+4101051,Anahy,416,41,PR
+4101101,Andirá,414,41,PR
+4101150,Ângulo,413,41,PR
+4101200,Antonina,4110,41,PR
+4101309,Antônio Olinto,419,41,PR
+4101408,Apucarana,413,41,PR
+4101507,Arapongas,413,41,PR
+4101606,Arapoti,415,41,PR
+4101655,Arapuã,413,41,PR
+4101705,Araruna,412,41,PR
+4101804,Araucária,4110,41,PR
+4101853,Ariranha do Ivaí,413,41,PR
+4101903,Assaí,414,41,PR
+4102000,Assis Chateaubriand,416,41,PR
+4102109,Astorga,413,41,PR
+4102208,Atalaia,413,41,PR
+4102307,Balsa Nova,4110,41,PR
+4102406,Bandeirantes,414,41,PR
+4102505,Barbosa Ferraz,412,41,PR
+4102703,Barra do Jacaré,414,41,PR
+4102604,Barracão,417,41,PR
+4102752,Bela Vista da Caroba,417,41,PR
+4102802,Bela Vista do Paraíso,413,41,PR
+4102901,Bituruna,419,41,PR
+4103008,Boa Esperança,412,41,PR
+4103024,Boa Esperança do Iguaçu,417,41,PR
+4103040,Boa Ventura de São Roque,418,41,PR
+4103057,Boa Vista da Aparecida,416,41,PR
+4103107,Bocaiúva do Sul,4110,41,PR
+4103156,Bom Jesus do Sul,417,41,PR
+4103206,Bom Sucesso,413,41,PR
+4103222,Bom Sucesso do Sul,417,41,PR
+4103305,Borrazópolis,413,41,PR
+4103354,Braganey,416,41,PR
+4103370,Brasilândia do Sul,411,41,PR
+4103404,Cafeara,413,41,PR
+4103453,Cafelândia,416,41,PR
+4103479,Cafezal do Sul,411,41,PR
+4103503,Califórnia,413,41,PR
+4103602,Cambará,414,41,PR
+4103701,Cambé,413,41,PR
+4103800,Cambira,413,41,PR
+4103909,Campina da Lagoa,412,41,PR
+4103958,Campina do Simão,418,41,PR
+4104006,Campina Grande do Sul,4110,41,PR
+4104055,Campo Bonito,416,41,PR
+4104105,Campo do Tenente,4110,41,PR
+4104204,Campo Largo,4110,41,PR
+4104253,Campo Magro,4110,41,PR
+4104303,Campo Mourão,412,41,PR
+4104402,Cândido de Abreu,413,41,PR
+4104428,Candói,418,41,PR
+4104451,Cantagalo,418,41,PR
+4104501,Capanema,417,41,PR
+4104600,Capitão Leônidas Marques,416,41,PR
+4104659,Carambeí,415,41,PR
+4104709,Carlópolis,414,41,PR
+4104808,Cascavel,416,41,PR
+4104907,Castro,415,41,PR
+4105003,Catanduvas,416,41,PR
+4105102,Centenário do Sul,413,41,PR
+4105201,Cerro Azul,4110,41,PR
+4105300,Céu Azul,416,41,PR
+4105409,Chopinzinho,417,41,PR
+4105508,Cianorte,411,41,PR
+4105607,Cidade Gaúcha,411,41,PR
+4105706,Clevelândia,418,41,PR
+4105805,Colombo,4110,41,PR
+4105904,Colorado,413,41,PR
+4106001,Congonhinhas,414,41,PR
+4106100,Conselheiro Mairinck,414,41,PR
+4106209,Contenda,4110,41,PR
+4106308,Corbélia,416,41,PR
+4106407,Cornélio Procópio,414,41,PR
+4106456,Coronel Domingos Soares,418,41,PR
+4106506,Coronel Vivida,417,41,PR
+4106555,Corumbataí do Sul,412,41,PR
+4106803,Cruz Machado,419,41,PR
+4106571,Cruzeiro do Iguaçu,417,41,PR
+4106605,Cruzeiro do Oeste,411,41,PR
+4106704,Cruzeiro do Sul,411,41,PR
+4106852,Cruzmaltina,413,41,PR
+4106902,Curitiba,4110,41,PR
+4107009,Curiúva,414,41,PR
+4107108,Diamante do Norte,411,41,PR
+4107124,Diamante do Sul,416,41,PR
+4107157,Diamante D'Oeste,416,41,PR
+4107207,Dois Vizinhos,417,41,PR
+4107256,Douradina,411,41,PR
+4107306,Doutor Camargo,413,41,PR
+4128633,Doutor Ulysses,4110,41,PR
+4107405,Enéas Marques,417,41,PR
+4107504,Engenheiro Beltrão,412,41,PR
+4107538,Entre Rios do Oeste,416,41,PR
+4107520,Esperança Nova,411,41,PR
+4107546,Espigão Alto do Iguaçu,418,41,PR
+4107553,Farol,412,41,PR
+4107603,Faxinal,413,41,PR
+4107652,Fazenda Rio Grande,4110,41,PR
+4107702,Fênix,412,41,PR
+4107736,Fernandes Pinheiro,419,41,PR
+4107751,Figueira,414,41,PR
+4107850,Flor da Serra do Sul,417,41,PR
+4107801,Floraí,413,41,PR
+4107900,Floresta,413,41,PR
+4108007,Florestópolis,413,41,PR
+4108106,Flórida,413,41,PR
+4108205,Formosa do Oeste,416,41,PR
+4108304,Foz do Iguaçu,416,41,PR
+4108452,Foz do Jordão,418,41,PR
+4108320,Francisco Alves,411,41,PR
+4108403,Francisco Beltrão,417,41,PR
+4108502,General Carneiro,419,41,PR
+4108551,Godoy Moreira,413,41,PR
+4108601,Goioerê,412,41,PR
+4108650,Goioxim,418,41,PR
+4108700,Grandes Rios,413,41,PR
+4108809,Guaíra,416,41,PR
+4108908,Guairaçá,411,41,PR
+4108957,Guamiranga,419,41,PR
+4109005,Guapirama,414,41,PR
+4109104,Guaporema,411,41,PR
+4109203,Guaraci,413,41,PR
+4109302,Guaraniaçu,416,41,PR
+4109401,Guarapuava,418,41,PR
+4109500,Guaraqueçaba,4110,41,PR
+4109609,Guaratuba,4110,41,PR
+4109658,Honório Serpa,418,41,PR
+4109708,Ibaiti,414,41,PR
+4109757,Ibema,416,41,PR
+4109807,Ibiporã,413,41,PR
+4109906,Icaraíma,411,41,PR
+4110003,Iguaraçu,413,41,PR
+4110052,Iguatu,416,41,PR
+4110078,Imbaú,415,41,PR
+4110102,Imbituva,419,41,PR
+4110201,Inácio Martins,418,41,PR
+4110300,Inajá,411,41,PR
+4110409,Indianópolis,411,41,PR
+4110508,Ipiranga,419,41,PR
+4110607,Iporã,411,41,PR
+4110656,Iracema do Oeste,416,41,PR
+4110706,Irati,419,41,PR
+4110805,Iretama,412,41,PR
+4110904,Itaguajé,413,41,PR
+4110953,Itaipulândia,416,41,PR
+4111001,Itambaracá,414,41,PR
+4111100,Itambé,413,41,PR
+4111209,Itapejara d'Oeste,417,41,PR
+4111258,Itaperuçu,4110,41,PR
+4111308,Itaúna do Sul,411,41,PR
+4111407,Ivaí,419,41,PR
+4111506,Ivaiporã,413,41,PR
+4111555,Ivaté,411,41,PR
+4111605,Ivatuba,413,41,PR
+4111704,Jaboti,414,41,PR
+4111803,Jacarezinho,414,41,PR
+4111902,Jaguapitã,413,41,PR
+4112009,Jaguariaíva,415,41,PR
+4112108,Jandaia do Sul,413,41,PR
+4112207,Janiópolis,412,41,PR
+4112306,Japira,414,41,PR
+4112405,Japurá,411,41,PR
+4112504,Jardim Alegre,413,41,PR
+4112603,Jardim Olinda,411,41,PR
+4112702,Jataizinho,414,41,PR
+4112751,Jesuítas,416,41,PR
+4112801,Joaquim Távora,414,41,PR
+4112900,Jundiaí do Sul,414,41,PR
+4112959,Juranda,412,41,PR
+4113007,Jussara,411,41,PR
+4113106,Kaloré,413,41,PR
+4113205,Lapa,4110,41,PR
+4113254,Laranjal,418,41,PR
+4113304,Laranjeiras do Sul,418,41,PR
+4113403,Leópolis,414,41,PR
+4113429,Lidianópolis,413,41,PR
+4113452,Lindoeste,416,41,PR
+4113502,Loanda,411,41,PR
+4113601,Lobato,413,41,PR
+4113700,Londrina,413,41,PR
+4113734,Luiziana,412,41,PR
+4113759,Lunardelli,413,41,PR
+4113809,Lupionópolis,413,41,PR
+4113908,Mallet,419,41,PR
+4114005,Mamborê,412,41,PR
+4114104,Mandaguaçu,413,41,PR
+4114203,Mandaguari,413,41,PR
+4114302,Mandirituba,4110,41,PR
+4114351,Manfrinópolis,417,41,PR
+4114401,Mangueirinha,418,41,PR
+4114500,Manoel Ribas,413,41,PR
+4114609,Marechal Cândido Rondon,416,41,PR
+4114708,Maria Helena,411,41,PR
+4114807,Marialva,413,41,PR
+4114906,Marilândia do Sul,413,41,PR
+4115002,Marilena,411,41,PR
+4115101,Mariluz,411,41,PR
+4115200,Maringá,413,41,PR
+4115309,Mariópolis,417,41,PR
+4115358,Maripá,416,41,PR
+4115408,Marmeleiro,417,41,PR
+4115457,Marquinho,418,41,PR
+4115507,Marumbi,413,41,PR
+4115606,Matelândia,416,41,PR
+4115705,Matinhos,4110,41,PR
+4115739,Mato Rico,418,41,PR
+4115754,Mauá da Serra,413,41,PR
+4115804,Medianeira,416,41,PR
+4115853,Mercedes,416,41,PR
+4115903,Mirador,411,41,PR
+4116000,Miraselva,413,41,PR
+4116059,Missal,416,41,PR
+4116109,Moreira Sales,412,41,PR
+4116208,Morretes,4110,41,PR
+4116307,Munhoz de Melo,413,41,PR
+4116406,Nossa Senhora das Graças,413,41,PR
+4116505,Nova Aliança do Ivaí,411,41,PR
+4116604,Nova América da Colina,414,41,PR
+4116703,Nova Aurora,416,41,PR
+4116802,Nova Cantu,412,41,PR
+4116901,Nova Esperança,413,41,PR
+4116950,Nova Esperança do Sudoeste,417,41,PR
+4117008,Nova Fátima,414,41,PR
+4117057,Nova Laranjeiras,418,41,PR
+4117107,Nova Londrina,411,41,PR
+4117206,Nova Olímpia,411,41,PR
+4117255,Nova Prata do Iguaçu,417,41,PR
+4117214,Nova Santa Bárbara,414,41,PR
+4117222,Nova Santa Rosa,416,41,PR
+4117271,Nova Tebas,413,41,PR
+4117297,Novo Itacolomi,413,41,PR
+4117305,Ortigueira,415,41,PR
+4117404,Ourizona,413,41,PR
+4117453,Ouro Verde do Oeste,416,41,PR
+4117503,Paiçandu,413,41,PR
+4117602,Palmas,418,41,PR
+4117701,Palmeira,415,41,PR
+4117800,Palmital,418,41,PR
+4117909,Palotina,416,41,PR
+4118006,Paraíso do Norte,411,41,PR
+4118105,Paranacity,411,41,PR
+4118204,Paranaguá,4110,41,PR
+4118303,Paranapoema,411,41,PR
+4118402,Paranavaí,411,41,PR
+4118451,Pato Bragado,416,41,PR
+4118501,Pato Branco,417,41,PR
+4118600,Paula Freitas,419,41,PR
+4118709,Paulo Frontin,419,41,PR
+4118808,Peabiru,412,41,PR
+4118857,Perobal,411,41,PR
+4118907,Pérola,411,41,PR
+4119004,Pérola d'Oeste,417,41,PR
+4119103,Piên,4110,41,PR
+4119152,Pinhais,4110,41,PR
+4119251,Pinhal de São Bento,417,41,PR
+4119202,Pinhalão,414,41,PR
+4119301,Pinhão,418,41,PR
+4119400,Piraí do Sul,415,41,PR
+4119509,Piraquara,4110,41,PR
+4119608,Pitanga,418,41,PR
+4119657,Pitangueiras,413,41,PR
+4119707,Planaltina do Paraná,411,41,PR
+4119806,Planalto,417,41,PR
+4119905,Ponta Grossa,415,41,PR
+4119954,Pontal do Paraná,4110,41,PR
+4120002,Porecatu,413,41,PR
+4120101,Porto Amazonas,4110,41,PR
+4120150,Porto Barreiro,418,41,PR
+4120200,Porto Rico,411,41,PR
+4120309,Porto Vitória,419,41,PR
+4120333,Prado Ferreira,413,41,PR
+4120358,Pranchita,417,41,PR
+4120408,Presidente Castelo Branco,413,41,PR
+4120507,Primeiro de Maio,413,41,PR
+4120606,Prudentópolis,419,41,PR
+4120655,Quarto Centenário,412,41,PR
+4120705,Quatiguá,414,41,PR
+4120804,Quatro Barras,4110,41,PR
+4120853,Quatro Pontes,416,41,PR
+4120903,Quedas do Iguaçu,418,41,PR
+4121000,Querência do Norte,411,41,PR
+4121109,Quinta do Sol,412,41,PR
+4121208,Quitandinha,4110,41,PR
+4121257,Ramilândia,416,41,PR
+4121307,Rancho Alegre,414,41,PR
+4121356,Rancho Alegre D'Oeste,412,41,PR
+4121406,Realeza,417,41,PR
+4121505,Rebouças,419,41,PR
+4121604,Renascença,417,41,PR
+4121703,Reserva,415,41,PR
+4121752,Reserva do Iguaçu,418,41,PR
+4121802,Ribeirão Claro,414,41,PR
+4121901,Ribeirão do Pinhal,414,41,PR
+4122008,Rio Azul,419,41,PR
+4122107,Rio Bom,413,41,PR
+4122156,Rio Bonito do Iguaçu,418,41,PR
+4122172,Rio Branco do Ivaí,413,41,PR
+4122206,Rio Branco do Sul,4110,41,PR
+4122305,Rio Negro,4110,41,PR
+4122404,Rolândia,413,41,PR
+4122503,Roncador,412,41,PR
+4122602,Rondon,411,41,PR
+4122651,Rosário do Ivaí,413,41,PR
+4122701,Sabáudia,413,41,PR
+4122800,Salgado Filho,417,41,PR
+4122909,Salto do Itararé,414,41,PR
+4123006,Salto do Lontra,417,41,PR
+4123105,Santa Amélia,414,41,PR
+4123204,Santa Cecília do Pavão,414,41,PR
+4123303,Santa Cruz de Monte Castelo,411,41,PR
+4123402,Santa Fé,413,41,PR
+4123501,Santa Helena,416,41,PR
+4123600,Santa Inês,413,41,PR
+4123709,Santa Isabel do Ivaí,411,41,PR
+4123808,Santa Izabel do Oeste,417,41,PR
+4123824,Santa Lúcia,416,41,PR
+4123857,Santa Maria do Oeste,418,41,PR
+4123907,Santa Mariana,414,41,PR
+4123956,Santa Mônica,411,41,PR
+4124020,Santa Tereza do Oeste,416,41,PR
+4124053,Santa Terezinha de Itaipu,416,41,PR
+4124004,Santana do Itararé,414,41,PR
+4124103,Santo Antônio da Platina,414,41,PR
+4124202,Santo Antônio do Caiuá,411,41,PR
+4124301,Santo Antônio do Paraíso,414,41,PR
+4124400,Santo Antônio do Sudoeste,417,41,PR
+4124509,Santo Inácio,413,41,PR
+4124608,São Carlos do Ivaí,411,41,PR
+4124707,São Jerônimo da Serra,414,41,PR
+4124806,São João,417,41,PR
+4124905,São João do Caiuá,411,41,PR
+4125001,São João do Ivaí,413,41,PR
+4125100,São João do Triunfo,419,41,PR
+4125308,São Jorge do Ivaí,413,41,PR
+4125357,São Jorge do Patrocínio,411,41,PR
+4125209,São Jorge d'Oeste,417,41,PR
+4125407,São José da Boa Vista,414,41,PR
+4125456,São José das Palmeiras,416,41,PR
+4125506,São José dos Pinhais,4110,41,PR
+4125555,São Manoel do Paraná,411,41,PR
+4125605,São Mateus do Sul,419,41,PR
+4125704,São Miguel do Iguaçu,416,41,PR
+4125753,São Pedro do Iguaçu,416,41,PR
+4125803,São Pedro do Ivaí,413,41,PR
+4125902,São Pedro do Paraná,411,41,PR
+4126009,São Sebastião da Amoreira,414,41,PR
+4126108,São Tomé,411,41,PR
+4126207,Sapopema,414,41,PR
+4126256,Sarandi,413,41,PR
+4126272,Saudade do Iguaçu,417,41,PR
+4126306,Sengés,415,41,PR
+4126355,Serranópolis do Iguaçu,416,41,PR
+4126405,Sertaneja,414,41,PR
+4126504,Sertanópolis,413,41,PR
+4126603,Siqueira Campos,414,41,PR
+4126652,Sulina,417,41,PR
+4126678,Tamarana,413,41,PR
+4126702,Tamboara,411,41,PR
+4126801,Tapejara,411,41,PR
+4126900,Tapira,411,41,PR
+4127007,Teixeira Soares,419,41,PR
+4127106,Telêmaco Borba,415,41,PR
+4127205,Terra Boa,412,41,PR
+4127304,Terra Rica,411,41,PR
+4127403,Terra Roxa,416,41,PR
+4127502,Tibagi,415,41,PR
+4127601,Tijucas do Sul,4110,41,PR
+4127700,Toledo,416,41,PR
+4127809,Tomazina,414,41,PR
+4127858,Três Barras do Paraná,416,41,PR
+4127882,Tunas do Paraná,4110,41,PR
+4127908,Tuneiras do Oeste,411,41,PR
+4127957,Tupãssi,416,41,PR
+4127965,Turvo,418,41,PR
+4128005,Ubiratã,412,41,PR
+4128104,Umuarama,411,41,PR
+4128203,União da Vitória,419,41,PR
+4128302,Uniflor,413,41,PR
+4128401,Uraí,414,41,PR
+4128534,Ventania,415,41,PR
+4128559,Vera Cruz do Oeste,416,41,PR
+4128609,Verê,417,41,PR
+4128658,Virmond,418,41,PR
+4128708,Vitorino,417,41,PR
+4128500,Wenceslau Braz,414,41,PR
+4128807,Xambrê,411,41,PR
+4200051,Abdon Batista,423,42,SC
+4200101,Abelardo Luz,421,42,SC
+4200200,Agrolândia,424,42,SC
+4200309,Agronômica,424,42,SC
+4200408,Água Doce,421,42,SC
+4200507,Águas de Chapecó,421,42,SC
+4200556,Águas Frias,421,42,SC
+4200606,Águas Mornas,425,42,SC
+4200705,Alfredo Wagner,425,42,SC
+4200754,Alto Bela Vista,421,42,SC
+4200804,Anchieta,421,42,SC
+4200903,Angelina,425,42,SC
+4201000,Anita Garibaldi,423,42,SC
+4201109,Anitápolis,425,42,SC
+4201208,Antônio Carlos,425,42,SC
+4201257,Apiúna,424,42,SC
+4201273,Arabutã,421,42,SC
+4201307,Araquari,422,42,SC
+4201406,Araranguá,426,42,SC
+4201505,Armazém,426,42,SC
+4201604,Arroio Trinta,421,42,SC
+4201653,Arvoredo,421,42,SC
+4201703,Ascurra,424,42,SC
+4201802,Atalanta,424,42,SC
+4201901,Aurora,424,42,SC
+4201950,Balneário Arroio do Silva,426,42,SC
+4202057,Balneário Barra do Sul,422,42,SC
+4202008,Balneário Camboriú,424,42,SC
+4202073,Balneário Gaivota,426,42,SC
+4212809,Balneário Piçarras,424,42,SC
+4220000,Balneário Rincão,426,42,SC
+4202081,Bandeirante,421,42,SC
+4202099,Barra Bonita,421,42,SC
+4202107,Barra Velha,424,42,SC
+4202131,Bela Vista do Toldo,422,42,SC
+4202156,Belmonte,421,42,SC
+4202206,Benedito Novo,424,42,SC
+4202305,Biguaçu,425,42,SC
+4202404,Blumenau,424,42,SC
+4202438,Bocaina do Sul,423,42,SC
+4202503,Bom Jardim da Serra,423,42,SC
+4202537,Bom Jesus,421,42,SC
+4202578,Bom Jesus do Oeste,421,42,SC
+4202602,Bom Retiro,423,42,SC
+4202453,Bombinhas,424,42,SC
+4202701,Botuverá,424,42,SC
+4202800,Braço do Norte,426,42,SC
+4202859,Braço do Trombudo,424,42,SC
+4202875,Brunópolis,423,42,SC
+4202909,Brusque,424,42,SC
+4203006,Caçador,421,42,SC
+4203105,Caibi,421,42,SC
+4203154,Calmon,421,42,SC
+4203204,Camboriú,424,42,SC
+4203303,Campo Alegre,422,42,SC
+4203402,Campo Belo do Sul,423,42,SC
+4203501,Campo Erê,421,42,SC
+4203600,Campos Novos,423,42,SC
+4203709,Canelinha,425,42,SC
+4203808,Canoinhas,422,42,SC
+4203253,Capão Alto,423,42,SC
+4203907,Capinzal,421,42,SC
+4203956,Capivari de Baixo,426,42,SC
+4204004,Catanduvas,421,42,SC
+4204103,Caxambu do Sul,421,42,SC
+4204152,Celso Ramos,423,42,SC
+4204178,Cerro Negro,423,42,SC
+4204194,Chapadão do Lageado,424,42,SC
+4204202,Chapecó,421,42,SC
+4204251,Cocal do Sul,426,42,SC
+4204301,Concórdia,421,42,SC
+4204350,Cordilheira Alta,421,42,SC
+4204400,Coronel Freitas,421,42,SC
+4204459,Coronel Martins,421,42,SC
+4204558,Correia Pinto,423,42,SC
+4204509,Corupá,422,42,SC
+4204608,Criciúma,426,42,SC
+4204707,Cunha Porã,421,42,SC
+4204756,Cunhataí,421,42,SC
+4204806,Curitibanos,423,42,SC
+4204905,Descanso,421,42,SC
+4205001,Dionísio Cerqueira,421,42,SC
+4205100,Dona Emma,424,42,SC
+4205159,Doutor Pedrinho,424,42,SC
+4205175,Entre Rios,421,42,SC
+4205191,Ermo,426,42,SC
+4205209,Erval Velho,421,42,SC
+4205308,Faxinal dos Guedes,421,42,SC
+4205357,Flor do Sertão,421,42,SC
+4205407,Florianópolis,425,42,SC
+4205431,Formosa do Sul,421,42,SC
+4205456,Forquilhinha,426,42,SC
+4205506,Fraiburgo,421,42,SC
+4205555,Frei Rogério,423,42,SC
+4205605,Galvão,421,42,SC
+4205704,Garopaba,426,42,SC
+4205803,Garuva,422,42,SC
+4205902,Gaspar,424,42,SC
+4206009,Governador Celso Ramos,425,42,SC
+4206108,Grão Pará,426,42,SC
+4206207,Gravatal,426,42,SC
+4206306,Guabiruba,424,42,SC
+4206405,Guaraciaba,421,42,SC
+4206504,Guaramirim,422,42,SC
+4206603,Guarujá do Sul,421,42,SC
+4206652,Guatambú,421,42,SC
+4206702,Herval d'Oeste,421,42,SC
+4206751,Ibiam,421,42,SC
+4206801,Ibicaré,421,42,SC
+4206900,Ibirama,424,42,SC
+4207007,Içara,426,42,SC
+4207106,Ilhota,424,42,SC
+4207205,Imaruí,426,42,SC
+4207304,Imbituba,426,42,SC
+4207403,Imbuia,424,42,SC
+4207502,Indaial,424,42,SC
+4207577,Iomerê,421,42,SC
+4207601,Ipira,421,42,SC
+4207650,Iporã do Oeste,421,42,SC
+4207684,Ipuaçu,421,42,SC
+4207700,Ipumirim,421,42,SC
+4207759,Iraceminha,421,42,SC
+4207809,Irani,421,42,SC
+4207858,Irati,421,42,SC
+4207908,Irineópolis,422,42,SC
+4208005,Itá,421,42,SC
+4208104,Itaiópolis,422,42,SC
+4208203,Itajaí,424,42,SC
+4208302,Itapema,424,42,SC
+4208401,Itapiranga,421,42,SC
+4208450,Itapoá,422,42,SC
+4208500,Ituporanga,424,42,SC
+4208609,Jaborá,421,42,SC
+4208708,Jacinto Machado,426,42,SC
+4208807,Jaguaruna,426,42,SC
+4208906,Jaraguá do Sul,422,42,SC
+4208955,Jardinópolis,421,42,SC
+4209003,Joaçaba,421,42,SC
+4209102,Joinville,422,42,SC
+4209151,José Boiteux,424,42,SC
+4209177,Jupiá,421,42,SC
+4209201,Lacerdópolis,421,42,SC
+4209300,Lages,423,42,SC
+4209409,Laguna,426,42,SC
+4209458,Lajeado Grande,421,42,SC
+4209508,Laurentino,424,42,SC
+4209607,Lauro Müller,426,42,SC
+4209706,Lebon Régis,421,42,SC
+4209805,Leoberto Leal,425,42,SC
+4209854,Lindóia do Sul,421,42,SC
+4209904,Lontras,424,42,SC
+4210001,Luiz Alves,424,42,SC
+4210035,Luzerna,421,42,SC
+4210050,Macieira,421,42,SC
+4210100,Mafra,422,42,SC
+4210209,Major Gercino,425,42,SC
+4210308,Major Vieira,422,42,SC
+4210407,Maracajá,426,42,SC
+4210506,Maravilha,421,42,SC
+4210555,Marema,421,42,SC
+4210605,Massaranduba,422,42,SC
+4210704,Matos Costa,421,42,SC
+4210803,Meleiro,426,42,SC
+4210852,Mirim Doce,424,42,SC
+4210902,Modelo,421,42,SC
+4211009,Mondaí,421,42,SC
+4211058,Monte Carlo,423,42,SC
+4211108,Monte Castelo,422,42,SC
+4211207,Morro da Fumaça,426,42,SC
+4211256,Morro Grande,426,42,SC
+4211306,Navegantes,424,42,SC
+4211405,Nova Erechim,421,42,SC
+4211454,Nova Itaberaba,421,42,SC
+4211504,Nova Trento,425,42,SC
+4211603,Nova Veneza,426,42,SC
+4211652,Novo Horizonte,421,42,SC
+4211702,Orleans,426,42,SC
+4211751,Otacílio Costa,423,42,SC
+4211801,Ouro,421,42,SC
+4211850,Ouro Verde,421,42,SC
+4211876,Paial,421,42,SC
+4211892,Painel,423,42,SC
+4211900,Palhoça,425,42,SC
+4212007,Palma Sola,421,42,SC
+4212056,Palmeira,423,42,SC
+4212106,Palmitos,421,42,SC
+4212205,Papanduva,422,42,SC
+4212239,Paraíso,421,42,SC
+4212254,Passo de Torres,426,42,SC
+4212270,Passos Maia,421,42,SC
+4212304,Paulo Lopes,425,42,SC
+4212403,Pedras Grandes,426,42,SC
+4212502,Penha,424,42,SC
+4212601,Peritiba,421,42,SC
+4212650,Pescaria Brava,426,42,SC
+4212700,Petrolândia,424,42,SC
+4212908,Pinhalzinho,421,42,SC
+4213005,Pinheiro Preto,421,42,SC
+4213104,Piratuba,421,42,SC
+4213153,Planalto Alegre,421,42,SC
+4213203,Pomerode,424,42,SC
+4213302,Ponte Alta,423,42,SC
+4213351,Ponte Alta do Norte,423,42,SC
+4213401,Ponte Serrada,421,42,SC
+4213500,Porto Belo,424,42,SC
+4213609,Porto União,422,42,SC
+4213708,Pouso Redondo,424,42,SC
+4213807,Praia Grande,426,42,SC
+4213906,Presidente Castello Branco,421,42,SC
+4214003,Presidente Getúlio,424,42,SC
+4214102,Presidente Nereu,424,42,SC
+4214151,Princesa,421,42,SC
+4214201,Quilombo,421,42,SC
+4214300,Rancho Queimado,425,42,SC
+4214409,Rio das Antas,421,42,SC
+4214508,Rio do Campo,424,42,SC
+4214607,Rio do Oeste,424,42,SC
+4214805,Rio do Sul,424,42,SC
+4214706,Rio dos Cedros,424,42,SC
+4214904,Rio Fortuna,426,42,SC
+4215000,Rio Negrinho,422,42,SC
+4215059,Rio Rufino,423,42,SC
+4215075,Riqueza,421,42,SC
+4215109,Rodeio,424,42,SC
+4215208,Romelândia,421,42,SC
+4215307,Salete,424,42,SC
+4215356,Saltinho,421,42,SC
+4215406,Salto Veloso,421,42,SC
+4215455,Sangão,426,42,SC
+4215505,Santa Cecília,423,42,SC
+4215554,Santa Helena,421,42,SC
+4215604,Santa Rosa de Lima,426,42,SC
+4215653,Santa Rosa do Sul,426,42,SC
+4215679,Santa Terezinha,422,42,SC
+4215687,Santa Terezinha do Progresso,421,42,SC
+4215695,Santiago do Sul,421,42,SC
+4215703,Santo Amaro da Imperatriz,425,42,SC
+4215802,São Bento do Sul,422,42,SC
+4215752,São Bernardino,421,42,SC
+4215901,São Bonifácio,425,42,SC
+4216008,São Carlos,421,42,SC
+4216057,São Cristóvão do Sul,423,42,SC
+4216107,São Domingos,421,42,SC
+4216206,São Francisco do Sul,422,42,SC
+4216305,São João Batista,425,42,SC
+4216354,São João do Itaperiú,424,42,SC
+4216255,São João do Oeste,421,42,SC
+4216404,São João do Sul,426,42,SC
+4216503,São Joaquim,423,42,SC
+4216602,São José,425,42,SC
+4216701,São José do Cedro,421,42,SC
+4216800,São José do Cerrito,423,42,SC
+4216909,São Lourenço do Oeste,421,42,SC
+4217006,São Ludgero,426,42,SC
+4217105,São Martinho,426,42,SC
+4217154,São Miguel da Boa Vista,421,42,SC
+4217204,São Miguel do Oeste,421,42,SC
+4217253,São Pedro de Alcântara,425,42,SC
+4217303,Saudades,421,42,SC
+4217402,Schroeder,422,42,SC
+4217501,Seara,421,42,SC
+4217550,Serra Alta,421,42,SC
+4217600,Siderópolis,426,42,SC
+4217709,Sombrio,426,42,SC
+4217758,Sul Brasil,421,42,SC
+4217808,Taió,424,42,SC
+4217907,Tangará,421,42,SC
+4217956,Tigrinhos,421,42,SC
+4218004,Tijucas,425,42,SC
+4218103,Timbé do Sul,426,42,SC
+4218202,Timbó,424,42,SC
+4218251,Timbó Grande,422,42,SC
+4218301,Três Barras,422,42,SC
+4218350,Treviso,426,42,SC
+4218400,Treze de Maio,426,42,SC
+4218509,Treze Tílias,421,42,SC
+4218608,Trombudo Central,424,42,SC
+4218707,Tubarão,426,42,SC
+4218756,Tunápolis,421,42,SC
+4218806,Turvo,426,42,SC
+4218855,União do Oeste,421,42,SC
+4218905,Urubici,423,42,SC
+4218954,Urupema,423,42,SC
+4219002,Urussanga,426,42,SC
+4219101,Vargeão,421,42,SC
+4219150,Vargem,423,42,SC
+4219176,Vargem Bonita,421,42,SC
+4219200,Vidal Ramos,424,42,SC
+4219309,Videira,421,42,SC
+4219358,Vitor Meireles,424,42,SC
+4219408,Witmarsum,424,42,SC
+4219507,Xanxerê,421,42,SC
+4219606,Xavantina,421,42,SC
+4219705,Xaxim,421,42,SC
+4219853,Zortéa,423,42,SC
+4300034,Aceguá,436,43,RS
+4300059,Água Santa,431,43,RS
+4300109,Agudo,433,43,RS
+4300208,Ajuricaba,431,43,RS
+4300307,Alecrim,431,43,RS
+4300406,Alegrete,436,43,RS
+4300455,Alegria,431,43,RS
+4300471,Almirante Tamandaré do Sul,431,43,RS
+4300505,Alpestre,431,43,RS
+4300554,Alto Alegre,431,43,RS
+4300570,Alto Feliz,435,43,RS
+4300604,Alvorada,435,43,RS
+4300638,Amaral Ferrador,437,43,RS
+4300646,Ametista do Sul,431,43,RS
+4300661,André da Rocha,432,43,RS
+4300703,Anta Gorda,432,43,RS
+4300802,Antônio Prado,432,43,RS
+4300851,Arambaré,435,43,RS
+4300877,Araricá,435,43,RS
+4300901,Aratiba,431,43,RS
+4301008,Arroio do Meio,434,43,RS
+4301073,Arroio do Padre,437,43,RS
+4301057,Arroio do Sal,435,43,RS
+4301206,Arroio do Tigre,434,43,RS
+4301107,Arroio dos Ratos,435,43,RS
+4301305,Arroio Grande,437,43,RS
+4301404,Arvorezinha,432,43,RS
+4301503,Augusto Pestana,431,43,RS
+4301552,Áurea,431,43,RS
+4301602,Bagé,436,43,RS
+4301636,Balneário Pinhal,435,43,RS
+4301651,Barão,435,43,RS
+4301701,Barão de Cotegipe,431,43,RS
+4301750,Barão do Triunfo,435,43,RS
+4301859,Barra do Guarita,431,43,RS
+4301875,Barra do Quaraí,436,43,RS
+4301909,Barra do Ribeiro,435,43,RS
+4301925,Barra do Rio Azul,431,43,RS
+4301958,Barra Funda,431,43,RS
+4301800,Barracão,431,43,RS
+4302006,Barros Cassal,431,43,RS
+4302055,Benjamin Constant do Sul,431,43,RS
+4302105,Bento Gonçalves,432,43,RS
+4302154,Boa Vista das Missões,431,43,RS
+4302204,Boa Vista do Buricá,431,43,RS
+4302220,Boa Vista do Cadeado,431,43,RS
+4302238,Boa Vista do Incra,431,43,RS
+4302253,Boa Vista do Sul,432,43,RS
+4302303,Bom Jesus,432,43,RS
+4302352,Bom Princípio,435,43,RS
+4302378,Bom Progresso,431,43,RS
+4302402,Bom Retiro do Sul,434,43,RS
+4302451,Boqueirão do Leão,434,43,RS
+4302501,Bossoroca,431,43,RS
+4302584,Bozano,431,43,RS
+4302600,Braga,431,43,RS
+4302659,Brochier,435,43,RS
+4302709,Butiá,435,43,RS
+4302808,Caçapava do Sul,437,43,RS
+4302907,Cacequi,433,43,RS
+4303004,Cachoeira do Sul,434,43,RS
+4303103,Cachoeirinha,435,43,RS
+4303202,Cacique Doble,431,43,RS
+4303301,Caibaté,431,43,RS
+4303400,Caiçara,431,43,RS
+4303509,Camaquã,435,43,RS
+4303558,Camargo,431,43,RS
+4303608,Cambará do Sul,432,43,RS
+4303673,Campestre da Serra,432,43,RS
+4303707,Campina das Missões,431,43,RS
+4303806,Campinas do Sul,431,43,RS
+4303905,Campo Bom,435,43,RS
+4304002,Campo Novo,431,43,RS
+4304101,Campos Borges,431,43,RS
+4304200,Candelária,434,43,RS
+4304309,Cândido Godói,431,43,RS
+4304358,Candiota,437,43,RS
+4304408,Canela,435,43,RS
+4304507,Canguçu,437,43,RS
+4304606,Canoas,435,43,RS
+4304614,Canudos do Vale,434,43,RS
+4304622,Capão Bonito do Sul,432,43,RS
+4304630,Capão da Canoa,435,43,RS
+4304655,Capão do Cipó,433,43,RS
+4304663,Capão do Leão,437,43,RS
+4304689,Capela de Santana,435,43,RS
+4304697,Capitão,434,43,RS
+4304671,Capivari do Sul,435,43,RS
+4304713,Caraá,435,43,RS
+4304705,Carazinho,431,43,RS
+4304804,Carlos Barbosa,432,43,RS
+4304853,Carlos Gomes,431,43,RS
+4304903,Casca,431,43,RS
+4304952,Caseiros,431,43,RS
+4305009,Catuípe,431,43,RS
+4305108,Caxias do Sul,432,43,RS
+4305116,Centenário,431,43,RS
+4305124,Cerrito,437,43,RS
+4305132,Cerro Branco,434,43,RS
+4305157,Cerro Grande,431,43,RS
+4305173,Cerro Grande do Sul,435,43,RS
+4305207,Cerro Largo,431,43,RS
+4305306,Chapada,431,43,RS
+4305355,Charqueadas,435,43,RS
+4305371,Charrua,431,43,RS
+4305405,Chiapetta,431,43,RS
+4305439,Chuí,437,43,RS
+4305447,Chuvisca,435,43,RS
+4305454,Cidreira,435,43,RS
+4305504,Ciríaco,431,43,RS
+4305587,Colinas,434,43,RS
+4305603,Colorado,431,43,RS
+4305702,Condor,431,43,RS
+4305801,Constantina,431,43,RS
+4305835,Coqueiro Baixo,434,43,RS
+4305850,Coqueiros do Sul,431,43,RS
+4305871,Coronel Barros,431,43,RS
+4305900,Coronel Bicaco,431,43,RS
+4305934,Coronel Pilar,432,43,RS
+4305959,Cotiporã,432,43,RS
+4305975,Coxilha,431,43,RS
+4306007,Crissiumal,431,43,RS
+4306056,Cristal,437,43,RS
+4306072,Cristal do Sul,431,43,RS
+4306106,Cruz Alta,431,43,RS
+4306130,Cruzaltense,431,43,RS
+4306205,Cruzeiro do Sul,434,43,RS
+4306304,David Canabarro,431,43,RS
+4306320,Derrubadas,431,43,RS
+4306353,Dezesseis de Novembro,431,43,RS
+4306379,Dilermando de Aguiar,433,43,RS
+4306403,Dois Irmãos,435,43,RS
+4306429,Dois Irmãos das Missões,431,43,RS
+4306452,Dois Lajeados,432,43,RS
+4306502,Dom Feliciano,435,43,RS
+4306601,Dom Pedrito,436,43,RS
+4306551,Dom Pedro de Alcântara,435,43,RS
+4306700,Dona Francisca,433,43,RS
+4306734,Doutor Maurício Cardoso,431,43,RS
+4306759,Doutor Ricardo,434,43,RS
+4306767,Eldorado do Sul,435,43,RS
+4306809,Encantado,434,43,RS
+4306908,Encruzilhada do Sul,437,43,RS
+4306924,Engenho Velho,431,43,RS
+4306957,Entre Rios do Sul,431,43,RS
+4306932,Entre-Ijuís,431,43,RS
+4306973,Erebango,431,43,RS
+4307005,Erechim,431,43,RS
+4307054,Ernestina,431,43,RS
+4307203,Erval Grande,431,43,RS
+4307302,Erval Seco,431,43,RS
+4307401,Esmeralda,432,43,RS
+4307450,Esperança do Sul,431,43,RS
+4307500,Espumoso,431,43,RS
+4307559,Estação,431,43,RS
+4307609,Estância Velha,435,43,RS
+4307708,Esteio,435,43,RS
+4307807,Estrela,434,43,RS
+4307815,Estrela Velha,434,43,RS
+4307831,Eugênio de Castro,431,43,RS
+4307864,Fagundes Varela,432,43,RS
+4307906,Farroupilha,432,43,RS
+4308003,Faxinal do Soturno,433,43,RS
+4308052,Faxinalzinho,431,43,RS
+4308078,Fazenda Vilanova,434,43,RS
+4308102,Feliz,435,43,RS
+4308201,Flores da Cunha,432,43,RS
+4308250,Floriano Peixoto,431,43,RS
+4308300,Fontoura Xavier,431,43,RS
+4308409,Formigueiro,433,43,RS
+4308433,Forquetinha,434,43,RS
+4308458,Fortaleza dos Valos,431,43,RS
+4308508,Frederico Westphalen,431,43,RS
+4308607,Garibaldi,432,43,RS
+4308656,Garruchos,436,43,RS
+4308706,Gaurama,431,43,RS
+4308805,General Câmara,435,43,RS
+4308854,Gentil,431,43,RS
+4308904,Getúlio Vargas,431,43,RS
+4309001,Giruá,431,43,RS
+4309050,Glorinha,435,43,RS
+4309100,Gramado,435,43,RS
+4309126,Gramado dos Loureiros,431,43,RS
+4309159,Gramado Xavier,434,43,RS
+4309209,Gravataí,435,43,RS
+4309258,Guabiju,432,43,RS
+4309308,Guaíba,435,43,RS
+4309407,Guaporé,432,43,RS
+4309506,Guarani das Missões,431,43,RS
+4309555,Harmonia,435,43,RS
+4307104,Herval,437,43,RS
+4309571,Herveiras,434,43,RS
+4309605,Horizontina,431,43,RS
+4309654,Hulha Negra,436,43,RS
+4309704,Humaitá,431,43,RS
+4309753,Ibarama,434,43,RS
+4309803,Ibiaçá,431,43,RS
+4309902,Ibiraiaras,431,43,RS
+4309951,Ibirapuitã,431,43,RS
+4310009,Ibirubá,431,43,RS
+4310108,Igrejinha,435,43,RS
+4310207,Ijuí,431,43,RS
+4310306,Ilópolis,432,43,RS
+4310330,Imbé,435,43,RS
+4310363,Imigrante,434,43,RS
+4310405,Independência,431,43,RS
+4310413,Inhacorá,431,43,RS
+4310439,Ipê,432,43,RS
+4310462,Ipiranga do Sul,431,43,RS
+4310504,Iraí,431,43,RS
+4310538,Itaara,433,43,RS
+4310553,Itacurubi,433,43,RS
+4310579,Itapuca,432,43,RS
+4310603,Itaqui,436,43,RS
+4310652,Itati,435,43,RS
+4310702,Itatiba do Sul,431,43,RS
+4310751,Ivorá,433,43,RS
+4310801,Ivoti,435,43,RS
+4310850,Jaboticaba,431,43,RS
+4310876,Jacuizinho,431,43,RS
+4310900,Jacutinga,431,43,RS
+4311007,Jaguarão,437,43,RS
+4311106,Jaguari,433,43,RS
+4311122,Jaquirana,432,43,RS
+4311130,Jari,433,43,RS
+4311155,Jóia,431,43,RS
+4311205,Júlio de Castilhos,433,43,RS
+4311239,Lagoa Bonita do Sul,434,43,RS
+4311270,Lagoa dos Três Cantos,431,43,RS
+4311304,Lagoa Vermelha,432,43,RS
+4311254,Lagoão,431,43,RS
+4311403,Lajeado,434,43,RS
+4311429,Lajeado do Bugre,431,43,RS
+4311502,Lavras do Sul,436,43,RS
+4311601,Liberato Salzano,431,43,RS
+4311627,Lindolfo Collor,435,43,RS
+4311643,Linha Nova,435,43,RS
+4311718,Maçambará,436,43,RS
+4311700,Machadinho,431,43,RS
+4311734,Mampituba,435,43,RS
+4311759,Manoel Viana,436,43,RS
+4311775,Maquiné,435,43,RS
+4311791,Maratá,435,43,RS
+4311809,Marau,431,43,RS
+4311908,Marcelino Ramos,431,43,RS
+4311981,Mariana Pimentel,435,43,RS
+4312005,Mariano Moro,431,43,RS
+4312054,Marques de Souza,434,43,RS
+4312104,Mata,433,43,RS
+4312138,Mato Castelhano,431,43,RS
+4312153,Mato Leitão,434,43,RS
+4312179,Mato Queimado,431,43,RS
+4312203,Maximiliano de Almeida,431,43,RS
+4312252,Minas do Leão,435,43,RS
+4312302,Miraguaí,431,43,RS
+4312351,Montauri,432,43,RS
+4312377,Monte Alegre dos Campos,432,43,RS
+4312385,Monte Belo do Sul,432,43,RS
+4312401,Montenegro,435,43,RS
+4312427,Mormaço,431,43,RS
+4312443,Morrinhos do Sul,435,43,RS
+4312450,Morro Redondo,437,43,RS
+4312476,Morro Reuter,435,43,RS
+4312500,Mostardas,435,43,RS
+4312609,Muçum,434,43,RS
+4312617,Muitos Capões,432,43,RS
+4312625,Muliterno,431,43,RS
+4312658,Não-Me-Toque,431,43,RS
+4312674,Nicolau Vergueiro,431,43,RS
+4312708,Nonoai,431,43,RS
+4312757,Nova Alvorada,432,43,RS
+4312807,Nova Araçá,432,43,RS
+4312906,Nova Bassano,432,43,RS
+4312955,Nova Boa Vista,431,43,RS
+4313003,Nova Bréscia,434,43,RS
+4313011,Nova Candelária,431,43,RS
+4313037,Nova Esperança do Sul,433,43,RS
+4313060,Nova Hartz,435,43,RS
+4313086,Nova Pádua,432,43,RS
+4313102,Nova Palma,433,43,RS
+4313201,Nova Petrópolis,435,43,RS
+4313300,Nova Prata,432,43,RS
+4313334,Nova Ramada,431,43,RS
+4313359,Nova Roma do Sul,432,43,RS
+4313375,Nova Santa Rita,435,43,RS
+4313490,Novo Barreiro,431,43,RS
+4313391,Novo Cabrais,434,43,RS
+4313409,Novo Hamburgo,435,43,RS
+4313425,Novo Machado,431,43,RS
+4313441,Novo Tiradentes,431,43,RS
+4313466,Novo Xingu,431,43,RS
+4313508,Osório,435,43,RS
+4313607,Paim Filho,431,43,RS
+4313656,Palmares do Sul,435,43,RS
+4313706,Palmeira das Missões,431,43,RS
+4313805,Palmitinho,431,43,RS
+4313904,Panambi,431,43,RS
+4313953,Pantano Grande,434,43,RS
+4314001,Paraí,432,43,RS
+4314027,Paraíso do Sul,434,43,RS
+4314035,Pareci Novo,435,43,RS
+4314050,Parobé,435,43,RS
+4314068,Passa Sete,434,43,RS
+4314076,Passo do Sobrado,434,43,RS
+4314100,Passo Fundo,431,43,RS
+4314134,Paulo Bento,431,43,RS
+4314159,Paverama,434,43,RS
+4314175,Pedras Altas,437,43,RS
+4314209,Pedro Osório,437,43,RS
+4314308,Pejuçara,431,43,RS
+4314407,Pelotas,437,43,RS
+4314423,Picada Café,435,43,RS
+4314456,Pinhal,431,43,RS
+4314464,Pinhal da Serra,432,43,RS
+4314472,Pinhal Grande,433,43,RS
+4314498,Pinheirinho do Vale,431,43,RS
+4314506,Pinheiro Machado,437,43,RS
+4314548,Pinto Bandeira,432,43,RS
+4314555,Pirapó,431,43,RS
+4314605,Piratini,437,43,RS
+4314704,Planalto,431,43,RS
+4314753,Poço das Antas,435,43,RS
+4314779,Pontão,431,43,RS
+4314787,Ponte Preta,431,43,RS
+4314803,Portão,435,43,RS
+4314902,Porto Alegre,435,43,RS
+4315008,Porto Lucena,431,43,RS
+4315057,Porto Mauá,431,43,RS
+4315073,Porto Vera Cruz,431,43,RS
+4315107,Porto Xavier,431,43,RS
+4315131,Pouso Novo,434,43,RS
+4315149,Presidente Lucena,435,43,RS
+4315156,Progresso,434,43,RS
+4315172,Protásio Alves,432,43,RS
+4315206,Putinga,432,43,RS
+4315305,Quaraí,436,43,RS
+4315313,Quatro Irmãos,431,43,RS
+4315321,Quevedos,433,43,RS
+4315354,Quinze de Novembro,431,43,RS
+4315404,Redentora,431,43,RS
+4315453,Relvado,434,43,RS
+4315503,Restinga Sêca,433,43,RS
+4315552,Rio dos Índios,431,43,RS
+4315602,Rio Grande,437,43,RS
+4315701,Rio Pardo,434,43,RS
+4315750,Riozinho,435,43,RS
+4315800,Roca Sales,434,43,RS
+4315909,Rodeio Bonito,431,43,RS
+4315958,Rolador,431,43,RS
+4316006,Rolante,435,43,RS
+4316105,Ronda Alta,431,43,RS
+4316204,Rondinha,431,43,RS
+4316303,Roque Gonzales,431,43,RS
+4316402,Rosário do Sul,436,43,RS
+4316428,Sagrada Família,431,43,RS
+4316436,Saldanha Marinho,431,43,RS
+4316451,Salto do Jacuí,431,43,RS
+4316477,Salvador das Missões,431,43,RS
+4316501,Salvador do Sul,435,43,RS
+4316600,Sananduva,431,43,RS
+4316709,Santa Bárbara do Sul,431,43,RS
+4316733,Santa Cecília do Sul,431,43,RS
+4316758,Santa Clara do Sul,434,43,RS
+4316808,Santa Cruz do Sul,434,43,RS
+4316972,Santa Margarida do Sul,436,43,RS
+4316907,Santa Maria,433,43,RS
+4316956,Santa Maria do Herval,435,43,RS
+4317202,Santa Rosa,431,43,RS
+4317251,Santa Tereza,432,43,RS
+4317301,Santa Vitória do Palmar,437,43,RS
+4317004,Santana da Boa Vista,437,43,RS
+4317103,Sant'Ana do Livramento,436,43,RS
+4317400,Santiago,433,43,RS
+4317509,Santo Ângelo,431,43,RS
+4317608,Santo Antônio da Patrulha,435,43,RS
+4317707,Santo Antônio das Missões,431,43,RS
+4317558,Santo Antônio do Palma,431,43,RS
+4317756,Santo Antônio do Planalto,431,43,RS
+4317806,Santo Augusto,431,43,RS
+4317905,Santo Cristo,431,43,RS
+4317954,Santo Expedito do Sul,431,43,RS
+4318002,São Borja,436,43,RS
+4318051,São Domingos do Sul,431,43,RS
+4318101,São Francisco de Assis,436,43,RS
+4318200,São Francisco de Paula,432,43,RS
+4318309,São Gabriel,436,43,RS
+4318408,São Jerônimo,435,43,RS
+4318424,São João da Urtiga,431,43,RS
+4318432,São João do Polêsine,433,43,RS
+4318440,São Jorge,432,43,RS
+4318457,São José das Missões,431,43,RS
+4318465,São José do Herval,431,43,RS
+4318481,São José do Hortêncio,435,43,RS
+4318499,São José do Inhacorá,431,43,RS
+4318507,São José do Norte,437,43,RS
+4318606,São José do Ouro,431,43,RS
+4318614,São José do Sul,435,43,RS
+4318622,São José dos Ausentes,432,43,RS
+4318705,São Leopoldo,435,43,RS
+4318804,São Lourenço do Sul,437,43,RS
+4318903,São Luiz Gonzaga,431,43,RS
+4319000,São Marcos,432,43,RS
+4319109,São Martinho,431,43,RS
+4319125,São Martinho da Serra,433,43,RS
+4319158,São Miguel das Missões,431,43,RS
+4319208,São Nicolau,431,43,RS
+4319307,São Paulo das Missões,431,43,RS
+4319356,São Pedro da Serra,435,43,RS
+4319364,São Pedro das Missões,431,43,RS
+4319372,São Pedro do Butiá,431,43,RS
+4319406,São Pedro do Sul,433,43,RS
+4319505,São Sebastião do Caí,435,43,RS
+4319604,São Sepé,433,43,RS
+4319703,São Valentim,431,43,RS
+4319711,São Valentim do Sul,432,43,RS
+4319737,São Valério do Sul,431,43,RS
+4319752,São Vendelino,435,43,RS
+4319802,São Vicente do Sul,433,43,RS
+4319901,Sapiranga,435,43,RS
+4320008,Sapucaia do Sul,435,43,RS
+4320107,Sarandi,431,43,RS
+4320206,Seberi,431,43,RS
+4320230,Sede Nova,431,43,RS
+4320263,Segredo,434,43,RS
+4320305,Selbach,431,43,RS
+4320321,Senador Salgado Filho,431,43,RS
+4320354,Sentinela do Sul,435,43,RS
+4320404,Serafina Corrêa,432,43,RS
+4320453,Sério,434,43,RS
+4320503,Sertão,431,43,RS
+4320552,Sertão Santana,435,43,RS
+4320578,Sete de Setembro,431,43,RS
+4320602,Severiano de Almeida,431,43,RS
+4320651,Silveira Martins,433,43,RS
+4320677,Sinimbu,434,43,RS
+4320701,Sobradinho,434,43,RS
+4320800,Soledade,431,43,RS
+4320859,Tabaí,434,43,RS
+4320909,Tapejara,431,43,RS
+4321006,Tapera,431,43,RS
+4321105,Tapes,435,43,RS
+4321204,Taquara,435,43,RS
+4321303,Taquari,434,43,RS
+4321329,Taquaruçu do Sul,431,43,RS
+4321352,Tavares,435,43,RS
+4321402,Tenente Portela,431,43,RS
+4321436,Terra de Areia,435,43,RS
+4321451,Teutônia,434,43,RS
+4321469,Tio Hugo,431,43,RS
+4321477,Tiradentes do Sul,431,43,RS
+4321493,Toropi,433,43,RS
+4321501,Torres,435,43,RS
+4321600,Tramandaí,435,43,RS
+4321626,Travesseiro,434,43,RS
+4321634,Três Arroios,431,43,RS
+4321667,Três Cachoeiras,435,43,RS
+4321709,Três Coroas,435,43,RS
+4321808,Três de Maio,431,43,RS
+4321832,Três Forquilhas,435,43,RS
+4321857,Três Palmeiras,431,43,RS
+4321907,Três Passos,431,43,RS
+4321956,Trindade do Sul,431,43,RS
+4322004,Triunfo,435,43,RS
+4322103,Tucunduva,431,43,RS
+4322152,Tunas,431,43,RS
+4322186,Tupanci do Sul,431,43,RS
+4322202,Tupanciretã,433,43,RS
+4322251,Tupandi,435,43,RS
+4322301,Tuparendi,431,43,RS
+4322327,Turuçu,437,43,RS
+4322343,Ubiretama,431,43,RS
+4322350,União da Serra,432,43,RS
+4322376,Unistalda,433,43,RS
+4322400,Uruguaiana,436,43,RS
+4322509,Vacaria,432,43,RS
+4322533,Vale do Sol,434,43,RS
+4322541,Vale Real,435,43,RS
+4322525,Vale Verde,435,43,RS
+4322558,Vanini,431,43,RS
+4322608,Venâncio Aires,434,43,RS
+4322707,Vera Cruz,434,43,RS
+4322806,Veranópolis,432,43,RS
+4322855,Vespasiano Corrêa,434,43,RS
+4322905,Viadutos,431,43,RS
+4323002,Viamão,435,43,RS
+4323101,Vicente Dutra,431,43,RS
+4323200,Victor Graeff,431,43,RS
+4323309,Vila Flores,432,43,RS
+4323358,Vila Lângaro,431,43,RS
+4323408,Vila Maria,431,43,RS
+4323457,Vila Nova do Sul,433,43,RS
+4323507,Vista Alegre,431,43,RS
+4323606,Vista Alegre do Prata,432,43,RS
+4323705,Vista Gaúcha,431,43,RS
+4323754,Vitória das Missões,431,43,RS
+4323770,Westfália,434,43,RS
+4323804,Xangri-lá,435,43,RS
+5000203,Água Clara,503,50,MS
+5000252,Alcinópolis,502,50,MS
+5000609,Amambai,504,50,MS
+5000708,Anastácio,501,50,MS
+5000807,Anaurilândia,503,50,MS
+5000856,Angélica,504,50,MS
+5000906,Antônio João,504,50,MS
+5001003,Aparecida do Taboado,503,50,MS
+5001102,Aquidauana,501,50,MS
+5001243,Aral Moreira,504,50,MS
+5001508,Bandeirantes,502,50,MS
+5001904,Bataguassu,503,50,MS
+5002001,Batayporã,503,50,MS
+5002100,Bela Vista,504,50,MS
+5002159,Bodoquena,504,50,MS
+5002209,Bonito,504,50,MS
+5002308,Brasilândia,503,50,MS
+5002407,Caarapó,504,50,MS
+5002605,Camapuã,502,50,MS
+5002704,Campo Grande,502,50,MS
+5002803,Caracol,504,50,MS
+5002902,Cassilândia,503,50,MS
+5002951,Chapadão do Sul,503,50,MS
+5003108,Corguinho,502,50,MS
+5003157,Coronel Sapucaia,504,50,MS
+5003207,Corumbá,501,50,MS
+5003256,Costa Rica,503,50,MS
+5003306,Coxim,502,50,MS
+5003454,Deodápolis,504,50,MS
+5003488,Dois Irmãos do Buriti,501,50,MS
+5003504,Douradina,504,50,MS
+5003702,Dourados,504,50,MS
+5003751,Eldorado,504,50,MS
+5003801,Fátima do Sul,504,50,MS
+5003900,Figueirão,502,50,MS
+5004007,Glória de Dourados,504,50,MS
+5004106,Guia Lopes da Laguna,504,50,MS
+5004304,Iguatemi,504,50,MS
+5004403,Inocência,503,50,MS
+5004502,Itaporã,504,50,MS
+5004601,Itaquiraí,504,50,MS
+5004700,Ivinhema,504,50,MS
+5004809,Japorã,504,50,MS
+5004908,Jaraguari,502,50,MS
+5005004,Jardim,504,50,MS
+5005103,Jateí,504,50,MS
+5005152,Juti,504,50,MS
+5005202,Ladário,501,50,MS
+5005251,Laguna Carapã,504,50,MS
+5005400,Maracaju,504,50,MS
+5005608,Miranda,501,50,MS
+5005681,Mundo Novo,504,50,MS
+5005707,Naviraí,504,50,MS
+5005806,Nioaque,504,50,MS
+5006002,Nova Alvorada do Sul,504,50,MS
+5006200,Nova Andradina,503,50,MS
+5006259,Novo Horizonte do Sul,504,50,MS
+5006275,Paraíso das Águas,503,50,MS
+5006309,Paranaíba,503,50,MS
+5006358,Paranhos,504,50,MS
+5006408,Pedro Gomes,502,50,MS
+5006606,Ponta Porã,504,50,MS
+5006903,Porto Murtinho,501,50,MS
+5007109,Ribas do Rio Pardo,503,50,MS
+5007208,Rio Brilhante,504,50,MS
+5007307,Rio Negro,502,50,MS
+5007406,Rio Verde de Mato Grosso,502,50,MS
+5007505,Rochedo,502,50,MS
+5007554,Santa Rita do Pardo,503,50,MS
+5007695,São Gabriel do Oeste,502,50,MS
+5007802,Selvíria,503,50,MS
+5007703,Sete Quedas,504,50,MS
+5007901,Sidrolândia,502,50,MS
+5007935,Sonora,502,50,MS
+5007950,Tacuru,504,50,MS
+5007976,Taquarussu,503,50,MS
+5008008,Terenos,502,50,MS
+5008305,Três Lagoas,503,50,MS
+5008404,Vicentina,504,50,MS
+5100102,Acorizal,514,51,MT
+5100201,Água Boa,512,51,MT
+5100250,Alta Floresta,511,51,MT
+5100300,Alto Araguaia,515,51,MT
+5100359,Alto Boa Vista,512,51,MT
+5100409,Alto Garças,515,51,MT
+5100508,Alto Paraguai,514,51,MT
+5100607,Alto Taquari,515,51,MT
+5100805,Apiacás,511,51,MT
+5101001,Araguaiana,512,51,MT
+5101209,Araguainha,515,51,MT
+5101258,Araputanga,513,51,MT
+5101308,Arenápolis,514,51,MT
+5101407,Aripuanã,511,51,MT
+5101605,Barão de Melgaço,514,51,MT
+5101704,Barra do Bugres,513,51,MT
+5101803,Barra do Garças,512,51,MT
+5101852,Bom Jesus do Araguaia,512,51,MT
+5101902,Brasnorte,511,51,MT
+5102504,Cáceres,514,51,MT
+5102603,Campinápolis,512,51,MT
+5102637,Campo Novo do Parecis,511,51,MT
+5102678,Campo Verde,515,51,MT
+5102686,Campos de Júlio,511,51,MT
+5102694,Canabrava do Norte,512,51,MT
+5102702,Canarana,512,51,MT
+5102793,Carlinda,511,51,MT
+5102850,Castanheira,511,51,MT
+5103007,Chapada dos Guimarães,514,51,MT
+5103056,Cláudia,511,51,MT
+5103106,Cocalinho,512,51,MT
+5103205,Colíder,511,51,MT
+5103254,Colniza,511,51,MT
+5103304,Comodoro,511,51,MT
+5103353,Confresa,512,51,MT
+5103361,Conquista D'Oeste,513,51,MT
+5103379,Cotriguaçu,511,51,MT
+5103403,Cuiabá,514,51,MT
+5103437,Curvelândia,514,51,MT
+5103452,Denise,513,51,MT
+5103502,Diamantino,511,51,MT
+5103601,Dom Aquino,515,51,MT
+5103700,Feliz Natal,511,51,MT
+5103809,Figueirópolis D'Oeste,513,51,MT
+5103858,Gaúcha do Norte,511,51,MT
+5103908,General Carneiro,515,51,MT
+5103957,Glória D'Oeste,513,51,MT
+5104104,Guarantã do Norte,511,51,MT
+5104203,Guiratinga,515,51,MT
+5104500,Indiavaí,513,51,MT
+5104526,Ipiranga do Norte,511,51,MT
+5104542,Itanhangá,511,51,MT
+5104559,Itaúba,511,51,MT
+5104609,Itiquira,515,51,MT
+5104807,Jaciara,515,51,MT
+5104906,Jangada,514,51,MT
+5105002,Jauru,513,51,MT
+5105101,Juara,511,51,MT
+5105150,Juína,511,51,MT
+5105176,Juruena,511,51,MT
+5105200,Juscimeira,515,51,MT
+5105234,Lambari D'Oeste,513,51,MT
+5105259,Lucas do Rio Verde,511,51,MT
+5105309,Luciara,512,51,MT
+5105580,Marcelândia,511,51,MT
+5105606,Matupá,511,51,MT
+5105622,Mirassol d'Oeste,513,51,MT
+5105903,Nobres,511,51,MT
+5106000,Nortelândia,514,51,MT
+5106109,Nossa Senhora do Livramento,514,51,MT
+5106158,Nova Bandeirantes,511,51,MT
+5106208,Nova Brasilândia,511,51,MT
+5106216,Nova Canaã do Norte,511,51,MT
+5108808,Nova Guarita,511,51,MT
+5106182,Nova Lacerda,513,51,MT
+5108857,Nova Marilândia,514,51,MT
+5108907,Nova Maringá,511,51,MT
+5108956,Nova Monte Verde,511,51,MT
+5106224,Nova Mutum,511,51,MT
+5106174,Nova Nazaré,512,51,MT
+5106232,Nova Olímpia,513,51,MT
+5106190,Nova Santa Helena,511,51,MT
+5106240,Nova Ubiratã,511,51,MT
+5106257,Nova Xavantina,512,51,MT
+5106273,Novo Horizonte do Norte,511,51,MT
+5106265,Novo Mundo,511,51,MT
+5106315,Novo Santo Antônio,512,51,MT
+5106281,Novo São Joaquim,512,51,MT
+5106299,Paranaíta,511,51,MT
+5106307,Paranatinga,511,51,MT
+5106372,Pedra Preta,515,51,MT
+5106422,Peixoto de Azevedo,511,51,MT
+5106455,Planalto da Serra,511,51,MT
+5106505,Poconé,514,51,MT
+5106653,Pontal do Araguaia,515,51,MT
+5106703,Ponte Branca,515,51,MT
+5106752,Pontes e Lacerda,513,51,MT
+5106778,Porto Alegre do Norte,512,51,MT
+5106802,Porto dos Gaúchos,511,51,MT
+5106828,Porto Esperidião,513,51,MT
+5106851,Porto Estrela,513,51,MT
+5107008,Poxoréu,515,51,MT
+5107040,Primavera do Leste,515,51,MT
+5107065,Querência,512,51,MT
+5107156,Reserva do Cabaçal,513,51,MT
+5107180,Ribeirão Cascalheira,512,51,MT
+5107198,Ribeirãozinho,515,51,MT
+5107206,Rio Branco,513,51,MT
+5107578,Rondolândia,511,51,MT
+5107602,Rondonópolis,515,51,MT
+5107701,Rosário Oeste,514,51,MT
+5107750,Salto do Céu,513,51,MT
+5107248,Santa Carmem,511,51,MT
+5107743,Santa Cruz do Xingu,512,51,MT
+5107768,Santa Rita do Trivelato,511,51,MT
+5107776,Santa Terezinha,512,51,MT
+5107263,Santo Afonso,514,51,MT
+5107792,Santo Antônio do Leste,512,51,MT
+5107800,Santo Antônio do Leverger,514,51,MT
+5107859,São Félix do Araguaia,512,51,MT
+5107297,São José do Povo,515,51,MT
+5107305,São José do Rio Claro,511,51,MT
+5107354,São José do Xingu,512,51,MT
+5107107,São José dos Quatro Marcos,513,51,MT
+5107404,São Pedro da Cipa,515,51,MT
+5107875,Sapezal,511,51,MT
+5107883,Serra Nova Dourada,512,51,MT
+5107909,Sinop,511,51,MT
+5107925,Sorriso,511,51,MT
+5107941,Tabaporã,511,51,MT
+5107958,Tangará da Serra,513,51,MT
+5108006,Tapurah,511,51,MT
+5108055,Terra Nova do Norte,511,51,MT
+5108105,Tesouro,515,51,MT
+5108204,Torixoréu,515,51,MT
+5108303,União do Sul,511,51,MT
+5108352,Vale de São Domingos,513,51,MT
+5108402,Várzea Grande,514,51,MT
+5108501,Vera,511,51,MT
+5105507,Vila Bela da Santíssima Trindade,513,51,MT
+5108600,Vila Rica,512,51,MT
+5200050,Abadia de Goiás,523,52,GO
+5200100,Abadiânia,524,52,GO
+5200134,Acreúna,525,52,GO
+5200159,Adelândia,523,52,GO
+5200175,Água Fria de Goiás,524,52,GO
+5200209,Água Limpa,525,52,GO
+5200258,Águas Lindas de Goiás,524,52,GO
+5200308,Alexânia,524,52,GO
+5200506,Aloândia,525,52,GO
+5200555,Alto Horizonte,522,52,GO
+5200605,Alto Paraíso de Goiás,522,52,GO
+5200803,Alvorada do Norte,524,52,GO
+5200829,Amaralina,522,52,GO
+5200852,Americano do Brasil,523,52,GO
+5200902,Amorinópolis,523,52,GO
+5201108,Anápolis,523,52,GO
+5201207,Anhanguera,525,52,GO
+5201306,Anicuns,523,52,GO
+5201405,Aparecida de Goiânia,523,52,GO
+5201454,Aparecida do Rio Doce,525,52,GO
+5201504,Aporé,525,52,GO
+5201603,Araçu,523,52,GO
+5201702,Aragarças,521,52,GO
+5201801,Aragoiânia,523,52,GO
+5202155,Araguapaz,521,52,GO
+5202353,Arenópolis,521,52,GO
+5202502,Aruanã,521,52,GO
+5202601,Aurilândia,523,52,GO
+5202809,Avelinópolis,523,52,GO
+5203104,Baliza,521,52,GO
+5203203,Barro Alto,523,52,GO
+5203302,Bela Vista de Goiás,523,52,GO
+5203401,Bom Jardim de Goiás,521,52,GO
+5203500,Bom Jesus de Goiás,525,52,GO
+5203559,Bonfinópolis,523,52,GO
+5203575,Bonópolis,522,52,GO
+5203609,Brazabrantes,523,52,GO
+5203807,Britânia,521,52,GO
+5203906,Buriti Alegre,525,52,GO
+5203939,Buriti de Goiás,523,52,GO
+5203962,Buritinópolis,524,52,GO
+5204003,Cabeceiras,524,52,GO
+5204102,Cachoeira Alta,525,52,GO
+5204201,Cachoeira de Goiás,523,52,GO
+5204250,Cachoeira Dourada,525,52,GO
+5204300,Caçu,525,52,GO
+5204409,Caiapônia,525,52,GO
+5204508,Caldas Novas,525,52,GO
+5204557,Caldazinha,523,52,GO
+5204607,Campestre de Goiás,525,52,GO
+5204656,Campinaçu,522,52,GO
+5204706,Campinorte,522,52,GO
+5204805,Campo Alegre de Goiás,525,52,GO
+5204854,Campo Limpo de Goiás,523,52,GO
+5204904,Campos Belos,522,52,GO
+5204953,Campos Verdes,522,52,GO
+5205000,Carmo do Rio Verde,523,52,GO
+5205059,Castelândia,525,52,GO
+5205109,Catalão,525,52,GO
+5205208,Caturaí,523,52,GO
+5205307,Cavalcante,522,52,GO
+5205406,Ceres,523,52,GO
+5205455,Cezarina,525,52,GO
+5205471,Chapadão do Céu,525,52,GO
+5205497,Cidade Ocidental,524,52,GO
+5205513,Cocalzinho de Goiás,524,52,GO
+5205521,Colinas do Sul,522,52,GO
+5205703,Córrego do Ouro,523,52,GO
+5205802,Corumbá de Goiás,524,52,GO
+5205901,Corumbaíba,525,52,GO
+5206206,Cristalina,524,52,GO
+5206305,Cristianópolis,525,52,GO
+5206404,Crixás,521,52,GO
+5206503,Cromínia,525,52,GO
+5206602,Cumari,525,52,GO
+5206701,Damianópolis,524,52,GO
+5206800,Damolândia,523,52,GO
+5206909,Davinópolis,525,52,GO
+5207105,Diorama,521,52,GO
+5208301,Divinópolis de Goiás,524,52,GO
+5207253,Doverlândia,525,52,GO
+5207352,Edealina,525,52,GO
+5207402,Edéia,525,52,GO
+5207501,Estrela do Norte,522,52,GO
+5207535,Faina,521,52,GO
+5207600,Fazenda Nova,523,52,GO
+5207808,Firminópolis,523,52,GO
+5207907,Flores de Goiás,524,52,GO
+5208004,Formosa,524,52,GO
+5208103,Formoso,522,52,GO
+5208152,Gameleira de Goiás,525,52,GO
+5208400,Goianápolis,523,52,GO
+5208509,Goiandira,525,52,GO
+5208608,Goianésia,523,52,GO
+5208707,Goiânia,523,52,GO
+5208806,Goianira,523,52,GO
+5208905,Goiás,521,52,GO
+5209101,Goiatuba,525,52,GO
+5209150,Gouvelândia,525,52,GO
+5209200,Guapó,523,52,GO
+5209291,Guaraíta,523,52,GO
+5209408,Guarani de Goiás,524,52,GO
+5209457,Guarinos,523,52,GO
+5209606,Heitoraí,523,52,GO
+5209705,Hidrolândia,523,52,GO
+5209804,Hidrolina,523,52,GO
+5209903,Iaciara,524,52,GO
+5209937,Inaciolândia,525,52,GO
+5209952,Indiara,525,52,GO
+5210000,Inhumas,523,52,GO
+5210109,Ipameri,525,52,GO
+5210158,Ipiranga de Goiás,523,52,GO
+5210208,Iporá,523,52,GO
+5210307,Israelândia,523,52,GO
+5210406,Itaberaí,523,52,GO
+5210562,Itaguari,523,52,GO
+5210604,Itaguaru,523,52,GO
+5210802,Itajá,525,52,GO
+5210901,Itapaci,523,52,GO
+5211008,Itapirapuã,521,52,GO
+5211206,Itapuranga,523,52,GO
+5211305,Itarumã,525,52,GO
+5211404,Itauçu,523,52,GO
+5211503,Itumbiara,525,52,GO
+5211602,Ivolândia,523,52,GO
+5211701,Jandaia,525,52,GO
+5211800,Jaraguá,523,52,GO
+5211909,Jataí,525,52,GO
+5212006,Jaupaci,523,52,GO
+5212055,Jesúpolis,523,52,GO
+5212105,Joviânia,525,52,GO
+5212204,Jussara,521,52,GO
+5212253,Lagoa Santa,525,52,GO
+5212303,Leopoldo de Bulhões,523,52,GO
+5212501,Luziânia,524,52,GO
+5212600,Mairipotaba,525,52,GO
+5212709,Mambaí,524,52,GO
+5212808,Mara Rosa,522,52,GO
+5212907,Marzagão,525,52,GO
+5212956,Matrinchã,521,52,GO
+5213004,Maurilândia,525,52,GO
+5213053,Mimoso de Goiás,524,52,GO
+5213087,Minaçu,522,52,GO
+5213103,Mineiros,525,52,GO
+5213400,Moiporá,523,52,GO
+5213509,Monte Alegre de Goiás,522,52,GO
+5213707,Montes Claros de Goiás,521,52,GO
+5213756,Montividiu,525,52,GO
+5213772,Montividiu do Norte,522,52,GO
+5213806,Morrinhos,525,52,GO
+5213855,Morro Agudo de Goiás,523,52,GO
+5213905,Mossâmedes,523,52,GO
+5214002,Mozarlândia,521,52,GO
+5214051,Mundo Novo,521,52,GO
+5214101,Mutunópolis,522,52,GO
+5214408,Nazário,523,52,GO
+5214507,Nerópolis,523,52,GO
+5214606,Niquelândia,522,52,GO
+5214705,Nova América,523,52,GO
+5214804,Nova Aurora,525,52,GO
+5214838,Nova Crixás,521,52,GO
+5214861,Nova Glória,523,52,GO
+5214879,Nova Iguaçu de Goiás,522,52,GO
+5214903,Nova Roma,522,52,GO
+5215009,Nova Veneza,523,52,GO
+5215207,Novo Brasil,523,52,GO
+5215231,Novo Gama,524,52,GO
+5215256,Novo Planalto,521,52,GO
+5215306,Orizona,525,52,GO
+5215405,Ouro Verde de Goiás,523,52,GO
+5215504,Ouvidor,525,52,GO
+5215603,Padre Bernardo,524,52,GO
+5215652,Palestina de Goiás,525,52,GO
+5215702,Palmeiras de Goiás,525,52,GO
+5215801,Palmelo,525,52,GO
+5215900,Palminópolis,525,52,GO
+5216007,Panamá,525,52,GO
+5216304,Paranaiguara,525,52,GO
+5216403,Paraúna,525,52,GO
+5216452,Perolândia,525,52,GO
+5216809,Petrolina de Goiás,523,52,GO
+5216908,Pilar de Goiás,523,52,GO
+5217104,Piracanjuba,525,52,GO
+5217203,Piranhas,521,52,GO
+5217302,Pirenópolis,524,52,GO
+5217401,Pires do Rio,525,52,GO
+5217609,Planaltina,524,52,GO
+5217708,Pontalina,525,52,GO
+5218003,Porangatu,522,52,GO
+5218052,Porteirão,525,52,GO
+5218102,Portelândia,525,52,GO
+5218300,Posse,524,52,GO
+5218391,Professor Jamil,525,52,GO
+5218508,Quirinópolis,525,52,GO
+5218607,Rialma,523,52,GO
+5218706,Rianápolis,523,52,GO
+5218789,Rio Quente,525,52,GO
+5218805,Rio Verde,525,52,GO
+5218904,Rubiataba,523,52,GO
+5219001,Sanclerlândia,523,52,GO
+5219100,Santa Bárbara de Goiás,523,52,GO
+5219209,Santa Cruz de Goiás,525,52,GO
+5219258,Santa Fé de Goiás,521,52,GO
+5219308,Santa Helena de Goiás,525,52,GO
+5219357,Santa Isabel,523,52,GO
+5219407,Santa Rita do Araguaia,525,52,GO
+5219456,Santa Rita do Novo Destino,523,52,GO
+5219506,Santa Rosa de Goiás,523,52,GO
+5219605,Santa Tereza de Goiás,522,52,GO
+5219704,Santa Terezinha de Goiás,522,52,GO
+5219712,Santo Antônio da Barra,525,52,GO
+5219738,Santo Antônio de Goiás,523,52,GO
+5219753,Santo Antônio do Descoberto,524,52,GO
+5219803,São Domingos,524,52,GO
+5219902,São Francisco de Goiás,523,52,GO
+5220058,São João da Paraúna,525,52,GO
+5220009,São João d'Aliança,522,52,GO
+5220108,São Luís de Montes Belos,523,52,GO
+5220157,São Luiz do Norte,523,52,GO
+5220207,São Miguel do Araguaia,521,52,GO
+5220264,São Miguel do Passa Quatro,525,52,GO
+5220280,São Patrício,523,52,GO
+5220405,São Simão,525,52,GO
+5220454,Senador Canedo,523,52,GO
+5220504,Serranópolis,525,52,GO
+5220603,Silvânia,525,52,GO
+5220686,Simolândia,524,52,GO
+5220702,Sítio d'Abadia,524,52,GO
+5221007,Taquaral de Goiás,523,52,GO
+5221080,Teresina de Goiás,522,52,GO
+5221197,Terezópolis de Goiás,523,52,GO
+5221304,Três Ranchos,525,52,GO
+5221403,Trindade,523,52,GO
+5221452,Trombas,522,52,GO
+5221502,Turvânia,523,52,GO
+5221551,Turvelândia,525,52,GO
+5221577,Uirapuru,521,52,GO
+5221601,Uruaçu,522,52,GO
+5221700,Uruana,523,52,GO
+5221809,Urutaí,525,52,GO
+5221858,Valparaíso de Goiás,524,52,GO
+5221908,Varjão,525,52,GO
+5222005,Vianópolis,525,52,GO
+5222054,Vicentinópolis,525,52,GO
+5222203,Vila Boa,524,52,GO
+5222302,Vila Propício,524,52,GO
+5300108,Brasília,531,53,DF
