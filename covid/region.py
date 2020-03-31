@@ -7,7 +7,11 @@ import pandas as pd
 
 from . import data
 from .data import DATA_PATH
+from .data import countries
 from .types import delegate, computed
+from .utils import fmt, pc, indent
+
+ifmt = lambda x: fmt(int(x))
 
 
 class RegionType(Enum):
@@ -23,7 +27,7 @@ class Region:
 
     Generic demographic and epidemiologic information about region.
     """
-
+    _contact_matrix_ref = None
     id = None
     data_source = None
     contact_matrix = None
@@ -88,6 +92,12 @@ class Region:
         ) = res = data.covid_mean_mortality(self.demography)
         return res
 
+    @computed
+    def contact_matrix(self):
+        if self._contact_matrix_ref is None:
+            return None
+        return data.contact_matrix("Italy", infer=self.demography)
+
     def __init__(self, name, demography, full_name=None, kind=RegionType.UNKNOWN):
         self.name = name
         self.country = name.partition("/")[0]
@@ -105,9 +115,40 @@ class Region:
     def _repr_html_(self):
         return self.name
 
-    def report(self):
-        return f"""Region {self.name}
+    def summary(self):
+        h_max = self.hospital_total_capacity
+        c_max = self.icu_total_capacity
+        return f"""REGION {self.name}:
+    
+Generic
+- Name       : {self.full_name}
+- Kind       : {self.kind}
+- Population : {fmt(self.population_size)}
+- Id         : {self.id}
+- Source     : {self.data_source}
+       
+Regular hospital beds
+- Capacity    : {ifmt(h_max)} ({fmt(self.hospital_beds_pm)} / 1,000 ha)
+- Occupation  : {pc(self.hospital_occupancy_rate)}
+- Free beds   : {ifmt(self.hospital_surge_capacity)}
+
+ICU beds
+- Capacity    : {ifmt(c_max)} ({fmt(10 * self.icu_beds_pm)} / 10,000 ha)
+- Occupation  : {pc(self.icu_occupancy_rate)}
+- Free beds   : {ifmt(self.icu_surge_capacity)}
 """
+
+    def report(self):
+        """
+        Extended version of summary
+        """
+        parts = [
+            self.summary(),
+            'Demography',
+            indent(str(100 * self.demography / self.population_size)),
+        ]
+        return '\n'.join(parts)
+
 
 
 class BrazilMunicipality(Region):
@@ -116,12 +157,13 @@ class BrazilMunicipality(Region):
     """
 
     data_source = "IBGE"
-    contact_matrix = computed(lambda r: data.contact_matrix("Italy", infer=r.demography))
+    _contact_matrix_ref = "Italy"
 
     def __init__(self, city):
         self.id = city_id = data.city_id_from_name(city)
         demography = data.brazil_city_demography(city_id, coarse=True).sum(1)
-        super().__init__(city, demography, full_name=f"Brazil/{city}", kind=self.KIND_CITY)
+        super().__init__(city, demography, full_name=f"Brazil/{city}",
+                         kind=self.KIND_CITY)
 
         # Other properties
         self.demography_detailed = data.brazil_city_demography(city_id)
@@ -147,6 +189,10 @@ class BrazilMunicipality(Region):
 class CIAFactbookCountry(Region):
     data_source = "CIA Factbook"
 
+    # TODO: using Italy reference contact matrices for all countries
+    _contact_matrix_ref = computed(
+        lambda r: r.country if r.id in data.CONTACT_MATRIX_IDS else "Italy")
+
     def __init__(self, country, year=2020):
         self.id = country_id = country.lower().replace(" ", "_")
         demography = data.age_distribution(country, year, coarse=True)
@@ -162,12 +208,6 @@ class CIAFactbookCountry(Region):
         # Healthcare statistics
         self.hospital_beds_pm = data.hospital_bed_density(country) * 1000
 
-        # Contact matrix
-        # TODO: using Italy reference contact matrices for all countries
-        # not present in the POLYMOD dataset
-        ref_country = country if country_id in data.CONTACT_MATRIX_IDS else "Italy"
-        self.contact_matrix = data.contact_matrix(ref_country, infer=self.demography)
-
 
 def sub_region_acc(attr, aggr=sum):
     getter = operator.attrgetter(attr)
@@ -179,6 +219,7 @@ class MultiRegion(Region):
     Region that is an aggregate of several other regions.
     """
 
+    _contact_matrix_ref = 'Italy'
     demography_detailed = sub_region_acc("demography_detailed")
     icu_total_capacity = sub_region_acc("icu_total_capacity")
     icu_surge_capacity = sub_region_acc("icu_surge_capacity")
@@ -216,10 +257,6 @@ class MultiRegion(Region):
         super().__init__("multi", demography, kind=self.KIND_METRO, **kwargs)
         self.name = name
 
-        # Correct this once we have better methods for handling contact
-        # matrices
-        self.contact_matrix = data.contact_matrix("Italy", infer=demography)
-
 
 def region(name, **kwargs):
     """
@@ -235,7 +272,13 @@ def region(name, **kwargs):
         kwargs.setdefault("full_name", name)
         return MultiRegion(metro + " (metro)", cities, **kwargs)
     elif name.startswith("Brazil/"):
-        return BrazilMunicipality(name[7:], **kwargs)
+        code = name[7:]
+        if code.isdigit() and len(code) != 7:
+            cities = countries.cities('brazil')
+            cities = [BrazilMunicipality(str(ref)) for ref in cities.index if
+                      str(ref).startswith(code)]
+            return MultiRegion(name, cities, **kwargs)
+        return BrazilMunicipality(code, **kwargs)
     else:
         return CIAFactbookCountry(name, **kwargs)
 
@@ -249,3 +292,16 @@ def brazilian_metro_area(name):
     with path.open() as fd:
         data = json.load(fd)
     return [region(f"Brazil/{id}") for id in data[name]]
+
+
+if __name__ == '__main__':
+    import click
+
+
+    @click.command()
+    @click.argument('name')
+    def cli(name):
+        click.echo(region(name).report())
+
+
+    cli()
