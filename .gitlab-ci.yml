@@ -25,9 +25,7 @@ test:
     - rit --log on_error tunnel --input disabled run calculator development test all
   except:
     variables:
-      - $CI_COMMIT_MESSAGE =~ /--do-not-trigger-ci/
-      - $CI_COMMIT_MESSAGE =~ /--skip-stage-test/
-      - $CI_COMMIT_MESSAGE =~ /--skip-job-test/
+      - $CI_COMMIT_MESSAGE =~ /--skip-test/
   tags:
     - docker
 
@@ -69,12 +67,7 @@ update production image:
     - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
     - rit --log on_error tunnel --input disabled run calculator production push
   only:
-    - /^master$/
-  except:
-    variables:
-      - $CI_COMMIT_MESSAGE =~ /--do-not-trigger-ci/
-      - $CI_COMMIT_MESSAGE =~ /--skip-stage-update-production-images/
-      - $CI_COMMIT_MESSAGE =~ /--skip-job-update-production-image/
+    - tags
   tags:
     - docker
 
@@ -89,11 +82,6 @@ deploy:
     - rit --log on_error tunnel --input disabled run calculator production deploy sync
     - rit --log on_error tunnel --input disabled run calculator production deploy playbook
   only:
-    - /^master$/
-  except:
-    variables:
-      - $CI_COMMIT_MESSAGE =~ /--do-not-trigger-ci/
-      - $CI_COMMIT_MESSAGE =~ /--skip-stage-deploy/
-      - $CI_COMMIT_MESSAGE =~ /--skip-job-deploy/
+    - tags
   tags:
     - docker
