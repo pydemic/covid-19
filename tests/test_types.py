@@ -4,7 +4,7 @@ import pytest
 
 
 class TestDescriptors:
-    @pytest.fixture(scope='class')
+    @pytest.fixture(scope="class")
     def cls(self):
         class Cls:
             cached = tt.cached(lambda x: 42)

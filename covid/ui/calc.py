@@ -285,16 +285,17 @@ class CalcUI:
         st.line_chart(df)
 
     def write_cards(self, model: SEICHAR):
+        contaminated = model.initial_population - model.susceptible
         st.write(
             f"""
 <div class="card-boxes">
 <dl class="card-box">
-    <dt>Data da exaustão de leitos clínicos</dt>
-    <dd>{model.hospital_overflow_date}</dd>
+    <dt>Exaustão dos leitos clínicos</dt>
+    <dd>{model.hospital_overflow_date or 'Nunca'}</dd>
 </dl>
 <dl class="card-box">
-    <dt>Data da exaustão de leitos de UTI com respirador</dt>
-    <dd>{model.icu_overflow_date}</dd>
+    <dt>Exaustão de leitos de UTI</dt>
+    <dd>{model.icu_overflow_date or 'Nunca'}</dd>
 </dl>
 <dl class="card-box">
     <dt>Leitos UTI faltando no dia do pico</dt>
@@ -306,7 +307,11 @@ class CalcUI:
 </dl>
 <dl class="card-box">
     <dt>Fatalidades</dt>
-    <dd>{fmt(int(model.fatalities))} ({pc(model.fatalities / model.population)})</dd>
+    <dd>{fmt(int(model.fatalities))} ({pc(model.fatalities / model.initial_population)})</dd>
+</dl>
+<dl class="card-box">
+    <dt>Contaminados</dt>
+    <dd>{fmt(int(contaminated))} ({pc(contaminated / model.initial_population)})</dd>
 </dl>
 </div>
 """,
@@ -318,10 +323,10 @@ class CalcUI:
         st.write(
             f"""
 <dl class="card-boxes">
-    <dt>Data da exaustão de leitos clínicos</dt>
+    <dt>Exaustão dos leitos clínicos</dt>
     <dd>{model.hospital_overflow_date}</dd>
 </dl><dl>
-    <dt>Data da exaustão de leitos de UTI com respirador</dt>
+    <dt>Exaustão de leitos de UTI</dt>
     <dd>{model.icu_overflow_date}</dd>
 </dl><dl>
     <dt>Leitos UTI faltando no dia do pico</dt>
