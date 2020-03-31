@@ -1,0 +1,14 @@
+version: '3'
+services:
+  covid:
+    build:
+     context: .
+     dockerfile: ./docker/covid.Dockerfile
+    command: streamlit hello
+    ports:
+      - "8000:8501"
+    volumes:
+      - ./covid:/opt/covid
+
+#volumes:
+#  esdata:
