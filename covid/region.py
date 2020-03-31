@@ -27,7 +27,7 @@ class Region:
     id = None
     data_source = None
     contact_matrix = None
-    full_name = delegate('name')
+    full_name = delegate("name")
 
     # Derived quantities
     population_size = computed(lambda r: r.demography.sum())
@@ -71,7 +71,7 @@ class Region:
         idx = self.demography.index
         males = data // 2
         females = data - males
-        return pd.DataFrame({'male': males, 'female': females}, index=idx)
+        return pd.DataFrame({"male": males, "female": females}, index=idx)
 
     # Kinds
     KIND_UNKNOWN = RegionType.UNKNOWN
@@ -81,13 +81,16 @@ class Region:
 
     @property
     def _mortality(self):
-        self.prob_hospitalization, self.prob_icu, self.prob_fatality = \
-            res = data.covid_mean_mortality(self.demography)
+        (
+            self.prob_hospitalization,
+            self.prob_icu,
+            self.prob_fatality,
+        ) = res = data.covid_mean_mortality(self.demography)
         return res
 
     def __init__(self, name, demography, full_name=None, kind=RegionType.UNKNOWN):
         self.name = name
-        self.country = name.partition('/')[0]
+        self.country = name.partition("/")[0]
         self.kind = kind
         if full_name:
             self.full_name = full_name
@@ -97,7 +100,7 @@ class Region:
         return self.name
 
     def __repr__(self):
-        return f'region({self.full_name!r})'
+        return f"region({self.full_name!r})"
 
     def _repr_html_(self):
         return self.name
@@ -112,14 +115,17 @@ class BrazilMunicipality(Region):
     Region represents a Brazilian municipality.
     """
 
-    data_source = 'IBGE'
-    contact_matrix = computed(lambda r: data.contact_matrix('Italy', infer=r.demography))
+    data_source = "IBGE"
+    contact_matrix = computed(
+        lambda r: data.contact_matrix("Italy", infer=r.demography)
+    )
 
     def __init__(self, city):
         self.id = city_id = data.city_id_from_name(city)
         demography = data.brazil_city_demography(city_id, coarse=True).sum(1)
-        super().__init__(city, demography, full_name=f'Brazil/{city}',
-                         kind=self.KIND_CITY)
+        super().__init__(
+            city, demography, full_name=f"Brazil/{city}", kind=self.KIND_CITY
+        )
 
         # Other properties
         self.demography_detailed = data.brazil_city_demography(city_id)
@@ -143,10 +149,10 @@ class BrazilMunicipality(Region):
 
 
 class CIAFactbookCountry(Region):
-    data_source = 'CIA Factbook'
+    data_source = "CIA Factbook"
 
     def __init__(self, country, year=2020):
-        self.id = country_id = country.lower().replace(' ', '_')
+        self.id = country_id = country.lower().replace(" ", "_")
         demography = data.age_distribution(country, year, coarse=True)
         demography *= 1000
         super().__init__(country, demography, kind=self.KIND_COUNTRY)
@@ -154,7 +160,7 @@ class CIAFactbookCountry(Region):
         # Age distribution and population
         df = data.age_distribution(country, year)
         df *= 500
-        df = pd.DataFrame({'male': df, 'female': df}, index=df.index)
+        df = pd.DataFrame({"male": df, "female": df}, index=df.index)
         self.demography_detailed = df
 
         # Healthcare statistics
@@ -163,7 +169,7 @@ class CIAFactbookCountry(Region):
         # Contact matrix
         # TODO: using Italy reference contact matrices for all countries
         # not present in the POLYMOD dataset
-        ref_country = country if country_id in data.CONTACT_MATRIX_IDS else 'Italy'
+        ref_country = country if country_id in data.CONTACT_MATRIX_IDS else "Italy"
         self.contact_matrix = data.contact_matrix(ref_country, infer=self.demography)
 
 
@@ -177,11 +183,11 @@ class MultiRegion(Region):
     Region that is an aggregate of several other regions.
     """
 
-    demography_detailed = sub_region_acc('demography_detailed')
-    icu_total_capacity = sub_region_acc('icu_total_capacity')
-    icu_surge_capacity = sub_region_acc('icu_surge_capacity')
-    hospital_total_capacity = sub_region_acc('hospital_total_capacity')
-    hospital_surge_capacity = sub_region_acc('hospital_surge_capacity')
+    demography_detailed = sub_region_acc("demography_detailed")
+    icu_total_capacity = sub_region_acc("icu_total_capacity")
+    icu_surge_capacity = sub_region_acc("icu_surge_capacity")
+    hospital_total_capacity = sub_region_acc("hospital_total_capacity")
+    hospital_surge_capacity = sub_region_acc("hospital_surge_capacity")
 
     @computed
     def hospital_beds_pm(self):
@@ -208,15 +214,15 @@ class MultiRegion(Region):
 
         if name is None:
             names = (r.name for r in self.sub_regions)
-            name = f'Region: {names}'
+            name = f"Region: {names}"
 
         demography = sum(r.demography for r in self.sub_regions)
-        super().__init__('multi', demography, kind=self.KIND_METRO, **kwargs)
+        super().__init__("multi", demography, kind=self.KIND_METRO, **kwargs)
         self.name = name
 
         # Correct this once we have better methods for handling contact
         # matrices
-        self.contact_matrix = data.contact_matrix('Italy', infer=demography)
+        self.contact_matrix = data.contact_matrix("Italy", infer=demography)
 
 
 def region(name, **kwargs):
@@ -227,12 +233,12 @@ def region(name, **kwargs):
         return name
     elif not isinstance(name, str):
         return MultiRegion(None, list(name), **kwargs)
-    elif name.startswith('Brazil/') and name.endswith('(metro)'):
+    elif name.startswith("Brazil/") and name.endswith("(metro)"):
         metro = name[7:-7].strip()
         cities = brazilian_metro_area(metro)
-        kwargs.setdefault('full_name', name)
-        return MultiRegion(metro + ' (metro)', cities, **kwargs)
-    elif name.startswith('Brazil/'):
+        kwargs.setdefault("full_name", name)
+        return MultiRegion(metro + " (metro)", cities, **kwargs)
+    elif name.startswith("Brazil/"):
         return BrazilMunicipality(name[7:], **kwargs)
     else:
         return CIAFactbookCountry(name, **kwargs)
@@ -243,7 +249,7 @@ def brazilian_metro_area(name):
     Load all cities from a Brazilian metropolitan area.
     """
 
-    path = DATA_PATH / 'brazil_metro.json'
+    path = DATA_PATH / "brazil_metro.json"
     with path.open() as fd:
         data = json.load(fd)
-    return [region(f'Brazil/{id}') for id in data[name]]
+    return [region(f"Brazil/{id}") for id in data[name]]

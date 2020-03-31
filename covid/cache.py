@@ -11,8 +11,8 @@ def cache(path):
     def decorator(func):
         @wraps(func)
         def decorated(*args, **kwargs):
-            with shelve.open(path, 'c') as db:
-                ids = db.setdefault('ids', {})
+            with shelve.open(path, "c") as db:
+                ids = db.setdefault("ids", {})
                 try:
                     call_id = ids[(args, tuple(kwargs.items()))]
                 except KeyError:
@@ -22,8 +22,8 @@ def cache(path):
 
             value = func(*args, **kwargs)
             ref = ids[args, tuple(kwargs.items())] = str(uuid.uuid4())
-            with shelve.open(path, 'w') as db:
-                db['ids'] = ids
+            with shelve.open(path, "w") as db:
+                db["ids"] = ids
                 db[ref] = value
             return value
 

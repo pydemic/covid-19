@@ -24,7 +24,7 @@ class ModelMeta(type):
 
     def __init__(cls, name, bases, ns):
         try:
-            ns['EXAMPLES'] = MappingProxyType(ns['EXAMPLES'])
+            ns["EXAMPLES"] = MappingProxyType(ns["EXAMPLES"])
         except KeyError:
             pass
 
@@ -35,6 +35,7 @@ class Model(metaclass=ModelMeta):
     """
     Base class for all Epidemic models.
     """
+
     EXAMPLES = MappingProxyType({})
     OPTIONS = {}
     sub_groups = None
@@ -67,14 +68,15 @@ class Model(metaclass=ModelMeta):
         and dirt CLI tools.
         """
         import click
+
         kind_map = {
-            'int': int,
-            'float': float,
-            'str': str,
+            "int": int,
+            "float": float,
+            "str": str,
         }
 
-        @click.option('--plot', is_flag=True, help='Display plot')
-        @click.option('--debug', is_flag=True, help='Display debug information')
+        @click.option("--plot", is_flag=True, help="Display plot")
+        @click.option("--debug", is_flag=True, help="Display debug information")
         def cli(plot=False, debug=False, **kwargs_):
             kwargs_ = {k: v for k, v in kwargs_.items() if v is not None}
             kwargs_ = {**kwargs, **kwargs_}
@@ -82,17 +84,17 @@ class Model(metaclass=ModelMeta):
             m.run()
             print(m)
             if debug:
-                print('\n\nDEBUG SYMBOLS')
+                print("\n\nDEBUG SYMBOLS")
                 for k, v in vars(m).items():
-                    print(k, '=', pformat(v))
+                    print(k, "=", pformat(v))
             if plot:
                 m.plot(show=True)
 
         for cmd, help in list(cls.OPTIONS.items())[::-1]:
-            cmd, _, kind = cmd.partition(':')
-            kind = kind_map[kind or 'float']
-            cmd = cmd.replace('_', '-')
-            cli = click.option(f'--{cmd}', help=help, type=kind)(cli)
+            cmd, _, kind = cmd.partition(":")
+            kind = kind_map[kind or "float"]
+            cmd = cmd.replace("_", "-")
+            cli = click.option(f"--{cmd}", help=help, type=kind)(cli)
         cli = click.command()(cli)
         cli()
 
@@ -102,7 +104,7 @@ class Model(metaclass=ModelMeta):
 
     def __init__(self, *args, **kwargs):
         if args:
-            key, = args
+            (key,) = args
             default = self.EXAMPLES[key]
             kwargs = {**default, **kwargs}
 
@@ -110,11 +112,11 @@ class Model(metaclass=ModelMeta):
             if hasattr(self, k):
                 setattr(self, k, v)
             else:
-                raise TypeError(f'invalid argument: {k}')
+                raise TypeError(f"invalid argument: {k}")
 
-        if not hasattr(self, 'display_columns'):
+        if not hasattr(self, "display_columns"):
             self.display_columns = self.columns
-        if not hasattr(self, 'data'):
+        if not hasattr(self, "data"):
             self.data = pd.DataFrame(columns=self.columns)
 
     def __str__(self):
@@ -132,23 +134,23 @@ class Model(metaclass=ModelMeta):
 
     def __getitem__(self, item):
         if isinstance(item, str):
-            if ':' in item:
-                col, *methods = item.split(':')
-                fn, *fns = [getattr(self, f'get_{m}') for m in methods]
+            if ":" in item:
+                col, *methods = item.split(":")
+                fn, *fns = [getattr(self, f"get_{m}") for m in methods]
                 res = fn(col)
                 for fn in fns:
                     res = fn(res)
                 return res
             else:
                 try:
-                    method = getattr(self, f'get_data_{item}')
+                    method = getattr(self, f"get_data_{item}")
                 except AttributeError:
                     raise KeyError(item)
                 else:
                     return method(self.data)
         else:
             cls = type(item)
-            raise TypeError(f'invalid index type: {cls.__name__}')
+            raise TypeError(f"invalid index type: {cls.__name__}")
 
     def get_dates(self, df):
         """
@@ -180,9 +182,9 @@ class Model(metaclass=ModelMeta):
                 corresponding to a difference of 1.0.
         """
         if start_date is None:
-            start_date = getattr(self, 'start_date', TODAY)
+            start_date = getattr(self, "start_date", TODAY)
         if delta is None:
-            delta = getattr(self, 'time_delta', DAY)
+            delta = getattr(self, "time_delta", DAY)
         if isinstance(delta, Number):
             delta = datetime.timedelta(days=1)
 
@@ -204,7 +206,7 @@ class Model(metaclass=ModelMeta):
         """
         Derivative function for state.
         """
-        raise NotImplementedError('implement in subclass')
+        raise NotImplementedError("implement in subclass")
 
     def integral(self, series):
         """
@@ -265,7 +267,7 @@ class Model(metaclass=ModelMeta):
 
         return times[i:j], xs[i:j]
 
-    def run(self, duration=None, convergence=None, watcher=None) -> 'Model':
+    def run(self, duration=None, convergence=None, watcher=None) -> "Model":
         """
         Run simulation until dynamics can be considered resolved.
 
@@ -302,7 +304,7 @@ class Model(metaclass=ModelMeta):
         self._run_post_process()
         return self
 
-    def run_interval(self, dt, watcher=None) -> 'Model':
+    def run_interval(self, dt, watcher=None) -> "Model":
         """
         Run simulation by given interval.
         """
@@ -335,7 +337,7 @@ class Model(metaclass=ModelMeta):
 
     def _to_dataframe(self, times, ys) -> pd.DataFrame:
         if self.sub_groups:
-            names = 'column', 'age'
+            names = "column", "age"
             mk_product = pd.MultiIndex.from_product
             columns = mk_product((self.columns, self.sub_groups), names=names)
         else:
@@ -352,7 +354,7 @@ class Model(metaclass=ModelMeta):
         if df is None:
             df = self.data
         try:
-            method = getattr(self, f'get_data_{name}')
+            method = getattr(self, f"get_data_{name}")
         except AttributeError:
             return df[name]
         else:

@@ -10,7 +10,7 @@ def states(country: str) -> pd.DataFrame:
     in the index and names on the name column.
     """
 
-    path = DATA_PATH / 'countries' / country / 'states.csv'
+    path = DATA_PATH / "countries" / country / "states.csv"
     return pd.read_csv(path, index_col=0)
 
 
@@ -25,7 +25,7 @@ def sub_regions(country: str) -> pd.DataFrame:
     given country.
     """
 
-    path = DATA_PATH / 'countries' / country / 'sub-regions.csv'
+    path = DATA_PATH / "countries" / country / "sub-regions.csv"
     return pd.read_csv(path, index_col=0)
 
 
@@ -39,5 +39,5 @@ def cities(country: str) -> pd.DataFrame:
     of the given country.
     """
 
-    path = DATA_PATH / 'countries' / country / 'cities.csv'
+    path = DATA_PATH / "countries" / country / "cities.csv"
     return pd.read_csv(path, index_col=0)

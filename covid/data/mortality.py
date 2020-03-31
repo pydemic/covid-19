@@ -8,7 +8,7 @@ def covid_mortality():
     """
     Return a dataframe with COVID-19 mortality data from Neil M Ferguson, et. al.
     """
-    path = DATA_PATH / 'covid-mortality-imperial-college.csv'
+    path = DATA_PATH / "covid-mortality-imperial-college.csv"
     return pd.read_csv(path, index_col=0) / 100
 
 
@@ -40,9 +40,9 @@ def covid_mean_mortality(region, year=2020):
     dm = covid_mortality()
     total = df.sum()
 
-    h = dm['hospitalization']
-    c = dm['icu']
-    f = dm['fatality']
+    h = dm["hospitalization"]
+    c = dm["icu"]
+    f = dm["fatality"]
 
     p_h = (h * df).sum() / total
     p_c = (c * df).sum() / total

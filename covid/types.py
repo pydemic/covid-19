@@ -41,12 +41,14 @@ def alias(name):
 
     fget = operator.attrgetter(name)
 
-    if '.' in name:
-        base, _, extra = name.partition('.')
+    if "." in name:
+        base, _, extra = name.partition(".")
 
         def fset(self, value):
-            raise TypeError(f'cannot modify sub-attribute {extra} of {base}')
+            raise TypeError(f"cannot modify sub-attribute {extra} of {base}")
+
     else:
+
         def fset(self, value):
             setattr(self, name, value)
 

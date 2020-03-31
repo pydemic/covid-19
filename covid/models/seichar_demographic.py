@@ -13,7 +13,7 @@ class SEICHARDemographic(SEICHAR):
 
     demography: pd.DataFrame
     mortality: pd.DataFrame
-    region: Region = 'WORLD'
+    region: Region = "WORLD"
     contact_matrix = None
     ref_year = 2020
     seed = 1e-3
@@ -29,20 +29,23 @@ class SEICHARDemographic(SEICHAR):
             return x
 
         # Required demographic information
-        if not hasattr(self, 'demography'):
+        if not hasattr(self, "demography"):
             self.demography = self.region.demography
         self.sub_groups = tuple(self.demography.index)
 
         # Mortality parameters
-        if not hasattr(self, 'mortality'):
+        if not hasattr(self, "mortality"):
             self.mortality = data.covid_mortality()
-        self.prob_hospitalization = self.mortality['hospitalization'].values
-        self.prob_icu = self.mortality['icu'].values
-        self.prob_fatality = \
-            self.mortality['fatality'].values / self.prob_icu / self.prob_hospitalization
+        self.prob_hospitalization = self.mortality["hospitalization"].values
+        self.prob_icu = self.mortality["icu"].values
+        self.prob_fatality = (
+            self.mortality["fatality"].values
+            / self.prob_icu
+            / self.prob_hospitalization
+        )
 
         # Contact matrix
-        set_('contact_matrix', np.asarray(self.region.contact_matrix.values))
+        set_("contact_matrix", np.asarray(self.region.contact_matrix.values))
         if self.contact_matrix is not None:
             M = np.asarray(self.contact_matrix)
             eig = np.linalg.eigvals(M)
@@ -57,7 +60,7 @@ class SEICHARDemographic(SEICHAR):
 
         # Initial state
         n_groups = len(self.sub_groups)
-        if 'x0' not in kwargs:
+        if "x0" not in kwargs:
             empty = self.demography.values * 0
             p_s = self.prob_symptomatic
             i = empty + self.seed / n_groups
@@ -65,29 +68,33 @@ class SEICHARDemographic(SEICHAR):
             e = i * self.gamma_i / self.sigma
             s = self.demography.values - (i + e + a)
 
-            self.x0 = np.concatenate([
-                s,
-                e,
-                i,
-                empty,  # critical
-                empty,  # hospitalized
-                a,
-                empty,  # recovered
-                self.fatalities + empty,
-            ])
+            self.x0 = np.concatenate(
+                [
+                    s,
+                    e,
+                    i,
+                    empty,  # critical
+                    empty,  # hospitalized
+                    a,
+                    empty,  # recovered
+                    self.fatalities + empty,
+                ]
+            )
         self.x0 = np.asarray(self.x0)
         self._children = self.demography.values * 0.0
         self._children[0] = 1.0
 
         # Columns and indexes
-        self.SUSCEPTIBLE, \
-            self.EXPOSED, \
-            self.INFECTIOUS, \
-            self.CRITICAL, \
-            self.HOSPITALIZED, \
-            self.ASYMPTOMATIC, \
-            self.RECOVERED, \
-            self.FATALITIES = range(0, 8 * n_groups, n_groups)
+        (
+            self.SUSCEPTIBLE,
+            self.EXPOSED,
+            self.INFECTIOUS,
+            self.CRITICAL,
+            self.HOSPITALIZED,
+            self.ASYMPTOMATIC,
+            self.RECOVERED,
+            self.FATALITIES,
+        ) = range(0, 8 * n_groups, n_groups)
 
     def get_total(self, col):
         data = super().get_total(col)
@@ -97,7 +104,7 @@ class SEICHARDemographic(SEICHAR):
         x = np.reshape(x, (-1, len(self.sub_groups)))
         s, e, i, c, h, a, r, f = x
 
-        assert (x >= 0).all(), f'Invalid value at t={t}: {x}'
+        assert (x >= 0).all(), f"Invalid value at t={t}: {x}"
 
         err = 1e-50
         h_hat = h / (h.sum() + err)
@@ -130,24 +137,26 @@ class SEICHARDemographic(SEICHAR):
         sigma_eff = self.sigma / self.prob_symptomatic
         exposed = self.data["exposed"].apply(self.integral, 0) * sigma_eff
         infectious = self.data["infectious"].apply(self.integral, 0) * sigma_eff
-        data = pd.DataFrame({
-            'fatalities': fatalities.apply(int),
-            'fatalities (%)': 100 * fatalities / self.demography,
-            'IFR (%)': 100 * fatalities / exposed,
-            'CFR (%)': 100 * fatalities / infectious,
-        })
-        data.loc['total', :] = [
+        data = pd.DataFrame(
+            {
+                "fatalities": fatalities.apply(int),
+                "fatalities (%)": 100 * fatalities / self.demography,
+                "IFR (%)": 100 * fatalities / exposed,
+                "CFR (%)": 100 * fatalities / infectious,
+            }
+        )
+        data.loc["total", :] = [
             int(fatalities.sum()),
             100 * fatalities.sum() / self.demography.sum(),
             100 * fatalities.sum() / exposed.sum(),
             100 * fatalities.sum() / infectious.sum(),
         ]
-        data['fatalities'] = data['fatalities'].apply(int)
+        data["fatalities"] = data["fatalities"].apply(int)
         lines = str(data).splitlines()
-        data = '\n'.join('    ' + ln for ln in lines)
-        st += f'- Fatalities demography: \n{data}'
+        data = "\n".join("    " + ln for ln in lines)
+        st += f"- Fatalities demography: \n{data}"
         return st
 
 
-if __name__ == '__main__':
-    SEICHARDemographic.main(region='Brazil')
+if __name__ == "__main__":
+    SEICHARDemographic.main(region="Brazil")

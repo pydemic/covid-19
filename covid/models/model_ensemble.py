@@ -14,15 +14,16 @@ class ModelEnsemble(Model):
 
     def __init__(self, cls, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.distributions = {k: v for k, v in kwargs.items() if hasattr(k, 'rvs')}
+        self.distributions = {k: v for k, v in kwargs.items() if hasattr(k, "rvs")}
         self.factory_method = cls
         self.params = pd.DataFrame(
-            {k: v.rvs(self.ensemble_size) for k, v in self.distributions})
+            {k: v.rvs(self.ensemble_size) for k, v in self.distributions}
+        )
 
         kw = {k: v for k, v in kwargs.items() if k not in self.distributions}
         self.models = [cls(*args, **kw, **row.to_dict()) for row in self.params]
 
-    def run(self, *args, **kwargs) -> 'Model':
+    def run(self, *args, **kwargs) -> "Model":
         for model in self.models:
             model.run(*args, **kwargs)
         return self
@@ -49,5 +50,5 @@ class ModelEnsemble(Model):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     m = ModelEnsemble.main()

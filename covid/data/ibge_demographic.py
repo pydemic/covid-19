@@ -8,13 +8,15 @@ from .cia_factbook import coarse_age_distribution
 from .data import DATA_PATH
 from .ibge import city_id_from_name
 
-IBGE_DATA: Path = DATA_PATH / 'ibge_demographic'
+IBGE_DATA: Path = DATA_PATH / "ibge_demographic"
 
-URL = 'https://servicodados.ibge.gov.br/api/v1/pesquisas/23/periodos/all/resultados' \
-      '?localidade={city}&indicadores=27692,27693,27694,27695,27696,27697,27698,27699,' \
-      '27700,27701,27702,27703,27704,27705,27706,27707,27708,27709,27710,27711,27712,' \
-      '27713,27719,27720,27721,27722,27723,27724,27725,27726,27727,27728,27729,27730,' \
-      '27731,27732,27733,27734,27735,27736,27737,27738,27739,27740&lang=pt '
+URL = (
+    "https://servicodados.ibge.gov.br/api/v1/pesquisas/23/periodos/all/resultados"
+    "?localidade={city}&indicadores=27692,27693,27694,27695,27696,27697,27698,27699,"
+    "27700,27701,27702,27703,27704,27705,27706,27707,27708,27709,27710,27711,27712,"
+    "27713,27719,27720,27721,27722,27723,27724,27725,27726,27727,27728,27729,27730,"
+    "27731,27732,27733,27734,27735,27736,27737,27738,27739,27740&lang=pt "
+)
 
 VARNAMES_MALE = {
     27692: "0",
@@ -87,21 +89,21 @@ def brazil_city_demography(city_id, coarse=False, collapse_newborn=False):
     if coarse:
         df = brazil_city_demography(city_id, collapse_newborn=True)
         males, females = map(coarse_age_distribution, [df.males, df.females])
-        return pd.DataFrame({'males': males, 'females': females})
+        return pd.DataFrame({"males": males, "females": females})
 
     if collapse_newborn:
         df = brazil_city_demography(city_id)
         row_0 = df.iloc[0]
         df = df.iloc[1:, :].copy()
         df.iloc[0, :] += row_0
-        df.index = ['0-4', *df.index[1:]]
+        df.index = ["0-4", *df.index[1:]]
         return df
 
     return _load_city(city_id)
 
 
 def _load_city(city_id):
-    path = IBGE_DATA / f'city-{city_id}.csv'
+    path = IBGE_DATA / f"city-{city_id}.csv"
 
     if path.exists():
         with path.open() as fd:
@@ -111,29 +113,32 @@ def _load_city(city_id):
         r = requests.get(URL.format(city=city_id))
         obj = r.json()
 
-        obj = {k['id']: _int_or_nan(k['res'][0]['res']['2010']) for k in obj}
+        obj = {k["id"]: _int_or_nan(k["res"][0]["res"]["2010"]) for k in obj}
         males = [obj[k] for k in VARNAMES_MALE]
         females = [obj[k] for k in VARNAMES_FEMALE]
-        df = pd.DataFrame(list(zip(males, females)), columns=['males', 'females'])
+        df = pd.DataFrame(list(zip(males, females)), columns=["males", "females"])
         df.index = list(VARNAMES_MALE.values())
 
-        with path.open('w') as fd:
+        with path.open("w") as fd:
             df.to_csv(fd)
 
     return df
 
 
 def _int_or_nan(x):
-    return float('nan') if x == '-' else int(x)
+    return float("nan") if x == "-" else int(x)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+
     @click.command()
-    @click.argument('CITY_ID')
-    @click.option('--coarse', is_flag=True, type=bool,
-                  help='Reduce the number of categories')
-    @click.option('--no-gender', is_flag=True, type=bool,
-                  help='Do not discriminate by gender')
+    @click.argument("CITY_ID")
+    @click.option(
+        "--coarse", is_flag=True, type=bool, help="Reduce the number of categories"
+    )
+    @click.option(
+        "--no-gender", is_flag=True, type=bool, help="Do not discriminate by gender"
+    )
     def main(city_id, coarse, no_gender):
         df = brazil_city_demography(city_id, coarse=coarse)
         if no_gender:

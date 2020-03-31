@@ -6,7 +6,7 @@ from ..models.seichar_demographic import SEICHARDemographic
 from ..models.seichar import SEICHAR
 
 
-@cache('cache/world.db')
+@cache("cache/world.db")
 def simulate(region, r0=2.74, ps=0.14, cls=SEICHAR):
     model = cls(region=region, R0=r0, prob_symptomatic=ps)
     model.run()
@@ -35,5 +35,5 @@ def ps_series(r0=2.74, func=lambda x: x):
     return res
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     r0_series(func=print)
