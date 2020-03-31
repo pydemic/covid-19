@@ -1,5 +1,5 @@
 import re
-from functools import lru_cache
+from functools import lru_cache, wraps
 
 import numpy as np
 
@@ -93,3 +93,21 @@ def interpolant(x, y):
         return np.interp(t, x, y)
 
     return fn
+
+
+def lru_safe_cache(size):
+    """
+    A safe LRU cache that returns a copy of the cached element to prevent
+    mutations from cached values.
+    """
+
+    def decorator(func):
+        cached = lru_cache(size)(func)
+
+        @wraps(func)
+        def fn(*args, **kwargs):
+            return cached(*args, **kwargs).copy()
+
+        return cached
+
+    return decorator

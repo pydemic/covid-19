@@ -44,7 +44,7 @@ class Model(metaclass=ModelMeta):
     columns = None
 
     # Auxiliary accessors and sub-attributes
-    plot = cached(lambda self: self.plot_class(self))
+    plot: Plot = cached(lambda self: self.plot_class(self))
     plot_class = Plot
 
     # Solver and numerical method parameters

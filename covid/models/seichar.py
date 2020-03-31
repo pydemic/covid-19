@@ -76,6 +76,7 @@ class SEICHAR(Model):
             'it to the COVID struggle',
     }
     plot_class = SEICHARPlot
+    plot: SEICHARPlot
     region = None
     ref_year = 2020
 
