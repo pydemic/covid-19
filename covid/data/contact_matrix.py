@@ -39,9 +39,7 @@ def _symmetric_contact_matrix_coarse(df):
     return pd.DataFrame(out, columns=COARSE_INDEX, index=COARSE_INDEX)
 
 
-def contact_matrix(
-    country="mean", physical=False, coarse=None, infer=False
-) -> pd.DataFrame:
+def contact_matrix(country="mean", physical=False, coarse=None, infer=False) -> pd.DataFrame:
     """
     Load contact matrix for country.
 

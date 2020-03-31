@@ -16,9 +16,7 @@ class ModelEnsemble(Model):
         super().__init__(*args, **kwargs)
         self.distributions = {k: v for k, v in kwargs.items() if hasattr(k, "rvs")}
         self.factory_method = cls
-        self.params = pd.DataFrame(
-            {k: v.rvs(self.ensemble_size) for k, v in self.distributions}
-        )
+        self.params = pd.DataFrame({k: v.rvs(self.ensemble_size) for k, v in self.distributions})
 
         kw = {k: v for k, v in kwargs.items() if k not in self.distributions}
         self.models = [cls(*args, **kw, **row.to_dict()) for row in self.params]

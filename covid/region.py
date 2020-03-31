@@ -116,16 +116,12 @@ class BrazilMunicipality(Region):
     """
 
     data_source = "IBGE"
-    contact_matrix = computed(
-        lambda r: data.contact_matrix("Italy", infer=r.demography)
-    )
+    contact_matrix = computed(lambda r: data.contact_matrix("Italy", infer=r.demography))
 
     def __init__(self, city):
         self.id = city_id = data.city_id_from_name(city)
         demography = data.brazil_city_demography(city_id, coarse=True).sum(1)
-        super().__init__(
-            city, demography, full_name=f"Brazil/{city}", kind=self.KIND_CITY
-        )
+        super().__init__(city, demography, full_name=f"Brazil/{city}", kind=self.KIND_CITY)
 
         # Other properties
         self.demography_detailed = data.brazil_city_demography(city_id)

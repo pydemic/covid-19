@@ -468,9 +468,7 @@ class SEICHAR(Model):
 
         h_demand = self.peak_hospitalization_demand
         c_demand = self.peak_icu_demand
-        icu_overload = (
-            self.peak_icu_demand / self.icu_capacity * (1 - self.icu_occupancy_rate)
-        )
+        icu_overload = self.peak_icu_demand / self.icu_capacity * (1 - self.icu_occupancy_rate)
         h_overload = (
             self.peak_hospitalization_demand
             / self.hospital_capacity

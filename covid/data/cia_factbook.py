@@ -21,9 +21,7 @@ COUNTRY_TO_AGE_DISTRIBUTION = {
     "Tanzania": "United Republic of Tanzania",
     "Vietnam": "Viet Nam",
 }
-COUNTRY_TO_AGE_DISTRIBUTION.update(
-    {k.lower(): v for k, v in COUNTRY_TO_AGE_DISTRIBUTION.items()}
-)
+COUNTRY_TO_AGE_DISTRIBUTION.update({k.lower(): v for k, v in COUNTRY_TO_AGE_DISTRIBUTION.items()})
 COUNTRY_TO_HOSPITAL_BEDS = {
     # '': 'Andorra',
     # '': 'Brunei',
@@ -46,9 +44,7 @@ COUNTRY_TO_HOSPITAL_BEDS = {
     "Micronesia": "Micronesia, Federated States of",
     "": "West Bank",
 }
-COUNTRY_TO_HOSPITAL_BEDS.update(
-    {k.lower(): v for k, v in COUNTRY_TO_HOSPITAL_BEDS.items()}
-)
+COUNTRY_TO_HOSPITAL_BEDS.update({k.lower(): v for k, v in COUNTRY_TO_HOSPITAL_BEDS.items()})
 HOSPITAL_BEDS_MISSING_DATA = {
     "Angola",
     "Aruba",
@@ -102,9 +98,7 @@ def cia_factbook(which):
         df = pd.read_csv(DATA_PATH / "cia_factbook-age_distribution.csv", index_col=0)
         return df
     if which == "hospital beds":
-        df = pd.read_csv(
-            DATA_PATH / "cia_factbook-hospital_bed_density.csv", index_col=0, sep=";"
-        )
+        df = pd.read_csv(DATA_PATH / "cia_factbook-hospital_bed_density.csv", index_col=0, sep=";")
         return df
     else:
         raise ValueError(f"invalid dataset: {which}")

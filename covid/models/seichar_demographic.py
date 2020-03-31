@@ -39,9 +39,7 @@ class SEICHARDemographic(SEICHAR):
         self.prob_hospitalization = self.mortality["hospitalization"].values
         self.prob_icu = self.mortality["icu"].values
         self.prob_fatality = (
-            self.mortality["fatality"].values
-            / self.prob_icu
-            / self.prob_hospitalization
+            self.mortality["fatality"].values / self.prob_icu / self.prob_hospitalization
         )
 
         # Contact matrix

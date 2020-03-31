@@ -15,6 +15,21 @@ requires = [
   "numpy",
   "pandas",
   "requests",
+  "seaborn",
   "streamlit",
   "xlrd"
 ]
+
+[tool.flit.metadata.requires-extra]
+dev = [
+  "black",
+  "pycodestyle"
+]
+test = [
+  "coverage",
+  "pytest"
+]
+
+
+[tool.black]
+line-length = 100

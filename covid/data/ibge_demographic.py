@@ -133,12 +133,8 @@ if __name__ == "__main__":
 
     @click.command()
     @click.argument("CITY_ID")
-    @click.option(
-        "--coarse", is_flag=True, type=bool, help="Reduce the number of categories"
-    )
-    @click.option(
-        "--no-gender", is_flag=True, type=bool, help="Do not discriminate by gender"
-    )
+    @click.option("--coarse", is_flag=True, type=bool, help="Reduce the number of categories")
+    @click.option("--no-gender", is_flag=True, type=bool, help="Do not discriminate by gender")
     def main(city_id, coarse, no_gender):
         df = brazil_city_demography(city_id, coarse=coarse)
         if no_gender:
