@@ -81,13 +81,13 @@ class SEICHARDemographic(SEICHAR):
 
         # Columns and indexes
         self.SUSCEPTIBLE, \
-        self.EXPOSED, \
-        self.INFECTIOUS, \
-        self.CRITICAL, \
-        self.HOSPITALIZED, \
-        self.ASYMPTOMATIC, \
-        self.RECOVERED, \
-        self.FATALITIES = range(0, 8 * n_groups, n_groups)
+            self.EXPOSED, \
+            self.INFECTIOUS, \
+            self.CRITICAL, \
+            self.HOSPITALIZED, \
+            self.ASYMPTOMATIC, \
+            self.RECOVERED, \
+            self.FATALITIES = range(0, 8 * n_groups, n_groups)
 
     def get_total(self, col):
         data = super().get_total(col)

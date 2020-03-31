@@ -140,5 +140,4 @@ if __name__ == '__main__':
             df = df.sum(1)
         print(df.to_csv())
 
-
     main()

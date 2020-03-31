@@ -1,0 +1,49 @@
+image: ritproject/cli:docker
+services:
+  - docker:dind
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+stages:
+  - test
+  - update project images
+before_script:
+  - rit --log on_error config tunnel add repo https://github.com/altjohndev/fabiommendes-covid-19-tunnel --name tunnel
+  - rit --log on_error config tunnel default set tunnel
+
+# Stage: test
+
+test:
+  stage: test
+  variables:
+    BUILD_TYPE: recursive
+  script:
+    - rit --log on_error tunnel --input disabled run covid_19 development build
+    - rit --log on_error tunnel --input disabled run covid_19 development test up
+    - rit --log on_error tunnel --input disabled run covid_19 development test sync
+    - rit --log on_error tunnel --input disabled run covid_19 development test all
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /--do-not-trigger-ci/
+      - $CI_COMMIT_MESSAGE =~ /--skip-stage-test/
+      - $CI_COMMIT_MESSAGE =~ /--skip-job-test/
+  tags:
+    - docker
+
+# Stage: update project images
+
+.update_project_image: &update_project_image
+  stage: update project images
+  only:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /--update-project-images/
+    refs:
+      - /^master$/
+  tags:
+    - docker
+
+update development image:
+  <<: *update_project_image
+  script:
+    - docker login registry.gitlab.com --username gitlab-ci-token --password $CI_BUILD_TOKEN
+    - rit --log on_error tunnel --input disabled run covid_19 development build
+    - rit --log on_error tunnel --input disabled run covid_19 development push

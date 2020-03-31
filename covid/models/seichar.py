@@ -37,13 +37,13 @@ class SEICHAR(Model):
         'fatalities',
     ]
     SUSCEPTIBLE, \
-    EXPOSED, \
-    INFECTIOUS, \
-    CRITICAL, \
-    HOSPITALIZED, \
-    ASYMPTOMATIC, \
-    RECOVERED, \
-    FATALITIES = range(8)
+        EXPOSED, \
+        INFECTIOUS, \
+        CRITICAL, \
+        HOSPITALIZED, \
+        ASYMPTOMATIC, \
+        RECOVERED, \
+        FATALITIES = range(8)
 
     SUSCEPTIBLE_ALL = cached(lambda x: x._idx_all(x.SUSCEPTIBLE))
     EXPOSED_ALL = cached(lambda x: x._idx_all(x.EXPOSED))
@@ -460,9 +460,9 @@ class SEICHAR(Model):
         h_demand = self.peak_hospitalization_demand
         c_demand = self.peak_icu_demand
         icu_overload = self.peak_icu_demand / self.icu_capacity * (
-                1 - self.icu_occupancy_rate)
+            1 - self.icu_occupancy_rate)
         h_overload = self.peak_hospitalization_demand / self.hospital_capacity * (
-                1 - self.hospital_occupancy_rate)
+            1 - self.hospital_occupancy_rate)
 
         return f"""Healthcare parameters
 - Hosp. days         : {fmt(int(self.hospitalization_days))}

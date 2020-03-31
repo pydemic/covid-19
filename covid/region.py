@@ -103,7 +103,7 @@ class Region:
         return self.name
 
     def report(self):
-        return f"""Region {self.name} 
+        return f"""Region {self.name}
 """
 
 
