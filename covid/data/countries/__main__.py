@@ -4,9 +4,9 @@ from covid.data import countries
 
 
 @click.command()
-@click.argument('name')
-@click.option('--states', '-s', is_flag=True, help='Show table with country states')
-@click.option('--extra', '-e', is_flag=True, help='Show extra columns, when available')
+@click.argument("name")
+@click.option("--states", "-s", is_flag=True, help="Show table with country states")
+@click.option("--extra", "-e", is_flag=True, help="Show extra columns, when available")
 def cli(name, states, extra):
     data = None
     if states:
@@ -16,5 +16,5 @@ def cli(name, states, extra):
         print(data)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()

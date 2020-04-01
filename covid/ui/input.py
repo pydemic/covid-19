@@ -20,13 +20,13 @@ class Input:
         """
         region = self.region()
         self.pause()
-        return {'region': region, **self.params(region)}
+        return {"region": region, **self.params(region)}
 
     def pause(self):
         """
         Separator between commands.
         """
-        st.sidebar.markdown('` `')
+        st.sidebar.markdown("` `")
 
     def region(self):
         """
@@ -142,8 +142,7 @@ class Input:
 
         e = 1e-50
         st.sidebar.header("Epidemiologia")
-        std, fast, slow, custom = scenarios = \
-            ["Padrão", "Rápido", "Lento", "Personalizado"]
+        std, fast, slow, custom = scenarios = ["Padrão", "Rápido", "Lento", "Personalizado"]
         scenario = st.sidebar.selectbox("Cenário", scenarios)
 
         if scenario == std:
@@ -155,12 +154,10 @@ class Input:
 
         # Custom
         R0 = SEICHAR.R0
-        R0 = st.sidebar.slider("Fator de contágio (R0)", min_value=0.0, max_value=5.0,
-                               value=R0, )
+        R0 = st.sidebar.slider("Fator de contágio (R0)", min_value=0.0, max_value=5.0, value=R0,)
         incubation_period = 1 / SEICHAR.sigma
         incubation_period = st.sidebar.slider(
-            "Período de incubação do vírus", min_value=1.0, max_value=10.0,
-            value=incubation_period
+            "Período de incubação do vírus", min_value=1.0, max_value=10.0, value=incubation_period
         )
 
         infectious_period = 1 / SEICHAR.gamma_i
@@ -170,8 +167,7 @@ class Input:
 
         prob_fatality = 100 * region.prob_fatality
         prob_fatality = st.sidebar.slider(
-            "Taxa de mortalidade média", min_value=0.0, max_value=100.0,
-            value=prob_fatality,
+            "Taxa de mortalidade média", min_value=0.0, max_value=100.0, value=prob_fatality,
         )
         return {
             "R0": R0,
@@ -189,8 +185,7 @@ class Input:
         """
 
         st.sidebar.header("Intervenção")
-        baseline, social_distance = interventions = ["Nenhuma",
-                                                     "Redução de contato social"]
+        baseline, social_distance = interventions = ["Nenhuma", "Redução de contato social"]
         intervention = st.sidebar.selectbox("Cenário", interventions)
         if intervention == baseline:
             return {}
@@ -230,9 +225,9 @@ def sub_region_code(country, state_code, sub_region):
     return regions[regions["name"] == sub_region].index[0]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     from pprint import pformat
 
-    app = Input('brazil', 'Brasil', st.sidebar)
+    app = Input("brazil", "Brasil", st.sidebar)
     res = app.run()
     st.text(pformat(res))

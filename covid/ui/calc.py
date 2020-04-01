@@ -47,7 +47,7 @@ class CalcUI:
         """
         self._info.text(st)
         yield
-        self._info.text('')
+        self._info.text("")
 
     def run(self):
         """
@@ -66,7 +66,7 @@ class CalcUI:
             region = self.input.region()
             self.input.pause()
         with self.info("Carregando parâmetros de simulação..."):
-            kwargs = {'region': region, **self.input.params(region)}
+            kwargs = {"region": region, **self.input.params(region)}
         with self.info("Executando a simulação..."):
             self.run_simulation(**kwargs)
 
@@ -115,7 +115,7 @@ class Output:
         """
         Renders mapping as a list of cards.
         """
-        raw = ''.join(self.card(k, v) for k, v in data.items())
+        raw = "".join(self.card(k, v) for k, v in data.items())
         return f"""<div class="card-boxes">{raw}</div>"""
 
     def summary_cards(self, model: SEICHAR):
@@ -123,20 +123,19 @@ class Output:
         Show list of summary cards for the results of simulation.
         """
         contaminated = model.initial_population - model.susceptible
-        h_date = model.hospital_overflow_date or 'Nunca'
-        c_date = model.icu_overflow_date or 'Nunca'
+        h_date = model.hospital_overflow_date or "Nunca"
+        c_date = model.icu_overflow_date or "Nunca"
         missing_icu = max(int(model.peak_icu_demand - model.icu_capacity), 0)
-        missing_hospital = max(
-            int(model.peak_hospitalization_demand - model.hospital_capacity), 0)
+        missing_hospital = max(int(model.peak_hospitalization_demand - model.hospital_capacity), 0)
         entries = {
-            'Exaustão dos leitos clínicos': f'{h_date}',
-            'Exaustão de leitos de UTI': f'{c_date}',
-            'Leitos UTI faltando no dia do pico': f'{fmt(missing_icu)}',
-            'Leitos clínicos faltando no dia do pico': f'{fmt(missing_hospital)}',
-            'Fatalidades': f'{fmt(int(model.fatalities))} '
-                           f'({pc(model.fatalities / model.initial_population)})',
-            'Contaminados': f'{fmt(int(contaminated))} '
-                            f'({pc(contaminated / model.initial_population)})',
+            "Exaustão dos leitos clínicos": f"{h_date}",
+            "Exaustão de leitos de UTI": f"{c_date}",
+            "Leitos UTI faltando no dia do pico": f"{fmt(missing_icu)}",
+            "Leitos clínicos faltando no dia do pico": f"{fmt(missing_hospital)}",
+            "Fatalidades": f"{fmt(int(model.fatalities))} "
+            f"({pc(model.fatalities / model.initial_population)})",
+            "Contaminados": f"{fmt(int(contaminated))} "
+            f"({pc(contaminated / model.initial_population)})",
         }
         st.write(self.cards(entries), unsafe_allow_html=True)
 
@@ -185,12 +184,14 @@ class Output:
         """Write additional information about the model."""
         st.subheader("Informações adicionais")
         entries = {
-            'Exaustão dos leitos clínicos': model.hospital_overflow_date,
-            'Exaustão de leitos de UTI': model.icu_overflow_date,
-            'Leitos UTI faltando no dia do pico': fmt(
-                int(model.peak_icu_demand - model.icu_capacity)),
-            'Leitos clínicos faltando no dia do pico': fmt(
-                int(model.peak_hospitalization_demand - model.hospital_capacity)),
+            "Exaustão dos leitos clínicos": model.hospital_overflow_date,
+            "Exaustão de leitos de UTI": model.icu_overflow_date,
+            "Leitos UTI faltando no dia do pico": fmt(
+                int(model.peak_icu_demand - model.icu_capacity)
+            ),
+            "Leitos clínicos faltando no dia do pico": fmt(
+                int(model.peak_hospitalization_demand - model.hospital_capacity)
+            ),
         }
         st.write(self.cards(entries), unsafe_allow_html=True)
 

@@ -18,7 +18,7 @@ def fmt(n):
 
     m = abs(n)
     if m == 0.0:
-        return '0'
+        return "0"
     if m < 0.001:
         return "%.2e" % n
     elif 0.001 <= m < 1000:
@@ -66,7 +66,7 @@ def pc(n):
     Write number as percentages.
     """
     if n == 0:
-        return '0.0%'
+        return "0.0%"
     return fmt(100 * n) + "%"
 
 
@@ -75,7 +75,7 @@ def pm(n):
     Write number as parts per thousand.
     """
     if n == 0:
-        return '0.0‰'
+        return "0.0‰"
     return fmt(1000 * n) + "‰"
 
 
@@ -84,7 +84,7 @@ def p10k(n):
     Write number as parts per ten thousand.
     """
     if n == 0:
-        return '0.0‱'
+        return "0.0‱"
     return fmt(10000 * n) + "‱"
 
 
@@ -127,5 +127,5 @@ def indent(st, indent=4):
     Indent string.
     """
     if isinstance(indent, int):
-        indent = ' ' * indent
-    return ''.join(indent + ln for ln in st.splitlines(keepends=True))
+        indent = " " * indent
+    return "".join(indent + ln for ln in st.splitlines(keepends=True))

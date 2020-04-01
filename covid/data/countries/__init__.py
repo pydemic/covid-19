@@ -20,7 +20,7 @@ def states(country: str, extra=False) -> pd.DataFrame:
     """
 
     if not extra:
-        return states(country, True)[['name', 'code']]
+        return states(country, True)[["name", "code"]]
 
     path = DATA_PATH / "countries" / country / "states.csv"
     return pd.read_csv(path, index_col=0)
@@ -32,7 +32,7 @@ def state_codes(country):
     Return a tuple with all state codes for country.
     """
     df = states.unsafe(country)
-    return tuple(sorted(df['code']))
+    return tuple(sorted(df["code"]))
 
 
 @lru_safe_cache(64)
@@ -48,7 +48,7 @@ def sub_regions(country: str, state=None) -> pd.DataFrame:
 
     if state:
         df = sub_regions.unsafe(country)
-        return df[df['state'] == state]
+        return df[df["state"] == state]
     path = DATA_PATH / "countries" / country / "sub-regions.csv"
     return pd.read_csv(path, index_col=0)
 
@@ -67,10 +67,10 @@ def cities(country: str, extra=False) -> pd.DataFrame:
     df = pd.read_csv(path, index_col=0)
     if extra:
         return df
-    return df[['name', 'sub_region', 'state_id', 'state_code']]
+    return df[["name", "sub_region", "state_id", "state_code"]]
 
 
-def city(country: str, city: str, state=None, extra=False, by='name') -> pd.Series:
+def city(country: str, city: str, state=None, extra=False, by="name") -> pd.Series:
     """
     Return the row corresponding to the given city in the cities(country)
     dataframe.
@@ -89,19 +89,19 @@ def city(country: str, city: str, state=None, extra=False, by='name') -> pd.Seri
     """
 
     df = cities.unsafe(country, extra=extra)
-    if by == 'id':
+    if by == "id":
         return df.loc[city]
 
     if state:
-        return df[(df['city'] == city) & (df['state_id'] == state)].iloc[0].copy()
-    return df[df['city'] == city].iloc[0].copy()
+        return df[(df["city"] == city) & (df["state_id"] == state)].iloc[0].copy()
+    return df[df["city"] == city].iloc[0].copy()
 
 
 def parse_city(country, city, extra=False):
     """
     Similar to city, but parses it from a string that might contain the state.
     """
-    city, _, state = city.rpartition('-')
+    city, _, state = city.rpartition("-")
     if state not in state_codes(country):
-        return city(country, f'{city}-{state}', extra=extra)
+        return city(country, f"{city}-{state}", extra=extra)
     return city(country, city, state or None, extra=extra)

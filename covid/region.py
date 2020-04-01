@@ -27,6 +27,7 @@ class Region:
 
     Generic demographic and epidemiologic information about region.
     """
+
     _contact_matrix_ref = None
     id = None
     data_source = None
@@ -144,11 +145,10 @@ ICU beds
         """
         parts = [
             self.summary(),
-            'Demography',
+            "Demography",
             indent(str(100 * self.demography / self.population_size)),
         ]
-        return '\n'.join(parts)
-
+        return "\n".join(parts)
 
 
 class BrazilMunicipality(Region):
@@ -162,8 +162,7 @@ class BrazilMunicipality(Region):
     def __init__(self, city):
         self.id = city_id = data.city_id_from_name(city)
         demography = data.brazil_city_demography(city_id, coarse=True).sum(1)
-        super().__init__(city, demography, full_name=f"Brazil/{city}",
-                         kind=self.KIND_CITY)
+        super().__init__(city, demography, full_name=f"Brazil/{city}", kind=self.KIND_CITY)
 
         # Other properties
         self.demography_detailed = data.brazil_city_demography(city_id)
@@ -191,7 +190,8 @@ class CIAFactbookCountry(Region):
 
     # TODO: using Italy reference contact matrices for all countries
     _contact_matrix_ref = computed(
-        lambda r: r.country if r.id in data.CONTACT_MATRIX_IDS else "Italy")
+        lambda r: r.country if r.id in data.CONTACT_MATRIX_IDS else "Italy"
+    )
 
     def __init__(self, country, year=2020):
         self.id = country_id = country.lower().replace(" ", "_")
@@ -219,7 +219,7 @@ class MultiRegion(Region):
     Region that is an aggregate of several other regions.
     """
 
-    _contact_matrix_ref = 'Italy'
+    _contact_matrix_ref = "Italy"
     demography_detailed = sub_region_acc("demography_detailed")
     icu_total_capacity = sub_region_acc("icu_total_capacity")
     icu_surge_capacity = sub_region_acc("icu_surge_capacity")
@@ -274,9 +274,10 @@ def region(name, **kwargs):
     elif name.startswith("Brazil/"):
         code = name[7:]
         if code.isdigit() and len(code) != 7:
-            cities = countries.cities('brazil')
-            cities = [BrazilMunicipality(str(ref)) for ref in cities.index if
-                      str(ref).startswith(code)]
+            cities = countries.cities("brazil")
+            cities = [
+                BrazilMunicipality(str(ref)) for ref in cities.index if str(ref).startswith(code)
+            ]
             return MultiRegion(name, cities, **kwargs)
         return BrazilMunicipality(code, **kwargs)
     else:
@@ -294,14 +295,12 @@ def brazilian_metro_area(name):
     return [region(f"Brazil/{id}") for id in data[name]]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import click
 
-
     @click.command()
-    @click.argument('name')
+    @click.argument("name")
     def cli(name):
         click.echo(region(name).report())
-
 
     cli()
