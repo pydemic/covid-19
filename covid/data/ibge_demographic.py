@@ -67,9 +67,10 @@ VARNAMES_FEMALE = {
     27739: "95-99",
     27740: "100+",
 }
+BLACK_LIST = {4220000}
 
 
-def brazil_city_demography(city_id, coarse=False, collapse_newborn=False):
+def brazil_city_demography(city_id, coarse=False, collapse_newborn=False, download=True):
     """
     Load demographic data for given city and return a data-frame.
 
@@ -82,47 +83,54 @@ def brazil_city_demography(city_id, coarse=False, collapse_newborn=False):
         collapse_newborn (bool):
             Default API separates newborns (age=0) from the group 1-4. If true,
             this collapses newborns in the age group 0-4.
+        download:
+            If True, download data from IBGE website.
     """
     if isinstance(city_id, str) and not city_id.isdigit():
         city_id = city_id_from_name(city_id)
 
     if coarse:
-        df = brazil_city_demography(city_id, collapse_newborn=True)
+        df = brazil_city_demography(city_id, collapse_newborn=True, download=download)
         males, females = map(coarse_age_distribution, [df.males, df.females])
         return pd.DataFrame({"males": males, "females": females})
 
     if collapse_newborn:
-        df = brazil_city_demography(city_id)
+        df = brazil_city_demography(city_id, download=download)
         row_0 = df.iloc[0]
         df = df.iloc[1:, :].copy()
         df.iloc[0, :] += row_0
         df.index = ["0-4", *df.index[1:]]
         return df
 
-    return _load_city(city_id)
+    return _load_city(city_id, download)
 
 
-def _load_city(city_id):
+def _load_city(city_id, dowload):
     path = IBGE_DATA / f"city-{city_id}.csv"
 
     if path.exists():
         with path.open() as fd:
-            df = pd.read_csv(fd, index_col=0)
+            return pd.read_csv(fd, index_col=0)
 
-    else:
+    elif dowload:
         r = requests.get(URL.format(city=city_id))
         obj = r.json()
 
         obj = {k["id"]: _int_or_nan(k["res"][0]["res"]["2010"]) for k in obj}
-        males = [obj[k] for k in VARNAMES_MALE]
-        females = [obj[k] for k in VARNAMES_FEMALE]
+        try:
+            males = [obj[k] for k in VARNAMES_MALE]
+            females = [obj[k] for k in VARNAMES_FEMALE]
+        except KeyError:
+            print(obj, city_id, dowload)
+            raise
         df = pd.DataFrame(list(zip(males, females)), columns=["males", "females"])
         df.index = list(VARNAMES_MALE.values())
 
         with path.open("w") as fd:
             df.to_csv(fd)
-
-    return df
+        return df
+    else:
+        raise ValueError(f"city not in the database: {city_id}")
 
 
 def _int_or_nan(x):

@@ -1,12 +1,11 @@
-import json
 import operator
+import warnings
 from enum import Enum
 from typing import Optional, Iterable
 
 import pandas as pd
 
 from . import data
-from .data import DATA_PATH
 from .data import countries
 from .types import delegate, computed
 from .utils import fmt, pc, indent
@@ -99,10 +98,11 @@ class Region:
             return None
         return data.contact_matrix("Italy", infer=self.demography)
 
-    def __init__(self, name, demography, full_name=None, kind=RegionType.UNKNOWN):
+    def __init__(self, name, demography, full_name=None, kind=RegionType.UNKNOWN, id=None):
         self.name = name
         self.country = name.partition("/")[0]
         self.kind = kind
+        self.id = id
         if full_name:
             self.full_name = full_name
         self.demography = demography
@@ -151,7 +151,7 @@ ICU beds
         return "\n".join(parts)
 
 
-class BrazilMunicipality(Region):
+class City(Region):
     """
     Region represents a Brazilian municipality.
     """
@@ -159,20 +159,20 @@ class BrazilMunicipality(Region):
     data_source = "IBGE"
     _contact_matrix_ref = "Italy"
 
-    def __init__(self, city):
-        self.id = city_id = data.city_id_from_name(city)
-        demography = data.brazil_city_demography(city_id, coarse=True).sum(1)
-        super().__init__(city, demography, full_name=f"Brazil/{city}", kind=self.KIND_CITY)
+    def __init__(self, country, id):
+        self.data = df = countries.city(country, id, by="id")
+        demography = data.brazil_city_demography(id, coarse=True, download=False).sum(1)
+        super().__init__(df["name"], demography, id=id, kind=self.KIND_CITY)
 
         # Other properties
-        self.demography_detailed = data.brazil_city_demography(city_id)
+        self.demography_detailed = data.brazil_city_demography(id)
 
         # Healthcare statistics
         N = demography.sum()
         try:
             df = data.brazil_healthcare_capacity()
-            stats = df.loc[city_id, :]
-        except KeyError:
+            stats = df[df.index == id // 10].iloc[0]
+        except IndexError:
             self.hospital_beds_pm = 0.0
             self.icu_beds_pm = 0.0
         else:
@@ -194,7 +194,7 @@ class CIAFactbookCountry(Region):
     )
 
     def __init__(self, country, year=2020):
-        self.id = country_id = country.lower().replace(" ", "_")
+        self.id = country.lower().replace(" ", "_")
         demography = data.age_distribution(country, year, coarse=True)
         demography *= 1000
         super().__init__(country, demography, kind=self.KIND_COUNTRY)
@@ -211,7 +211,15 @@ class CIAFactbookCountry(Region):
 
 def sub_region_acc(attr, aggr=sum):
     getter = operator.attrgetter(attr)
-    return computed(lambda r: aggr(map(getter, r.sub_regions)))
+
+    @property
+    def fn(self):
+        lst = []
+        for r in self.sub_regions:
+            lst.append(getter(r))
+        return aggr(lst)
+
+    return fn
 
 
 class MultiRegion(Region):
@@ -266,39 +274,54 @@ def region(name, **kwargs):
         return name
     elif not isinstance(name, str):
         return MultiRegion(None, list(name), **kwargs)
-    elif name.startswith("Brazil/") and name.endswith("(metro)"):
-        metro = name[7:-7].strip()
-        cities = brazilian_metro_area(metro)
-        kwargs.setdefault("full_name", name)
-        return MultiRegion(metro + " (metro)", cities, **kwargs)
-    elif name.startswith("Brazil/"):
-        code = name[7:]
-        if code.isdigit() and len(code) != 7:
-            cities = countries.cities("brazil")
-            cities = [
-                BrazilMunicipality(str(ref)) for ref in cities.index if str(ref).startswith(code)
-            ]
-            return MultiRegion(name, cities, **kwargs)
-        return BrazilMunicipality(code, **kwargs)
+
+    # TODO: generalize this
+    elif "/" in name:
+        country, _, entity = map(str.strip, name.partition("/"))
+        country = countries.normalize_country_id(country)
+        kind, info = countries.parse_entity(country, entity)
+
+        if kind == "state":
+            df = countries.cities(country, state_id=info["id"])
+            state = _region_from_cities(country, info, df, kwargs)
+            state.state_code = info["code"]
+            state.data_source = "IBGE"
+            return state
+
+        elif kind == "city":
+            return City(country, info["id"])
+
+        elif kind == "sub_region":
+            df = countries.sub_regions(country, info["name"])
+            sub_region = _region_from_cities(country, info, df, kwargs)
+            sub_region.state_code = info["state_code"]
+            sub_region.state_id = info["state_id"]
+            sub_region.data_source = "IBGE"
+            return sub_region
+
     else:
         return CIAFactbookCountry(name, **kwargs)
 
 
-def brazilian_metro_area(name):
-    """
-    Load all cities from a Brazilian metropolitan area.
-    """
-
-    path = DATA_PATH / "brazil_metro.json"
-    with path.open() as fd:
-        data = json.load(fd)
-    return [region(f"Brazil/{id}") for id in data[name]]
+def _region_from_cities(country, info, df, kwargs):
+    cities = []
+    for id_, row in df.iterrows():
+        try:
+            id_: int
+            city = City(country, id_)
+        except ValueError:
+            name = row["name"]
+            warnings.warn(f"City has no demography: {name} ({id_})")
+        else:
+            cities.append(city)
+    res = MultiRegion(info["name"], cities, id=info["id"])
+    return res
 
 
 if __name__ == "__main__":
     import click
 
-    @click.command()
+    @click.command(name="covid.region")
     @click.argument("name")
     def cli(name):
         click.echo(region(name).report())
