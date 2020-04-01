@@ -59,14 +59,16 @@ class SEICHAR(Model):
 
     OPTIONS = {
         "seed:int": "Initial infectious population",
-        "region:str": "Country/city used to infer demographic and epidemiological parameters",
+        "region:str": "Country/city used to infer demographic and epidemiological " "parameters",
         "R0": "Basic reproducibility number",
         "rho": "Ratio in which asymptomatic infect other people",
         "prob_symptomatic": "Probability of developing symptoms",
         "sigma": "Rate of infection for exposed individuals",
-        "hospitalization_bias": "Speculative multiplicative factor to account for errors in hospitalization "
+        "hospitalization_bias": "Speculative multiplicative factor to account for "
+        "errors in hospitalization "
         "rates statistics",
-        "hospital_prioritization": "Fraction of how much we can reduce demand on healthcare system to allocate "
+        "hospital_prioritization": "Fraction of how much we can reduce demand on "
+        "healthcare system to allocate "
         "it to the COVID struggle",
     }
     plot_class = SEICHARPlot
@@ -349,10 +351,7 @@ class SEICHAR(Model):
         t_h = float("inf")
         t_c = float("inf")
 
-        self._watching = w = {
-            "hospital_overflow_t": t_h,
-            "icu_overflow_t": t_c,
-        }
+        self._watching = w = {"hospital_overflow_t": t_h, "icu_overflow_t": t_c}
 
         def watch(x, v, t, dt):
             nonlocal t_h, t_c
@@ -407,12 +406,19 @@ class SEICHAR(Model):
         self.recovered = r.iloc[-1]
         self.fatalities = f.iloc[-1]
 
-        sigma_eff = self.sigma / self.prob_symptomatic
-        self.total_exposed = total(integral(e) * sigma_eff)
+        self.total_exposed = total(integral(e) * self.sigma)
         self.total_infectious = total(integral(i) * self.gamma_i)
         self.total_asymptomatic = total(integral(a) * self.gamma_a)
         self.total_hospitalized = total(integral(h) * self.gamma_h)
         self.total_critical = total(integral(c) * self.gamma_c)
+
+    def IFR(self):
+        """Return the infection fatality ratio so far"""
+        return self.fatalities / self.total_infectious
+
+    def CFR(self):
+        """Return the case fatality ratio so far"""
+        return self.fatalities / self.total_exposed
 
     def summary(self):
         sym_name = type(self).__name__

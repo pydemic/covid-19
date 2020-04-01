@@ -132,9 +132,8 @@ class SEICHARDemographic(SEICHAR):
     def summary_demography(self):
         st = super().summary_demography()
         fatalities = self.data["fatalities"].iloc[-1]
-        sigma_eff = self.sigma / self.prob_symptomatic
-        exposed = self.data["exposed"].apply(self.integral, 0) * sigma_eff
-        infectious = self.data["infectious"].apply(self.integral, 0) * sigma_eff
+        exposed = self.data["exposed"].apply(self.integral, 0) * self.sigma
+        infectious = self.data["infectious"].apply(self.integral, 0) * self.gamma_i
         data = pd.DataFrame(
             {
                 "fatalities": fatalities.apply(int),

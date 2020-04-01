@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 from .cia_factbook import age_distribution
 from .data import DATA_PATH
@@ -35,8 +36,11 @@ def covid_mean_mortality(region, year=2020):
     """
     if isinstance(region, str):
         df = age_distribution(region, year, coarse=True)
-    else:
+    elif isinstance(region, (pd.DataFrame, pd.Series, np.ndarray)):
         df = region
+    else:
+        tname = type(region).__name__
+        raise TypeError(f"invalid argument type for region: {tname}")
     dm = covid_mortality()
     total = df.sum()
 

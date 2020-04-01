@@ -11,6 +11,7 @@ from .types import delegate, computed
 from .utils import fmt, pc, indent
 
 ifmt = lambda x: fmt(int(x))
+e = 1e-50
 
 
 class RegionType(Enum):
@@ -31,6 +32,7 @@ class Region:
     id = None
     data_source = None
     contact_matrix = None
+    demography: pd.Series
     full_name = delegate("name")
 
     # Derived quantities
@@ -106,6 +108,7 @@ class Region:
         if full_name:
             self.full_name = full_name
         self.demography = demography
+        assert isinstance(demography, pd.Series), demography
 
     def __str__(self):
         return self.name
@@ -180,9 +183,9 @@ class City(Region):
             cases_icu = stats.cases_influenza_icu + stats.cases_other_icu
             e = 1e-50
             self.icu_beds_pm = stats.icu / N * 1000
-            self.icu_occupancy_rate = cases_icu / (stats.icu + e)
+            self.icu_occupancy_rate = min(cases_icu / (stats.icu + e), 1.0)
             self.hospital_beds_pm = stats.regular / N * 1000
-            self.hospital_occupancy_rate = cases / (stats.regular + e)
+            self.hospital_occupancy_rate = min(cases / (stats.regular + e), 1.0)
 
 
 class CIAFactbookCountry(Region):
@@ -246,15 +249,18 @@ class MultiRegion(Region):
     def hospital_occupancy_rate(self):
         surge = self.hospital_surge_capacity
         total = self.hospital_total_capacity
-        return (total - surge) / total
+        return min((total - surge) / (total + e), 1.0)
 
     @computed
     def icu_occupancy_rate(self):
         surge = self.icu_surge_capacity
         total = self.icu_total_capacity
-        return (total - surge) / total
+        return min((total - surge) / (total + e), 1.0)
 
     def __init__(self, name: Optional[str], regions: Iterable[Region], **kwargs):
+        if not regions:
+            raise ValueError(f"cannot create empty multi-region {name}")
+
         self.sub_regions = [region(r) for r in regions]
 
         if name is None:
@@ -291,8 +297,9 @@ def region(name, **kwargs):
         elif kind == "city":
             return City(country, info["id"])
 
-        elif kind == "sub_region":
-            df = countries.sub_regions(country, info["name"])
+        elif kind == "sub-region":
+            df = countries.cities(country)
+            df = df[df["sub_region"] == info["id"]]
             sub_region = _region_from_cities(country, info, df, kwargs)
             sub_region.state_code = info["state_code"]
             sub_region.state_id = info["state_id"]

@@ -10,6 +10,7 @@ from covid.models import SEICHARDemographic as SEICHAR
 from covid.utils import fmt, pc
 from covid.ui import components
 from covid.ui.input import Input
+from covid.ui.output import Output, write_css
 
 
 COUNTRY = "Brazil"
@@ -86,113 +87,6 @@ class CalcUI:
         out.run()
 
 
-class Output:
-    def __init__(self, model):
-        self.model = model
-
-    def run(self):
-        """
-        Show all outputs for the given simulated model.
-        """
-        model = self.model
-        self.summary_cards(model)
-        self.hospitalizations_plot(model)
-        self.available_beds_chart(model)
-        self.write_info(model)
-
-    def summary_cards(self, model: SEICHAR):
-        """
-        Show list of summary cards for the results of simulation.
-        """
-        contaminated = model.initial_population - model.susceptible
-        h_date = model.hospital_overflow_date or _("Never")
-        c_date = model.icu_overflow_date or _("Never")
-        missing_icu = max(int(model.peak_icu_demand - model.icu_capacity), 0)
-        missing_hospital = max(int(model.peak_hospitalization_demand - model.hospital_capacity), 0)
-        entries = (
-            (_("Clinical beds exhaustion"), f"{h_date}"),
-            (_("ICU beds exhaustion"), f"{c_date}"),
-            (_("Missing clinical beds on peak date"), f"{fmt(missing_hospital)}"),
-            (_("Missing ICU beds on peak date"), f"{fmt(missing_icu)}"),
-            (
-                _("Contaminated"),
-                f"{fmt(int(contaminated))} ({pc(contaminated / model.initial_population)})",
-            ),
-            (
-                _("Deaths"),
-                f"{fmt(int(model.fatalities))} ({pc(model.fatalities / model.initial_population)})",
-            ),
-        )
-        components.cards(entries, fn=st.write)
-
-    def hospitalizations_plot(self, model):
-        """
-        Write plot of hospitalization
-        """
-        st.subheader(_("Hospitalization chart"))
-
-        hospitalized = model["hospitalized:total"]
-        icu = model["critical:total"]
-        fatalities = fatality_rate(model["fatalities:total"], model.dt)
-        columns = {
-            _("Clinical hospitalizations"): hospitalized.astype(int),
-            _("ICU hospitalizations"): icu.astype(int),
-            _("Deaths/day"): fatalities,
-        }
-        df = model.get_dates(pd.DataFrame(columns))
-
-        st.area_chart(df)
-
-    def available_beds_chart(self, model):
-        """
-        Write plot of available beds.
-        """
-        st.subheader(_("Available beds"))
-
-        hospitalized = model["hospitalized:total"]
-        icu = model["critical:total"]
-
-        available_beds = model.hospital_capacity - hospitalized
-        available_beds[available_beds < 0] = 0
-
-        available_icu = model.icu_capacity - icu
-        available_icu[available_icu < 0] = 0
-
-        columns = {
-            _("Available beds"): available_beds,
-            _("Available ICU beds"): available_icu,
-        }
-        df = model.get_dates(pd.DataFrame(columns))
-
-        st.line_chart(df)
-
-    def write_info(self, model):
-        """Write additional information about the model."""
-        st.subheader("Additional info")
-        entries = (
-            (_("Clinical beds exhaustion"), model.hospital_overflow_date or _("Never")),
-            (_("ICU beds exhaustion"), model.icu_overflow_date or _("Never")),
-            (
-                _("Missing clinical beds on peak date"),
-                fmt(int(model.peak_hospitalization_demand - model.hospital_capacity)),
-            ),
-            (
-                _("Missing ICU beds on peak date"),
-                fmt(int(model.peak_icu_demand - model.icu_capacity)),
-            ),
-        )
-        components.cards(entries, fn=st.write)
-
-
-# @st.cache
-def css():
-    from covid import ui
-
-    path = Path(ui.__file__).parent / "custom.html"
-    with path.open() as fd:
-        return fd.read()
-
-
 def region(name):
     # TODO: Cache this later.
     return covid.region(name)
@@ -200,14 +94,6 @@ def region(name):
 
 def rename_data_header(name):
     return SEIR_HUMANIZED_NAMES.get(name, name)
-
-
-def fatality_rate(fs, dt=1):
-    fs = fs.copy()
-    fs.iloc[:-1] -= fs.values[1:]
-    fs /= -dt
-    fs.iloc[-1] = fs.iloc[-2]
-    return fs.apply(lambda x: round(x, 1))
 
 
 # Start main script
