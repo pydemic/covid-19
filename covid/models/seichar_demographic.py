@@ -81,6 +81,8 @@ class SEICHARDemographic(SEICHAR):
         self.x0 = np.asarray(self.x0)
         self._children = self.demography.values * 0.0
         self._children[0] = 1.0
+        if np.any(self.x0 < 0):
+            raise ValueError("invalid initial condition (negative population).")
 
         # Columns and indexes
         (

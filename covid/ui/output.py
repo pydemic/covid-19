@@ -1,10 +1,9 @@
-from pathlib import Path
-
 import pandas as pd
 import streamlit as st
 
 import covid
 from covid.models import SEICHARDemographic as SEICHAR
+from covid.ui.components import cards, md_description, css
 from covid.utils import fmt, pc
 
 
@@ -22,20 +21,6 @@ class Output:
         self.available_beds_chart(model)
         self.write_info(model)
 
-    def card(self, title, data) -> str:
-        """
-        Render description list element representing a summary card with given
-        title and data.
-        """
-        return f'<dl class="card-box"><dt>{title}</dt><dd>{data}</dd></dl>'
-
-    def cards(self, data: dict) -> str:
-        """
-        Renders mapping as a list of cards.
-        """
-        raw = "".join(self.card(k, v) for k, v in data.items())
-        return f"""<div class="card-boxes">{raw}</div>"""
-
     def summary_cards(self, model: SEICHAR):
         """
         Show list of summary cards for the results of simulation.
@@ -45,6 +30,7 @@ class Output:
         c_date = model.icu_overflow_date or "Nunca"
         missing_icu = max(int(model.peak_icu_demand - model.icu_capacity), 0)
         missing_hospital = max(int(model.peak_hospitalization_demand - model.hospital_capacity), 0)
+
         entries = {
             "Exaustão dos leitos clínicos": f"{h_date}",
             "Exaustão de leitos de UTI": f"{c_date}",
@@ -55,7 +41,7 @@ class Output:
             "Contaminados": f"{fmt(int(contaminated))} "
             f"({pc(contaminated / model.initial_population)})",
         }
-        st.write(self.cards(entries), unsafe_allow_html=True)
+        cards(entries, st.write)
 
     def hospitalizations_plot(self, model):
         """
@@ -106,7 +92,7 @@ class Output:
             "Total": fmt(total),
             "60 anos ou mais": f"{fmt(seniors)} ({pc(seniors / total)})",
         }
-        st.write(self.cards(entries), unsafe_allow_html=True)
+        cards(entries, st.write)
         st.markdown("`_`\n\n**Distribuição de idades**")
         st.bar_chart(model.demography)
         st.markdown("` `\n\n**Fatalidades por idade**")
@@ -119,28 +105,27 @@ class Output:
                 "R0 médio": fmt(model.R0_average),
                 "Fatalidade (infectados, IFR)": pc(model.IFR()),
                 "Fatalidade (casos, CFR)": pc(model.CFR()),
-            }
+            },
+            st.write,
         )
 
         # Healthcare parameters
         fpc = lambda x: "x " + fmt(x) if x > 1.0 else pc(x)
+        icu_surge_overload = model.peak_icu_demand / model.icu_capacity
+        icu_overload = model.peak_icu_demand / model.icu_total_capacity
+        surge_overload = model.peak_hospitalization_demand / model.hospital_capacity
+        overload = model.peak_hospitalization_demand / model.hospital_total_capacity
+
         st.subheader("Sistema de saúde")
         md_description(
             {
-                "Sobrecarga de UTI": fpc(model.peak_icu_demand / model.icu_capacity),
-                "Da capacidade total": fpc(model.peak_icu_demand / model.icu_total_capacity),
-                "Sobrecarga de Leitos": fpc(
-                    model.peak_hospitalization_demand / model.hospital_capacity
-                ),
-                "Da capacidade total": fpc(
-                    model.peak_hospitalization_demand / model.hospital_capacity
-                ),
-            }
+                "Sobrecarga de UTI": fpc(icu_surge_overload),
+                "Da capacidade total de UTI": fpc(icu_overload),
+                "Sobrecarga de Leitos": fpc(surge_overload),
+                "Da capacidade total de leitos": fpc(overload),
+            },
+            st.write,
         )
-
-
-def md_description(data, where=st):
-    where.markdown("\n\n".join(f"**{k}**: {v}" for k, v in data.items()))
 
 
 def fatality_rate(fs, dt=1):
@@ -155,20 +140,11 @@ def write_css():
     st.write(css(), unsafe_allow_html=True)
 
 
-@st.cache
-def css():
-    import covid
-
-    path = Path(covid.__file__).parent / "ui" / "custom.html"
-    with path.open() as fd:
-        return fd.read()
-
-
 if __name__ == "__main__":
     region = covid.region("Brazil")
     model = SEICHAR(region=region, prob_symptomatic=0.5, seed=1000)
     model.run(180)
 
-    app = Output(model)
     write_css()
-    res = app.run()
+    app = Output(model)
+    app.run()
