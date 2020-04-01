@@ -3,7 +3,6 @@ import streamlit as st
 import covid
 from covid import gettext as _
 import covid.data.countries.geography
-from covid.data import countries
 from covid.models import SEICHAR
 
 

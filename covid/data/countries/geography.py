@@ -216,10 +216,10 @@ def parse_entity(country, text, extra=False) -> Tuple[str, pd.Series]:
         if 0 <= code <= 99:
             df = states.unsafe(country, extra=extra)
             return "state", with_id_entry(df.loc[code])
-        elif 100 <= code <= 999:
+        elif 100 <= code <= 9_999:
             df = sub_regions.unsafe(country, extra=extra)
             return "sub-region", with_id_entry(df.loc[code])
-        elif 1000000 <= code <= 9999999:
+        elif 1000000 <= code <= 9_999_999:
             df = cities.unsafe(country, extra=extra)
             return "city", with_id_entry(df.loc[code])
         else:
