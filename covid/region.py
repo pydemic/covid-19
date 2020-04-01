@@ -120,14 +120,14 @@ class Region:
         h_max = self.hospital_total_capacity
         c_max = self.icu_total_capacity
         return f"""REGION {self.name}:
-    
+
 Generic
 - Name       : {self.full_name}
 - Kind       : {self.kind}
 - Population : {fmt(self.population_size)}
 - Id         : {self.id}
 - Source     : {self.data_source}
-       
+
 Regular hospital beds
 - Capacity    : {ifmt(h_max)} ({fmt(self.hospital_beds_pm)} / 1,000 ha)
 - Occupation  : {pc(self.hospital_occupancy_rate)}
