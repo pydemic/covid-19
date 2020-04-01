@@ -126,4 +126,12 @@ Managing i18n
 
 - To update the base file::
 
-  $ pygettext -d base -o covid/locale/base.pot covid
+  $ pybabel extract -o covid/locale/messages.pot covid
+
+- To update translation files from base file::
+
+  $ pybabel update -i covid/locale/messages.pot -d covid/locale
+
+- To compile translation files::
+
+  $ pybabel compile -d covid/locale

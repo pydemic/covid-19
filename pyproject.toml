@@ -10,6 +10,7 @@ author-email = "fabiomacedomendes@gmail.com"
 home-page = "http://github.com/fabiommendes/covid-19"
 classifiers = [ "License :: OSI Approved :: MIT License" ]
 requires = [
+  "Babel==2.8.0",
   "click==7.1.1",
   "matplotlib==3.2.1",
   "numpy==1.18.2",

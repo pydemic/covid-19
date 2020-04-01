@@ -1,249 +1,251 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR ORGANIZATION
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# Portuguese (Brazil) translations for PROJECT.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-04-01 14:22+UTC\n"
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-04-01 15:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: pt_BR\n"
+"Language-Team: pt_BR <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: ENCODING\n"
-"Generated-By: pygettext.py 1.5\n"
-
-
-#: covid/models/seichar.py:563
-msgid "Items/day"
-msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
 
 #: covid/models/seichar.py:563
 msgid "Name"
-msgstr ""
+msgstr "Nome"
+
+#: covid/models/seichar.py:563
+msgid "Items/day"
+msgstr "Itens/dia"
 
 #: covid/models/seichar.py:563 covid/ui/input.py:117
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #: covid/ui/calc.py:16 covid/ui/input.py:232
 msgid "Brazil"
-msgstr ""
+msgstr "Brasil"
 
 #: covid/ui/calc.py:19
 msgid "susceptible"
-msgstr ""
+msgstr "suscetíveis"
 
 #: covid/ui/calc.py:20
 msgid "exposed"
-msgstr ""
+msgstr "expostos"
 
 #: covid/ui/calc.py:21
 msgid "infectious"
-msgstr ""
+msgstr "infecciosos"
 
 #: covid/ui/calc.py:22
 msgid "critical"
-msgstr ""
+msgstr "críticos"
 
 #: covid/ui/calc.py:23
 msgid "hospitalized"
-msgstr ""
+msgstr "hospitalizados"
 
 #: covid/ui/calc.py:24
 msgid "asymptomatic"
-msgstr ""
+msgstr "assintomáticos"
 
 #: covid/ui/calc.py:25
 msgid "recovered"
-msgstr ""
+msgstr "recuperados"
 
 #: covid/ui/calc.py:26
 msgid "fatalities"
-msgstr ""
+msgstr "fatalidades"
 
 #: covid/ui/calc.py:37
 msgid "COVID-19 assistance pressure"
 msgstr "Pressão assistencial devido à COVID-19"
 
 #: covid/ui/calc.py:60
-msgid "Epidemic Calculator"
-msgstr ""
+msgid "OPAS - COVID-19"
+msgstr "OPAS - COVID-19"
 
 #: covid/ui/calc.py:60
-msgid "OPAS - COVID-19"
-msgstr ""
+msgid "Epidemic Calculator"
+msgstr "Calculadora Epidêmica"
 
 #: covid/ui/calc.py:61
 msgid "Loading region..."
-msgstr ""
+msgstr "Carregando região..."
 
 #: covid/ui/calc.py:64
 msgid "Loading simulation parameters..."
-msgstr ""
+msgstr "Carregando parâmetros de simulação..."
 
 #: covid/ui/calc.py:66
 msgid "Performing simulation..."
-msgstr ""
+msgstr "Executando a simulação..."
 
 #: covid/ui/calc.py:108 covid/ui/calc.py:109 covid/ui/calc.py:173
 #: covid/ui/calc.py:174
 msgid "Never"
-msgstr ""
+msgstr "Nunca"
 
 #: covid/ui/calc.py:113 covid/ui/calc.py:173
 msgid "Clinical beds exhaustion"
-msgstr ""
+msgstr "Exaustão dos leitos clínicos"
 
 #: covid/ui/calc.py:114 covid/ui/calc.py:174
 msgid "ICU beds exhaustion"
-msgstr ""
+msgstr "Exaustão de leitos de UTI"
 
 #: covid/ui/calc.py:115 covid/ui/calc.py:176
 msgid "Missing clinical beds on peak date"
-msgstr ""
+msgstr "Leitos clínicos faltando do dia do pico"
 
 #: covid/ui/calc.py:116 covid/ui/calc.py:180
 msgid "Missing ICU beds on peak date"
-msgstr ""
+msgstr "Leitos UTI faltando no dia do pico"
 
 #: covid/ui/calc.py:118
 msgid "Contaminated"
-msgstr ""
+msgstr "Contaminados"
 
 #: covid/ui/calc.py:122
 msgid "Deaths"
-msgstr ""
+msgstr "Mortes"
 
 #: covid/ui/calc.py:132
 msgid "Hospitalization chart"
-msgstr ""
+msgstr "Quadros de internação"
 
 #: covid/ui/calc.py:138
 msgid "Clinical hospitalizations"
-msgstr ""
+msgstr "Internações clínicas"
 
 #: covid/ui/calc.py:139
 msgid "ICU hospitalizations"
-msgstr ""
+msgstr "Internações UTI"
 
 #: covid/ui/calc.py:140
 msgid "Deaths/day"
-msgstr ""
+msgstr "Fatalidades/dia"
 
 #: covid/ui/calc.py:150 covid/ui/calc.py:162
 msgid "Available beds"
-msgstr ""
+msgstr "Leitos disponíveis"
 
 #: covid/ui/calc.py:163
 msgid "Available ICU beds"
-msgstr ""
+msgstr "Leitos de UTI disponíveis"
 
 #: covid/ui/input.py:38 covid/ui/input.py:52
 msgid "Region"
-msgstr ""
+msgstr "Região"
 
 #: covid/ui/input.py:41
 msgid "State"
-msgstr ""
+msgstr "Estado"
 
 #: covid/ui/input.py:51 covid/ui/input.py:62
 msgid "All"
-msgstr ""
+msgstr "Tudo"
 
 #: covid/ui/input.py:63
 msgid "City"
-msgstr ""
+msgstr "Cidade"
 
 #: covid/ui/input.py:98
 msgid "Simulation options"
-msgstr ""
+msgstr "Opções da simulação"
 
 #: covid/ui/input.py:100
 msgid "Days of simulation"
-msgstr ""
+msgstr "Dias de simulação"
 
 #: covid/ui/input.py:101
 msgid "Initial date"
-msgstr ""
+msgstr "Data inicial"
 
 #: covid/ui/input.py:102
 msgid "Amount of detected cases"
-msgstr ""
+msgstr "Número de casos detectados"
 
 #: covid/ui/input.py:112
 msgid "Hospital capacity"
-msgstr ""
+msgstr "Capacidade hospitalar"
 
 #: covid/ui/input.py:120
 msgid "Occupied (%)"
-msgstr ""
+msgstr "Ocupados (%)"
 
 #: covid/ui/input.py:133
 msgid "Clinical beds"
-msgstr ""
+msgstr "Leitos clínicos"
 
 #: covid/ui/input.py:134
 msgid "ICU beds"
-msgstr ""
+msgstr "Leitos UTI"
 
 #: covid/ui/input.py:145
 msgid "Epidemiology"
-msgstr ""
-
-#: covid/ui/input.py:146
-msgid "Custom"
-msgstr ""
-
-#: covid/ui/input.py:146
-msgid "Fast"
-msgstr ""
-
-#: covid/ui/input.py:146
-msgid "Slow"
-msgstr ""
+msgstr "Epidemiologia"
 
 #: covid/ui/input.py:146
 msgid "Standard"
-msgstr ""
+msgstr "Padrão"
+
+#: covid/ui/input.py:146
+msgid "Fast"
+msgstr "Rápido"
+
+#: covid/ui/input.py:146
+msgid "Slow"
+msgstr "Lento"
+
+#: covid/ui/input.py:146
+msgid "Custom"
+msgstr "Personalizado"
 
 #: covid/ui/input.py:147 covid/ui/input.py:190
 msgid "Scenario"
-msgstr ""
+msgstr "Cenário"
 
 #: covid/ui/input.py:158
 msgid "Contagion rate (R0)"
-msgstr ""
+msgstr "Fator de contágio (R0)"
 
 #: covid/ui/input.py:161
 msgid "Virus incubation period"
-msgstr ""
+msgstr "Período de incubação do vírus"
 
 #: covid/ui/input.py:166
 msgid "Infectious period"
-msgstr ""
+msgstr "Período infeccioso"
 
 #: covid/ui/input.py:171
 msgid "Average death rate"
-msgstr ""
+msgstr "Taxa de mortalidade média"
 
 #: covid/ui/input.py:188
 msgid "Intervention"
-msgstr ""
+msgstr "Intervenção"
 
 #: covid/ui/input.py:189
 msgid "None"
-msgstr ""
+msgstr "Nenhum"
 
 #: covid/ui/input.py:189
 msgid "Social distancing"
-msgstr ""
+msgstr "Redução de contato social"
 
 #: covid/ui/input.py:195
 msgid "Days after initial date to start intervention"
-msgstr ""
+msgstr "Dias após data inicial para início de intervenção"
 
 #: covid/ui/input.py:196
 msgid "Decrease of contagion rate (R0) after intervention"
-msgstr ""
+msgstr "Redução do fator de contágio (R0) após intervenção"

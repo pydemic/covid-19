@@ -12,3 +12,6 @@ docker-compose*
 # vscode
 .devcontainer*
 .vscode
+
+# gettext
+*.mo

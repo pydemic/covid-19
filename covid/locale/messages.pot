@@ -1,26 +1,28 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR ORGANIZATION
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Translations template for PROJECT.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-04-01 14:22+UTC\n"
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-04-01 15:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: ENCODING\n"
-"Generated-By: pygettext.py 1.5\n"
-
-
-#: covid/models/seichar.py:563
-msgid "Items/day"
-msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
 
 #: covid/models/seichar.py:563
 msgid "Name"
+msgstr ""
+
+#: covid/models/seichar.py:563
+msgid "Items/day"
 msgstr ""
 
 #: covid/models/seichar.py:563 covid/ui/input.py:117
@@ -68,11 +70,11 @@ msgid "COVID-19 assistance pressure"
 msgstr ""
 
 #: covid/ui/calc.py:60
-msgid "Epidemic Calculator"
+msgid "OPAS - COVID-19"
 msgstr ""
 
 #: covid/ui/calc.py:60
-msgid "OPAS - COVID-19"
+msgid "Epidemic Calculator"
 msgstr ""
 
 #: covid/ui/calc.py:61
@@ -193,7 +195,7 @@ msgid "Epidemiology"
 msgstr ""
 
 #: covid/ui/input.py:146
-msgid "Custom"
+msgid "Standard"
 msgstr ""
 
 #: covid/ui/input.py:146
@@ -205,7 +207,7 @@ msgid "Slow"
 msgstr ""
 
 #: covid/ui/input.py:146
-msgid "Standard"
+msgid "Custom"
 msgstr ""
 
 #: covid/ui/input.py:147 covid/ui/input.py:190
