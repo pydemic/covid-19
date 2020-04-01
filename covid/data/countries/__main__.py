@@ -1,5 +1,6 @@
 import click
 
+import covid.data.countries.geography
 from covid.data import countries
 
 
@@ -10,7 +11,7 @@ from covid.data import countries
 def cli(name, states, extra):
     data = None
     if states:
-        data = countries.states(name, extra=extra)
+        data = covid.data.countries.geography.states(name, extra=extra)
 
     if data is not None:
         print(data)

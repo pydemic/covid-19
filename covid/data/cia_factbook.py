@@ -1,6 +1,7 @@
 import pandas as pd
 
-from .data import DATA_PATH, COUNTRY_ALIASES
+from .data import DATA_PATH
+from covid.data.countries.constants import COUNTRY_ALIASES
 
 COUNTRY_TO_AGE_DISTRIBUTION = {
     "Bolivia": "Bolivia (Plurinational State of)",

@@ -1,7 +1,7 @@
 import numpy as np
 
 from ..cache import cache
-from ..data import COUNTRIES
+from covid.data import COUNTRIES
 from ..models.seichar_demographic import SEICHARDemographic
 from ..models.seichar import SEICHAR
 
