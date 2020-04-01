@@ -1,17 +1,14 @@
 from contextlib import contextmanager
-from pathlib import Path
 
-import pandas as pd
 import streamlit as st
 
 import covid
 from covid import gettext as _
 from covid.models import SEICHARDemographic as SEICHAR
-from covid.utils import fmt, pc
 from covid.ui import components
+from covid.ui.components import css
 from covid.ui.input import Input
-from covid.ui.output import Output, write_css
-
+from covid.ui.output import Output
 
 COUNTRY = "Brazil"
 DISPLAY_COUNTRY = _("Brazil")
@@ -71,11 +68,7 @@ class CalcUI:
         """
         Initialize class with given arguments and run simulation.
         """
-        kwargs = {
-            "prob_symptomatic": 0.5,
-            "hospital_prioritization": 0.0,
-            **kwargs,
-        }
+        kwargs = {"prob_symptomatic": 0.5, "hospital_prioritization": 0.0, **kwargs}
         model = self.simulation_class(**kwargs)
 
         # FIXME: should be able to setup on the constructor

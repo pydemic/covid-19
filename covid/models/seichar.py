@@ -230,6 +230,13 @@ class SEICHAR(Model):
     def get_total(self, col):
         return self[col] if isinstance(col, str) else col
 
+    def rk4_step(self, x, t, dt, watcher=None):
+        """
+        A single RK4 iteration step.
+        """
+        x_ = super().rk4_step(x, t, dt, watcher)
+        return np.where(x_ > 0, x_, 0.0)
+
     def diff(self, x, t):
         s, e, i, c, h, a, r, f = x
         hplus = max(0, h - self.hospital_capacity)
@@ -414,11 +421,11 @@ class SEICHAR(Model):
 
     def IFR(self):
         """Return the infection fatality ratio so far"""
-        return self.fatalities / self.total_infectious
+        return self.fatalities / self.total_exposed
 
     def CFR(self):
         """Return the case fatality ratio so far"""
-        return self.fatalities / self.total_exposed
+        return self.fatalities / self.total_infectious
 
     def summary(self):
         sym_name = type(self).__name__

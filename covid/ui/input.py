@@ -2,7 +2,7 @@ import streamlit as st
 
 import covid
 from covid import gettext as _
-import covid.data.countries.geography
+from covid.data import countries
 from covid.models import SEICHAR
 
 
@@ -79,12 +79,7 @@ class Input:
         self.pause()
         intervention = self.intervention(region)
 
-        return {
-            **simulation,
-            **healthcare,
-            **epidemiology,
-            **intervention,
-        }
+        return {**simulation, **healthcare, **epidemiology, **intervention}
 
     def simulation(self, region: covid.Region):
         """
@@ -155,7 +150,7 @@ class Input:
 
         # Custom
         R0 = SEICHAR.R0
-        R0 = st.sidebar.slider(_("Contagion rate (R0)"), min_value=0.0, max_value=5.0, value=R0,)
+        R0 = st.sidebar.slider(_("Contagion rate (R0)"), min_value=0.0, max_value=5.0, value=R0)
         incubation_period = 1 / SEICHAR.sigma
         incubation_period = st.sidebar.slider(
             _("Virus incubation period"), min_value=1.0, max_value=10.0, value=incubation_period
@@ -168,7 +163,7 @@ class Input:
 
         prob_fatality = 100 * region.prob_fatality
         prob_fatality = st.sidebar.slider(
-            _("Average death rate"), min_value=0.0, max_value=100.0, value=prob_fatality,
+            _("Average death rate"), min_value=0.0, max_value=100.0, value=prob_fatality
         )
         return {
             "R0": R0,
