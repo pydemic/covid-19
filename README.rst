@@ -120,3 +120,10 @@ Examples of usage:
   - Fetch the production docker-compose::
 
     $ rit tunnel run calculator production fetch compose
+
+Managing i18n
+-------------
+
+- To update the base file::
+
+  $ pygettext -d base -o covid/locale/base.pot covid

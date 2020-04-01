@@ -1,6 +1,7 @@
 import streamlit as st
 
 import covid
+from covid import gettext as _
 from covid.data import countries
 from covid.models import SEICHAR
 
@@ -34,12 +35,12 @@ class Input:
         """
 
         # Select a state
-        st.sidebar.header("Região")
+        st.sidebar.header(_("Region"))
         df = states(self.country)
         choices = [self.display_country, *df["name"]]
-        choice = st.sidebar.selectbox("Estado", choices)
+        choice = st.sidebar.selectbox(_("State"), choices)
         if choice == choices[0]:
-            return covid.region("Brazil")
+            return covid.region(self.country)
         state_id = state_code(self.country, choice)
 
         # State selected, now ask for sub-region
@@ -47,10 +48,10 @@ class Input:
         if len(df) == 1:
             choice = df["name"].iloc[0]
         else:
-            choices = ["Tudo", *df["name"]]
-            choice = st.sidebar.selectbox("Região", choices)
+            choices = [_("All"), *df["name"]]
+            choice = st.sidebar.selectbox(_("Region"), choices)
             if choice == choices[0]:
-                return covid.region(f"Brazil/{state_id}")
+                return covid.region(f"{self.country}/{state_id}")
         sub_region_id = sub_region_code(self.country, state_id, choice)
 
         # Sub-region selected, now ask for a city
@@ -58,12 +59,12 @@ class Input:
         if len(df) == 1:
             choice = df["name"].iloc[0]
         else:
-            choices = ["Tudo", *df["name"]]
-            choice = st.sidebar.selectbox("Cidades", choices)
+            choices = [_("All"), *df["name"]]
+            choice = st.sidebar.selectbox(_("City"), choices)
             if choice == choices[0]:
-                return covid.region(f"Brazil/{sub_region_id}")
+                return covid.region(f"{self.country}/{sub_region_id}")
         city_id = df[df["name"] == choice].index[0]
-        return covid.region(f"Brazil/{city_id}")
+        return covid.region(f"{self.country}/{city_id}")
 
     def params(self, region):
         """
@@ -94,11 +95,11 @@ class Input:
               start_date (date): Initial date.
               seed (int): Initial number of cases.
         """
-        st.sidebar.header("Opções da simulação")
+        st.sidebar.header(_("Simulation options"))
         return {
-            "period": st.sidebar.slider("Dias de simulação", 0, 180, value=60),
-            "start_date": st.sidebar.date_input("Data inicial"),
-            "seed": st.sidebar.number_input("Número de casos detectados", min_value=1),
+            "period": st.sidebar.slider(_("Days of simulation"), 0, 180, value=60),
+            "start_date": st.sidebar.date_input(_("Initial date")),
+            "seed": st.sidebar.number_input(_("Amount of detected cases"), min_value=1),
         }
 
     def healthcare(self, region: covid.Region):
@@ -108,15 +109,15 @@ class Input:
         Returns:
             icu_capacity, hospital_capacity (float): maximum system capacity
         """
-        st.sidebar.header("Capacidade hospitalar")
+        st.sidebar.header(_("Hospital capacity"))
 
         def get(msg, capacity, rate, key=None):
             st.sidebar.subheader(msg)
             total = st.sidebar.number_input(
-                "Total", min_value=0, value=int(capacity), key=key + "_total"
+                _("Total"), min_value=0, value=int(capacity), key=key + "_total"
             )
             rate = 0.01 * st.sidebar.slider(
-                "Ocupados (%)",
+                _("Occupied (%)"),
                 min_value=0.0,
                 max_value=100.0,
                 value=100 * float(rate),
@@ -129,8 +130,8 @@ class Input:
         c_total = region.icu_total_capacity
         c_rate = region.icu_occupancy_rate
         return {
-            "hospital_capacity": get("Leitos clínicos", h_total, h_rate, key="hospital"),
-            "icu_capacity": get("Leitos UTI", c_total, c_rate, key="icu"),
+            "hospital_capacity": get(_("Clinical beds"), h_total, h_rate, key="hospital"),
+            "icu_capacity": get(_("ICU beds"), c_total, c_rate, key="icu"),
         }
 
     def epidemiology(self, region: covid.Region):
@@ -141,9 +142,9 @@ class Input:
         """
 
         e = 1e-50
-        st.sidebar.header("Epidemiologia")
-        std, fast, slow, custom = scenarios = ["Padrão", "Rápido", "Lento", "Personalizado"]
-        scenario = st.sidebar.selectbox("Cenário", scenarios)
+        st.sidebar.header(_("Epidemiology"))
+        std, fast, slow, custom = scenarios = [_("Standard"), _("Fast"), _("Slow"), _("Custom")]
+        scenario = st.sidebar.selectbox(_("Scenario"), scenarios)
 
         if scenario == std:
             return {"R0": 2.74}
@@ -154,20 +155,20 @@ class Input:
 
         # Custom
         R0 = SEICHAR.R0
-        R0 = st.sidebar.slider("Fator de contágio (R0)", min_value=0.0, max_value=5.0, value=R0,)
+        R0 = st.sidebar.slider(_("Contagion rate (R0)"), min_value=0.0, max_value=5.0, value=R0,)
         incubation_period = 1 / SEICHAR.sigma
         incubation_period = st.sidebar.slider(
-            "Período de incubação do vírus", min_value=1.0, max_value=10.0, value=incubation_period
+            _("Virus incubation period"), min_value=1.0, max_value=10.0, value=incubation_period
         )
 
         infectious_period = 1 / SEICHAR.gamma_i
         infectious_period = st.sidebar.slider(
-            "Período infeccioso", min_value=1.0, max_value=14.0, value=infectious_period
+            _("Infectious period"), min_value=1.0, max_value=14.0, value=infectious_period
         )
 
         prob_fatality = 100 * region.prob_fatality
         prob_fatality = st.sidebar.slider(
-            "Taxa de mortalidade média", min_value=0.0, max_value=100.0, value=prob_fatality,
+            _("Average death rate"), min_value=0.0, max_value=100.0, value=prob_fatality,
         )
         return {
             "R0": R0,
@@ -184,15 +185,15 @@ class Input:
             icu_capacity, hospital_capacity (float): maximum system capacity
         """
 
-        st.sidebar.header("Intervenção")
-        baseline, social_distance = interventions = ["Nenhuma", "Redução de contato social"]
-        intervention = st.sidebar.selectbox("Cenário", interventions)
+        st.sidebar.header(_("Intervention"))
+        baseline, social_distance = interventions = [_("None"), _("Social distancing")]
+        intervention = st.sidebar.selectbox(_("Scenario"), interventions)
         if intervention == baseline:
             return {}
         elif intervention == social_distance:
             # TODO: Use params
-            date = st.sidebar.slider("Dias após data inicial para início de intervenção")
-            rate = st.sidebar.slider("Redução do fator de contágio (RO) após intervenção")
+            date = st.sidebar.slider(_("Days after initial date to start intervention"))
+            rate = st.sidebar.slider(_("Decrease of contagion rate (R0) after intervention"))
             return {}
 
 
@@ -228,6 +229,6 @@ def sub_region_code(country, state_code, sub_region):
 if __name__ == "__main__":
     from pprint import pformat
 
-    app = Input("brazil", "Brasil", st.sidebar)
+    app = Input("brazil", _("Brazil"), st.sidebar)
     res = app.run()
     st.text(pformat(res))
