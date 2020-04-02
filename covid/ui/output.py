@@ -55,10 +55,12 @@ class Output:
             _("No more ICUs by"): f"{naturaldate(c_date)}",
             _("Required extra hospital beds"): f"{fmt(missing_hospital)}",
             _("Required extra ICU beds"): f"{fmt(missing_icu)}",
-            _("Deaths"): f"{fmt(int(model.fatalities))} "
-            f"({pc(model.fatalities / model.initial_population)})",
-            _("Hospitalizations"): f"{fmt(int(hospitalized))} "
-            f"({pc(hospitalized / model.initial_population)})",
+            _(
+                "Deaths"
+            ): f"{fmt(int(model.fatalities))} ({pc(model.fatalities / model.initial_population)})",
+            _(
+                "Hospitalizations"
+            ): f"{fmt(int(hospitalized))} ({pc(hospitalized / model.initial_population)})",
         }
         cards(entries, st.write)
 
@@ -72,9 +74,9 @@ class Output:
         icu = model["critical:total"]
         fatalities = fatality_rate(model["fatalities:total"], model.dt)
         columns = {
-            "Internações clínicas": hospitalized.astype(int),
-            "Internações UTI": icu.astype(int),
-            "Fatalidades/dia": fatalities,
+            _("Required hospital beds"): hospitalized.astype(int),
+            _("Required ICUs"): icu.astype(int),
+            _("Deaths/day"): fatalities,
         }
         df = model.get_dates(pd.DataFrame(columns))
 
@@ -217,11 +219,13 @@ the future.
         """Write footnotes"""
 
         template = '<a href="{href}">{name}</a>'
-        links = _("Kind support: {paho}, {unb}").format(
+        links = _("Kind support: {paho}, {lappis}, {nmt}, {fce}").format(
             paho=template.format(
                 href=_("https://www.paho.org/hq/index.php?lang=en"), name=_("PAHO")
             ),
-            unb=template.format(href=_("https://lappis.rocks"), name=_("UnB/LAPPIS")),
+            lappis=template.format(href=_("https://lappis.rocks"), name=_("UnB/LAPPIS")),
+            nmt=template.format(href=_("http://medicinatropical.unb.br/"), name=_("UnB/NMT")),
+            fce=template.format(href=_("http://fce.unb.br/"), name=_("UnB/FCE")),
         )
         styles = "text-align: center; margin: 5rem 0 -5rem 0;"
         st.write(f'<div style="{styles}">{links}</div>', unsafe_allow_html=True)

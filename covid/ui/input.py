@@ -4,6 +4,7 @@ import covid
 from covid import gettext as _
 from covid.data import countries
 from covid.models import SEICHAR
+from covid.utils import fmt, pc
 
 
 class Input:
@@ -77,7 +78,8 @@ class Input:
         self.pause()
         epidemiology = self.epidemiology(region)
         self.pause()
-        intervention = self.intervention(region)
+        # TODO: implement intervention
+        intervention = {}  # self.intervention(region)
 
         return {**simulation, **healthcare, **epidemiology, **intervention}
 
@@ -91,10 +93,13 @@ class Input:
               seed (int): Initial number of cases.
         """
         st.sidebar.header(_("Simulation options"))
+        seed = int(max(5e-6 * region.population_size, 1))
         return {
-            "period": st.sidebar.slider(_("Days of simulation"), 0, 180, value=60),
+            "period": st.sidebar.slider(_("Duration (months)"), 0, 6, value=2) * 30,
             "start_date": st.sidebar.date_input(_("Initial date")),
-            "seed": st.sidebar.number_input(_("Amount of detected cases"), min_value=1),
+            "seed": st.sidebar.number_input(
+                _("Amount of detected cases"), 1, region.population_size, value=seed
+            ),
         }
 
     def healthcare(self, region: covid.Region):
@@ -108,22 +113,20 @@ class Input:
 
         def get(msg, capacity, rate, key=None):
             st.sidebar.subheader(msg)
+            msg = _("Region has {n} beds, but only {rate} are typically available in a given time.")
+            st.sidebar.markdown(msg.format(n=fmt(int(capacity)), rate=pc(1 - rate)))
             total = st.sidebar.number_input(
-                _("Total"), min_value=0, value=int(capacity), key=key + "_total"
-            )
-            rate = 0.01 * st.sidebar.slider(
-                _("Occupied (%)"),
-                min_value=0.0,
-                max_value=100.0,
-                value=100 * float(rate),
-                key=key + "_rate",
+                _("Beds dedicated exclusively to COVID-19"),
+                min_value=0,
+                value=int((1 - rate) * capacity),
+                key=key + "_total",
             )
             return (1 - rate) * total
 
         h_total = region.hospital_total_capacity
-        h_rate = region.hospital_occupancy_rate
+        h_rate = max(region.hospital_occupancy_rate, 0.75)
         c_total = region.icu_total_capacity
-        c_rate = region.icu_occupancy_rate
+        c_rate = max(region.icu_occupancy_rate, 0.75)
         return {
             "hospital_capacity": get(_("Clinical beds"), h_total, h_rate, key="hospital"),
             "icu_capacity": get(_("ICU beds"), c_total, c_rate, key="icu"),
