@@ -1,9 +1,24 @@
 import re
 from functools import lru_cache, wraps
+from gettext import gettext as _
+from math import log10
 
 import numpy as np
 
 N_RE = re.compile(r"(-?)(\d+)(\.\d{,2})?\d*")
+identity = lambda x: x
+HUMANIZED_SUFFIXES = (
+    (0.1, 1, identity, "{:.04n}", ""),
+    (1e2, 1, identity, "{:.03n}", ""),
+    (1e3, 1, identity, "{:.2n}", ""),
+    (1e6, 1, int, "{:n}", ""),
+    (1e8, 1e6, identity, "{:.3n}", _("M")),
+    (1e9, 1e6, identity, "{:.2n}", _("M")),
+    (1e11, 1e9, identity, "{:.3n}", _("B")),
+    (1e12, 1e9, identity, "{:.2n}", _("B")),
+    (1e13, 1e12, identity, "{:.3n}", _("T")),
+    (1e14, 1e12, identity, "{:.2n}", _("T")),
+)
 
 
 def fmt(n):
@@ -15,24 +30,22 @@ def fmt(n):
         return ", ".join(map(fmt, n))
     except TypeError:
         pass
-
     m = abs(n)
-    if m == 0.0:
-        return "0"
-    if m < 0.001:
-        return "%.2e" % n
-    elif 0.001 <= m < 1000:
-        if isinstance(n, int):
-            return str(n)
-        return f"{float(n):.2f}"
-    elif 1000 <= m < 100_000:
-        return _fmt_aux(n)
-    elif 100_000 <= m < 1_000_000_000:
-        return _fmt_aux(n / 1e6, "mi")
-    elif 1_000_000_000 <= m < 1_000_000_000_000:
-        return _fmt_aux(n / 1e9, "bi")
-    else:
-        return "%e" % n
+
+    if int(n) == n and m < 1e6:
+        return "{:n}".format(int(n))
+
+    if m < 0.01:
+        e = int(-log10(m)) + 1
+        return "{:.3n}".format(n * 10 ** e) + f"e-%02d" % e
+    for k, div, fn, fmt_, suffix in HUMANIZED_SUFFIXES:
+        if m < k:
+            dec = fn(m) / div
+            dec -= int(dec)
+            dec = fmt_.format(1 + dec)[1:]
+            prefix = "{:n}".format(int(fn(n) / div))
+            return prefix + dec + suffix
+    return "{:.2n}".format(n)
 
 
 def _fmt_aux(n, suffix=""):
@@ -96,7 +109,6 @@ def interpolant(x, y):
     x = np.array(x)
     y = np.array(y)
 
-    @lru_cache
     def fn(t):
         return np.interp(t, x, y)
 

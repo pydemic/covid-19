@@ -1,6 +1,8 @@
 from contextlib import contextmanager
 
 import streamlit as st
+import humanize
+import locale
 
 import covid
 from covid import gettext as _
@@ -32,7 +34,7 @@ class CalcUI:
     """
 
     simulation_class = SEICHAR
-    title = _("COVID-19 assistance pressure")
+    title = _("COVID-19 hospitalization pressure")
 
     def __init__(self, country=COUNTRY, display_country=DISPLAY_COUNTRY):
         st.write(css(), unsafe_allow_html=True)
@@ -55,7 +57,7 @@ class CalcUI:
         """
         Run streamlit app.
         """
-        components.icon(_("OPAS - COVID-19"), _("Epidemic Calculator"), fn=st.sidebar.markdown)
+        components.icon(_("COVID-19"), _("Epidemic Calculator"), fn=st.sidebar.markdown)
         with self.info(_("Loading region...")):
             region = self.input.region()
             self.input.pause()
@@ -91,5 +93,7 @@ def rename_data_header(name):
 
 # Start main script
 if __name__ == "__main__":
+    humanize.i18n.activate("pt_BR")
+    locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
     ui = CalcUI()
     ui.run()

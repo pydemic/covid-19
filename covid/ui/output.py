@@ -1,10 +1,20 @@
+import locale
+from gettext import gettext as _
+
+import altair as alt
+import humanize
 import pandas as pd
 import streamlit as st
+from humanize import naturaldate
 
 import covid
 from covid.models import SEICHARDemographic as SEICHAR
 from covid.ui.components import cards, md_description, css
 from covid.utils import fmt, pc
+
+naturaldate = naturaldate
+naturaldate = lambda d: f"{d.day}/{d.month}"
+naturaldate = lambda d: d.strftime("%x")
 
 
 class Output:
@@ -17,33 +27,42 @@ class Output:
         """
         model = self.model
         self.summary_cards(model)
-        self.hospitalizations_plot(model)
+        self.hospitalizations_chart(model)
         self.available_beds_chart(model)
-        self.write_info(model)
+        self.write_population_info(model)
+        self.write_age_distribution_chart(model)
+        self.write_fatalities_chart(model)
+        self.write_healthcare_parameters(model)
+        self.write_epidemiological_parameters(model)
+        self.write_footnotes(model)
 
     def summary_cards(self, model: SEICHAR):
         """
         Show list of summary cards for the results of simulation.
         """
-        contaminated = model.initial_population - model.susceptible
+
+        # Which one?
+        df = model.data["infectious"] * model.gamma_i * model.prob_hospitalization
+        hospitalized = df.apply(model.integral).sum()
+
         h_date = model.hospital_overflow_date or "Nunca"
         c_date = model.icu_overflow_date or "Nunca"
         missing_icu = max(int(model.peak_icu_demand - model.icu_capacity), 0)
         missing_hospital = max(int(model.peak_hospitalization_demand - model.hospital_capacity), 0)
 
         entries = {
-            "Exaustão dos leitos clínicos": f"{h_date}",
-            "Exaustão de leitos de UTI": f"{c_date}",
-            "Leitos UTI faltando no dia do pico": f"{fmt(missing_icu)}",
-            "Leitos clínicos faltando no dia do pico": f"{fmt(missing_hospital)}",
-            "Fatalidades": f"{fmt(int(model.fatalities))} "
+            _("No more hospital beds by"): f"{naturaldate(h_date)}",
+            _("No more ICUs by"): f"{naturaldate(c_date)}",
+            _("Required extra hospital beds"): f"{fmt(missing_hospital)}",
+            _("Required extra ICU beds"): f"{fmt(missing_icu)}",
+            _("Deaths"): f"{fmt(int(model.fatalities))} "
             f"({pc(model.fatalities / model.initial_population)})",
-            "Contaminados": f"{fmt(int(contaminated))} "
-            f"({pc(contaminated / model.initial_population)})",
+            _("Hospitalizations"): f"{fmt(int(hospitalized))} "
+            f"({pc(hospitalized / model.initial_population)})",
         }
         cards(entries, st.write)
 
-    def hospitalizations_plot(self, model):
+    def hospitalizations_chart(self, model):
         """
         Write plot of hospitalization
         """
@@ -81,7 +100,7 @@ class Output:
 
         st.line_chart(df)
 
-    def write_info(self, model: SEICHAR):
+    def write_population_info(self, model: SEICHAR):
         """Write additional information about the model."""
 
         # Demography
@@ -93,39 +112,119 @@ class Output:
             "60 anos ou mais": f"{fmt(seniors)} ({pc(seniors / total)})",
         }
         cards(entries, st.write)
-        st.markdown("`_`\n\n**Distribuição de idades**")
-        st.bar_chart(model.demography)
-        st.markdown("` `\n\n**Fatalidades por idade**")
-        st.bar_chart(model.data.loc[model.time, "fatalities"].astype(int))
 
-        # Epidemiological parameters
-        st.subheader("Epidemiologia")
+    def write_age_distribution_chart(self, model):
+        st.subheader(" ")
+        st.subheader(_("Population pyramid"))
+        data = model.region.detailed_demography
+        data.columns = ["left", "right"]
+        double_bar_chart(data, _("Female"), _("Male"))
+
+    def write_fatalities_chart(self, model):
+        st.subheader(" ")
+        st.subheader(_("Age distribution of deaths"))
+        data = model.data.loc[model.time, "fatalities"]
+        data = pd.DataFrame({"fatalities": data, "pc": data.values / model.demography.values})
+        data.columns = ["left", "right"]
+        double_bar_chart(data, _("Total deaths"), _("Mortality"), fmt, pc)
+
+    def write_healthcare_parameters(self, model):
+        st.markdown("---")
+        st.subheader(_("Healthcare system"))
+
+        r = model.region
         md_description(
             {
-                "R0 médio": fmt(model.R0_average),
-                "Fatalidade (infectados, IFR)": pc(model.IFR()),
-                "Fatalidade (casos, CFR)": pc(model.CFR()),
+                _("COVID ICUs"): fmt(int(model.icu_capacity)),
+                _("COVID hospital beds"): fmt(int(model.hospital_capacity)),
+                _("ICUs"): _("{n} (source: CNES)").format(n=fmt(r.icu_total_capacity)),
+                _("Hospital beds"): _("{n} (source: CNES)").format(
+                    n=fmt(r.hospital_total_capacity)
+                ),
             },
             st.write,
         )
 
-        # Healthcare parameters
-        fpc = lambda x: "x " + fmt(x) if x > 1.0 else pc(x)
-        icu_surge_overload = model.peak_icu_demand / model.icu_capacity
-        icu_overload = model.peak_icu_demand / model.icu_total_capacity
-        surge_overload = model.peak_hospitalization_demand / model.hospital_capacity
-        overload = model.peak_hospitalization_demand / model.hospital_total_capacity
+        if model.region.icu_total_capacity == 0:
+            msg = _(
+                """
+The region does not have any ICU beds. At peak demand, it needs to reserve {n}
+beds from neighboring cities.
+"""
+            )
+            msg = msg.format(n=model.peak_icu_demand)
+        elif model.icu_overflow_date:
+            msg = _(
+                """
+The region will **run out of ICU beds at {date}**. At peak demand, it will need **{n}
+new ICUs**. This demand corresponds to **{surge} times** the number of beds dedicated
+to COVID19 and
+{total} of the total number of ICU beds."""
+            )
+            msg = msg.format(
+                date=naturaldate(model.icu_overflow_date),
+                n=fmt(int(model.peak_icu_demand - model.icu_capacity)),
+                surge=fmt(model.peak_icu_demand / model.icu_capacity),
+                total=fmt(model.peak_icu_demand / model.icu_total_capacity),
+            )
+        else:
+            msg = _(
+                "The number of ICU beds is sufficient for the expected demand in this " "scenario."
+            )
 
-        st.subheader("Sistema de saúde")
+        st.markdown(msg)
+
+    def write_epidemiological_parameters(self, model):
+        st.markdown("---")
+        st.subheader(_("Advanced epidemiological information"))
+        mortality = pc(model.fatalities / model.population)
+        fatality = pc(model.CFR())
+        infected = pc(model.total_exposed / model.population)
+        symptomatic = pc(model.prob_symptomatic)
         md_description(
             {
-                "Sobrecarga de UTI": fpc(icu_surge_overload),
-                "Da capacidade total de UTI": fpc(icu_overload),
-                "Sobrecarga de Leitos": fpc(surge_overload),
-                "Da capacidade total de leitos": fpc(overload),
+                _("Number of cases generated by a single case"): fmt(model.R0_average),
+                _("Mortality (% of deaths in population)"): mortality,
+                _("Letality (% of deaths among the ill)"): fatality,
             },
             st.write,
         )
+        st.markdown(
+            """
+This scenario predicts that **{mortality}** of the whole population will die from
+COVID-19. This number corresponds to **{fatality}** of those that became ill.
+The model also predicts that **{infected}** of the population will become
+infected, but only **{symptomatic}** will develop visible symptoms. People who
+do not exhibit symptoms are still able to infect others.
+
+**IMPORTANT:** Models are simplifications and are highly dependent on good
+parameters and good data. There are many aspects of COVID epidemiology that are
+yet not very well understood and scientists are still looking for more accurate
+values for many important parameters. The choices made here are best guesses
+based on the current scientific knowledge about the epidemic. Changing
+parameters to absurd values will create absurd predictions, so use with care.
+
+The course of the epidemic also depends crucially on how communities react. This is
+encoded in a very simplified way in by the "intervention options" in the simulator.
+That is why we say this calculator computes scenarios rather than predicting
+the future.
+""".format(
+                **locals()
+            )
+        )
+
+    def write_footnotes(self, *args):
+        """Write footnotes"""
+
+        template = '<a href="{href}">{name}</a>'
+        links = _("Kind support: {paho}, {unb}").format(
+            paho=template.format(
+                href=_("https://www.paho.org/hq/index.php?lang=en"), name=_("PAHO")
+            ),
+            unb=template.format(href=_("https://lappis.rocks"), name=_("UnB/LAPPIS")),
+        )
+        styles = "text-align: center; margin: 5rem 0 -5rem 0;"
+        st.write(f'<div style="{styles}">{links}</div>', unsafe_allow_html=True)
 
 
 def fatality_rate(fs, dt=1):
@@ -140,7 +239,61 @@ def write_css():
     st.write(css(), unsafe_allow_html=True)
 
 
+def double_bar_chart(data, left, right, hleft=fmt, hright=fmt):
+    cols = ["left", "right"]
+    titles = [left, right]
+    directions = ["descending", "ascending"]
+    h_cols = [left, right]
+
+    # Transform data
+    data = data.copy()
+    data["index"] = data.index
+    data["color_left"] = "A"
+    data["color_right"] = "B"
+    data[h_cols[0]] = data["left"].apply(hleft)
+    data[h_cols[1]] = data["right"].apply(hright)
+    data = data.loc[::-1]
+
+    # Chart
+    base = alt.Chart(data)
+    height = 250
+    width = 300
+
+    def piece(i):
+        return (
+            base.mark_bar()
+            .encode(
+                x=alt.X(cols[i], title=None, sort=alt.SortOrder(directions[i])),
+                y=alt.Y("index", axis=None, title=None, sort=alt.SortOrder("descending")),
+                tooltip=alt.Tooltip([h_cols[i]]),
+                color=alt.Color(f"color_{cols[i]}:N", legend=None),
+            )
+            .properties(title=titles[i], width=width, height=height)
+            .interactive()
+        )
+
+    st.altair_chart(
+        alt.concat(
+            piece(0),
+            base.encode(
+                y=alt.Y("index", axis=None, sort=alt.SortOrder("descending")),
+                text=alt.Text("index"),
+            )
+            .mark_text()
+            .properties(width=50, height=height),
+            piece(1),
+            spacing=5,
+        ),
+        use_container_width=False,
+    )
+
+
 if __name__ == "__main__":
+    import os
+
+    humanize.i18n.activate(os.environ.get("LANGUAGE", "pt_BR"))
+    locale.setlocale(locale.LC_ALL, os.environ.get("LOCALE", "pt_BR.UTF-8"))
+
     region = covid.region("Brazil")
     model = SEICHAR(region=region, prob_symptomatic=0.5, seed=1000)
     model.run(180)

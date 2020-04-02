@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-01 15:27+0000\n"
+"POT-Creation-Date: 2020-04-02 09:56-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: covid/models/seichar.py:563
+#: covid/utils.py:15 covid/utils.py:16
+msgid "M"
+msgstr ""
+
+#: covid/utils.py:17 covid/utils.py:18
+msgid "B"
+msgstr ""
+
+#: covid/utils.py:19 covid/utils.py:20
+msgid "T"
+msgstr ""
+
+#: covid/models/seichar.py:582
 msgid "Name"
 msgstr ""
 
-#: covid/models/seichar.py:563
+#: covid/models/seichar.py:582
 msgid "Items/day"
 msgstr ""
 
-#: covid/models/seichar.py:563 covid/ui/input.py:117
+#: covid/models/seichar.py:582 covid/ui/input.py:112
 msgid "Total"
 msgstr ""
 
-#: covid/ui/calc.py:16 covid/ui/input.py:232
+#: covid/ui/calc.py:16 covid/ui/input.py:227
 msgid "Brazil"
 msgstr ""
 
@@ -66,11 +78,11 @@ msgid "fatalities"
 msgstr ""
 
 #: covid/ui/calc.py:37
-msgid "COVID-19 assistance pressure"
+msgid "COVID-19 hospitalization pressure"
 msgstr ""
 
 #: covid/ui/calc.py:60
-msgid "OPAS - COVID-19"
+msgid "COVID-19"
 msgstr ""
 
 #: covid/ui/calc.py:60
@@ -89,59 +101,6 @@ msgstr ""
 msgid "Performing simulation..."
 msgstr ""
 
-#: covid/ui/calc.py:108 covid/ui/calc.py:109 covid/ui/calc.py:173
-#: covid/ui/calc.py:174
-msgid "Never"
-msgstr ""
-
-#: covid/ui/calc.py:113 covid/ui/calc.py:173
-msgid "Clinical beds exhaustion"
-msgstr ""
-
-#: covid/ui/calc.py:114 covid/ui/calc.py:174
-msgid "ICU beds exhaustion"
-msgstr ""
-
-#: covid/ui/calc.py:115 covid/ui/calc.py:176
-msgid "Missing clinical beds on peak date"
-msgstr ""
-
-#: covid/ui/calc.py:116 covid/ui/calc.py:180
-msgid "Missing ICU beds on peak date"
-msgstr ""
-
-#: covid/ui/calc.py:118
-msgid "Contaminated"
-msgstr ""
-
-#: covid/ui/calc.py:122
-msgid "Deaths"
-msgstr ""
-
-#: covid/ui/calc.py:132
-msgid "Hospitalization chart"
-msgstr ""
-
-#: covid/ui/calc.py:138
-msgid "Clinical hospitalizations"
-msgstr ""
-
-#: covid/ui/calc.py:139
-msgid "ICU hospitalizations"
-msgstr ""
-
-#: covid/ui/calc.py:140
-msgid "Deaths/day"
-msgstr ""
-
-#: covid/ui/calc.py:150 covid/ui/calc.py:162
-msgid "Available beds"
-msgstr ""
-
-#: covid/ui/calc.py:163
-msgid "Available ICU beds"
-msgstr ""
-
 #: covid/ui/input.py:38 covid/ui/input.py:52
 msgid "Region"
 msgstr ""
@@ -158,95 +117,229 @@ msgstr ""
 msgid "City"
 msgstr ""
 
-#: covid/ui/input.py:98
+#: covid/ui/input.py:93
 msgid "Simulation options"
 msgstr ""
 
-#: covid/ui/input.py:100
+#: covid/ui/input.py:95
 msgid "Days of simulation"
 msgstr ""
 
-#: covid/ui/input.py:101
+#: covid/ui/input.py:96
 msgid "Initial date"
 msgstr ""
 
-#: covid/ui/input.py:102
+#: covid/ui/input.py:97
 msgid "Amount of detected cases"
 msgstr ""
 
-#: covid/ui/input.py:112
+#: covid/ui/input.py:107
 msgid "Hospital capacity"
 msgstr ""
 
-#: covid/ui/input.py:120
+#: covid/ui/input.py:115
 msgid "Occupied (%)"
 msgstr ""
 
-#: covid/ui/input.py:133
+#: covid/ui/input.py:128
 msgid "Clinical beds"
 msgstr ""
 
-#: covid/ui/input.py:134
+#: covid/ui/input.py:129
 msgid "ICU beds"
 msgstr ""
 
-#: covid/ui/input.py:145
+#: covid/ui/input.py:140
 msgid "Epidemiology"
 msgstr ""
 
-#: covid/ui/input.py:146
+#: covid/ui/input.py:141
 msgid "Standard"
 msgstr ""
 
-#: covid/ui/input.py:146
+#: covid/ui/input.py:141
 msgid "Fast"
 msgstr ""
 
-#: covid/ui/input.py:146
+#: covid/ui/input.py:141
 msgid "Slow"
 msgstr ""
 
-#: covid/ui/input.py:146
+#: covid/ui/input.py:141
 msgid "Custom"
 msgstr ""
 
-#: covid/ui/input.py:147 covid/ui/input.py:190
+#: covid/ui/input.py:142 covid/ui/input.py:185
 msgid "Scenario"
 msgstr ""
 
-#: covid/ui/input.py:158
+#: covid/ui/input.py:153
 msgid "Contagion rate (R0)"
 msgstr ""
 
-#: covid/ui/input.py:161
+#: covid/ui/input.py:156
 msgid "Virus incubation period"
 msgstr ""
 
-#: covid/ui/input.py:166
+#: covid/ui/input.py:161
 msgid "Infectious period"
 msgstr ""
 
-#: covid/ui/input.py:171
+#: covid/ui/input.py:166
 msgid "Average death rate"
 msgstr ""
 
-#: covid/ui/input.py:188
+#: covid/ui/input.py:183
 msgid "Intervention"
 msgstr ""
 
-#: covid/ui/input.py:189
+#: covid/ui/input.py:184
 msgid "None"
 msgstr ""
 
-#: covid/ui/input.py:189
+#: covid/ui/input.py:184
 msgid "Social distancing"
 msgstr ""
 
-#: covid/ui/input.py:195
+#: covid/ui/input.py:190
 msgid "Days after initial date to start intervention"
 msgstr ""
 
-#: covid/ui/input.py:196
+#: covid/ui/input.py:191
 msgid "Decrease of contagion rate (R0) after intervention"
 msgstr ""
 
+#: covid/ui/output.py:55
+msgid "No more hospital beds by"
+msgstr ""
+
+#: covid/ui/output.py:56
+msgid "No more ICUs by"
+msgstr ""
+
+#: covid/ui/output.py:57
+msgid "Required extra hospital beds"
+msgstr ""
+
+#: covid/ui/output.py:58
+msgid "Required extra ICU beds"
+msgstr ""
+
+#: covid/ui/output.py:59
+msgid "Deaths"
+msgstr ""
+
+#: covid/ui/output.py:61
+msgid "Hospitalizations"
+msgstr ""
+
+#: covid/ui/output.py:122
+msgid "Population pyramid"
+msgstr ""
+
+#: covid/ui/output.py:125
+msgid "Female"
+msgstr ""
+
+#: covid/ui/output.py:125
+msgid "Male"
+msgstr ""
+
+#: covid/ui/output.py:129
+msgid "Age distribution of deaths"
+msgstr ""
+
+#: covid/ui/output.py:134
+msgid "Total deaths"
+msgstr ""
+
+#: covid/ui/output.py:134
+msgid "Mortality"
+msgstr ""
+
+#: covid/ui/output.py:138
+msgid "Healthcare system"
+msgstr ""
+
+#: covid/ui/output.py:143
+msgid "COVID ICUs"
+msgstr ""
+
+#: covid/ui/output.py:144
+msgid "COVID hospital beds"
+msgstr ""
+
+#: covid/ui/output.py:145
+msgid "ICUs"
+msgstr ""
+
+#: covid/ui/output.py:145 covid/ui/output.py:146
+msgid "{n} (source: CNES)"
+msgstr ""
+
+#: covid/ui/output.py:146
+msgid "Hospital beds"
+msgstr ""
+
+#: covid/ui/output.py:153
+msgid ""
+"\n"
+"The region does not have any ICU beds. At peak demand, it needs to "
+"reserve {n} \n"
+"beds from neighboring cities.\n"
+msgstr ""
+
+#: covid/ui/output.py:159
+msgid ""
+"\n"
+"The region will **run out of ICU beds at {date}**. At peak demand, it "
+"will need **{n} \n"
+"new ICUs**. This demand corresponds to **{surge} times** the number of "
+"beds dedicated \n"
+"to COVID19 and \n"
+"{total} of the total number of ICU beds."
+msgstr ""
+
+#: covid/ui/output.py:171
+msgid ""
+"The number of ICU beds is sufficient for the expected demand in this "
+"scenario."
+msgstr ""
+
+#: covid/ui/output.py:179
+msgid "Advanced epidemiological information"
+msgstr ""
+
+#: covid/ui/output.py:186
+msgid "Number of cases generated by a single case"
+msgstr ""
+
+#: covid/ui/output.py:187
+#, python-format
+msgid "Mortality (% of deaths in population)"
+msgstr ""
+
+#: covid/ui/output.py:188
+#, python-format
+msgid "Letality (% of deaths among the ill)"
+msgstr ""
+
+#: covid/ui/output.py:216
+msgid "Kind support: {paho}, {unb}"
+msgstr ""
+
+#: covid/ui/output.py:218
+msgid "https://www.paho.org/hq/index.php?lang=en"
+msgstr ""
+
+#: covid/ui/output.py:218
+msgid "PAHO"
+msgstr ""
+
+#: covid/ui/output.py:220
+msgid "https://lappis.rocks"
+msgstr ""
+
+#: covid/ui/output.py:220
+msgid "UnB/LAPPIS"
+msgstr ""

@@ -19,12 +19,12 @@ Usage
 
 You can run models from the command line::
 
-$ python -m covid.models.rseicha
+$ python -m covid.models.seichar
 
 Or, more typically, from Python code
 
->>> from covid.models import RSEICHA
->>> m = RSEICHA(region='Italy')
+>>> from covid.models import SEICHAR
+>>> m = SEICHAR(region='Italy')
 >>> run = m.run()
 >>> run.plot()
 >>> print(run)
@@ -39,7 +39,7 @@ package manager or use `pip install flit --user`.
 The model
 =========
 
-RSEICHA is a compartmental model with 8 compartments: Recovered, Fatalities, Susceptible, Exposed,
+SEICHAR is a compartmental model with 8 compartments: Recovered, Fatalities, Susceptible, Exposed,
 Infectious, Critical (require ICU care), Hospitalized (or requires hospitalization) and Asymptomatic.
 
 It is governed by the following dynamics:

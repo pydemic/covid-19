@@ -10,15 +10,16 @@ author-email = "fabiomacedomendes@gmail.com"
 home-page = "http://github.com/fabiommendes/covid-19"
 classifiers = [ "License :: OSI Approved :: MIT License" ]
 requires = [
-  "Babel==2.8.0",
-  "click==7.1.1",
+  "Babel~=2.8.0",
+  "click~=7.1.1",
   "matplotlib==3.2.1",
-  "numpy==1.18.2",
-  "pandas==1.0.3",
-  "requests==2.23.0",
-  "seaborn==0.10.0",
-  "streamlit==0.57.2",
-  "xlrd==1.2.0"
+  "numpy~=1.18.2",
+  "pandas~=1.0.3",
+  "requests~=2.23.0",
+  "seaborn~=0.10.0",
+  "streamlit~=0.57.2",
+  "xlrd~=1.2.0",
+  "humanize~=2.2.0",
 ]
 
 [tool.flit.metadata.requires-extra]

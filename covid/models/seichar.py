@@ -419,6 +419,10 @@ class SEICHAR(Model):
         self.total_hospitalized = total(integral(h) * self.gamma_h)
         self.total_critical = total(integral(c) * self.gamma_c)
 
+    def mortality_rate(self):
+        """Return the infection fatality ratio so far"""
+        return self.fatalities / self.population
+
     def IFR(self):
         """Return the infection fatality ratio so far"""
         return self.fatalities / self.total_exposed
