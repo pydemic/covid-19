@@ -1,20 +1,15 @@
-import locale
-from gettext import gettext as _
-
 import altair as alt
-import humanize
 import pandas as pd
 import streamlit as st
-from humanize import naturaldate
+from babel.dates import format_date
 
 import covid
+from covid import gettext as _
 from covid.models import SEICHARDemographic as SEICHAR
 from covid.ui.components import cards, md_description, css
 from covid.utils import fmt, pc
 
-naturaldate = naturaldate
-naturaldate = lambda d: f"{d.day}/{d.month}"
-naturaldate = lambda d: d.strftime("%x") if d else _("Not soon...")
+naturaldate = lambda d: format_date(d, format="short") if d else _("Not soon...")
 
 
 class Output:
