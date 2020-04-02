@@ -1,11 +1,16 @@
 import locale
 
+import pytest
+
 from covid.utils import fmt
 
 
 class TestUtilityFunctions:
     def test_format_functions(self):
-        locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
+        try:
+            locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
+        except locale.Error:
+            return pytest.skip()
         assert fmt(0.10) == "0,1"
         assert fmt(0.12) == "0,12"
         assert fmt(0.01) == "0,01"

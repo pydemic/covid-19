@@ -38,7 +38,7 @@ class CalcUI:
 
     def __init__(self, country=COUNTRY, display_country=DISPLAY_COUNTRY):
         st.write(css(), unsafe_allow_html=True)
-        st.title(self.title)
+        self._title = st.title(self.title)
         self._info = st.text("")
         self.country = country
         self.input = Input(self.country, display_country=DISPLAY_COUNTRY)
@@ -61,12 +61,13 @@ class CalcUI:
         with self.info(_("Loading region...")):
             region = self.input.region()
             self.input.pause()
+            self._title = f"{self.title} - {region}"
         with self.info(_("Loading simulation parameters...")):
             kwargs = {"region": region, **self.input.params(region)}
         with self.info(_("Performing simulation...")):
             self.run_simulation(**kwargs)
 
-    def run_simulation(self, period, hospital_capacity, icu_capacity, **kwargs):
+    def run_simulation(self, period, hospital_capacity, icu_capacity, intervention=None, **kwargs):
         """
         Initialize class with given arguments and run simulation.
         """
@@ -76,6 +77,8 @@ class CalcUI:
         # FIXME: should be able to setup on the constructor
         model.hospital_capacity = hospital_capacity
         model.icu_capacity = icu_capacity
+        if intervention:
+            model = intervention(model)
         model.run(period)
 
         out = Output(model)

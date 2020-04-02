@@ -14,7 +14,7 @@ from covid.utils import fmt, pc
 
 naturaldate = naturaldate
 naturaldate = lambda d: f"{d.day}/{d.month}"
-naturaldate = lambda d: d.strftime("%x")
+naturaldate = lambda d: d.strftime("%x") if d else _("Not soon...")
 
 
 class Output:
@@ -45,22 +45,20 @@ class Output:
         df = model.data["infectious"] * model.gamma_i * model.prob_hospitalization
         hospitalized = df.apply(model.integral).sum()
 
-        h_date = model.hospital_overflow_date or "Nunca"
-        c_date = model.icu_overflow_date or "Nunca"
+        h_date = model.hospital_overflow_date
+        c_date = model.icu_overflow_date
         missing_icu = max(int(model.peak_icu_demand - model.icu_capacity), 0)
         missing_hospital = max(int(model.peak_hospitalization_demand - model.hospital_capacity), 0)
+        fatalities_pc = pc(model.fatalities / model.initial_population)
+        hospitalized_pc = pc(hospitalized / model.initial_population)
 
         entries = {
-            _("No more hospital beds by"): f"{naturaldate(h_date)}",
-            _("No more ICUs by"): f"{naturaldate(c_date)}",
-            _("Required extra hospital beds"): f"{fmt(missing_hospital)}",
+            _("Deaths"): f"{fmt(int(model.fatalities))} ({fatalities_pc})",
+            _("Hospitalizations"): f"{fmt(int(hospitalized))} ({hospitalized_pc})",
             _("Required extra ICU beds"): f"{fmt(missing_icu)}",
-            _(
-                "Deaths"
-            ): f"{fmt(int(model.fatalities))} ({pc(model.fatalities / model.initial_population)})",
-            _(
-                "Hospitalizations"
-            ): f"{fmt(int(hospitalized))} ({pc(hospitalized / model.initial_population)})",
+            _("Required extra hospital beds"): f"{fmt(missing_hospital)}",
+            _("No more ICUs by"): f"{naturaldate(c_date)}",
+            _("No more hospital beds by"): f"{naturaldate(h_date)}",
         }
         cards(entries, st.write)
 
@@ -86,7 +84,7 @@ class Output:
         """
         Write plot of available beds.
         """
-        st.subheader("Leitos disponíveis")
+        st.subheader(_("Available hospital beds"))
 
         hospitalized = model["hospitalized:total"]
         icu = model["critical:total"]
@@ -97,7 +95,7 @@ class Output:
         available_icu = model.icu_capacity - icu
         available_icu[available_icu < 0] = 0
 
-        columns = {"Leitos disponíveis": available_beds, "Leitos de UTI disponíveis": available_icu}
+        columns = {_("Regular"): available_beds, _("ICU"): available_icu}
         df = model.get_dates(pd.DataFrame(columns))
 
         st.line_chart(df)
@@ -106,12 +104,12 @@ class Output:
         """Write additional information about the model."""
 
         # Demography
-        st.subheader("População")
+        st.subheader(_("Population"))
         seniors = model.demography.loc["60-69":].sum()
         total = model.population
         entries = {
-            "Total": fmt(total),
-            "60 anos ou mais": f"{fmt(seniors)} ({pc(seniors / total)})",
+            _("Total"): fmt(total),
+            _("60 or more"): f"{fmt(seniors)} ({pc(seniors / total)})",
         }
         cards(entries, st.write)
 
@@ -126,7 +124,9 @@ class Output:
         st.subheader(" ")
         st.subheader(_("Age distribution of deaths"))
         data = model.data.loc[model.time, "fatalities"]
-        data = pd.DataFrame({"fatalities": data, "pc": data.values / model.demography.values})
+        data = pd.DataFrame(
+            {"fatalities": data.astype(int), "pc": data.values / model.demography.values}
+        )
         data.columns = ["left", "right"]
         double_bar_chart(data, _("Total deaths"), _("Mortality"), fmt, pc)
 
@@ -154,7 +154,7 @@ The region does not have any ICU beds. At peak demand, it needs to reserve {n}
 beds from neighboring cities.
 """
             )
-            msg = msg.format(n=model.peak_icu_demand)
+            msg = msg.format(n=fmt(model.peak_icu_demand))
         elif model.icu_overflow_date:
             msg = _(
                 """
@@ -196,7 +196,7 @@ to COVID19 and
 This scenario predicts that **{mortality}** of the whole population will die from
 COVID-19. This number corresponds to **{fatality}** of those that became ill.
 The model also predicts that **{infected}** of the population will become
-infected, but only **{symptomatic}** will develop visible symptoms. People who
+infected, but only **{symptomatic}** of those will develop visible symptoms. People who
 do not exhibit symptoms are still able to infect others.
 
 **IMPORTANT:** Models are simplifications and are highly dependent on good
@@ -208,8 +208,9 @@ parameters to absurd values will create absurd predictions, so use with care.
 
 The course of the epidemic also depends crucially on how communities react. This is
 encoded in a very simplified way in by the "intervention options" in the simulator.
-That is why we say this calculator computes scenarios rather than predicting
-the future.
+We do not try to anticipate communities respond to the epidemic, but rather it
+must be entered as an explicit input to the model. That is why we say this calculator
+computes scenarios rather than trying to predict the future.
 """.format(
                 **locals()
             )

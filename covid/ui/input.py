@@ -1,3 +1,5 @@
+import datetime
+
 import streamlit as st
 
 import covid
@@ -5,6 +7,10 @@ from covid import gettext as _
 from covid.data import countries
 from covid.models import SEICHAR
 from covid.utils import fmt, pc
+
+
+TODAY = datetime.datetime.now()
+TODAY = datetime.date(TODAY.year, TODAY.month, TODAY.day)
 
 
 class Input:
@@ -78,8 +84,7 @@ class Input:
         self.pause()
         epidemiology = self.epidemiology(region)
         self.pause()
-        # TODO: implement intervention
-        intervention = {}  # self.intervention(region)
+        intervention = self.intervention(region)
 
         return {**simulation, **healthcare, **epidemiology, **intervention}
 
@@ -95,10 +100,10 @@ class Input:
         st.sidebar.header(_("Simulation options"))
         seed = int(max(5e-6 * region.population_size, 1))
         return {
-            "period": st.sidebar.slider(_("Duration (months)"), 0, 6, value=2) * 30,
+            "period": st.sidebar.slider(_("Duration (months)"), 1, 6, value=2) * 30,
             "start_date": st.sidebar.date_input(_("Initial date")),
             "seed": st.sidebar.number_input(
-                _("Amount of detected cases"), 1, region.population_size, value=seed
+                _("Amount of detected cases"), 1, int(region.population_size), value=seed
             ),
         }
 
@@ -113,7 +118,9 @@ class Input:
 
         def get(msg, capacity, rate, key=None):
             st.sidebar.subheader(msg)
-            msg = _("Region has {n} beds, but only {rate} are typically available in a given time.")
+            msg = _(
+                "Region has {n} beds, but only {rate} are typically available in a " "given time."
+            )
             st.sidebar.markdown(msg.format(n=fmt(int(capacity)), rate=pc(1 - rate)))
             total = st.sidebar.number_input(
                 _("Beds dedicated exclusively to COVID-19"),
@@ -153,21 +160,25 @@ class Input:
 
         # Custom
         R0 = SEICHAR.R0
-        R0 = st.sidebar.slider(_("Contagion rate (R0)"), min_value=0.0, max_value=5.0, value=R0)
+        msg = _("New infected people for each infection (R0)")
+        R0 = st.sidebar.slider(msg, min_value=0.0, max_value=5.0, value=R0)
+
         incubation_period = 1 / SEICHAR.sigma
+        msg = _("Virus incubation period")
         incubation_period = st.sidebar.slider(
-            _("Virus incubation period"), min_value=1.0, max_value=10.0, value=incubation_period
+            msg, min_value=1.0, max_value=10.0, value=incubation_period
         )
 
         infectious_period = 1 / SEICHAR.gamma_i
+        msg = _("Infectious period")
         infectious_period = st.sidebar.slider(
-            _("Infectious period"), min_value=1.0, max_value=14.0, value=infectious_period
+            msg, min_value=1.0, max_value=14.0, value=infectious_period
         )
 
-        prob_fatality = 100 * region.prob_fatality
-        prob_fatality = st.sidebar.slider(
-            _("Average death rate"), min_value=0.0, max_value=100.0, value=prob_fatality
-        )
+        # prob_fatality = 100 * region.prob_fatality
+        # prob_fatality = st.sidebar.slider(
+        #     _("Average death rate"), min_value=0.0, max_value=100.0, value=prob_fatality
+        # )
         return {
             "R0": R0,
             "sigma": 1.0 / (incubation_period + e),
@@ -189,10 +200,44 @@ class Input:
         if intervention == baseline:
             return {}
         elif intervention == social_distance:
-            # TODO: Use params
-            date = st.sidebar.slider(_("Days after initial date to start intervention"))
-            rate = st.sidebar.slider(_("Decrease of contagion rate (R0) after intervention"))
-            return {}
+            st.sidebar.markdown(
+                _(
+                    """This intervention simulates the idealized situation in which everyone reduces
+the average number of encounters throughout the day. Small reductions (~15%) are
+possible through small behavioral changes. Larger reductions require shutting
+down services or even the whole economy.
+"""
+                )
+            )
+            week = TODAY + datetime.timedelta(days=7)
+            date = st.sidebar.date_input(_("Date of intervention"), value=week)
+            rate = st.sidebar.slider(_("Reduction in the number of contacts"), value=15)
+            return {"intervention": social_distance_intervention(date, 1 - rate / 100)}
+
+
+def social_distance_intervention(date, rate):
+    """
+    Multiply R0 by the given rate after some days of simulation.
+    """
+
+    def fn(model):
+        if date < model.start_date:
+            st.warning(_("Intervention starts prior to simulation"))
+            model.R0 *= rate
+            return model
+        else:
+            delta = date - model.start_date
+            R0_initial = model.R0
+            R0_final = model.R0 * rate
+            t_intervention = delta.days
+
+            def Rt(t):
+                return R0_initial if t < t_intervention else R0_final
+
+            model.R0 = Rt
+            return model
+
+    return fn
 
 
 @st.cache
