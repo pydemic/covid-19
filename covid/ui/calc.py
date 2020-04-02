@@ -1,8 +1,6 @@
 from contextlib import contextmanager
 
 import streamlit as st
-import humanize
-import locale
 
 import covid
 from covid import gettext as _
@@ -96,7 +94,5 @@ def rename_data_header(name):
 
 # Start main script
 if __name__ == "__main__":
-    humanize.i18n.activate("pt_BR")
-    locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
     ui = CalcUI()
     ui.run()

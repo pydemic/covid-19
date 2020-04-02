@@ -294,11 +294,6 @@ def double_bar_chart(data, left, right, hleft=fmt, hright=fmt):
 
 
 if __name__ == "__main__":
-    import os
-
-    humanize.i18n.activate(os.environ.get("LANGUAGE", "pt_BR"))
-    locale.setlocale(locale.LC_ALL, os.environ.get("LOCALE", "pt_BR.UTF-8"))
-
     region = covid.region("Brazil")
     model = SEICHAR(region=region, prob_symptomatic=0.5, seed=1000)
     model.run(180)
