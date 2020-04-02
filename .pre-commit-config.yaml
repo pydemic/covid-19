@@ -4,7 +4,9 @@ repos:
     hooks:
     -   id: check-yaml
     -   id: end-of-file-fixer
+        exclude: "\\.pot$"
     -   id: trailing-whitespace
+        exclude: "\\.pot$"
 -   repo: https://github.com/psf/black
     rev: 19.3b0
     hooks:

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-02 16:24-0300\n"
+"POT-Creation-Date: 2020-04-02 16:36-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -254,6 +254,10 @@ msgstr ""
 msgid "No more hospital beds by"
 msgstr ""
 
+#: covid/ui/output.py:69
+msgid "Hospital demand"
+msgstr ""
+
 #: covid/ui/output.py:75
 msgid "Required hospital beds"
 msgstr ""
@@ -375,7 +379,7 @@ msgstr ""
 msgid "Letality ({pc} of deaths among the ill)"
 msgstr ""
 
-#: covid/ui/output.py:194
+#: covid/ui/output.py:195
 msgid ""
 "\n"
 "This scenario predicts that **{mortality}** of the whole population will "
@@ -411,38 +415,39 @@ msgid ""
 "computes scenarios rather than trying to predict the future.\n"
 msgstr ""
 
-#: covid/ui/output.py:222
+#: covid/ui/output.py:223
 msgid "Kind support: {paho}, {lappis}, {nmt}, {fce}"
 msgstr ""
 
-#: covid/ui/output.py:224
+#: covid/ui/output.py:225
 msgid "https://www.paho.org/hq/index.php?lang=en"
 msgstr ""
 
-#: covid/ui/output.py:224
+#: covid/ui/output.py:225
 msgid "PAHO"
 msgstr ""
 
-#: covid/ui/output.py:226
+#: covid/ui/output.py:227
 msgid "https://lappis.rocks"
 msgstr ""
 
-#: covid/ui/output.py:226
+#: covid/ui/output.py:227
 msgid "UnB/LAPPIS"
 msgstr ""
 
-#: covid/ui/output.py:227
+#: covid/ui/output.py:228
 msgid "http://medicinatropical.unb.br/"
 msgstr ""
 
-#: covid/ui/output.py:227
+#: covid/ui/output.py:228
 msgid "UnB/NMT"
 msgstr ""
 
-#: covid/ui/output.py:228
+#: covid/ui/output.py:229
 msgid "http://fce.unb.br/"
 msgstr ""
 
-#: covid/ui/output.py:228
+#: covid/ui/output.py:229
 msgid "UnB/FCE"
 msgstr ""
+

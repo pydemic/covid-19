@@ -66,7 +66,7 @@ class Output:
         """
         Write plot of hospitalization
         """
-        st.subheader("Quadros de internação")
+        st.subheader(_("Hospital demand"))
 
         hospitalized = model["hospitalized:total"]
         icu = model["critical:total"]
