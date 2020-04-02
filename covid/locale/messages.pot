@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-02 13:22-0300\n"
+"POT-Creation-Date: 2020-04-02 16:24-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -375,38 +375,74 @@ msgstr ""
 msgid "Letality ({pc} of deaths among the ill)"
 msgstr ""
 
-#: covid/ui/output.py:223
+#: covid/ui/output.py:194
+msgid ""
+"\n"
+"This scenario predicts that **{mortality}** of the whole population will "
+"die from\n"
+"COVID-19. This number corresponds to **{fatality}** of those that became "
+"ill.\n"
+"The model also predicts that **{infected}** of the population will become"
+"\n"
+"infected, but only **{symptomatic}** of those will develop visible "
+"symptoms. People who\n"
+"do not exhibit symptoms are still able to infect others.\n"
+"\n"
+"**IMPORTANT:** Models are simplifications and are highly dependent on "
+"good\n"
+"parameters and good data. There are many aspects of COVID epidemiology "
+"that are\n"
+"yet not very well understood and scientists are still looking for more "
+"accurate\n"
+"values for many important parameters. The choices made here are best "
+"guesses\n"
+"based on the current scientific knowledge about the epidemic. Changing\n"
+"parameters to absurd values will create absurd predictions, so use with "
+"care.\n"
+"\n"
+"The course of the epidemic also depends crucially on how communities "
+"react. This is\n"
+"encoded in a very simplified way in by the \"intervention options\" in "
+"the simulator.\n"
+"We do not try to anticipate communities respond to the epidemic, but "
+"rather it\n"
+"must be entered as an explicit input to the model. That is why we say "
+"this calculator\n"
+"computes scenarios rather than trying to predict the future.\n"
+msgstr ""
+
+#: covid/ui/output.py:222
 msgid "Kind support: {paho}, {lappis}, {nmt}, {fce}"
 msgstr ""
 
-#: covid/ui/output.py:225
+#: covid/ui/output.py:224
 msgid "https://www.paho.org/hq/index.php?lang=en"
 msgstr ""
 
-#: covid/ui/output.py:225
+#: covid/ui/output.py:224
 msgid "PAHO"
 msgstr ""
 
-#: covid/ui/output.py:227
+#: covid/ui/output.py:226
 msgid "https://lappis.rocks"
 msgstr ""
 
-#: covid/ui/output.py:227
+#: covid/ui/output.py:226
 msgid "UnB/LAPPIS"
 msgstr ""
 
-#: covid/ui/output.py:228
+#: covid/ui/output.py:227
 msgid "http://medicinatropical.unb.br/"
 msgstr ""
 
-#: covid/ui/output.py:228
+#: covid/ui/output.py:227
 msgid "UnB/NMT"
 msgstr ""
 
-#: covid/ui/output.py:229
+#: covid/ui/output.py:228
 msgid "http://fce.unb.br/"
 msgstr ""
 
-#: covid/ui/output.py:229
+#: covid/ui/output.py:228
 msgid "UnB/FCE"
 msgstr ""

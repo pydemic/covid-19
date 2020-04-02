@@ -192,7 +192,8 @@ to COVID19 and
             st.write,
         )
         st.markdown(
-            """
+            _(
+                """
 This scenario predicts that **{mortality}** of the whole population will die from
 COVID-19. This number corresponds to **{fatality}** of those that became ill.
 The model also predicts that **{infected}** of the population will become
@@ -211,9 +212,8 @@ encoded in a very simplified way in by the "intervention options" in the simulat
 We do not try to anticipate communities respond to the epidemic, but rather it
 must be entered as an explicit input to the model. That is why we say this calculator
 computes scenarios rather than trying to predict the future.
-""".format(
-                **locals()
-            )
+"""
+            ).format(**locals())
         )
 
     def write_footnotes(self, *args):
