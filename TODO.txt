@@ -1,0 +1,17 @@
+DONE
+- Humanizar datas e números X
+- Fatalidades -> óbitos (letalidade)
+- Pressão assistencial -> Estimativa da pressão hospitalar
+- Contaminados -> Total de hospitalizados
+- Rodapé: apoio OPAS
+Pirâmide populacional
+Distribuição de idades
+- Pelo menos 75% de leitos ocupados
+- Tirar OPAS do título (UnB) ?
+
+
+TODO
+Mudar interface de leitos/uti:
+preencher leitos covid e citar o
+número total de leitos e ocupação
+média.

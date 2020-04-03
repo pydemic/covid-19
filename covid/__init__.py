@@ -1,7 +1,7 @@
 """
 Covid
 
-Implements epidemiological simulations for the COVID-19.
+Epidemiological calculator tuned specifically for COVID-19.
 """
 __version__ = "0.1.0"
 __author__ = "Fábio Mendes"
@@ -9,6 +9,7 @@ from pathlib import Path as _Path
 
 from . import models
 from .region import Region, region
+from gettext import gettext
 
 LOCALEDIR = _Path(__file__).parent / "locale"
 
@@ -36,4 +37,5 @@ def _run():
 
 
 _run()
+_ = gettext
 del _run, _Path
