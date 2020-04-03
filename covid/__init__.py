@@ -23,6 +23,7 @@ def set_i18n(code):
 def _run():
     import os
     import locale
+    import warnings
 
     # Use environment variables to set i18n and l13n configurations.
     # LANGUAGE -> language part of the locale, e.g., pt_BR
@@ -33,7 +34,10 @@ def _run():
 
     lang = os.environ.get("COVID_LANG") or os.environ.get("LANG")
     if lang:
-        locale.setlocale(locale.LC_ALL, lang)
+        try:
+            locale.setlocale(locale.LC_ALL, lang)
+        except locale.Error:
+            warnings.warn(f"locale is not supported: {lang}")
 
 
 _run()

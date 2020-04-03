@@ -100,7 +100,7 @@ class Input:
         st.sidebar.header(_("Simulation options"))
         seed = int(max(5e-6 * region.population_size, 1))
         return {
-            "period": st.sidebar.slider(_("Duration (months)"), 1, 6, value=2) * 30,
+            "period": st.sidebar.slider(_("Duration (weeks)"), 1, 30, value=10) * 7,
             "start_date": st.sidebar.date_input(_("Initial date")),
             "seed": st.sidebar.number_input(
                 _("Amount of detected cases"), 1, int(region.population_size), value=seed
@@ -202,10 +202,11 @@ class Input:
         elif intervention == social_distance:
             st.sidebar.markdown(
                 _(
-                    """This intervention simulates the idealized situation in which everyone reduces
+                    """
+This intervention simulates a situation in which everyone reduces
 the average number of encounters throughout the day. Small reductions (~15%) are
-possible through small behavioral changes. Larger reductions require shutting
-down services or even the whole economy.
+possible through small behavioral changes. Larger reductions require implementation
+of many non-pharmacological measures.
 """
                 )
             )

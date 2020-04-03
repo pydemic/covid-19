@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-03 09:24-0300\n"
-"PO-Revision-Date: 2020-04-03 09:27-0300\n"
+"POT-Creation-Date: 2020-04-03 15:21-0300\n"
+"PO-Revision-Date: 2020-04-03 15:19-0300\n"
 "Last-Translator: Fábio Mendes <fabiomacedomendes@gmail.com>\n"
 "Language: pt_BR\n"
 "Language-Team: pt_BR <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr "Itens/dia"
 msgid "Total"
 msgstr "Total"
 
-#: covid/ui/calc.py:14 covid/ui/input.py:275
+#: covid/ui/calc.py:14 covid/ui/input.py:274
 msgid "Brazil"
 msgstr "Brasil"
 
@@ -122,8 +122,8 @@ msgid "Simulation options"
 msgstr "Opções da simulação"
 
 #: covid/ui/input.py:103
-msgid "Duration (months)"
-msgstr "Duração (meses)"
+msgid "Duration (weeks)"
+msgstr "Duração (semanas)"
 
 #: covid/ui/input.py:104
 msgid "Initial date"
@@ -205,29 +205,31 @@ msgstr "Redução de contato social"
 
 #: covid/ui/input.py:204
 msgid ""
-"This intervention simulates the idealized situation in which everyone "
-"reduces\n"
+"\n"
+"This intervention simulates a situation in which everyone reduces\n"
 "the average number of encounters throughout the day. Small reductions "
 "(~15%) are\n"
 "possible through small behavioral changes. Larger reductions require "
-"shutting\n"
-"down services or even the whole economy.\n"
+"implementation\n"
+"of many non-pharmacological measures.\n"
 msgstr ""
-"Esta intervenção simula uma situação idealizada em que todos reduzem\n"
-"o número médio de encontros ao longo do dia. Pequenas reduções (~15%) são"
 "\n"
-"possíveis por pequenas mudanças comportamentais. Reduções maiores exigem\n"
-"desligar serviços ou mesmo fechar a economia.\n"
+"Esta intervenção simula uma situação em que todos reduzem o número médio "
+"de encontros ao \n"
+"longo do dia. Pequenas reduções (~15%) são possíveis por pequenas "
+"mudanças comportamentais. \n"
+"Reduções maiores exigem a implementação de várias medidas não "
+"farmacológicas.\n"
 
-#: covid/ui/input.py:213
+#: covid/ui/input.py:212
 msgid "Date of intervention"
 msgstr "Data de intervenção"
 
-#: covid/ui/input.py:214
+#: covid/ui/input.py:213
 msgid "Reduction in the number of contacts"
 msgstr "Redução no número de contatos"
 
-#: covid/ui/input.py:225
+#: covid/ui/input.py:224
 msgid "Intervention starts prior to simulation"
 msgstr "Intervenção inicia antes da simulação"
 
@@ -610,3 +612,24 @@ msgstr "UnB/FCE"
 
 #~ msgid "Letality (\\% of deaths among the ill)"
 #~ msgstr "Letalidade (\\% de mortes entre os doentes)"
+
+#~ msgid ""
+#~ "This intervention simulates the idealized "
+#~ "situation in which everyone reduces\n"
+#~ "the average number of encounters "
+#~ "throughout the day. Small reductions "
+#~ "(~15%) are\n"
+#~ "possible through small behavioral changes. "
+#~ "Larger reductions require shutting\n"
+#~ "down services or even the whole economy.\n"
+#~ msgstr ""
+#~ "Esta intervenção simula uma situação idealizada em que todos reduzem\n"
+#~ "o número médio de encontros ao "
+#~ "longo do dia. Pequenas reduções (~15%)"
+#~ " são\n"
+#~ "possíveis por pequenas mudanças "
+#~ "comportamentais. Reduções maiores exigem\n"
+#~ "desligar serviços ou mesmo fechar a economia.\n"
+
+#~ msgid "Duration (months)"
+#~ msgstr "Duração (meses)"

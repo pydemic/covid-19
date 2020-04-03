@@ -15,3 +15,4 @@ docker-compose*
 
 # gettext
 *.mo
+notebooks

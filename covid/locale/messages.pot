@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-03 09:24-0300\n"
+"POT-Creation-Date: 2020-04-03 15:21-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: covid/ui/calc.py:14 covid/ui/input.py:275
+#: covid/ui/calc.py:14 covid/ui/input.py:274
 msgid "Brazil"
 msgstr ""
 
@@ -122,7 +122,7 @@ msgid "Simulation options"
 msgstr ""
 
 #: covid/ui/input.py:103
-msgid "Duration (months)"
+msgid "Duration (weeks)"
 msgstr ""
 
 #: covid/ui/input.py:104
@@ -205,24 +205,24 @@ msgstr ""
 
 #: covid/ui/input.py:204
 msgid ""
-"This intervention simulates the idealized situation in which everyone "
-"reduces\n"
+"\n"
+"This intervention simulates a situation in which everyone reduces\n"
 "the average number of encounters throughout the day. Small reductions "
 "(~15%) are\n"
 "possible through small behavioral changes. Larger reductions require "
-"shutting\n"
-"down services or even the whole economy.\n"
+"implementation\n"
+"of many non-pharmacological measures.\n"
 msgstr ""
 
-#: covid/ui/input.py:213
+#: covid/ui/input.py:212
 msgid "Date of intervention"
 msgstr ""
 
-#: covid/ui/input.py:214
+#: covid/ui/input.py:213
 msgid "Reduction in the number of contacts"
 msgstr ""
 
-#: covid/ui/input.py:225
+#: covid/ui/input.py:224
 msgid "Intervention starts prior to simulation"
 msgstr ""
 

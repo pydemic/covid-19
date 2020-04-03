@@ -124,14 +124,9 @@ Examples of usage:
 Managing i18n
 -------------
 
-- To update the base file::
+You need to install Python Invoke (`pip install invoke`) and run the "i18n" task::
 
-  $ pybabel extract -o covid/locale/messages.pot covid
+    $ inv i18n
 
-- To update translation files from base file::
-
-  $ pybabel update -i covid/locale/messages.pot -d covid/locale
-
-- To compile translation files::
-
-  $ pybabel compile -d covid/locale
+After that, edit the translations with your favorite editor (e.g., Poedit) and then
+run this command again to compile the messages.

@@ -69,7 +69,7 @@ class CalcUI:
         """
         Initialize class with given arguments and run simulation.
         """
-        kwargs = {"prob_symptomatic": 0.5, "hospital_prioritization": 0.0, **kwargs}
+        kwargs = {"prob_symptomatic": 0.14, "hospital_prioritization": 0.0, **kwargs}
         model = self.simulation_class(**kwargs)
 
         # FIXME: should be able to setup on the constructor
