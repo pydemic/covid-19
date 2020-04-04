@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-03 15:21-0300\n"
+"POT-Creation-Date: 2020-04-04 14:14-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: covid/ui/calc.py:14 covid/ui/input.py:274
+#: covid/ui/calc.py:14 covid/ui/input.py:276
 msgid "Brazil"
 msgstr ""
 
@@ -214,15 +214,15 @@ msgid ""
 "of many non-pharmacological measures.\n"
 msgstr ""
 
-#: covid/ui/input.py:212
+#: covid/ui/input.py:214
 msgid "Date of intervention"
 msgstr ""
 
-#: covid/ui/input.py:213
+#: covid/ui/input.py:215
 msgid "Reduction in the number of contacts"
 msgstr ""
 
-#: covid/ui/input.py:224
+#: covid/ui/input.py:226
 msgid "Intervention starts prior to simulation"
 msgstr ""
 

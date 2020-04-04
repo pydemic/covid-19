@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-03 15:21-0300\n"
+"POT-Creation-Date: 2020-04-04 14:14-0300\n"
 "PO-Revision-Date: 2020-04-03 15:19-0300\n"
 "Last-Translator: Fábio Mendes <fabiomacedomendes@gmail.com>\n"
 "Language: pt_BR\n"
@@ -41,7 +41,7 @@ msgstr "Itens/dia"
 msgid "Total"
 msgstr "Total"
 
-#: covid/ui/calc.py:14 covid/ui/input.py:274
+#: covid/ui/calc.py:14 covid/ui/input.py:276
 msgid "Brazil"
 msgstr "Brasil"
 
@@ -221,15 +221,15 @@ msgstr ""
 "Reduções maiores exigem a implementação de várias medidas não "
 "farmacológicas.\n"
 
-#: covid/ui/input.py:212
+#: covid/ui/input.py:214
 msgid "Date of intervention"
 msgstr "Data de intervenção"
 
-#: covid/ui/input.py:213
+#: covid/ui/input.py:215
 msgid "Reduction in the number of contacts"
 msgstr "Redução no número de contatos"
 
-#: covid/ui/input.py:224
+#: covid/ui/input.py:226
 msgid "Intervention starts prior to simulation"
 msgstr "Intervenção inicia antes da simulação"
 
