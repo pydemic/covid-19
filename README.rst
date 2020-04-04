@@ -29,6 +29,13 @@ Or, more typically, from Python code
 >>> run.plot()
 >>> print(run)
 
+Calculator
+----------
+
+To serve the app calculator, use::
+
+    $ inv calculator
+
 Installation
 ============
 
@@ -78,6 +85,24 @@ Required medical resources
 Development
 ===========
 
+Testing
+-------
+
+Simply perform::
+
+    $ inv test
+
+Managing i18n
+-------------
+
+To update messages files::
+
+    $ inv makemessages
+
+To compile messages files::
+
+    $ inv compilemessages
+
 Using rit tunnel
 ----------------
 
@@ -120,13 +145,3 @@ Examples of usage:
   - Fetch the production docker-compose::
 
     $ rit tunnel run calculator production fetch compose
-
-Managing i18n
--------------
-
-You need to install Python Invoke (`pip install invoke`) and run the "i18n" task::
-
-    $ inv i18n
-
-After that, edit the translations with your favorite editor (e.g., Poedit) and then
-run this command again to compile the messages.
