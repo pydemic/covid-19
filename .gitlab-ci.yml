@@ -34,26 +34,33 @@ test:
 .update_project_image: &update_project_image
   stage: update project images
   script:
-    - rit --log on_error tunnel --input disabled run calculator $CONTEXT build
+    - rit --log on_error tunnel --input disabled run images python build
+    - rit --log on_error tunnel --input disabled run calculator $IMAGE_TAG build
     - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
-    - rit --log on_error tunnel --input disabled run calculator $CONTEXT push
-  only:
-    variables:
-      - $CI_COMMIT_MESSAGE =~ /--update-project-images/
-    refs:
-      - /^master$/
+    - rit --log on_error tunnel --input disabled run images python push
+    - rit --log on_error tunnel --input disabled run calculator $IMAGE_TAG push
   tags:
     - docker
 
 update development image:
   <<: *update_project_image
   variables:
-    CONTEXT: development
+    IMAGE_TAG: development
+  only:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /--update-development-image/
+    refs:
+      - /^master$/
 
 update production image:
   <<: *update_project_image
   variables:
-    CONTEXT: production
+    IMAGE_TAG: production
+  only:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /--update-production-image/
+    refs:
+      - /^master$/
 
 # Stage: update production images
 
