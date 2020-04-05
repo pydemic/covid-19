@@ -10,7 +10,7 @@ def calculator(ctx):
 def calculator_production(ctx):
     import os
 
-    if os.environ.get("COVID_PERFORM_FIRST_SETUP", "false") != "true":
+    if os.environ.get("COVID_PERFORM_FIRST_SETUP", "false") == "true":
         repos = {
             "pt_BR.UTF-8": "https://github.com/caiosba/streamlit.git",
             "en_US.UTF-8": "https://github.com/streamlit/streamlit.git",
