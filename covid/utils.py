@@ -5,6 +5,8 @@ from math import log10
 
 import numpy as np
 
+__all__ = ["fmt", "pc", "pm", "p10k", "indent", "rpartition", "interpolant", "lru_safe_cache"]
+
 N_RE = re.compile(r"(-?)(\d+)(\.\d{,2})?\d*")
 identity = lambda x: x
 HUMANIZED_SUFFIXES = (
@@ -26,6 +28,8 @@ def fmt(n):
     Heuristically choose best format option for number.
     """
 
+    if n == float("inf"):
+        return _("infinity")
     try:
         return ", ".join(map(fmt, n))
     except TypeError:

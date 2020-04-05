@@ -215,7 +215,7 @@ class CIAFactbookCountry(Region):
 def sub_region_acc(attr, aggr=sum):
     getter = operator.attrgetter(attr)
 
-    @property
+    @computed
     def fn(self):
         lst = []
         for r in self.sub_regions:
