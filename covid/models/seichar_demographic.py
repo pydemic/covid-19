@@ -58,7 +58,7 @@ class SEICHARDemographic(SEICHAR):
 
         # Initial state
         n_groups = len(self.sub_groups)
-        if "x0" not in kwargs:
+        if "state" not in kwargs:
             empty = self.demography.values * 0
             p_s = self.prob_symptomatic
             i = empty + self.seed / n_groups

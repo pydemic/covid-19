@@ -1,5 +1,5 @@
 import datetime
-from numbers import Number, Real
+from numbers import Real
 from pprint import pformat
 from types import MappingProxyType
 from typing import Sequence
@@ -55,7 +55,7 @@ class Model(metaclass=ModelMeta):
 
     # Dynamic queries and epidemic state
     time = 0.0
-    x0 = None
+    state = None
     is_spreading = True
 
     # Reporting options
@@ -69,11 +69,7 @@ class Model(metaclass=ModelMeta):
         """
         import click
 
-        kind_map = {
-            "int": int,
-            "float": float,
-            "str": str,
-        }
+        kind_map = {"int": int, "float": float, "str": str}
 
         @click.option("--plot", is_flag=True, help="Display plot")
         @click.option("--debug", is_flag=True, help="Display debug information")
@@ -123,7 +119,7 @@ class Model(metaclass=ModelMeta):
         return self.summary()
 
     def __iter__(self):
-        x = self.x0
+        x = self.state
         dt = self.dt / self.steps_per_day
         t = self.time
         while True:
@@ -281,27 +277,32 @@ class Model(metaclass=ModelMeta):
                 If given, is executed with (x_old, v, t, dt) for each step
                 and can track simulation variables during execution.
         """
-        self.x = x = np.asarray(self.x0)
+        x = np.asarray(self.state)
         t = self.time
         dt = self.dt
         ts = [self.time]
         xs = [x]
         convergence = convergence or self.get_convergence_function()
         watcher = watcher or self.get_watcher_function()
-        tf = t + self.max_simulation_period if duration is None else t + duration
-
+        tf = None if duration is None else t + duration
+        tmax = t + self.max_simulation_period
         while True:
             x_ = np.asarray(self.step(x, t, dt, watcher=watcher))
             t += dt
             xs.append(x_)
             ts.append(t)
-
-            if t >= tf or convergence(x, x_, t, dt):
-                break
             x = x_
 
-        self.data = self._to_dataframe(np.array(ts), np.array(xs))
+            if (duration is None and (t > tmax or convergence(x, x_, t, dt))) or t > tf:
+                break
+
+        df = self._to_dataframe(np.array(ts), np.array(xs))
+        if len(self.data):
+            self.data = self.data.append(df.iloc[1:])
+        else:
+            self.data = df
         self._run_post_process()
+        self.state = x
         return self
 
     def run_interval(self, dt, watcher=None) -> "Model":

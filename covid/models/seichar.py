@@ -6,7 +6,7 @@ import pandas as pd
 from .model import Model
 from .plot import SEICHARPlot
 from ..region import region as as_region
-from ..types import delegate, cached
+from ..types import delegate, cached, alias
 from ..utils import fmt, pc, pm
 
 identity = lambda x: x
@@ -147,7 +147,7 @@ class SEICHAR(Model):
         if self.data.shape[0]:
             return self.data.iloc[-1].sum() - self.fatalities
         else:
-            return sum(self.x0) - self.fatalities
+            return sum(self.state) - self.fatalities
 
     @classmethod
     def _main(cls, *args, hospitalization_bias=1.0, **kwargs):
@@ -156,13 +156,17 @@ class SEICHAR(Model):
         return m
 
     @classmethod
-    def main(cls, *args, **kwargs):
-        m = super().main(*args, **kwargs)
-        return m
-
-    def __init__(self, *args, r0=None, **kwargs):
+    def main(cls, *args, r0=None, **kwargs):
         if r0:
             kwargs["R0"] = r0
+        return super().main(*args, **kwargs)
+
+    # Deprecated properties
+    x0 = alias("state")
+
+    def __init__(self, *args, x0=None, **kwargs):
+        if x0:
+            kwargs["state"] = x0
         super().__init__(*args, **kwargs)
         self._watching = {}
 
@@ -202,23 +206,23 @@ class SEICHAR(Model):
             self.seed = 0.01 if self.seed >= 1.0 else self.seed
 
         # Initial state
-        if "x0" not in kwargs:
+        if "state" not in kwargs:
             p_s = self.prob_symptomatic
             i = self.seed
             a = (1 - p_s) / p_s * i
             e = i * self.gamma_i / self.sigma
             s = self.initial_population - (i + e + a)
-            self.x0 = [
+            self.state = [
                 s,
                 e,
                 i,
-                0.0,  # critical
-                0.0,  # hospitalized
+                0,  # critical
+                0,  # hospitalized
                 a,
-                0.0,  # recovered
+                0,  # recovered
                 self.fatalities,
             ]
-        self.x0 = np.array(self.x0)
+        self.state = np.array(self.state)
         self._mu = self.mu if self.vital_dynamics else 0.0
 
         assert 0.0 <= self.prob_symptomatic <= 1.0
@@ -231,9 +235,6 @@ class SEICHAR(Model):
         return self[col] if isinstance(col, str) else col
 
     def rk4_step(self, x, t, dt, watcher=None):
-        """
-        A single RK4 iteration step.
-        """
         x_ = super().rk4_step(x, t, dt, watcher)
         return np.where(x_ > 0, x_, 0.0)
 
@@ -279,10 +280,11 @@ class SEICHAR(Model):
         return self.beta(t) * (i + self.rho * a) / n
 
     def diff_s(self, s, n, lambd, t):
+        # FIXME: prevent S from being negative due to import rate
         if self.vital_dynamics:
-            return self.kappa * n - lambd * s - self.mu * s
+            return self.kappa * n - lambd * s - self.mu * s - self.import_rate
         else:
-            return -lambd * s
+            return -lambd * s - self.import_rate
 
     def diff_e(self, s, e, lambd, t):
         return lambd * s - self.sigma * e - self._mu * e
@@ -592,4 +594,5 @@ class SEICHAR(Model):
 
 
 if __name__ == "__main__":
+    SEICHAR()
     m = SEICHAR.main()
