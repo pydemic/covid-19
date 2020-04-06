@@ -42,53 +42,68 @@ test:
   tags:
     - docker
 
-update development image:
+update development project image:
   <<: *update_project_image
   variables:
     IMAGE_TAG: development
   only:
-    variables:
-      - $CI_COMMIT_MESSAGE =~ /--update-development-image/
-    refs:
-      - /^master$/
+    - /^development$/
 
-update production image:
+update production project image:
   <<: *update_project_image
   variables:
     IMAGE_TAG: production
   only:
-    variables:
-      - $CI_COMMIT_MESSAGE =~ /--update-production-image/
-    refs:
-      - /^master$/
+    - /^production$/
 
 # Stage: update production images
 
-update production image:
+.update_production_image: &update_production_image
   stage: update production images
-  variables:
-    BUILD_TYPE: recursive
-    IMAGE_TAG: production
   script:
     - rit --log on_error tunnel --input disabled run calculator production build
     - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
     - rit --log on_error tunnel --input disabled run calculator production push
-  only:
-    - tags
   tags:
     - docker
 
+update staging image:
+  <<: *update_production_image
+  variables:
+    BUILD_TYPE: recursive
+    IMAGE_TAG: staging
+  only:
+    - /^staging$/
+
+update latest image:
+  <<: *update_production_image
+  variables:
+    BUILD_TYPE: recursive
+    IMAGE_TAG: latest
+  only:
+    - /^latest$/
+
 # Deploy
 
-deploy:
+.deploy: &deploy
   stage: deploy
-  environment:
-    name: production
   script:
     - rit --log on_error tunnel --input disabled run calculator production deploy up
     - rit --log on_error tunnel --input disabled run calculator production deploy sync
     - rit --log on_error tunnel --input disabled run calculator production deploy playbook
-  only:
-    - tags
   tags:
     - docker
+
+deploy staging:
+  <<: *deploy
+  environment:
+    name: staging
+  only:
+    - /^staging$/
+
+deploy production:
+  <<: *deploy
+  environment:
+    name: production
+  only:
+    - /^latest$/

@@ -34,7 +34,7 @@ Calculator
 
 To serve the app calculator, use::
 
-    $ inv calculator
+    $ inv run
 
 Installation
 ============
@@ -102,6 +102,10 @@ To update messages files::
 To compile messages files::
 
     $ inv compilemessages
+
+To update and compile messages files::
+
+    $ inv i18n
 
 Using rit tunnel
 ----------------
