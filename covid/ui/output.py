@@ -202,12 +202,12 @@ The number of ICU beds is sufficient for the expected demand in this scenario.
         template = '<a href="{href}">{name}</a>'
         institutions = [
             template.format(href=_("https://www.paho.org/hq/index.php?lang=en"), name=_("PAHO")),
+            template.format(href="https://saude.gov.br/", name="MS/SVS"),
             template.format(href="https://lappis.rocks", name="UnB/LAPPIS"),
             template.format(href="http://medicinatropical.unb.br/", name="UnB/NMT"),
             template.format(href="http://fce.unb.br/", name="UnB/FCE"),
             template.format(href="http://www.butantan.gov.br/", name="Butantã"),
             template.format(href="http://www.matogrossodosul.fiocruz.br/", name="Fiocruz"),
-            template.format(href="https://saude.gov.br/", name="MS/SVS"),
             template.format(href="https://famed.ufms.br/", name="FAMED"),
         ]
         links = _("Support: {institutions}").format(institutions=", ".join(institutions))

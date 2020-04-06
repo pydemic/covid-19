@@ -4,7 +4,7 @@ O modelo também indica que **{infected}** da população será infectada pelo v
 **{symptomatic}** destes desenvolverão sintomas visíveis.
 
 **IMPORTANTE:** Modelos são simplificações da realidade e dependem fortemente de
-bons valores para os parâmetros basedos em dados. Ainda existem vários aspectos epidemiológicos
+bons valores para os parâmetros baseados em dados. Ainda existem vários aspectos epidemiológicos
 da COVID-19 que permanecem em aberto no debate científico e cientistas ainda estão tentando determinar
 valores mais precisos para vários parâmetros importantes. As escolhas feitas aqui são baseadas no
 conhecimento científico atual sobre a epidemia, mas ainda são bastante incertas. No entanto, escolher valores
