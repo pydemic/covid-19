@@ -1,5 +1,5 @@
 """
-Import data sets from various sources.
+Import datasets sets from various sources.
 """
 from .cia_factbook import cia_factbook, age_distribution, hospital_bed_density
 from .data import CONTACT_MATRIX_COUNTRIES, CONTACT_MATRIX_IDS, DATA_PATH

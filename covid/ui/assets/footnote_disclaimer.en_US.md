@@ -1,4 +1,4 @@
-This scenario predicts that **{mortality}** of the whole population will die from
+This scenario predicts that **{mortality}** per 100k population will die from
 COVID-19. This number corresponds to **{fatality}** of those that became ill.
 The model also predicts that **{infected}** of the population will become
 infected, but only **{symptomatic}** of those will develop visible symptoms.

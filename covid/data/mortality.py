@@ -7,7 +7,7 @@ from .data import DATA_PATH
 
 def covid_mortality():
     """
-    Return a dataframe with COVID-19 mortality data from Neil M Ferguson, et. al.
+    Return a dataframe with COVID-19 mortality datasets from Neil M Ferguson, et. al.
     """
     path = DATA_PATH / "covid-mortality-imperial-college.csv"
     return pd.read_csv(path, index_col=0) / 100
@@ -21,7 +21,7 @@ def covid_mean_mortality(region, year=2020):
 
     Args:
         region:
-            String with country or region name or a data frame with compatible
+            String with country or region name or a datasets frame with compatible
             demography.
         year:
             Reference year (1950-2020).

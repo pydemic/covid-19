@@ -1,3 +1,5 @@
+import warnings
+
 from invoke import task
 
 
@@ -19,8 +21,9 @@ def makemessages(ctx):
 
 
 @task
-def run(ctx):
-    ctx.run("streamlit run covid/ui/calc.py")
+def i18n(ctx):
+    makemessages(ctx)
+    compilemessages(ctx)
 
 
 @task

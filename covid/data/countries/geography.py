@@ -41,7 +41,7 @@ def get_entity(df, key, state_code, state_id, by, msg):
 @lru_safe_cache(64)
 def states(country: str, extra=False) -> pd.DataFrame:
     """
-    Return a data frame with all states from a given country. Official state
+    Return a datasets frame with all states from a given country. Official state
     codes assigned by the official geographic institute of a country are
     in the index. If there is no such convention, it index states sequentially
     by alphabetic order.
@@ -90,7 +90,7 @@ def state(country, key, extra=False):
 @lru_safe_cache(64)
 def sub_regions(country: str, state_id=None, state_code=None, extra=False) -> pd.DataFrame:
     """
-    Return a data frame with the next sub-division after state level for the
+    Return a datasets frame with the next sub-division after state level for the
     given country.
 
     Data frame has ['name', 'state_id', 'state_code'] columns and the index can
@@ -115,7 +115,7 @@ def sub_region(
 ) -> pd.Series:
     """
     Return the row corresponding to the given sub_region in the
-    sub_regions(country) data frame.
+    sub_regions(country) datasets frame.
 
     Args:
         country:
@@ -142,7 +142,7 @@ def cities(
     country: str, extra=False, sub_region=None, state_id=None, state_code=None
 ) -> pd.DataFrame:
     """
-    Return a data frame with all cities or municipalities in a country.
+    Return a datasets frame with all cities or municipalities in a country.
 
     Data frame has ['name', 'sub_region', 'state_id', 'state_code'] columns
     and the index can be either sequential or the special code assigned by the
@@ -206,7 +206,7 @@ def parse_city(country, text, extra=False):
 def parse_entity(country, text, extra=False) -> Tuple[str, pd.Series]:
     """
     Similar to parse_city, but parses any geographical entity in a country.
-    Returns a tuple of (kind, data), in which kind is either 'city', 'state'
+    Returns a tuple of (kind, datasets), in which kind is either 'city', 'state'
     or 'sub-region'.
     """
 

@@ -110,7 +110,7 @@ def age_distribution(region: str, year: int, coarse: bool = False) -> pd.Series:
     Load a series object with age distribution for given country in the given
     year.
 
-    Uses data from CIA factbook.
+    Uses datasets from CIA factbook.
 
     Examples:
         >>> series = age_distribution('Brazil', 2020)
@@ -123,7 +123,7 @@ def age_distribution(region: str, year: int, coarse: bool = False) -> pd.Series:
         year:
             Reference year (1950-2020).
         coarse:
-            If True, reduce the number of bins to be compatible with data from
+            If True, reduce the number of bins to be compatible with datasets from
             :func:`covid_mortality` function.
     """
     region = COUNTRY_ALIASES.get(region, region)
@@ -146,7 +146,7 @@ def coarse_age_distribution(df: pd.Series) -> pd.Series:
     that is compatible with the output of :func:`covid_mortality`.
 
     Args:
-        df: Input age distribution data set.
+        df: Input age distribution datasets set.
     """
     xs = list(df.index)
     ranges = list(zip(xs[::2], xs[1::2]))
@@ -169,10 +169,10 @@ def coarse_age_distribution(df: pd.Series) -> pd.Series:
 
 def hospital_bed_density(country=None):
     """
-    Return a data frame with hospital bed density per country or a single number
+    Return a datasets frame with hospital bed density per country or a single number
     with hospital bed density for a given country.
 
-    Uses data from CIA factbook.
+    Uses datasets from CIA factbook.
 
     >>> hospital_bed_density('Brazil')
     2.3

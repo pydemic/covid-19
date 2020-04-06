@@ -6,7 +6,7 @@ from .data import DATA_PATH, COARSE_INDEX
 
 def symmetric_contact_matrix(country, coarse=False):
     """
-    Return inferred symmetric matrix data from (Fumanelli, 2012)
+    Return inferred symmetric matrix datasets from (Fumanelli, 2012)
 
     See Also:
         https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002673#s4
@@ -44,7 +44,7 @@ def contact_matrix(country="mean", physical=False, coarse=None, infer=False) -> 
     Load contact matrix for country.
 
     If coarse is True, return a decennial distribution that is compatible with
-    other data used in this package like mortality rates and coarse age
+    other datasets used in this package like mortality rates and coarse age
     distributions.
     """
     if infer is not False and physical:

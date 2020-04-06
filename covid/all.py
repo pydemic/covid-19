@@ -3,7 +3,6 @@ from datetime import date, datetime, time, timedelta
 
 from sidekick import import_later as _imp
 from sidekick import fn, X, Y, F, X_i, L, placeholder as _
-from sidekick.evil import forbidden_powers
 
 from .models import *
 from .utils import *
@@ -27,4 +26,11 @@ now = dt.datetime.now()
 today = dt.date(now.year, now.month, now.day)
 day = dt.timedelta(days=1)
 
-forbidden_powers()
+
+def evil():
+    """
+    Enable sidekick's forbidden functional powers.
+    """
+    from sidekick.evil import forbidden_powers
+
+    forbidden_powers()

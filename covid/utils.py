@@ -1,3 +1,4 @@
+import datetime
 import re
 from functools import lru_cache, wraps
 from gettext import gettext as _
@@ -145,3 +146,17 @@ def indent(st, indent=4):
     if isinstance(indent, int):
         indent = " " * indent
     return "".join(indent + ln for ln in st.splitlines(keepends=True))
+
+
+def today() -> datetime.date:
+    """
+    Return the date today.
+    """
+    return now().date()
+
+
+def now() -> datetime.datetime:
+    """
+    Return a datetime timestamp.
+    """
+    return datetime.datetime.now()

@@ -65,7 +65,15 @@ class CalcUI:
         with self.info(_("Performing simulation...")):
             self.run_simulation(**kwargs)
 
-    def run_simulation(self, period, hospital_capacity, icu_capacity, intervention=None, **kwargs):
+    def run_simulation(
+        self,
+        period,
+        hospital_capacity,
+        icu_capacity,
+        hospitalization_bias=2.0,
+        intervention=None,
+        **kwargs,
+    ):
         """
         Initialize class with given arguments and run simulation.
         """
@@ -75,6 +83,7 @@ class CalcUI:
         # FIXME: should be able to setup on the constructor
         model.hospital_capacity = hospital_capacity
         model.icu_capacity = icu_capacity
+        model.prob_hospitalization *= hospitalization_bias
         if intervention:
             model = intervention(model)
         model.run(period)
@@ -83,7 +92,7 @@ class CalcUI:
         out.run()
 
 
-@st.cache
+# @st.cache
 def region(name):
     return covid.region(name)
 

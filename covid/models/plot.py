@@ -5,26 +5,12 @@ from matplotlib import pyplot as plt
 
 from ..types import alias
 
-MONTH = [
-    None,
-    "Jan",
-    "Fev",
-    "Mar",
-    "Abr",
-    "Mai",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Set",
-    "Out",
-    "Nov",
-    "Dez",
-]
+MONTH = [None, "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
 to_date = lambda d: f"{MONTH[d.month]}-{d.day}"
 
 
 class Plot:
-    data = alias("model.data")
+    data = alias("model.datasets")
 
     def __init__(self, model):
         self.model = model

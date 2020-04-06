@@ -40,7 +40,7 @@ class Model(metaclass=ModelMeta):
     OPTIONS = {}
     sub_groups = None
 
-    # Query data and shape properties
+    # Query datasets and shape properties
     is_empty = property(lambda self: self.data.shape[1] == 0)
     columns = None
 
@@ -112,7 +112,7 @@ class Model(metaclass=ModelMeta):
 
         if not hasattr(self, "display_columns"):
             self.display_columns = self.columns
-        if not hasattr(self, "data"):
+        if not hasattr(self, "datasets"):
             self.data = pd.DataFrame(columns=self.columns)
 
     def __str__(self):
@@ -159,6 +159,7 @@ class Model(metaclass=ModelMeta):
             times: Sequence = self.time_to_dates(np.arange(len(df)))
             return pd.DataFrame(df, index=times)
         else:
+            df = df.copy()
             df.index = self.time_to_dates(idx)
             return df
 
@@ -284,8 +285,9 @@ class Model(metaclass=ModelMeta):
         xs = [x]
         convergence = convergence or self.get_convergence_function()
         watcher = watcher or self.get_watcher_function()
-        tf = None if duration is None else t + duration
+        tf = float("inf") if duration is None else t + duration
         tmax = t + self.max_simulation_period
+
         while True:
             x_ = np.asarray(self.step(x, t, dt, watcher=watcher))
             t += dt
@@ -293,7 +295,9 @@ class Model(metaclass=ModelMeta):
             ts.append(t)
             x = x_
 
-            if (duration is None and (t > tmax or convergence(x, x_, t, dt))) or t > tf:
+            if duration is None and (convergence(x, x_, t, dt) or t > tf):
+                break
+            elif t > tmax or t > tf:
                 break
 
         df = self._to_dataframe(np.array(ts), np.array(xs))
@@ -363,3 +367,6 @@ class Model(metaclass=ModelMeta):
 
     def summary(self):
         return "Model"
+
+
+import splinter

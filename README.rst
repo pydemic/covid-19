@@ -8,11 +8,19 @@ Covid-19
 .. image:: https://gitlab.com/pydemic/covid-19/badges/master/coverage.svg
    :target: https://github.com/pydemic/covid-19/commits/master
 
+
+
 This is a Python library that simulates COVID-19 outbreaks. The main focus is on Brazil, but it
 includes demographic data about other countries and can be adapted with relative ease. This library
 implements the RSEICHA model (yet to be published, we will link the preprint here). One version,
 `covid.models.RSEICHADemografic` considers demographic information and the other, `covid.models.RSEICHA`
 just uses generic compartments.
+
+**WARNING!**
+
+This library is deprecated and will be replaced by several projects in the Pydemic organization. If you
+want to use the library or contribute to its development, please contact the developers first.
+
 
 Usage
 =====

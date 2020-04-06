@@ -6,7 +6,7 @@ import pandas as pd
 from .model import Model
 from .plot import SEICHARPlot
 from ..region import region as as_region
-from ..types import delegate, cached, alias
+from ..types import delegate, cached, alias, computed
 from ..utils import fmt, pc, pm
 
 identity = lambda x: x
@@ -77,11 +77,25 @@ class SEICHAR(Model):
     ref_year = 2020
 
     # Epidemiological parameters
-    sigma = 1 / 5.0
     R0 = 2.74
-    rho = 0.4
+    rho = 0.55
     prob_symptomatic = 0.14
     import_rate = 0.0
+    import_asymptomatic = True
+
+    @property
+    def K(self):
+        g = self.gamma_i
+        s = self.sigma
+        R0 = self.R0
+        return 0.5 * (s + g) * (np.sqrt(1 + 4 * (R0 - 1) * s * g / (s + g) ** 2) - 1)
+
+    @computed
+    def asympt_import_rate(self):
+        if self.import_asymptomatic:
+            return self.import_rate / self.prob_symptomatic
+        else:
+            return 0.0
 
     @property
     def R0_average(self):
@@ -91,10 +105,18 @@ class SEICHAR(Model):
         else:
             return self.R0
 
-    gamma_i = 1 / 1.61
+    # Old parameters
+    # sigma = 1 / 5.0
+    # gamma_i = 1 / 1.61
+    # gamma_h = 1 / 3.3
+    # gamma_c = 1 / 17.5
+
+    # Revised values
+    sigma = 1 / 3.69
+    gamma_i = 1 / 3.47
     gamma_a = gamma_i
-    gamma_h = 1 / 3.3
-    gamma_c = 1 / 17.5
+    gamma_h = 1 / 10.0
+    gamma_c = 1 / 7.5
     gamma_hr = gamma_h
     gamma_cr = gamma_c
 
@@ -165,7 +187,7 @@ class SEICHAR(Model):
     x0 = alias("state")
 
     def __init__(self, *args, x0=None, **kwargs):
-        if x0:
+        if x0 is not None:
             kwargs["state"] = x0
         super().__init__(*args, **kwargs)
         self._watching = {}
@@ -175,7 +197,7 @@ class SEICHAR(Model):
             setattr(self, attr, x)
             return x
 
-        # Load data from from region
+        # Load datasets from from region
         if self.region is not None:
             self.region = region = as_region(self.region)
 
@@ -209,8 +231,8 @@ class SEICHAR(Model):
         if "state" not in kwargs:
             p_s = self.prob_symptomatic
             i = self.seed
-            a = (1 - p_s) / p_s * i
-            e = i * self.gamma_i / self.sigma
+            a = i * (1 - p_s) / p_s
+            e = i * (self.gamma_i + self.K) / self.sigma / self.prob_symptomatic
             s = self.initial_population - (i + e + a)
             self.state = [
                 s,
@@ -280,14 +302,20 @@ class SEICHAR(Model):
         return self.beta(t) * (i + self.rho * a) / n
 
     def diff_s(self, s, n, lambd, t):
-        # FIXME: prevent S from being negative due to import rate
+        infections = self._infections(lambd, s)
+
         if self.vital_dynamics:
-            return self.kappa * n - lambd * s - self.mu * s - self.import_rate
+            # FIXME: prevent S from being negative due to import rate
+            return self.kappa * n - infections - self.mu * s - self.import_rate
         else:
-            return -lambd * s - self.import_rate
+            return -infections - self.import_rate
+
+    def _infections(self, lambd, s):
+        return lambd * s
 
     def diff_e(self, s, e, lambd, t):
-        return lambd * s - self.sigma * e - self._mu * e
+        infections = self._infections(lambd, s)
+        return infections - self.sigma * e - self._mu * e
 
     def diff_i(self, e, i, t):
         p_s = self.prob_symptomatic
@@ -315,7 +343,9 @@ class SEICHAR(Model):
 
     def diff_a(self, e, a, t):
         p_s = self.prob_symptomatic
-        return (1 - p_s) * self.sigma * e - self.gamma_a * a - self._mu * a
+        return (
+            (1 - p_s) * self.sigma * e - self.gamma_a * a - self._mu * a + self.asympt_import_rate
+        )
 
     def diff_r(self, a, i, hminus, hplus, cminus, cplus, r, t):
         return (
@@ -581,16 +611,20 @@ class SEICHAR(Model):
         _ = translate
         columns = [_("Name"), _("Items/day"), _("Total")]
         N = int(self.hospitalization_days + self.icu_days)
-        return pd.DataFrame(
+        a = 1  # / 5
+        b = 1  # / 15
+        df = pd.DataFrame(
             [
-                ["Mask", 25, 25 * N],
-                ["Mask N95", 1, N],
-                ["Avental impermeável", 25, 25 * N],
-                ["Glove", 50, 50 * N],
-                ["Faceshield", 1, N],
+                [_("Cirurgical masks"), 25, 25 * N],
+                [_("N95 mask"), a, a * N],
+                [_("Waterproof apron"), 25, 25 * N],
+                [_("Non-sterile glove"), 50, 50 * N],
+                [_("Faceshield"), b, b * N],
             ],
             columns=columns,
         )
+        df.index = df.pop(columns[0])
+        return df
 
 
 if __name__ == "__main__":

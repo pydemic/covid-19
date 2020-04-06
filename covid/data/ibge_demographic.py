@@ -72,19 +72,19 @@ BLACK_LIST = {4220000}
 
 def brazil_city_demography(city_id, coarse=False, collapse_newborn=False, download=True):
     """
-    Load demographic data for given city and return a data-frame.
+    Load demographic datasets for given city and return a datasets-frame.
 
     Args:
         city_id:
             Numeric city id or name in IBGE database.
         coarse:
-            If True, return data in a format compatible with morbidity data.
+            If True, return datasets in a format compatible with morbidity datasets.
             Categories span 10 years instead of 5.
         collapse_newborn (bool):
             Default API separates newborns (age=0) from the group 1-4. If true,
             this collapses newborns in the age group 0-4.
         download:
-            If True, download data from IBGE website.
+            If True, download datasets from IBGE website.
     """
     if isinstance(city_id, str) and not city_id.isdigit():
         city_id = city_id_from_name(city_id)

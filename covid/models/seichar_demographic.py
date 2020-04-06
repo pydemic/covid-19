@@ -62,8 +62,8 @@ class SEICHARDemographic(SEICHAR):
             empty = self.demography.values * 0
             p_s = self.prob_symptomatic
             i = empty + self.seed / n_groups
-            a = (1 - p_s) / p_s * i
-            e = i * self.gamma_i / self.sigma
+            a = i * (1 - p_s) / p_s
+            e = i * (self.gamma_i + self.K) / self.sigma / self.prob_symptomatic
             s = self.demography.values - (i + e + a)
 
             self.x0 = np.concatenate(
@@ -104,7 +104,7 @@ class SEICHARDemographic(SEICHAR):
         x = np.reshape(x, (-1, len(self.sub_groups)))
         s, e, i, c, h, a, r, f = x
 
-        assert (x >= 0).all(), f"Invalid value at t={t}: {x}"
+        # assert (x >= 0).all(), f"Invalid value at t={t}: {x}"
 
         err = 1e-50
         h_hat = h / (h.sum() + err)
@@ -125,11 +125,16 @@ class SEICHARDemographic(SEICHAR):
             return beta * (i + self.rho * a) / (n + tol)
         elif self.asymptomatic_contact_matrix is None:
             fractions = (i + self.rho * a) / (n + tol)
-            return np.dot(self.relative_contact_matrix, beta * fractions)
+            return self.relative_contact_matrix * beta * fractions
         else:
-            beta_i = np.dot(self.relative_contact_matrix, beta * i / (n + tol))
-            beta_a = np.dot(self.relative_contact_matrix, beta * a / (n + tol))
+            beta_i = self.relative_contact_matrix * beta * i / (n + tol)
+            beta_a = self.relative_contact_matrix * beta * a / (n + tol)
             return beta_i + self.rho * beta_a
+
+    def _infections(self, lambd, s):
+        res = np.dot(lambd, s)
+        # res = np.where(res > s * self.dt, res, s * self.dt)
+        return res
 
     def summary_demography(self):
         st = super().summary_demography()

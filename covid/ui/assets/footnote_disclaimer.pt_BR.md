@@ -1,4 +1,4 @@
-Este cenário prevê que **{mortality}** da população geral morreria num surto
+Este cenário prevê que **{mortality}** por 100.000 habitantes morreria no surto
 de COVID-19. Este número corresponde a **{fatality}** de todos que ficaram doentes.
 O modelo também indica que **{infected}** da população será infectada pelo vírus, mas apenas
 **{symptomatic}** destes desenvolverão sintomas visíveis.

@@ -7,7 +7,7 @@ from .data import DATA_PATH
 
 def brazil_healthcare_capacity():
     """
-    Return data from Brazilian hospitals capacity.
+    Return datasets from Brazilian hospitals capacity.
     """
     path = DATA_PATH / "brazil_healthcare_capacity.csv"
     df = pd.read_csv(path, index_col=0)

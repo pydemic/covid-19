@@ -7,10 +7,16 @@ from covid import gettext as _
 from covid.data import countries
 from covid.models import SEICHAR
 from covid.utils import fmt, pc
-
+from covid.data import age_distribution
 
 TODAY = datetime.datetime.now()
 TODAY = datetime.date(TODAY.year, TODAY.month, TODAY.day)
+
+# Adjust demography to 2020. We only have citywise and statewise datasets
+# from the Brazilian Census of 2010.
+DEMOGRAPHY_CORRECTION = age_distribution("Brazil", 2020, coarse=True) / age_distribution(
+    "Brazil", 2010, coarse=True
+)
 
 
 class Input:
@@ -47,7 +53,7 @@ class Input:
         choices = [self.display_country, *df["name"]]
         choice = st.sidebar.selectbox(_("State"), choices)
         if choice == choices[0]:
-            return covid.region(self.country)
+            return get_region(self.country)
         state_id = state_code(self.country, choice)
 
         # State selected, now ask for sub-region
@@ -58,7 +64,7 @@ class Input:
             choices = [_("All"), *df["name"]]
             choice = st.sidebar.selectbox(_("Region"), choices)
             if choice == choices[0]:
-                return covid.region(f"{self.country}/{state_id}")
+                return get_region(f"{self.country}/{state_id}")
         sub_region_id = sub_region_code(self.country, state_id, choice)
 
         # Sub-region selected, now ask for a city
@@ -69,9 +75,9 @@ class Input:
             choices = [_("All"), *df["name"]]
             choice = st.sidebar.selectbox(_("City"), choices)
             if choice == choices[0]:
-                return covid.region(f"{self.country}/{sub_region_id}")
+                return get_region(f"{self.country}/{sub_region_id}")
         city_id = df[df["name"] == choice].index[0]
-        return covid.region(f"{self.country}/{city_id}")
+        return get_region(f"{self.country}/{city_id}")
 
     def params(self, region):
         """
@@ -148,7 +154,7 @@ class Input:
 
         e = 1e-50
         st.sidebar.header(_("Epidemiology"))
-        std, fast, slow, custom = scenarios = [_("Standard"), _("Fast"), _("Slow"), _("Custom")]
+        std, fast, slow, custom = scenarios = [_("Standard"), _("Fast"), _("Slow"), _("Advanced")]
         scenario = st.sidebar.selectbox(_("Scenario"), scenarios)
 
         if scenario == std:
@@ -159,6 +165,7 @@ class Input:
             return {"R0": 2.0}
 
         # Custom
+        st.sidebar.subheader(_("Epidemiological parameters"))
         R0 = SEICHAR.R0
         msg = _("Newly infected people for each infection (R0)")
         R0 = st.sidebar.slider(msg, min_value=0.0, max_value=5.0, value=R0)
@@ -175,15 +182,40 @@ class Input:
             msg, min_value=1.0, max_value=14.0, value=infectious_period
         )
 
-        # prob_fatality = 100 * region.prob_fatality
-        # prob_fatality = st.sidebar.slider(
-        #     _("Average death rate"), min_value=0.0, max_value=100.0, value=prob_fatality
-        # )
+        prob_symptomatic = 100 * SEICHAR.prob_symptomatic
+        msg = _("Fraction of symptomatic cases")
+        prob_symptomatic = 0.01 * st.sidebar.slider(
+            msg, min_value=0.0, max_value=100.0, value=prob_symptomatic
+        )
+
+        st.sidebar.subheader(_("Clinical parameters"))
+        prob_hospitalization = 200 * region.prob_hospitalization
+        prob_hospitalization = st.sidebar.slider(
+            _("Fraction of hospitalized cases"),
+            min_value=0.0,
+            max_value=100.0,
+            value=prob_hospitalization,
+        )
+        hospitalization_bias = prob_hospitalization / (100 * region.prob_hospitalization)
+
+        hospitalization_period = 1 / SEICHAR.gamma_h
+        msg = _("Hospitalization period (days)")
+        hospitalization_period = st.sidebar.slider(
+            msg, min_value=0.0, max_value=30.0, value=hospitalization_period
+        )
+
+        icu_period = 1 / SEICHAR.gamma_c
+        msg = _("Hospitalization period for ICU patients (days)")
+        icu_period = st.sidebar.slider(msg, min_value=0.0, max_value=30.0, value=icu_period)
+
         return {
             "R0": R0,
             "sigma": 1.0 / (incubation_period + e),
             "gamma_i": 1.0 / (infectious_period + e),
-            # 'prob_fatality': 0.01 * prob_fatality,
+            "gamma_h": 1.0 / (hospitalization_period + e),
+            "gamma_c": 1.0 / (icu_period + e),
+            "prob_symptomatic": prob_symptomatic,
+            "hospitalization_bias": hospitalization_bias,
         }
 
     def intervention(self, region: covid.Region):
@@ -268,6 +300,14 @@ def state_code(country, state):
 def sub_region_code(country, state_code, sub_region):
     regions = sub_regions(country, state_code)
     return regions[regions["name"] == sub_region].index[0]
+
+
+@st.cache(allow_output_mutation=True)
+def get_region(ref):
+    region = covid.region(ref)
+    if ref.lower().startswith("brazil/"):
+        region.demography = DEMOGRAPHY_CORRECTION
+    return region
 
 
 if __name__ == "__main__":
