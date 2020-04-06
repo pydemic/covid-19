@@ -42,7 +42,7 @@ class Input:
         """
 
         # Select a state
-        st.sidebar.header(_("Region"))
+        st.sidebar.header(_("Location"))
         df = states(self.country)
         choices = [self.display_country, *df["name"]]
         choice = st.sidebar.selectbox(_("State"), choices)
@@ -101,9 +101,9 @@ class Input:
         seed = int(max(5e-6 * region.population_size, 1))
         return {
             "period": st.sidebar.slider(_("Duration (weeks)"), 1, 30, value=10) * 7,
-            "start_date": st.sidebar.date_input(_("Initial date")),
+            "start_date": st.sidebar.date_input(_("Simulation date")),
             "seed": st.sidebar.number_input(
-                _("Amount of detected cases"), 1, int(region.population_size), value=seed
+                _("Number of detected cases"), 1, int(region.population_size), value=seed
             ),
         }
 
@@ -119,7 +119,7 @@ class Input:
         def get(msg, capacity, rate, key=None):
             st.sidebar.subheader(msg)
             msg = _(
-                "Region has {n} beds, but only {rate} are typically available in a " "given time."
+                "Location has {n} beds, but only {rate} are typically available in a given day."
             )
             st.sidebar.markdown(msg.format(n=fmt(int(capacity)), rate=pc(1 - rate)))
             total = st.sidebar.number_input(
@@ -160,7 +160,7 @@ class Input:
 
         # Custom
         R0 = SEICHAR.R0
-        msg = _("New infected people for each infection (R0)")
+        msg = _("Newly infected people for each infection (R0)")
         R0 = st.sidebar.slider(msg, min_value=0.0, max_value=5.0, value=R0)
 
         incubation_period = 1 / SEICHAR.sigma

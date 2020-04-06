@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-04 14:14-0300\n"
+"POT-Creation-Date: 2020-04-05 22:37-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,27 +17,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: covid/utils.py:15 covid/utils.py:16
+#: covid/utils.py:17 covid/utils.py:18
 msgid "M"
 msgstr ""
 
-#: covid/utils.py:17 covid/utils.py:18
+#: covid/utils.py:19 covid/utils.py:20
 msgid "B"
 msgstr ""
 
-#: covid/utils.py:19 covid/utils.py:20
+#: covid/utils.py:21 covid/utils.py:22
 msgid "T"
 msgstr ""
 
-#: covid/models/seichar.py:580
+#: covid/utils.py:32
+msgid "infinity"
+msgstr ""
+
+#: covid/models/seichar.py:582
 msgid "Name"
 msgstr ""
 
-#: covid/models/seichar.py:580
+#: covid/models/seichar.py:582
 msgid "Items/day"
 msgstr ""
 
-#: covid/models/seichar.py:580 covid/ui/output.py:106
+#: covid/models/seichar.py:582 covid/ui/output.py:109
 msgid "Total"
 msgstr ""
 
@@ -78,7 +82,7 @@ msgid "fatalities"
 msgstr ""
 
 #: covid/ui/calc.py:35
-msgid "COVID-19 hospitalization pressure"
+msgid "COVID-19 Hospital Pressure"
 msgstr ""
 
 #: covid/ui/calc.py:58
@@ -101,8 +105,8 @@ msgstr ""
 msgid "Performing simulation..."
 msgstr ""
 
-#: covid/ui/input.py:45 covid/ui/input.py:59
-msgid "Region"
+#: covid/ui/input.py:45
+msgid "Location"
 msgstr ""
 
 #: covid/ui/input.py:48
@@ -111,6 +115,10 @@ msgstr ""
 
 #: covid/ui/input.py:58 covid/ui/input.py:69
 msgid "All"
+msgstr ""
+
+#: covid/ui/input.py:59
+msgid "Region"
 msgstr ""
 
 #: covid/ui/input.py:70
@@ -126,11 +134,11 @@ msgid "Duration (weeks)"
 msgstr ""
 
 #: covid/ui/input.py:104
-msgid "Initial date"
+msgid "Simulation date"
 msgstr ""
 
 #: covid/ui/input.py:106
-msgid "Amount of detected cases"
+msgid "Number of detected cases"
 msgstr ""
 
 #: covid/ui/input.py:117
@@ -139,8 +147,8 @@ msgstr ""
 
 #: covid/ui/input.py:121
 msgid ""
-"Region has {n} beds, but only {rate} are typically available in a given "
-"time."
+"Location has {n} beds, but only {rate} are typically available in a given"
+" day."
 msgstr ""
 
 #: covid/ui/input.py:126
@@ -180,7 +188,7 @@ msgid "Scenario"
 msgstr ""
 
 #: covid/ui/input.py:163
-msgid "New infected people for each infection (R0)"
+msgid "Newly infected people for each infection (R0)"
 msgstr ""
 
 #: covid/ui/input.py:167
@@ -226,122 +234,122 @@ msgstr ""
 msgid "Intervention starts prior to simulation"
 msgstr ""
 
-#: covid/ui/output.py:12
+#: covid/ui/output.py:14
 msgid "Not soon..."
 msgstr ""
 
-#: covid/ui/output.py:51
+#: covid/ui/output.py:54
 msgid "Deaths"
 msgstr ""
 
-#: covid/ui/output.py:52
+#: covid/ui/output.py:55
 msgid "Hospitalizations"
 msgstr ""
 
-#: covid/ui/output.py:53
+#: covid/ui/output.py:56
 msgid "Required extra ICU beds"
 msgstr ""
 
-#: covid/ui/output.py:54
+#: covid/ui/output.py:57
 msgid "Required extra hospital beds"
 msgstr ""
 
-#: covid/ui/output.py:55
-msgid "No more ICUs by"
+#: covid/ui/output.py:58
+msgid "No more ICU beds available by"
 msgstr ""
 
-#: covid/ui/output.py:56
-msgid "No more hospital beds by"
+#: covid/ui/output.py:59
+msgid "No more hospital beds available by"
 msgstr ""
 
-#: covid/ui/output.py:64
+#: covid/ui/output.py:67
 msgid "Hospital demand"
 msgstr ""
 
-#: covid/ui/output.py:70
-msgid "Required hospital beds"
-msgstr ""
-
-#: covid/ui/output.py:71
-msgid "Required ICUs"
-msgstr ""
-
-#: covid/ui/output.py:72
+#: covid/ui/output.py:73
 msgid "Deaths/day"
 msgstr ""
 
-#: covid/ui/output.py:82
+#: covid/ui/output.py:74
+msgid "Required hospital beds"
+msgstr ""
+
+#: covid/ui/output.py:75
+msgid "Required ICU beds"
+msgstr ""
+
+#: covid/ui/output.py:85
 msgid "Available hospital beds"
 msgstr ""
 
-#: covid/ui/output.py:93
+#: covid/ui/output.py:96
 msgid "Regular"
 msgstr ""
 
-#: covid/ui/output.py:93
+#: covid/ui/output.py:96
 msgid "ICU"
 msgstr ""
 
-#: covid/ui/output.py:102
+#: covid/ui/output.py:105
 msgid "Population"
 msgstr ""
 
-#: covid/ui/output.py:107
-msgid "60 or more"
+#: covid/ui/output.py:110
+msgid "Age 60+"
 msgstr ""
 
-#: covid/ui/output.py:113
+#: covid/ui/output.py:116
 msgid "Population pyramid"
 msgstr ""
 
-#: covid/ui/output.py:116
+#: covid/ui/output.py:119
 msgid "Female"
 msgstr ""
 
-#: covid/ui/output.py:116
+#: covid/ui/output.py:119
 msgid "Male"
 msgstr ""
 
-#: covid/ui/output.py:120
-msgid "Age distribution of deaths"
+#: covid/ui/output.py:123
+msgid "Anticipated age distribution of COVID deaths"
 msgstr ""
 
-#: covid/ui/output.py:126
+#: covid/ui/output.py:129
 msgid "Total deaths"
 msgstr ""
 
-#: covid/ui/output.py:126
+#: covid/ui/output.py:129
 msgid "Mortality"
 msgstr ""
 
-#: covid/ui/output.py:130
+#: covid/ui/output.py:133
 msgid "Healthcare system"
 msgstr ""
 
-#: covid/ui/output.py:135
+#: covid/ui/output.py:138
 msgid "COVID ICUs"
 msgstr ""
 
-#: covid/ui/output.py:136
+#: covid/ui/output.py:139
 msgid "COVID hospital beds"
 msgstr ""
 
-#: covid/ui/output.py:137
+#: covid/ui/output.py:140
 msgid "ICUs"
 msgstr ""
 
-#: covid/ui/output.py:137 covid/ui/output.py:138
+#: covid/ui/output.py:140 covid/ui/output.py:141
 msgid "{n} (source: CNES)"
 msgstr ""
 
-#: covid/ui/output.py:138
+#: covid/ui/output.py:141
 msgid "Hospital beds"
 msgstr ""
 
-#: covid/ui/output.py:146
+#: covid/ui/output.py:147
 msgid ""
 "\n"
-"The region does not have any ICU beds. At peak demand, it needs to "
+"The location does not have any ICU beds. At peak demand, it needs to "
 "reserve {n}\n"
 "beds from neighboring cities.\n"
 msgstr ""
@@ -349,105 +357,45 @@ msgstr ""
 #: covid/ui/output.py:154
 msgid ""
 "\n"
-"The region will **run out of ICU beds at {date}**. At peak demand, it "
+"The location will **run out of ICU beds at {date}**. At peak demand, it "
 "will need **{n}\n"
 "new ICUs**. This demand corresponds to **{surge} times** the number of "
 "beds dedicated\n"
-"to COVID19 and\n"
-"{total} of the total number of ICU beds."
+"to COVID-19 and {total} of the total number of ICU beds.\n"
 msgstr ""
 
 #: covid/ui/output.py:168
 msgid ""
+"\n"
 "The number of ICU beds is sufficient for the expected demand in this "
-"scenario."
+"scenario.\n"
 msgstr ""
 
-#: covid/ui/output.py:176
+#: covid/ui/output.py:177
 msgid "Advanced epidemiological information"
 msgstr ""
 
-#: covid/ui/output.py:183
+#: covid/ui/output.py:186
 msgid "Number of cases generated by a single case"
 msgstr ""
 
-#: covid/ui/output.py:184
+#: covid/ui/output.py:187
 msgid "Mortality ({pc} of deaths in population)"
 msgstr ""
 
-#: covid/ui/output.py:185
+#: covid/ui/output.py:188
 msgid "Letality ({pc} of deaths among the ill)"
 msgstr ""
 
-#: covid/ui/output.py:190
-msgid ""
-"\n"
-"This scenario predicts that **{mortality}** of the whole population will "
-"die from\n"
-"COVID-19. This number corresponds to **{fatality}** of those that became "
-"ill.\n"
-"The model also predicts that **{infected}** of the population will become"
-"\n"
-"infected, but only **{symptomatic}** of those will develop visible "
-"symptoms. People who\n"
-"do not exhibit symptoms are still able to infect others.\n"
-"\n"
-"**IMPORTANT:** Models are simplifications and are highly dependent on "
-"good\n"
-"parameters and good data. There are many aspects of COVID epidemiology "
-"that are\n"
-"yet not very well understood and scientists are still looking for more "
-"accurate\n"
-"values for many important parameters. The choices made here are best "
-"guesses\n"
-"based on the current scientific knowledge about the epidemic. Changing\n"
-"parameters to absurd values will create absurd predictions, so use with "
-"care.\n"
-"\n"
-"The course of the epidemic also depends crucially on how communities "
-"react. This is\n"
-"encoded in a very simplified way in by the \"intervention options\" in "
-"the simulator.\n"
-"We do not try to anticipate communities respond to the epidemic, but "
-"rather it\n"
-"must be entered as an explicit input to the model. That is why we say "
-"this calculator\n"
-"computes scenarios rather than trying to predict the future.\n"
-msgstr ""
-
-#: covid/ui/output.py:218
-msgid "Kind support: {paho}, {lappis}, {nmt}, {fce}"
-msgstr ""
-
-#: covid/ui/output.py:220
+#: covid/ui/output.py:199
 msgid "https://www.paho.org/hq/index.php?lang=en"
 msgstr ""
 
-#: covid/ui/output.py:220
+#: covid/ui/output.py:200
 msgid "PAHO"
 msgstr ""
 
-#: covid/ui/output.py:222
-msgid "https://lappis.rocks"
-msgstr ""
-
-#: covid/ui/output.py:222
-msgid "UnB/LAPPIS"
-msgstr ""
-
-#: covid/ui/output.py:223
-msgid "http://medicinatropical.unb.br/"
-msgstr ""
-
-#: covid/ui/output.py:223
-msgid "UnB/NMT"
-msgstr ""
-
-#: covid/ui/output.py:224
-msgid "http://fce.unb.br/"
-msgstr ""
-
-#: covid/ui/output.py:224
-msgid "UnB/FCE"
+#: covid/ui/output.py:210
+msgid "Support: {institutions}"
 msgstr ""
 

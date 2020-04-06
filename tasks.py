@@ -1,8 +1,16 @@
+import warnings
+
 from invoke import task
 
 
 @task
 def calculator(ctx):
+    warnings.warn("Please use the inv run task.")
+    run(ctx)
+
+
+@task
+def run(ctx):
     ctx.run("streamlit run covid/ui/calc.py")
 
 
@@ -39,6 +47,12 @@ def compilemessages(ctx):
 def makemessages(ctx):
     ctx.run("pybabel extract -o covid/locale/messages.pot covid")
     ctx.run("pybabel update -i covid/locale/messages.pot -d covid/locale")
+
+
+@task
+def i18n(ctx):
+    makemessages(ctx)
+    compilemessages(ctx)
 
 
 @task

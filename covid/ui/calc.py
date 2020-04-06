@@ -6,7 +6,7 @@ import covid
 from covid import gettext as _
 from covid.models import SEICHARDemographic as SEICHAR
 from covid.ui import components
-from covid.ui.components import css
+from covid.ui.components import asset
 from covid.ui.input import Input
 from covid.ui.output import Output
 
@@ -32,10 +32,10 @@ class CalcUI:
     """
 
     simulation_class = SEICHAR
-    title = _("COVID-19 hospitalization pressure")
+    title = _("COVID-19 Hospital Pressure")
 
     def __init__(self, country=COUNTRY, display_country=DISPLAY_COUNTRY):
-        st.write(css(), unsafe_allow_html=True)
+        st.write(asset("custom.html"), unsafe_allow_html=True)
         self._title = st.title(self.title)
         self._info = st.text("")
         self.country = country
@@ -55,7 +55,7 @@ class CalcUI:
         """
         Run streamlit app.
         """
-        components.icon(_("COVID-19"), _("Epidemic Calculator"), fn=st.sidebar.markdown)
+        components.icon(_("COVID-19"), _("Epidemic Calculator"), where=st.sidebar)
         with self.info(_("Loading region...")):
             region = self.input.region()
             self.input.pause()
@@ -83,8 +83,8 @@ class CalcUI:
         out.run()
 
 
+@st.cache
 def region(name):
-    # TODO: Cache this later.
     return covid.region(name)
 
 
