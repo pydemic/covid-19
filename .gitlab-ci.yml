@@ -10,7 +10,7 @@ stages:
   - update production images
   - deploy
 before_script:
-  - rit --log on_error config tunnel add repo https://github.com/altjohndev/fabiommendes-covid-19-tunnel --name tunnel
+  - rit --log on_error config tunnel add repo https://gitlab.com/pydemic/tunnel --name tunnel
   - rit --log on_error config tunnel default set tunnel
 
 # Stage: test
