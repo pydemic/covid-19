@@ -129,23 +129,23 @@ Examples of usage:
 
   - Build the development image::
 
-    $ rit tunnel run calculator development build
+    $ rit tunnel run apps calculator development build
 
   - Fetch the development docker-compose::
 
-    $ rit tunnel run calculator development fetch compose
+    $ rit tunnel run apps calculator development fetch compose
 
   - Run the test pipeline::
 
-    $ rit tunnel run calculator development test up
-    $ rit tunnel run calculator development test sync
-    $ rit tunnel run calculator development test all
-    $ rit tunnel run calculator development test down
+    $ rit tunnel run apps calculator development test up
+    $ rit tunnel run apps calculator development test sync
+    $ rit tunnel run apps calculator development test all
+    $ rit tunnel run apps calculator development test down
 
   - Build the production image::
 
-    $ rit tunnel run calculator production build
+    $ rit tunnel run apps calculator production build
 
   - Fetch the production docker-compose::
 
-    $ rit tunnel run calculator production fetch compose
+    $ rit tunnel run apps calculator production fetch compose
