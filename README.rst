@@ -2,11 +2,11 @@
 Covid-19
 ========
 
-.. image:: https://gitlab.com/altjohndev/fabiommendes-covid-19/badges/master/pipeline.svg
-   :target: https://github.com/fabiommendes/covid-19/commits/master
+.. image:: https://gitlab.com/pydemic/covid-19/badges/master/pipeline.svg
+   :target: https://github.com/pydemic/covid-19/commits/master
 
-.. image:: https://gitlab.com/altjohndev/fabiommendes-covid-19/badges/master/coverage.svg
-   :target: https://github.com/fabiommendes/covid-19/commits/master
+.. image:: https://gitlab.com/pydemic/covid-19/badges/master/coverage.svg
+   :target: https://github.com/pydemic/covid-19/commits/master
 
 This is a Python library that simulates COVID-19 outbreaks. The main focus is on Brazil, but it
 includes demographic data about other countries and can be adapted with relative ease. This library
@@ -114,14 +114,14 @@ After installing `rit <https://gitlab.com/ritproject/cli#installation>`_, config
 
 - Remotely::
 
-  $ rit config tunnel add repo https://github.com/altjohndev/fabiommendes-covid-19-tunnel --name opascovid
-  $ rit config tunnel default set opascovid --path .
+  $ rit config tunnel add repo https://github.com/pydemic/tunnel --name pydemic
+  $ rit config tunnel default set pydemic --path .
 
 - Locally::
 
-  $ git clone https://github.com/altjohndev/fabiommendes-covid-19-tunnel ../fabiommendes-covid-19-tunnel
-  $ rit config tunnel add local ../fabiommendes-covid-19-tunnel --name opascovid
-  $ rit config tunnel default set opascovid --path .
+  $ git clone https://github.com/pydemic/tunnel ../tunnel
+  $ rit config tunnel add local ../tunnel --name pydemic
+  $ rit config tunnel default set pydemic --path .
 
 Examples of usage:
 
