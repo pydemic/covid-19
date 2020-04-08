@@ -2,6 +2,7 @@ image: ritproject/cli:docker
 services:
   - docker:dind
 variables:
+  RIT_TUNNEL_RUN: rit --log on_error tunnel --input disabled run apps calculator
   GIT_SUBMODULE_STRATEGY: recursive
 stages:
   - test
@@ -19,10 +20,10 @@ test:
   variables:
     BUILD_TYPE: recursive
   script:
-    - rit --log on_error tunnel --input disabled run calculator development build
-    - rit --log on_error tunnel --input disabled run calculator development test up
-    - rit --log on_error tunnel --input disabled run calculator development test sync
-    - rit --log on_error tunnel --input disabled run calculator development test all
+    - $RIT_TUNNEL_RUN development build
+    - $RIT_TUNNEL_RUN development test up
+    - $RIT_TUNNEL_RUN development test sync
+    - $RIT_TUNNEL_RUN development test all
   except:
     variables:
       - $CI_COMMIT_MESSAGE =~ /--skip-test/
@@ -34,11 +35,11 @@ test:
 .update_project_image: &update_project_image
   stage: update project images
   script:
-    - rit --log on_error tunnel --input disabled run images python build
-    - rit --log on_error tunnel --input disabled run calculator $IMAGE_TAG build
+    - $RIT_TUNNEL_RUN python build
+    - $RIT_TUNNEL_RUN $IMAGE_TAG build
     - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
-    - rit --log on_error tunnel --input disabled run images python push
-    - rit --log on_error tunnel --input disabled run calculator $IMAGE_TAG push
+    - $RIT_TUNNEL_RUN python push
+    - $RIT_TUNNEL_RUN $IMAGE_TAG push
   tags:
     - docker
 
@@ -61,9 +62,9 @@ update production project image:
 .update_production_image: &update_production_image
   stage: update production images
   script:
-    - rit --log on_error tunnel --input disabled run calculator production build
+    - $RIT_TUNNEL_RUN production build
     - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
-    - rit --log on_error tunnel --input disabled run calculator production push
+    - $RIT_TUNNEL_RUN production push
   tags:
     - docker
 
@@ -88,9 +89,9 @@ update latest image:
 .deploy: &deploy
   stage: deploy
   script:
-    - rit --log on_error tunnel --input disabled run calculator production deploy up
-    - rit --log on_error tunnel --input disabled run calculator production deploy sync
-    - rit --log on_error tunnel --input disabled run calculator production deploy playbook
+    - $RIT_TUNNEL_RUN production deploy up
+    - $RIT_TUNNEL_RUN production deploy sync
+    - $RIT_TUNNEL_RUN production deploy playbook
   tags:
     - docker
 
