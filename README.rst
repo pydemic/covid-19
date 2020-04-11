@@ -114,12 +114,12 @@ After installing `rit <https://gitlab.com/ritproject/cli#installation>`_, config
 
 - Remotely::
 
-  $ rit config tunnel add repo https://github.com/pydemic/tunnel --name pydemic
+  $ rit config tunnel add repo https://gitlab.com/pydemic/tunnel --name pydemic
   $ rit config tunnel default set pydemic --path .
 
 - Locally::
 
-  $ git clone https://github.com/pydemic/tunnel ../tunnel
+  $ git clone https://gitlab.com/pydemic/tunnel ../tunnel
   $ rit config tunnel add local ../tunnel --name pydemic
   $ rit config tunnel default set pydemic --path .
 
