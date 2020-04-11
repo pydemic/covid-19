@@ -1,0 +1,18 @@
+name: GitLab CI
+description: Source from SvanBoxel/gitlab-mirror-and-ci-action@master
+inputs:
+  GITLAB_USERNAME:
+    description: GitLab username
+    required: true
+  GITLAB_PASSWORD:
+    description: GitLab username personal access token
+    required: true
+  GITHUB_TOKEN:
+    description: GitHub token
+    required: true
+outputs:
+  result:
+    description: Trigger results
+runs:
+  using: docker
+  image: ./.github/actions/gitlab-ci/Dockerfile

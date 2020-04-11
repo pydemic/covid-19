@@ -2,7 +2,7 @@ image: ritproject/cli:docker
 services:
   - docker:dind
 variables:
-  RIT_TUNNEL_RUN: rit --log on_error tunnel --input disabled run apps calculator
+  RIT_TUNNEL_RUN: rit --log on_error tunnel --input disabled run apps calc
   GIT_SUBMODULE_STRATEGY: recursive
 stages:
   - test
