@@ -609,7 +609,7 @@ class SEICHAR(Model):
     #
     def health_resources(self, translate=identity):
         _ = translate
-        columns = [_("Name"), _("Items/day"), _("Total")]
+        columns = [_("Name"), _("Items/patient/day"), _("Total")]
         N = int(self.hospitalization_days + self.icu_days)
         a = 1  # / 5
         b = 1  # / 15
