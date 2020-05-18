@@ -367,6 +367,3 @@ class Model(metaclass=ModelMeta):
 
     def summary(self):
         return "Model"
-
-
-import splinter
