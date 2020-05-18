@@ -9,12 +9,6 @@ def compilemessages(ctx):
 
 
 @task
-def i18n(ctx):
-    makemessages(ctx)
-    compilemessages(ctx)
-
-
-@task
 def makemessages(ctx):
     ctx.run("pybabel extract -o covid/locale/messages.pot covid")
     ctx.run("pybabel update -i covid/locale/messages.pot -d covid/locale")
