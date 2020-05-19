@@ -7,6 +7,7 @@ from sidekick import fn, X, Y, F, X_i, L, placeholder as _
 from .models import *
 from .utils import *
 from .plot import *
+from .formulas import *
 
 sk = _imp("sidekick")
 h = _imp("hyperpython:h")
@@ -22,8 +23,8 @@ covid = _imp("covid")
 #
 # Useful constants in a Jupyter notebook
 #
-now = dt.datetime.now()
-today = dt.date(now.year, now.month, now.day)
+now = dt.datetime.now
+today = lambda: now().date()
 day = dt.timedelta(days=1)
 
 
